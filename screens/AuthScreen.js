@@ -19,19 +19,23 @@ const AuthScreen = props => {
                 <Text style={styles.label}>{isSignup ? 'Sign Up' : 'Login'}</Text>
             </View>
             <View style={styles.inputForm}>
-                <Input
-                    required
-                    email
-                    keyboardType="email-address"
-                    errorText="Please enter a valid email address."
-                />
-                <Input
-                    required
-                    password
-                    keyboardType="password"
-                    errorText="Please enter a valid password."
-                    secureTextEntry={true}
-                />
+                <ScrollView>
+                    <Input
+                        required
+                        email
+                        keyboardType="email-address"
+                        errorText="Please enter a valid email address."
+                        initialValue=''
+                    />
+                    <Input
+                        required
+                        password
+                        keyboardType="default"
+                        errorText="Please enter a valid password."
+                        secureTextEntry={true}
+                        initialValue=''
+                    />
+                </ScrollView>
             </View>
             <View style={styles.buttonContainer}>
                 <Button title={'Submit'} />
@@ -51,7 +55,10 @@ styles = StyleSheet.create({
         fontSize: 20
     },
     inputForm: {
-        width: '100%'
+        width: '100%',
+        padding: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     buttonContainer: {
 
