@@ -6,6 +6,7 @@ import ReduxThunk from 'redux-thunk'
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 
 import AuthScreen from './screens/AuthScreen'
+import AppNavigator from './navigation/AppNavigator';
 
 // const rootReducer = combineReducers({
 //   auth: authReducer
@@ -15,17 +16,6 @@ import AuthScreen from './screens/AuthScreen'
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <AuthScreen />
-    </View>
+      <AppNavigator />
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
