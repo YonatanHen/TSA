@@ -78,6 +78,7 @@ const styles = StyleSheet.create({
       },
     input: {
         paddingHorizontal: 2,
+        paddingVertical: 8,
         borderBottomColor: '#ccc',
         borderBottomWidth: 2,
     },
