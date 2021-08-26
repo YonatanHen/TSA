@@ -4,26 +4,19 @@ import { useDispatch } from 'react-redux'
 
 import Input from '../components/UI/Input'
 
-const formReducer = (state, action) => {
-
-}
+import * as representationActions from '../store/actions/representation'
 
 
 
 //Building the signing up at first, later we will add the login :)
 const AuthScreen = props => {
     const [isSignup, setIsSignup] = useState(false)
-     
+    
+    const dispatch = useDispatch()
+    
     useEffect(() => {
-        fetch("https://raw.githubusercontent.com/endSly/world-universities-csv/master/world-universities.csv", {
-            method: 'GET',
-            body: '',
-            redirect: 'follow'
-        })
-            .then(response => response.text())
-            .then(result => console.log(result))
-            .catch(error => console.log('error', error));
-    }, [])
+        dispatch(representationActions.fetchInstitutes())
+    }, [dispatch])
     return (
         <KeyboardAvoidingView>
             <View>
