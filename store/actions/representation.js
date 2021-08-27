@@ -11,7 +11,7 @@ export const fetchInstitutes = () => {
         response = await response.text()
 
         response = response.split('\n').map(institue => institue.split(',')[1])
-        console.log(response)
+        // console.log(response)
 
         dispatch({
             type: ACADEMIC_INSTITUTES,

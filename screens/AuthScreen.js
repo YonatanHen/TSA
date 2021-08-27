@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { Button, KeyboardAvoidingView, ScrollView, StyleSheet, Text, View } from 'react-native'
 import { useDispatch } from 'react-redux'
+import Autocomplete from 'react-native-autocomplete-input';
 
 import Input from '../components/UI/Input'
+import AutoCompleteInput from '../components/UI/autoCompleteInput'
 
 import * as representationActions from '../store/actions/representation'
 
@@ -11,12 +13,13 @@ import * as representationActions from '../store/actions/representation'
 //Building the signing up at first, later we will add the login :)
 const AuthScreen = props => {
     const [isSignup, setIsSignup] = useState(false)
-    
+
     const dispatch = useDispatch()
-    
+
     useEffect(() => {
         dispatch(representationActions.fetchInstitutes())
     }, [dispatch])
+
     return (
         <KeyboardAvoidingView>
             <View>
@@ -66,6 +69,9 @@ const AuthScreen = props => {
                                 errorText="Please enter a valid institue name."
                                 secureTextEntry={true}
                                 initialValue=''
+                            />
+                            <AutoCompleteInput 
+                                
                             />
                         </>
                     )}

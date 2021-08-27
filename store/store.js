@@ -4,7 +4,7 @@ import ReduxThunk from 'redux-thunk'
 import representationReducer from './reducer/representation'
 
 const rootReducer = combineReducers({
-    representationOfData: representationReducer
+    representationLists: representationReducer
 });
   
 export default createStore(rootReducer, applyMiddleware(ReduxThunk));
