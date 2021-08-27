@@ -1,5 +1,5 @@
 import React, { useReducer, useState } from 'react'
-import { TextInput, StyleSheet, View, Text, ActivityIndicator } from 'react-native'
+import { TextInput, StyleSheet, View, Text, ActivityIndicator, SafeAreaView } from 'react-native'
 import Autocomplete from 'react-native-autocomplete-input'
 import { useSelector } from 'react-redux'
 
@@ -24,63 +24,57 @@ const AutoCompleteInput = props => {
     }
 
     return (
-        <View>
-            <View style={styles.autocompleteContainer}>
-                <Autocomplete
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    containerStyle={styles.autocompleteContainer}
-                    data={filteredList}
-                    defaultValue={
-                        JSON.stringify(selectedValue) === '{}' ?
-                            '' :
-                            selectedValue.title
-                    }
-                    onChangeText={(text) => findInstitute(text)}
-                    placeholder="Enter Institute name"
-                    renderItem={({ item }) => (
-                        <TouchableOpacity
-                            onPress={() => {
-                                setSelectedValue(item);
-                                setFilteredList([]);
-                            }}>
-                            <Text style={styles.itemText}>
-                                {item.title}
-                            </Text>
-                        </TouchableOpacity>
-                    )}
-                />
-            </View>
-        </View>
+        <SafeAreaView style={{ flex: 1 }}>
+            <Autocomplete
+                autoCapitalize="none"
+                autoCorrect={false}
+                containerStyle={styles.autocompleteContainer}
+                data={filteredList}
+                defaultValue={
+                    JSON.stringify(selectedValue) === '{}' ?
+                        '' :
+                        selectedValue.title
+                }
+                onChangeText={(text) => findInstitute(text)}
+                placeholder="Enter Institute name"
+                renderItem={({ item }) => (
+                    <TouchableOpacity
+                        onPress={() => {
+                            setSelectedValue(item);
+                            setFilteredList([]);
+                        }}>
+                        <Text style={styles.itemText}>
+                            {item.title}
+                        </Text>
+                    </TouchableOpacity>
+                )}
+            />
+        </SafeAreaView>
     );
 }
 
 
 const styles = StyleSheet.create({
     container: {
-      backgroundColor: '#F5FCFF',
-      flex: 1,
-      padding: 16,
-      marginTop: 40,
+        backgroundColor: '#F5FCFF',
+        flex: 1,
+        padding: 16,
+        marginTop: 40,
     },
     autocompleteContainer: {
-      backgroundColor: '#ffffff',
-      borderWidth: 0,
+        backgroundColor: '#ffffff',
+        //   borderWidth: 0,
     },
     descriptionContainer: {
-      flex: 1,
-      justifyContent: 'center',
+        flex: 1,
+        justifyContent: 'center',
     },
     itemText: {
-      fontSize: 15,
-      paddingTop: 5,
-      paddingBottom: 5,
-      margin: 2,
+        fontSize: 15,
+        paddingTop: 5,
+        paddingBottom: 5,
+        margin: 2,
     },
-    infoText: {
-      textAlign: 'center',
-      fontSize: 16,
-    },
-  });
+});
 
 export default AutoCompleteInput
