@@ -70,9 +70,7 @@ const AuthScreen = props => {
                                 secureTextEntry={true}
                                 initialValue=''
                             />
-                            <AutoCompleteInput 
-                                
-                            />
+                            <AutoCompleteInput/>
                         </>
                     )}
                 </ScrollView>
