@@ -62,6 +62,10 @@ const AutoCompleteInput = props => {
         dispatch({ type: INPUT_CHANGE, value: text, isValid: true })
     }
 
+    const lostFocusHandler = () => {
+        dispatch({ type: INPUT_BLUR });
+      };
+
     return (
         // <SafeAreaView style={{ flex: 1 }}>
         <Autocomplete
@@ -76,6 +80,7 @@ const AutoCompleteInput = props => {
                     inputState.value
             }
             onChangeText={(text) => findInstitute(text)}
+            onBlur={lostFocusHandler}
             renderItem={({ item }) => (
                 //When 1 item only found, do not show the list
                 filteredList.length > 1 ? (
