@@ -6,11 +6,14 @@ const initialState = {
     // didTryAutoLogin: false
 }
 
-export default (State = initialState, action) => {
+export default (state = initialState, action) => {
     switch (action.type) {
-        case AUTHENTICATE:
+        case SIGNUP:
             return {
-                toke
+                token: action.token,
+                userId: action.userId
             }
+        default:
+            return state
     }
 }
