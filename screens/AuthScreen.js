@@ -89,8 +89,8 @@ const AuthScreen = props => {
     } catch (err) {
       console.log(err)
       setError(err.message);
-      setIsLoading(false);
     }
+    setIsLoading(false);
   };
 
   const inputChangeHandler = useCallback(
