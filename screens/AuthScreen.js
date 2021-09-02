@@ -61,6 +61,7 @@ const AuthScreen = props => {
   });
 
   useEffect(() => {
+    console.log(formState.inputValues)
     dispatch(representationActions.fetchInstitutes())
   }, [representationActions])
 
@@ -100,7 +101,6 @@ const AuthScreen = props => {
         isValid: inputValidity,
         input: inputIdentifier
       });
-      console.log(formState.inputValues)
     },
     [dispatchFormState]
   );
@@ -155,9 +155,10 @@ const AuthScreen = props => {
                 initialValue=""
               />
               <AutoCompleteInput
+                required 
                 id="institute"
                 onInputChange={inputChangeHandler}
-                initialValue='Sami Shmoon college of Engineering'
+                placeholder='Institute Name'
               />
             </>
           )}

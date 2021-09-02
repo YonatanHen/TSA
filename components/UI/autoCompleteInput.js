@@ -55,18 +55,20 @@ const AutoCompleteInput = props => {
             setFilteredList([])
         }
         if (filteredList.length == 1) {
-            dispatch({type: INPUT_CHANGE, value: filteredList[0], isValid: true })
+            text = filteredList[0]
             setFilteredList([])
         }
+
+        dispatch({ type: INPUT_CHANGE, value: text, isValid: true })
     }
 
     return (
         // <SafeAreaView style={{ flex: 1 }}>
         <Autocomplete
+            {...props}
             autoCapitalize="none"
             autoCorrect={false}
             containerStyle={styles.autocompleteContainer}
-            // inputContainerStyle={styles}
             data={filteredList}
             defaultValue={
                 inputState.value === '' ?
@@ -74,18 +76,12 @@ const AutoCompleteInput = props => {
                     inputState.value
             }
             onChangeText={(text) => findInstitute(text)}
-            placeholder="Enter Institute name"
             renderItem={({ item }) => (
-                // <TouchableOpacity
-                //     onPress={() => {
-                //         console.log('pressed')
-                //         dispatch({type: INPUT_CHANGE, value: item, isValid: true })
-                //         setFilteredList([]);
-                //     }}>
+                //When 1 item only found, do not show the list
+                filteredList.length > 1 ? (
                     <Text style={styles.itemText}>
                         {item}
-                    </Text>
-                // </TouchableOpacity>
+                    </Text>) : (<></>)
             )}
         />
         // </SafeAreaView>
