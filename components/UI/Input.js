@@ -82,14 +82,13 @@ const Input = props => {
 }
 
 const styles = StyleSheet.create({
-  inputContainer: {
-    width: '100%',
-  },
   input: {
+    flex: 1,
     paddingHorizontal: 2,
     paddingVertical: 8,
     borderBottomColor: '#ccc',
     borderBottomWidth: 2,
+    marginBottom: 2
   },
   errorText: {
     color: 'red'

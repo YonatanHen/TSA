@@ -67,12 +67,12 @@ const AutoCompleteInput = props => {
       };
 
     return (
-        // <SafeAreaView style={{ flex: 1 }}>
         <Autocomplete
             {...props}
             autoCapitalize="none"
             autoCorrect={false}
-            containerStyle={styles.autocompleteContainer}
+            style={styles.autocompleteContainer}
+            inputContainerStyle={{borderWidth: 0}}
             data={filteredList}
             defaultValue={
                 inputState.value === '' ?
@@ -89,25 +89,18 @@ const AutoCompleteInput = props => {
                     </Text>) : (<></>)
             )}
         />
-        // </SafeAreaView>
     );
 }
 
 
 const styles = StyleSheet.create({
-    container: {
-        backgroundColor: '#F5FCFF',
-        flex: 1,
-        padding: 16,
-        marginTop: 40,
-    },
     autocompleteContainer: {
-        backgroundColor: '#ffffff',
-        //   borderWidth: 0,
-    },
-    descriptionContainer: {
         flex: 1,
-        justifyContent: 'center',
+        paddingHorizontal: 2,
+        paddingVertical: 8,
+        borderBottomColor: '#ccc',
+        borderWidth: 0,
+        borderBottomWidth: 2,
     },
     itemText: {
         fontSize: 15,

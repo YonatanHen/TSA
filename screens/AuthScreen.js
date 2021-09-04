@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback, useReducer } from 'react'
-import { Button, KeyboardAvoidingView, ScrollView, StyleSheet, Text, View, ActivityIndicator, Alert } from 'react-native'
+import { Button, KeyboardAvoidingView, ScrollView, StyleSheet, Text, View, ActivityIndicator, Alert, SafeAreaView } from 'react-native'
 import { useDispatch } from 'react-redux'
 import Autocomplete from 'react-native-autocomplete-input';
 
@@ -61,7 +61,6 @@ const AuthScreen = props => {
   });
 
   useEffect(() => {
-    console.log(formState.inputValues)
     dispatch(representationActions.fetchInstitutes())
   }, [representationActions])
 
@@ -154,12 +153,12 @@ const AuthScreen = props => {
                 onInputChange={inputChangeHandler}
                 initialValue=""
               />
-              <AutoCompleteInput
-                required 
-                id="institute"
-                onInputChange={inputChangeHandler}
-                placeholder='Institute Name'
-              />
+                <AutoCompleteInput
+                  required
+                  id="institute"
+                  onInputChange={inputChangeHandler}
+                  placeholder='Institute Name'
+                />
             </>
           )}
         </ScrollView>
@@ -191,8 +190,8 @@ styles = StyleSheet.create({
   inputForm: {
     width: '100%',
     padding: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
+    // alignItems: 'center',
+    // justifyContent: 'center',
   },
   buttonContainer: {
     justifyContent: 'space-evenly',
