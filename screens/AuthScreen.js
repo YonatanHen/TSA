@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback, useReducer } from 'react'
-import { Button, KeyboardAvoidingView, ScrollView, StyleSheet, Text, View, ActivityIndicator, Alert, SafeAreaView } from 'react-native'
+import { Button, KeyboardAvoidingView, ScrollView, StyleSheet, Text, View, ActivityIndicator, Alert } from 'react-native'
+import { Picker } from '@react-native-community/picker'
 import { useDispatch } from 'react-redux'
 import Autocomplete from 'react-native-autocomplete-input';
 
@@ -37,8 +38,9 @@ const formReducer = (state, action) => {
 //Building the signing up at first, later we will add the login :)
 const AuthScreen = props => {
   const [isSignup, setIsSignup] = useState(false)
-  const [error, setError] = useState();
-  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState()
+  const [isLoading, setIsLoading] = useState(false)
+  const [selectedValue, setSelectedValue] = useState("Admin");
 
   const dispatch = useDispatch()
 
@@ -108,7 +110,9 @@ const AuthScreen = props => {
   return (
     <KeyboardAvoidingView>
       <View>
-        <Text style={styles.label}>{isSignup ? 'Sign Up' : 'Login'}</Text>
+        <View>
+          <Text style={styles.label}>{isSignup ? 'Sign Up' : 'Login'}</Text>
+        </View>
       </View>
       <View style={styles.inputForm}>
         <ScrollView>
@@ -135,6 +139,19 @@ const AuthScreen = props => {
           />
           {isSignup && (
             <>
+              <View style={styles.picker}>
+                <Text>Select Role: </Text>
+                <Picker
+                  mode='dropdown'
+                  selectedValue={selectedValue}
+                  style={{ height: 50, width: 150 }}
+                  onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+                >
+                  <Picker.Item label="Admin" value="admin" />
+                  <Picker.Item label="Tutor" value="tutor" />
+                  <Picker.Item label="Student" value="student" />
+                </Picker>
+              </View>
               <Input
                 required
                 id="fname"
@@ -153,12 +170,12 @@ const AuthScreen = props => {
                 onInputChange={inputChangeHandler}
                 initialValue=""
               />
-                <AutoCompleteInput
-                  required
-                  id="institute"
-                  onInputChange={inputChangeHandler}
-                  placeholder='Institute Name'
-                />
+              <AutoCompleteInput
+                required
+                id="institute"
+                onInputChange={inputChangeHandler}
+                placeholder='Institute Name'
+              />
             </>
           )}
         </ScrollView>
@@ -200,7 +217,10 @@ styles = StyleSheet.create({
   },
   button: {
     marginVertical: 3
-  }
+  },
+  picker: {
+    flexDirection: 'row',
+  },
 })
 
 export default AuthScreen
