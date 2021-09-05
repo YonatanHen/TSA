@@ -78,12 +78,12 @@ const AuthScreen = props => {
         formState.inputValues.institute,
       );
     }
-    // else {
-    //   action = authActions.login(
-    //     formState.inputValues.email,
-    //     formState.inputValues.password
-    //   );
-    // }
+    else {
+      action = authActions.login(
+        formState.inputValues.email,
+        formState.inputValues.password
+      );
+    }
     setError(null);
     setIsLoading(true);
     try {

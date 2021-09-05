@@ -82,8 +82,7 @@ const AutoCompleteInput = props => {
             onChangeText={(text) => findInstitute(text)}
             onBlur={lostFocusHandler}
             renderItem={({ item }) => (
-                //When 1 item only found, do not show the list
-                filteredList.length > 1 ? (
+                filteredList.length > 1 && filteredList.length < 10 ? (
                     <Text style={styles.itemText}>
                         {item}
                     </Text>) : (<></>)
