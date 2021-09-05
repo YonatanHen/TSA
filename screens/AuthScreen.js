@@ -1,11 +1,10 @@
 import React, { useEffect, useState, useCallback, useReducer } from 'react'
-import { Button, KeyboardAvoidingView, ScrollView, StyleSheet, Text, View, ActivityIndicator, Alert } from 'react-native'
-import { Picker } from '@react-native-community/picker'
+import { Button, KeyboardAvoidingView, ScrollView, StyleSheet, Text, View, ActivityIndicator, Alert, Keyboard } from 'react-native'
 import { useDispatch } from 'react-redux'
-import Autocomplete from 'react-native-autocomplete-input';
 
 import Input from '../components/UI/Input'
 import AutoCompleteInput from '../components/UI/autoCompleteInput'
+import RolePicker from '../components/UI/rolePicker'
 
 import * as representationActions from '../store/actions/representation'
 import * as authActions from '../store/actions/auth'
@@ -40,7 +39,6 @@ const AuthScreen = props => {
   const [isSignup, setIsSignup] = useState(false)
   const [error, setError] = useState()
   const [isLoading, setIsLoading] = useState(false)
-  const [selectedValue, setSelectedValue] = useState("Admin");
 
   const dispatch = useDispatch()
 
@@ -48,6 +46,7 @@ const AuthScreen = props => {
     inputValues: {
       email: '',
       password: '',
+      role: '',
       fname: '',
       lname: '',
       institute: ''
@@ -55,6 +54,7 @@ const AuthScreen = props => {
     inputValidities: {
       email: false,
       password: false,
+      role: false,
       fname: false,
       lname: false,
       institute: false
@@ -72,6 +72,7 @@ const AuthScreen = props => {
       action = authActions.signup(
         formState.inputValues.email,
         formState.inputValues.password,
+        formState.inputValues.role,
         formState.inputValues.fname,
         formState.inputValues.lname,
         formState.inputValues.institute,
@@ -108,7 +109,11 @@ const AuthScreen = props => {
 
 
   return (
-    <KeyboardAvoidingView>
+    <KeyboardAvoidingView
+      behavior="padding"
+      keyboardVerticalOffset={50}
+      style={styles.screen}
+    >
       <View>
         <View>
           <Text style={styles.label}>{isSignup ? 'Sign Up' : 'Login'}</Text>
@@ -139,19 +144,11 @@ const AuthScreen = props => {
           />
           {isSignup && (
             <>
-              <View style={styles.picker}>
-                <Text>Select Role: </Text>
-                <Picker
-                  mode='dropdown'
-                  selectedValue={selectedValue}
-                  style={{ height: 50, width: 150 }}
-                  onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
-                >
-                  <Picker.Item label="Admin" value="admin" />
-                  <Picker.Item label="Tutor" value="tutor" />
-                  <Picker.Item label="Student" value="student" />
-                </Picker>
-              </View>
+              <RolePicker 
+                required
+                id='role'
+                onInputChange={inputChangeHandler}
+              />
               <Input
                 required
                 id="fname"
@@ -201,6 +198,9 @@ const AuthScreen = props => {
 }
 
 styles = StyleSheet.create({
+  screen: {
+    flex: 1
+  },
   label: {
     fontSize: 20
   },
@@ -217,9 +217,6 @@ styles = StyleSheet.create({
   },
   button: {
     marginVertical: 3
-  },
-  picker: {
-    flexDirection: 'row',
   },
 })
 

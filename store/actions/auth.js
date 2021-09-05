@@ -4,7 +4,7 @@ const { FIREBASE_API_KEY } = envs
 
 export const SIGNUP = 'SIGNUP'
 
-export const signup = (email, password, fname, lname, institute) => {
+export const signup = (email, password, role, fname, lname, institute) => {
     return async dispatch => {
         const response = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${FIREBASE_API_KEY}`, {
             method: 'POST',
@@ -25,7 +25,7 @@ export const signup = (email, password, fname, lname, institute) => {
             throw new Error('Something went wrong')
         }
 
-        writeUserData({ email: email, uid: resData.localId, firstName: fname, lastName: lname, institute: institute })
+        writeUserData({ email: email, uid: resData.localId, firstName: fname, lastName: lname, institute: institute, role: role })
 
         dispatch({ type: SIGNUP, userId: resData.localId, token: resData.idToken })
     }
