@@ -16,9 +16,12 @@ export const AuthNavigator = () => {
 }
 
 
+const MainStackNavigator = createStackNavigator()
 
-// export const AppNavigator = () => {
-//     return (
-
-//     )
-// }
+export const MainNavigator = () => {
+    return (
+        <MainStackNavigator.Navigator>
+            <MainStackNavigator.Screen name="App" component= { MainPage } options={{headerTitle: 'Logged in succesfully!'}} />
+        </MainStackNavigator.Navigator>
+    )
+}
