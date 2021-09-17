@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { NavigationContainer } from '@react-navigation/native'
-import { AuthNavigator, MainNavigator } from './SystemNavigator'
+import { AuthNavigator, OptionsNavigator } from './SystemNavigator'
 
 
 
@@ -10,7 +10,7 @@ const AppNavigator = props => {
     
     return (
         <NavigationContainer>
-            {isAuth && <MainNavigator />}
+            {isAuth && <OptionsNavigator />}
             {!isAuth && <AuthNavigator />}
         </NavigationContainer>
     )
