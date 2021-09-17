@@ -66,7 +66,7 @@ const Input = props => {
         value={inputState.value}
         onChangeText={textChangeHandler}
       />
-      {!inputState.isValid && inputState.touched && (
+      {!inputState.isValid && inputState.value !== '' && (
         <View style={styles.errorContainer}>
           <Text style={styles.errorText}>{props.errorText}</Text>
         </View>

@@ -26,6 +26,7 @@ const inputReducer = (state, action) => {
 
 const AutoCompleteInput = props => {
     const [isLoading, setIsLoading] = useState(false)
+    const [instituteName, setinstituteName] = useState('')
     const [filteredList, setFilteredList] = useState([])
     const [inputState, dispatch] = useReducer(inputReducer, {
         value: props.initialValue ? props.initialValue : '',
@@ -39,7 +40,7 @@ const AutoCompleteInput = props => {
     const { onInputChange, id } = props;
 
     useEffect(() => {
-            onInputChange(id, inputState.value, inputState.isValid);
+        onInputChange(id, inputState.value, inputState.isValid);
     }, [inputState, onInputChange, id]);
 
     const findInstitute = (text) => {
@@ -54,6 +55,7 @@ const AutoCompleteInput = props => {
         }
         if (filteredList.length == 1) {
             text = filteredList[0]
+            setinstituteName(text)
             setFilteredList([])
         }
 
@@ -61,26 +63,33 @@ const AutoCompleteInput = props => {
     }
 
     return (
-        <Autocomplete
-            {...props}
-            autoCapitalize="none"
-            autoCorrect={false}
-            style={styles.autocompleteContainer}
-            inputContainerStyle={{borderWidth: 0}}
-            data={filteredList}
-            defaultValue={
-                inputState.value === '' ?
-                    '' :
-                    inputState.value
-            }
-            onChangeText={(text) => findInstitute(text)}
-            renderItem={({ item }) => (
-                filteredList.length > 1 && filteredList.length < 10 ? (
-                    <Text style={styles.itemText}>
-                        {item}
-                    </Text>) : (<></>)
+        <View>
+            <Autocomplete
+                {...props}
+                autoCapitalize="none"
+                autoCorrect={false}
+                style={styles.autocompleteContainer}
+                inputContainerStyle={{ borderWidth: 0 }}
+                data={filteredList}
+                defaultValue={
+                    inputState.value === '' ?
+                        '' :
+                        inputState.value
+                }
+                onChangeText={(text) => findInstitute(text)}
+                renderItem={({ item }) => (
+                    filteredList.length > 1 && filteredList.length < 10 ? (
+                        <Text style={styles.itemText}>
+                            {item}
+                        </Text>) : (<></>)
+                )}
+            />
+            {inputState.value !== instituteName && filteredList.length == 1 && (
+                <View style={styles.errorContainer}>
+                    <Text style={styles.errorText}>Did you mean {instituteName} ?</Text>
+                </View>
             )}
-        />
+        </View>
     );
 }
 
@@ -100,6 +109,9 @@ const styles = StyleSheet.create({
         paddingBottom: 5,
         margin: 2,
     },
+    errorText: {
+        color: 'red'
+      }
 });
 
 export default AutoCompleteInput
