@@ -39,9 +39,7 @@ const AutoCompleteInput = props => {
     const { onInputChange, id } = props;
 
     useEffect(() => {
-        if (inputState.touched) {
             onInputChange(id, inputState.value, inputState.isValid);
-        }
     }, [inputState, onInputChange, id]);
 
     const findInstitute = (text) => {
@@ -62,10 +60,6 @@ const AutoCompleteInput = props => {
         dispatch({ type: INPUT_CHANGE, value: text, isValid: true })
     }
 
-    const lostFocusHandler = () => {
-        dispatch({ type: INPUT_BLUR });
-      };
-
     return (
         <Autocomplete
             {...props}
@@ -80,7 +74,6 @@ const AutoCompleteInput = props => {
                     inputState.value
             }
             onChangeText={(text) => findInstitute(text)}
-            onBlur={lostFocusHandler}
             renderItem={({ item }) => (
                 filteredList.length > 1 && filteredList.length < 10 ? (
                     <Text style={styles.itemText}>

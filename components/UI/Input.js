@@ -32,9 +32,7 @@ const Input = props => {
   const { onInputChange, id } = props;
 
   useEffect(() => {
-    if (inputState.touched) {
       onInputChange(id, inputState.value, inputState.isValid);
-    }
   }, [inputState, onInputChange, id]);
 
   const textChangeHandler = text => {
@@ -58,9 +56,6 @@ const Input = props => {
     dispatch({ type: INPUT_CHANGE, value: text, isValid: isValid });
   };
 
-  const lostFocusHandler = () => {
-    dispatch({ type: INPUT_BLUR });
-  };
 
 
   return (
@@ -70,7 +65,6 @@ const Input = props => {
         style={styles.input}
         value={inputState.value}
         onChangeText={textChangeHandler}
-        onBlur={lostFocusHandler}
       />
       {!inputState.isValid && inputState.touched && (
         <View style={styles.errorContainer}>
