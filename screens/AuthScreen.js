@@ -197,6 +197,15 @@ const AuthScreen = props => {
   )
 }
 
+// export const screenOptions = navData => {
+//   return {
+//     headerTitle: 'Students Scheduler App',
+//     headerLeft: () => (
+//       <HeaderButtons
+//     )
+//   }
+// }
+
 styles = StyleSheet.create({
   screen: {
     flex: 1
