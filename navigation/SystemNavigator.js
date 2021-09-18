@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { createStackNavigator } from '@react-navigation/stack'
 import { createDrawerNavigator, DrawerItemList } from '@react-navigation/drawer'
 import AuthScreen from '../screens/AuthScreen'
-import MainPage, { screenOptions as MainPageScreenOptions } from '../screens/MainPageScreen'
+import MainPage from '../screens/MainPageScreen'
 import { useDispatch } from 'react-redux'
 
 const AuthStackNavigator = createStackNavigator()
@@ -14,17 +14,6 @@ export const AuthNavigator = () => {
         <AuthStackNavigator.Navigator>
             <AuthStackNavigator.Screen name="Auth" component={AuthScreen} options={{ headerTitle: 'Welcome to the Students Scheduler App!' }} />
         </AuthStackNavigator.Navigator>
-    )
-}
-
-
-const MainStackNavigator = createStackNavigator()
-
-export const MainNavigator = () => {
-    return (
-        <MainStackNavigator.Navigator>
-            <MainStackNavigator.Screen name="App" component={MainPage} options={MainPageScreenOptions} />
-        </MainStackNavigator.Navigator>
     )
 }
 
@@ -48,7 +37,7 @@ export const OptionsNavigator = () => {
         )
     }}
     >
-        <OptionsDrawerNavigator.Screen name="Main" component={MainNavigator} options={{
+        <OptionsDrawerNavigator.Screen name="Main" component={MainPage} options={{
             drawerIcon: props => (
                 <Ionicons
                     name={Platform.OS === 'android' ? 'md-list' : 'ios-list'}
