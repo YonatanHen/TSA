@@ -66,6 +66,12 @@ const AuthScreen = props => {
     dispatch(representationActions.fetchInstitutes())
   }, [representationActions])
 
+  useEffect(() => {
+    if (error) {
+      Alert.alert('An Error occured!', error, [{text: 'OK'}])
+    }
+  }, [error])
+
   const authHandler = async () => {
     let action;
     if (isSignup) {
