@@ -2,7 +2,7 @@ import React from 'react'
 import { View, SafeAreaView, Button } from 'react-native'
 import { Ionicons } from '@expo/vector-icons';
 import { createStackNavigator } from '@react-navigation/stack'
-import { createDrawerNavigator, DrawerItemList } from '@react-navigation/drawer'
+import { createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer'
 import AuthScreen from '../screens/AuthScreen'
 import MainPage from '../screens/MainPageScreen'
 import { useDispatch } from 'react-redux'
@@ -29,10 +29,10 @@ export const OptionsNavigator = () => {
             <View style={{ flex: 1, paddingTop: 20 }}>
                 <SafeAreaView forceInset={{ top: 'always', horizontal: 'never' }}>
                     <DrawerItemList {...props} />
-                    <Button
-                        title="Logout"
-                    />
                 </SafeAreaView>
+                <View style={{  position: 'absolute', bottom: 0 , width: '100%'}}>
+                    <Button title="Logout" />
+                </View>
             </View>
         )
     }}
