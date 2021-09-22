@@ -4,6 +4,7 @@ const { FIREBASE_API_KEY } = envs
 
 export const SIGNUP = 'SIGNUP'
 export const SIGNIN = 'SIGNIN'
+export const LOGOUT = 'LOGOUT'
 
 export const signup = (email, password, role, fname, lname, institute) => {
     return async dispatch => {
@@ -55,6 +56,10 @@ export const login = (email, password) => {
 
         dispatch({ type: SIGNIN, userId: resData.localId, token: resData.idToken })
     }
+}
+
+export const logout = () => {
+    return { type: LOGOUT}
 }
 
 

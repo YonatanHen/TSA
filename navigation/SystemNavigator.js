@@ -7,6 +7,8 @@ import AuthScreen from '../screens/AuthScreen'
 import MainPage from '../screens/MainPageScreen'
 import { useDispatch } from 'react-redux'
 
+import * as authActions from '../store/actions/auth'
+
 const AuthStackNavigator = createStackNavigator()
 
 export const AuthNavigator = () => {
@@ -22,16 +24,21 @@ const OptionsDrawerNavigator = createDrawerNavigator(
 )
 
 export const OptionsNavigator = () => {
+    const dispatch = useDispatch() //with the dispatch we can dispatch functions from redux store 
 
     return <OptionsDrawerNavigator.Navigator drawerContent={props => {
-        // const dispatch = useDispatch() *** with the dispatch we can dispatch functions from redux store 
         return (
             <View style={{ flex: 1, paddingTop: 20 }}>
                 <SafeAreaView forceInset={{ top: 'always', horizontal: 'never' }}>
                     <DrawerItemList {...props} />
                 </SafeAreaView>
-                <View style={{  position: 'absolute', bottom: 0 , width: '100%'}}>
-                    <Button title="Logout" />
+                <View style={{ position: 'absolute', bottom: 0, width: '100%' }}>
+                    <Button
+                        title="Logout"
+                        onPress={() => {
+                            dispatch(authActions.logout())
+                        }}
+                    />
                 </View>
             </View>
         )
