@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer'
 import AuthScreen from '../screens/AuthScreen'
 import MainPage from '../screens/MainPageScreen'
+import UpdateUserPage from '../screens/UpdateUserPage'
 import { useDispatch } from 'react-redux'
 
 import * as authActions from '../store/actions/auth'
@@ -19,9 +20,7 @@ export const AuthNavigator = () => {
     )
 }
 
-const OptionsDrawerNavigator = createDrawerNavigator(
-
-)
+const OptionsDrawerNavigator = createDrawerNavigator()
 
 export const OptionsNavigator = () => {
     const dispatch = useDispatch() //with the dispatch we can dispatch functions from redux store 
@@ -54,3 +53,14 @@ export const OptionsNavigator = () => {
         }} />
     </OptionsDrawerNavigator.Navigator>
 }
+
+const MainDrawerNavigator = createStackNavigator()
+
+export const MainNavigator = () => {
+    return (
+        <MainDrawerNavigator.Navigator>
+            <MainDrawerNavigator.Screen name="Update User" component={UpdateUserPage} options={{}} />
+        </MainDrawerNavigator.Navigator>
+    )
+}
+
