@@ -62,7 +62,7 @@ const Input = props => {
     <View style={styles.inputContainer}>
       <TextInput
         {...props}
-        style={styles.input}
+        style={props.isTextArea ? styles.textAreaInput : styles.input}
         value={inputState.value}
         onChangeText={textChangeHandler}
       />
@@ -83,6 +83,15 @@ const styles = StyleSheet.create({
     borderBottomColor: '#ccc',
     borderBottomWidth: 2,
     marginBottom: 2
+  },
+  textAreaInput: {
+    flex: 1,
+    paddingHorizontal: 2,
+    paddingVertical: 8,
+    borderColor: '#ccc',
+    borderWidth: 2,
+    marginBottom: 2,
+    textAlignVertical: 'top'
   },
   errorText: {
     color: 'red'
