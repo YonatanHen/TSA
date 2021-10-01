@@ -96,10 +96,12 @@ const UpdateUserPage = props => {
                     />
                     <Input
                         id="phone"
-                        placeholder="Enter your phone number"
+                        placeholder="Enter your phone number - format: xxx-xxx-xxxx"
                         initialValue=''
+                        phoneNumber
                         onInputChange={inputChangeHandler}
                         keyboardType='phone-pad'
+                        errorText='Phone number is invalid'
                     />
                 </ScrollView>
             </View>
