@@ -2,9 +2,9 @@ import React, { useEffect, useState, useCallback, useReducer } from 'react'
 import { StyleSheet, View, KeyboardAvoidingView } from 'react-native'
 import { DrawerActions } from '@react-navigation/native';
 
-import HeaderButton from '../components/UI/HeaderButton';
-import Input from '../components/UI/Input'
-import MultipleInput from '../components/UI/multipleInput'
+import HeaderButton from '../components/buttons/HeaderButton';
+import Input from '../components/inputs/Input'
+import MultipleInput from '../components/inputs/multipleInput'
 
 import { ScrollView } from 'react-native-gesture-handler';
 

@@ -25,6 +25,8 @@
         "backgroundColor": "#FFFFFF"
       }
     },
+    "permissions": ["ACCESS_FINE_LOCATION",
+      "CAMERA"],
     "web": {
       "favicon": "./assets/favicon.png"
     }

@@ -2,9 +2,9 @@ import React, { useEffect, useState, useCallback, useReducer } from 'react'
 import { Button, KeyboardAvoidingView, ScrollView, StyleSheet, Text, View, ActivityIndicator, Alert, Keyboard } from 'react-native'
 import { useDispatch } from 'react-redux'
 
-import Input from '../components/UI/Input'
-import AutoCompleteInput from '../components/UI/autoCompleteInput'
-import RolePicker from '../components/UI/rolePicker'
+import Input from '../components/inputs/Input'
+import AutoCompleteInput from '../components/inputs/autoCompleteInput'
+import RolePicker from '../components/pickers/rolePicker'
 
 import * as representationActions from '../store/actions/representation'
 import * as authActions from '../store/actions/auth'
