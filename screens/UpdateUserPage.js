@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback, useReducer } from 'react'
-import { StyleSheet, Text, TextInput, View, KeyboardAvoidingView } from 'react-native'
+import { StyleSheet, View, KeyboardAvoidingView } from 'react-native'
 import { DrawerActions } from '@react-navigation/native';
 
 import HeaderButton from '../components/UI/HeaderButton';
@@ -38,14 +38,20 @@ const UpdateUserPage = props => {
     const [formState, dispatchFormState] = useReducer(formReducer, {
         inputValues: {
             bio: '',
-            courses: []
+            courses: [],
+            phone: ''
 
         },
         inputValidities: {
-            bio: false
+            bio: false,
+            phone: false
         },
         formIsValid: false
     });
+
+    // useEffect(() => {
+    //     console.log(formState)
+    // })
 
     const inputChangeHandler = useCallback(
         (inputIdentifier, inputValue, inputValidity) => {
@@ -65,9 +71,6 @@ const UpdateUserPage = props => {
             keyboardVerticalOffset={20}
             style={styles.screen}
         >
-            <Text>
-                Update user data page
-            </Text>
             <View style={styles.inputForm}>
                 <ScrollView>
                     <Input
@@ -90,6 +93,13 @@ const UpdateUserPage = props => {
                         maxLength={100}
                         style={styles.bio}
                         errorText='Enter one course at least'
+                    />
+                    <Input
+                        id="phone"
+                        placeholder="Enter your phone number"
+                        initialValue=''
+                        onInputChange={inputChangeHandler}
+                        keyboardType='phone-pad'
                     />
                 </ScrollView>
             </View>
