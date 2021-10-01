@@ -1,10 +1,11 @@
 import React, { useEffect, useState, useCallback, useReducer } from 'react'
 import { StyleSheet, Text, TextInput, View, KeyboardAvoidingView } from 'react-native'
-import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { DrawerActions } from '@react-navigation/native';
 
 import HeaderButton from '../components/UI/HeaderButton';
 import Input from '../components/UI/Input'
+import MultipleInput from '../components/UI/multipleInput'
+
 import { ScrollView } from 'react-native-gesture-handler';
 
 const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE';
@@ -37,6 +38,7 @@ const UpdateUserPage = props => {
     const [formState, dispatchFormState] = useReducer(formReducer, {
         inputValues: {
             bio: '',
+            courses: []
 
         },
         inputValidities: {
@@ -78,6 +80,16 @@ const UpdateUserPage = props => {
                         onInputChange={inputChangeHandler}
                         maxLength={100}
                         style={styles.bio}
+                    />
+                    <MultipleInput
+                        id="courses"
+                        placeholder='Type course name'
+                        initialValue={[]}
+                        required
+                        onInputChange={inputChangeHandler}
+                        maxLength={100}
+                        style={styles.bio}
+                        errorText='Enter one course at least'
                     />
                 </ScrollView>
             </View>

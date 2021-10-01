@@ -107,7 +107,7 @@ const AuthScreen = props => {
         type: FORM_INPUT_UPDATE,
         value: inputValue,
         isValid: inputValidity,
-        input: inputIdentifier
+        input: inputIdentifier //id
       });
     },
     [dispatchFormState]
@@ -203,14 +203,6 @@ const AuthScreen = props => {
   )
 }
 
-// export const screenOptions = navData => {
-//   return {
-//     headerTitle: 'Students Scheduler App',
-//     headerLeft: () => (
-//       <HeaderButtons
-//     )
-//   }
-// }
 
 styles = StyleSheet.create({
   screen: {
@@ -222,8 +214,6 @@ styles = StyleSheet.create({
   inputForm: {
     width: '100%',
     padding: 10,
-    // alignItems: 'center',
-    // justifyContent: 'center',
   },
   buttonContainer: {
     justifyContent: 'space-evenly',
