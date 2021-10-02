@@ -35,24 +35,19 @@ const formReducer = (state, action) => {
 };
 
 const UpdateUserPage = props => {
-
+    const [selectedImage, setSelectedImage] = useState()
     const [formState, dispatchFormState] = useReducer(formReducer, {
         inputValues: {
             bio: '',
             courses: [],
             phone: ''
-
         },
         inputValidities: {
             bio: false,
-            phone: false
+            phone: false,
         },
         formIsValid: false
     });
-
-    // useEffect(() => {
-    //     console.log(formState)
-    // })
 
     const inputChangeHandler = useCallback(
         (inputIdentifier, inputValue, inputValidity) => {
@@ -66,6 +61,10 @@ const UpdateUserPage = props => {
         [dispatchFormState]
     )
 
+    const imageTakenHandler = imagePath => {
+        setSelectedImage(imagePath)
+    }
+
     return (
         <KeyboardAvoidingView
             behavior="padding"
@@ -74,7 +73,9 @@ const UpdateUserPage = props => {
         >
             <View style={styles.inputForm}>
                 <ScrollView>
-                    <ImagePicker />
+                    <ImagePicker 
+                        onImageTaken={imageTakenHandler}
+                    />
                     <Input
                         id="bio"
                         isTextArea={true}

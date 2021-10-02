@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import { View, Button, Text, StyleSheet, Image } from 'react-native'
 import * as ImagePicker from 'expo-image-picker'
-import * as Permissions from 'expo-permissions'
+import { Camera } from 'expo-permissions'
 
 const ImgPicker = props => {
     const [pickedImage, setPickedImage] = useState()
 
     const verifyPermissions = async () => {
         //Related to ios permissions
-        const result = await Permissions.askAsync(Permissions.CAMERA, Permissions.CAMERA_ROLL)
+        const result = await Camera.requestPermissionsAsync()
         if (result.status !== 'granted') {
             Alert.alert('Insufficicent permissions!', 'you need to grant permissions to use this app.', [{ text: 'Okay' }])
             return false
@@ -36,7 +36,7 @@ const ImgPicker = props => {
         )
 
         setPickedImage(image.uri)
-        props.onImageTaken(image.uri) //TODO: ADD THIS FUNCTION
+        props.onImageTaken(image.uri)
     }
 
     return <View style={styles.ImagePicker}>
@@ -71,6 +71,7 @@ const styles = StyleSheet.create({
     image: {
         width: '100%',
         height: '100%',
+        borderRadius: 100,
     },
     selectImageButtonsContainer: {
         flex: 1,
