@@ -5,6 +5,7 @@ import { DrawerActions } from '@react-navigation/native';
 import HeaderButton from '../components/buttons/HeaderButton';
 import Input from '../components/inputs/Input'
 import MultipleInput from '../components/inputs/multipleInput'
+import ImagePicker from '../components/pickers/ImagePicker'
 
 import { ScrollView } from 'react-native-gesture-handler';
 
@@ -73,6 +74,7 @@ const UpdateUserPage = props => {
         >
             <View style={styles.inputForm}>
                 <ScrollView>
+                    <ImagePicker />
                     <Input
                         id="bio"
                         isTextArea={true}

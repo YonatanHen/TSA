@@ -16,21 +16,27 @@ const ImgPicker = props => {
         return true
     }
 
-
-    const takeImageHandler = async () => {
+    const selectImageHandler = async (action) => {
         const hasPermission = await verifyPermissions()
         if (!hasPermission) {
             return
         }
 
-        const image = await ImagePicker.launchCameraAsync({
+        const image = action === 'select' ? (await ImagePicker.launchImageLibraryAsync({
             allowsEditing: true,
             aspect: [16, 9],
             quality: 0.5,
         })
+        ) : (
+            await ImagePicker.launchCameraAsync({
+                allowsEditing: true,
+                aspect: [16, 9],
+                quality: 0.5,
+            })
+        )
 
         setPickedImage(image.uri)
-        props.onImageTaken(image.uri)
+        props.onImageTaken(image.uri) //TODO: ADD THIS FUNCTION
     }
 
     return <View style={styles.ImagePicker}>
@@ -38,27 +44,42 @@ const ImgPicker = props => {
             {!pickedImage ? (<Text>No Image picked yet.</Text>) :
                 (<Image style={styles.image} source={{ uri: pickedImage }} />)}
         </View>
-        <Button title="Take Image" onPress={takeImageHandler} />
+        <View style={styles.selectImageButtonsContainer}>
+            <Button title="Take Image" onPress={() => selectImageHandler('take')} />
+            <Button title="Selcet from gallery" onPress={() => selectImageHandler('select')} />
+        </View>
     </View>
 }
 
 const styles = StyleSheet.create({
     imagePicker: {
-        alignItems: 'center',
-        marginBottom: 15
+        marginBottom: 15,
     },
     imagePreview: {
-        width: '100%',
+        width: '50%',
         height: 200,
         marginBottom: 10,
         justifyContent: 'center',
         alignItems: 'center',
         borderColor: '#ccc',
-        borderWidth: 1
+        borderWidth: 1,
+        borderRadius: 100,
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        flex: 1
     },
     image: {
         width: '100%',
-        height: '100%'
+        height: '100%',
+    },
+    selectImageButtonsContainer: {
+        flex: 1,
+        width: '70%',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginBottom: 10
     }
 })
 
