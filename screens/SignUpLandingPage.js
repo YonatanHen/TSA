@@ -1,6 +1,7 @@
-import React, { useState, useCallback, useReducer } from 'react'
-import { StyleSheet, View, KeyboardAvoidingView, ActivityIndicator, Button } from 'react-native'
+import React, { useEffect, useState, useCallback, useReducer } from 'react'
+import { StyleSheet, View, KeyboardAvoidingView, ActivityIndicator, Button, Alert } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler';
+import { useDispatch } from 'react-redux';
 
 import Input from '../components/inputs/Input'
 import MultipleInput from '../components/inputs/multipleInput'
@@ -36,6 +37,15 @@ const formReducer = (state, action) => {
 const SignUpLandingPage = props => {
     const [selectedImage, setSelectedImage] = useState()
     const [isLoading, setIsLoading] = useState(false)
+    const [error, setError] = useState()
+
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        if (error) {
+          Alert.alert('An Error occured!', error, [{text: 'OK'}])
+        }
+      }, [error])
 
     const [formState, dispatchFormState] = useReducer(formReducer, {
         inputValues: {
@@ -49,6 +59,26 @@ const SignUpLandingPage = props => {
         },
         formIsValid: false
     });
+
+    const submitHandler = async () => {
+        let action
+        action = dataActions.addDataOnSignUp(
+            formState.inputValues.bio,
+            selectedImage,
+            formState.inputValues.courses,
+            formState.inputValues.phone,
+        );
+        setError(null)
+        setIsLoading(true);
+        try {
+            await dispatch(action)
+            props.navigation.navigate('Main')
+        } catch (err) {
+            console.log(err)
+            setError(err.message)
+            setIsLoading(false)
+        }
+    };
 
     const inputChangeHandler = useCallback(
         (inputIdentifier, inputValue, inputValidity) => {
@@ -109,22 +139,22 @@ const SignUpLandingPage = props => {
                     />
                 </ScrollView>
             </View>
-            <View style={styles.buttonContainer}>
-                <View style={styles.button}>
-                    {isLoading ?
-                        (<ActivityIndicator size='small' color={'#eb7134'} />) :
-                        (<Button title={'Submit'} color='#eb7134' onPress={() => {}} />)}
+            {isLoading ? (<ActivityIndicator size='small' color={'#eb7134'} />) : (
+                <View style={styles.buttonContainer}>
+                    <View style={styles.button}>
+                        <Button title={'Submit'} color='#eb7134' onPress={submitHandler} />
+                    </View>
+                    <View style={styles.button}>
+                        <Button
+                            title={'Skip'}
+                            onPress={() => {
+                                props.navigation.navigate('Main')
+                            }}
+                            color='#66a11f'
+                        />
+                    </View>
                 </View>
-                <View style={styles.button}>
-                    <Button
-                        title={'Skip'}
-                        onPress={() => {
-                            props.navigation.navigate('Main')
-                        }}
-                        color='#66a11f'
-                    />
-                </View>
-            </View>
+            )}
         </KeyboardAvoidingView>
     )
 }

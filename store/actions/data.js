@@ -10,13 +10,15 @@ export const addDataOnSignUp = (bio, image, courses, phone) => {
     return async (dispatch, getState) => {
         const token = getState().auth.token
         const uid = getState().auth.userId
+
+        console.log(uid)
         
         const response = await fetch(
             `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users/${uid}.json?auth=${token}`,
             {
                 method: 'PATCH',
                 headers: {
-                    'Content-Type': 'application.json'
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
                     bio,

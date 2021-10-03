@@ -135,7 +135,7 @@ const AuthScreen = props => {
             keyboardType="email-address"
             errorText="Please enter a valid email address."
             onInputChange={inputChangeHandler}
-            initialValue=""
+            initialValue="test3@test.com"
           />
           <Input
             required
@@ -146,7 +146,7 @@ const AuthScreen = props => {
             errorText="Please enter a valid password."
             secureTextEntry={true}
             onInputChange={inputChangeHandler}
-            initialValue=""
+            initialValue="123456"
           />
           {isSignup && (
             <>
@@ -162,7 +162,7 @@ const AuthScreen = props => {
                 keyboardType="default"
                 errorText="Please enter a valid name."
                 onInputChange={inputChangeHandler}
-                initialValue=""
+                initialValue="t"
               />
               <Input
                 required
@@ -171,13 +171,14 @@ const AuthScreen = props => {
                 keyboardType="default"
                 errorText="Please enter a valid name."
                 onInputChange={inputChangeHandler}
-                initialValue=""
+                initialValue="t"
               />
               <AutoCompleteInput
                 required
                 id="institute"
                 onInputChange={inputChangeHandler}
                 placeholder='Institute Name'
+                initialValue="Sami Shamoon College of Engineering"
               />
             </>
           )}
