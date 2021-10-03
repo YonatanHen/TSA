@@ -1,13 +1,12 @@
-import React, { useEffect, useState, useCallback, useReducer } from 'react'
+import React, { useState, useCallback, useReducer } from 'react'
 import { StyleSheet, View, KeyboardAvoidingView, ActivityIndicator, Button } from 'react-native'
-import { DrawerActions } from '@react-navigation/native';
+import { ScrollView } from 'react-native-gesture-handler';
 
-import HeaderButton from '../components/buttons/HeaderButton';
 import Input from '../components/inputs/Input'
 import MultipleInput from '../components/inputs/multipleInput'
 import ImagePicker from '../components/pickers/ImagePicker'
 
-import { ScrollView } from 'react-native-gesture-handler';
+import * as dataActions from '../store/actions/data'
 
 const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE';
 
@@ -130,21 +129,6 @@ const SignUpLandingPage = props => {
     )
 }
 
-// export const screenOptions = navData => {
-//     return {
-//         headerTitle: 'Students Scheduler',
-//         headerLeft: () => (
-//             <HeaderButtons HeaderButtonComponent={HeaderButton}>
-//                 <Item
-//                     title="Menu"
-//                     onPress={() => {
-//                         navData.navigation.dispatch(DrawerActions.toggleDrawer());
-//                     }}
-//                 />
-//             </HeaderButtons>
-//         )
-//     }
-// }
 
 const styles = StyleSheet.create({
     screen: {
@@ -153,8 +137,6 @@ const styles = StyleSheet.create({
     inputForm: {
         width: '100%',
         padding: 10,
-        // alignItems: 'center',
-        // justifyContent: 'center',
     },
     bio: {
         borderColor: '#000000',

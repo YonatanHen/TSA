@@ -11,10 +11,9 @@ const AppNavigator = props => {
     
     return (
         <NavigationContainer>
-            <MainNavigator />
-            {/* {isAuth && isSignUp && <MainNavigator />}
+            {isAuth && isSignUp && <MainNavigator />}
             {isAuth && !isSignUp && <OptionsNavigator />}
-            {!isAuth && <AuthNavigator />} */}
+            {!isAuth && <AuthNavigator />}
         </NavigationContainer>
     )
 }
