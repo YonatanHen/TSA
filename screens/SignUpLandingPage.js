@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback, useReducer } from 'react'
-import { StyleSheet, View, KeyboardAvoidingView } from 'react-native'
+import { StyleSheet, View, KeyboardAvoidingView, ActivityIndicator, Button } from 'react-native'
 import { DrawerActions } from '@react-navigation/native';
 
 import HeaderButton from '../components/buttons/HeaderButton';
@@ -34,8 +34,10 @@ const formReducer = (state, action) => {
     return state;
 };
 
-const UpdateUserPage = props => {
+const SignUpLandingPage = props => {
     const [selectedImage, setSelectedImage] = useState()
+    const [isLoading, setIsLoading] = useState(false)
+
     const [formState, dispatchFormState] = useReducer(formReducer, {
         inputValues: {
             bio: '',
@@ -73,7 +75,7 @@ const UpdateUserPage = props => {
         >
             <View style={styles.inputForm}>
                 <ScrollView>
-                    <ImagePicker 
+                    <ImagePicker
                         onImageTaken={imageTakenHandler}
                     />
                     <Input
@@ -108,6 +110,22 @@ const UpdateUserPage = props => {
                     />
                 </ScrollView>
             </View>
+            <View style={styles.buttonContainer}>
+                <View style={styles.button}>
+                    {isLoading ?
+                        (<ActivityIndicator size='small' color={'#eb7134'} />) :
+                        (<Button title={'Submit'} color='#eb7134' onPress={() => {}} />)}
+                </View>
+                <View style={styles.button}>
+                    <Button
+                        title={'Skip'}
+                        onPress={() => {
+                            props.navigation.navigate('Main')
+                        }}
+                        color='#66a11f'
+                    />
+                </View>
+            </View>
         </KeyboardAvoidingView>
     )
 }
@@ -141,7 +159,16 @@ const styles = StyleSheet.create({
     bio: {
         borderColor: '#000000',
         borderWidth: 1,
+    },
+    buttonContainer: {
+        justifyContent: 'space-evenly',
+        display: 'flex',
+        alignItems: "center",
+        flexDirection: 'row'
+    },
+    button: {
+        marginVertical: 3
     }
 })
 
-export default UpdateUserPage
+export default SignUpLandingPage

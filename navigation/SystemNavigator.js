@@ -5,7 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer'
 import AuthScreen from '../screens/AuthScreen'
 import MainPage from '../screens/MainPageScreen'
-import UpdateUserPage from '../screens/UpdateUserPage'
+import SignUpLandingPage from '../screens/SignUpLandingPage'
 import { useDispatch } from 'react-redux'
 
 import * as authActions from '../store/actions/auth'
@@ -59,7 +59,8 @@ const MainDrawerNavigator = createStackNavigator()
 export const MainNavigator = () => {
     return (
         <MainDrawerNavigator.Navigator>
-            <MainDrawerNavigator.Screen name="Update User" component={UpdateUserPage} options={{}} />
+            <MainDrawerNavigator.Screen name="Update User" component={SignUpLandingPage} options={{}} />
+            <MainDrawerNavigator.Screen name="Main" component={OptionsNavigator} options={{}} />
         </MainDrawerNavigator.Navigator>
     )
 }

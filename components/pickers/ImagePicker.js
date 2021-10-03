@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import { View, Button, Text, StyleSheet, Image } from 'react-native'
 import * as ImagePicker from 'expo-image-picker'
-import { Camera } from 'expo-permissions'
+import * as Permissions from 'expo-permissions'
 
 const ImgPicker = props => {
     const [pickedImage, setPickedImage] = useState()
 
     const verifyPermissions = async () => {
         //Related to ios permissions
-        const result = await Camera.requestPermissionsAsync()
+        const result = await Permissions.askAsync(Permissions.CAMERA, Permissions.CAMERA_ROLL)
         if (result.status !== 'granted') {
             Alert.alert('Insufficicent permissions!', 'you need to grant permissions to use this app.', [{ text: 'Okay' }])
             return false
@@ -34,7 +34,7 @@ const ImgPicker = props => {
                 quality: 0.5,
             })
         )
-
+        console.log(image)
         setPickedImage(image.uri)
         props.onImageTaken(image.uri)
     }
