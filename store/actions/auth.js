@@ -23,8 +23,13 @@ export const signup = (email, password, role, fname, lname, institute) => {
         const resData = await response.json()
 
         if (!response.ok) {
-            console.log(resData.error)
-            throw new Error('Something went wrong')
+            if(resData.error.message === 'EMAIL_EXISTS') {
+                throw new Error('Email already exists')
+            }
+            else {
+                throw new Error('Something went wrong')
+            }
+            
         }
 
         writeUserData({ email: email, uid: resData.localId, firstName: fname, lastName: lname, institute: institute, role: role })
