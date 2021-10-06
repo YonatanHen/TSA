@@ -3,7 +3,8 @@ import { LOGOUT, SIGNIN, SIGNUP } from '../actions/auth'
 const initialState = {
     token: null,
     userId: null,
-    signedUp: false
+    signedUp: false,
+    role: null
     // didTryAutoLogin: false
 }
 
@@ -13,7 +14,8 @@ export default (state = initialState, action) => {
             return {
                 token: action.token,
                 userId: action.userId,
-                signedUp: true
+                signedUp: true,
+                role: action.role
             }
         case SIGNIN:
             return {

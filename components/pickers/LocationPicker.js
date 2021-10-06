@@ -62,9 +62,10 @@ const LocationPicker = props => {
 
     return (
         <View style={styles.locationPicker}>
-            <MapPreview style={styles.mapPreview} location={pickedLocation} onPress={pickOnMapHandler}>
+            <Text>{pickedLocation ? pickedLocation.coords.latitude : 'No location chosen yet!'}</Text>
+            {/* <MapPreview style={styles.mapPreview} location={pickedLocation} onPress={pickOnMapHandler}>
                 {isFetching ? <ActivityIndicator size='large' /> : <Text>No location chosen yet!</Text>}
-            </MapPreview>
+            </MapPreview> */}
             <View style={styles.actions}>
                 <Button title='Get User Location' onPress={getLocationHandler} />
                 <Button title='Pick on map' onPress={pickOnMapHandler} />

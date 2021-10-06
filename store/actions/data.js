@@ -6,7 +6,7 @@ const SAVE_IMAGE = 'SAVE_IMAGE'
 const UPDATE_USER_ON_SIGNUP = 'UPDATE_USER_ON_SIGNUP'
 
 
-export const addDataOnSignUp = (bio, image, courses, phone, location) => {
+export const addDataOnSignUp = (bio, image, courses = undefined, phone, location) => {
     return async (dispatch, getState) => {
         const token = getState().auth.token
         const uid = getState().auth.userId

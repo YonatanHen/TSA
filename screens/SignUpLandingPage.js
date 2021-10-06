@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback, useReducer } from 'react'
 import { StyleSheet, View, KeyboardAvoidingView, ActivityIndicator, Button, Alert } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Input from '../components/inputs/Input'
 import MultipleInput from '../components/inputs/multipleInput'
@@ -40,6 +40,8 @@ const SignUpLandingPage = props => {
     const [selectedLocation, setSelectedLocation] = useState()
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState()
+
+    const userRole = useSelector(state => state.auth.role)
 
     const dispatch = useDispatch()
 
@@ -125,16 +127,18 @@ const SignUpLandingPage = props => {
                         maxLength={100}
                         style={styles.bio}
                     />
-                    <MultipleInput
-                        id="courses"
-                        placeholder='Type course name'
-                        initialValue={[]}
-                        required
-                        onInputChange={inputChangeHandler}
-                        maxLength={100}
-                        style={styles.bio}
-                        errorText='Enter one course at least'
-                    />
+                    {userRole === 'tutor' && (
+                        <MultipleInput
+                            id="courses"
+                            placeholder='Type course name'
+                            initialValue={[]}
+                            required
+                            onInputChange={inputChangeHandler}
+                            maxLength={100}
+                            style={styles.bio}
+                            errorText='Enter one course at least'
+                        />
+                    )}
                     <Input
                         id="phone"
                         placeholder="Enter your phone number - format: xxx-xxx-xxxx"

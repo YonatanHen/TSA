@@ -34,7 +34,7 @@ export const signup = (email, password, role, fname, lname, institute) => {
 
         writeUserData({ email: email, uid: resData.localId, firstName: fname, lastName: lname, institute: institute, role: role })
 
-        await dispatch({ type: SIGNUP, userId: resData.localId, token: resData.idToken })
+        await dispatch({ type: SIGNUP, userId: resData.localId, token: resData.idToken, role })
     }
 }
 
