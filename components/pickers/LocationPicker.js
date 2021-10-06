@@ -3,22 +3,22 @@ import { View, Button, Text, ActivityIndicator, Alert, StyleSheet } from 'react-
 import * as Location from 'expo-location'
 import * as Permissions from 'expo-permissions'
 
-import MapPreview from './MapPreview'
+import MapPreview from '../previews/MapPreview'
 
 const LocationPicker = props => {
     const [isFetching, setIsFetching] = useState(false)
     const [pickedLocation, setPickedLocation] = useState()
 
-    const mapPickedLocation = props.navigation.getParam('pickedLocation')
+    // const mapPickedLocation = props.navigation.getParam('pickedLocation')
 
     const {onLocationPicked} = props
 
     useEffect(() => {
-        if(mapPickedLocation) {
-            setPickedLocation(mapPickedLocation)
-            props.onLocationPicked(mapPickedLocation)
+        if(onLocationPicked.pickedLocation) {
+            setPickedLocation(onLocationPicked.pickedLocation)
+            props.onLocationPicked(onLocationPicked.pickedLocation)
         }
-    }, [mapPickedLocation, onLocationPicked])
+    }, [onLocationPicked])
 
     const verifyPermissions = async () => {
         //Related to ios permissions

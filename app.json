@@ -26,7 +26,8 @@
       },
       "permissions": [
         "ACCESS_FINE_LOCATION",
-        "CAMERA"
+        "CAMERA",
+        "WRITE_EXTERNAL_STORAGE"
       ]
     },
     "web": {

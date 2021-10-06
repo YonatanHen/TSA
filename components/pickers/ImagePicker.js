@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
-import { View, Button, Text, StyleSheet, Image } from 'react-native'
+import { View, Button, Text, StyleSheet, Image, Alert } from 'react-native'
 import * as ImagePicker from 'expo-image-picker'
 import * as Permissions from 'expo-permissions'
+
+import * as dataActions from '../../store/actions/data'
 
 const ImgPicker = props => {
     const [pickedImage, setPickedImage] = useState()

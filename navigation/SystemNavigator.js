@@ -6,6 +6,7 @@ import { createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemL
 import AuthScreen from '../screens/AuthScreen'
 import MainPage from '../screens/MainPageScreen'
 import SignUpLandingPage from '../screens/SignUpLandingPage'
+import MapScreen, { ScreenOptions as MapScreenOptions } from '../screens/MapScreen'
 import { useDispatch } from 'react-redux'
 
 import * as authActions from '../store/actions/auth'
@@ -61,7 +62,7 @@ export const MainNavigator = () => {
         <MainDrawerNavigator.Navigator>
             <MainDrawerNavigator.Screen name="Update User" component={SignUpLandingPage} options={{}} />
             <MainDrawerNavigator.Screen name="Main" component={OptionsNavigator} options={{}} />
+            <MainDrawerNavigator.Screen name="Map" component={MapScreen} options={MapScreenOptions} />
         </MainDrawerNavigator.Navigator>
     )
 }
-

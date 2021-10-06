@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import Input from '../components/inputs/Input'
 import MultipleInput from '../components/inputs/multipleInput'
 import ImagePicker from '../components/pickers/ImagePicker'
+import LocationPicker from '../components/pickers/LocationPicker'
 
 import * as dataActions from '../store/actions/data'
 
@@ -36,6 +37,7 @@ const formReducer = (state, action) => {
 
 const SignUpLandingPage = props => {
     const [selectedImage, setSelectedImage] = useState()
+    const [selectedLocation, setSelectedLocation] = useState()
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState()
 
@@ -43,15 +45,15 @@ const SignUpLandingPage = props => {
 
     useEffect(() => {
         if (error) {
-          Alert.alert('An Error occured!', error, [{text: 'OK'}])
+            Alert.alert('An Error occured!', error, [{ text: 'OK' }])
         }
-      }, [error])
+    }, [error])
 
     const [formState, dispatchFormState] = useReducer(formReducer, {
         inputValues: {
             bio: '',
             courses: [],
-            phone: ''
+            phone: '',
         },
         inputValidities: {
             bio: false,
@@ -67,6 +69,7 @@ const SignUpLandingPage = props => {
             selectedImage,
             formState.inputValues.courses,
             formState.inputValues.phone,
+            selectedLocation
         );
         setError(null)
         setIsLoading(true);
@@ -95,6 +98,10 @@ const SignUpLandingPage = props => {
     const imageTakenHandler = imagePath => {
         setSelectedImage(imagePath)
     }
+
+    const locationPickedHandler = useCallback(location => {
+        setSelectedLocation(location)
+    }, [])
 
     return (
         <KeyboardAvoidingView
@@ -137,24 +144,28 @@ const SignUpLandingPage = props => {
                         keyboardType='phone-pad'
                         errorText='Phone number is invalid'
                     />
+                    <LocationPicker
+                        navigation={props.navigation}
+                        onLocationPicked={locationPickedHandler}
+                    />
+                    {isLoading ? (<ActivityIndicator size='small' color={'#eb7134'} />) : (
+                        <View style={styles.buttonContainer}>
+                            <View style={styles.button}>
+                                <Button title={'Submit'} color='#eb7134' onPress={submitHandler} />
+                            </View>
+                            <View style={styles.button}>
+                                <Button
+                                    title={'Skip'}
+                                    onPress={() => {
+                                        props.navigation.navigate('Main')
+                                    }}
+                                    color='#66a11f'
+                                />
+                            </View>
+                        </View>
+                    )}
                 </ScrollView>
             </View>
-            {isLoading ? (<ActivityIndicator size='small' color={'#eb7134'} />) : (
-                <View style={styles.buttonContainer}>
-                    <View style={styles.button}>
-                        <Button title={'Submit'} color='#eb7134' onPress={submitHandler} />
-                    </View>
-                    <View style={styles.button}>
-                        <Button
-                            title={'Skip'}
-                            onPress={() => {
-                                props.navigation.navigate('Main')
-                            }}
-                            color='#66a11f'
-                        />
-                    </View>
-                </View>
-            )}
         </KeyboardAvoidingView>
     )
 }
