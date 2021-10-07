@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer'
 import AuthScreen from '../screens/AuthScreen'
 import MainPage from '../screens/MainPageScreen'
+import AdminMainScreen from '../screens/AdminMainScreen'
 import SignUpLandingPage from '../screens/SignUpLandingPage'
 import MapScreen, { ScreenOptions as MapScreenOptions } from '../screens/MapScreen'
 import { useDispatch } from 'react-redux'
@@ -64,5 +65,15 @@ export const MainNavigator = () => {
             <MainDrawerNavigator.Screen name="Main" component={OptionsNavigator} options={{ headerShown: false }} />
             <MainDrawerNavigator.Screen name="Map" component={MapScreen} options={MapScreenOptions} />
         </MainDrawerNavigator.Navigator>
+    )
+}
+
+const AdminDrawerNavigator = createStackNavigator()
+
+export const AdminNavigator = () => {
+    return (
+        <AdminDrawerNavigator.Navigator>
+            <AdminDrawerNavigator.Screen name="Admin Main" component={AdminMainScreen} options={{}} />
+        </AdminDrawerNavigator.Navigator>
     )
 }

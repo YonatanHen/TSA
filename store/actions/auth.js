@@ -59,7 +59,9 @@ export const login = (email, password) => {
             throw new Error('Something went wrong')
         }
 
-        dispatch({ type: SIGNIN, userId: resData.localId, token: resData.idToken })
+        const user = await readUserData(resData.localId)
+
+        dispatch({ type: SIGNIN, userId: resData.localId, token: resData.idToken, role: user.role})
     }
 }
 
@@ -89,4 +91,21 @@ const writeUserData = async (user) => {
     }
 
     return
+}
+
+const readUserData = async (uid) => {
+    const response = await fetch(`https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users.json`)
+
+    const resData = await response.json()
+
+    const users = await Object.assign({}, resData.admins, resData.tutors, resData.students)
+
+    if (!response.ok) {
+        console.log(resData.error)
+        throw new Error('Something went wrong')
+    }
+
+    const user = users[uid]
+
+    return user
 }

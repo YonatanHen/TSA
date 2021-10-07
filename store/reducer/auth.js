@@ -20,7 +20,8 @@ export default (state = initialState, action) => {
         case SIGNIN:
             return {
                 token: action.token,
-                userId: action.userId
+                userId: action.userId,
+                role: action.role
             }
             case LOGOUT:
                 return {
