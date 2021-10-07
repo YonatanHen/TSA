@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native'
 import { Picker } from '@react-native-community/picker'
 
 const RolePicker = props => {
-    const [selectedValue, setSelectedValue] = useState("Admin")
+    const [selectedValue, setSelectedValue] = useState("admin")
 
     const { onInputChange, id } = props;
 

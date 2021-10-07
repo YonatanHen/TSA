@@ -23,13 +23,13 @@ export const signup = (email, password, role, fname, lname, institute) => {
         const resData = await response.json()
 
         if (!response.ok) {
-            if(resData.error.message === 'EMAIL_EXISTS') {
+            if (resData.error.message === 'EMAIL_EXISTS') {
                 throw new Error('Email already exists')
             }
             else {
                 throw new Error('Something went wrong')
             }
-            
+
         }
 
         writeUserData({ email: email, uid: resData.localId, firstName: fname, lastName: lname, institute: institute, role: role })
@@ -69,13 +69,15 @@ export const logout = () => {
 
 
 const writeUserData = async (user) => {
-    const response = await fetch(`https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users/${user.uid}.json`, {
-        method: 'PATCH',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(user)
-    })
+    const response = await fetch(
+        `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users/${user.role}s/${user.uid}.json`,
+        {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
 
     const resData = await response.json()
 

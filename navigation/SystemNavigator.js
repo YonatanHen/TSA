@@ -61,7 +61,7 @@ export const MainNavigator = () => {
     return (
         <MainDrawerNavigator.Navigator>
             <MainDrawerNavigator.Screen name="Update User" component={SignUpLandingPage} options={{}} />
-            <MainDrawerNavigator.Screen name="Main" component={OptionsNavigator} options={{}} />
+            <MainDrawerNavigator.Screen name="Main" component={OptionsNavigator} options={{ headerShown: false }} />
             <MainDrawerNavigator.Screen name="Map" component={MapScreen} options={MapScreenOptions} />
         </MainDrawerNavigator.Navigator>
     )
