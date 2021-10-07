@@ -12,12 +12,15 @@ export const addDataOnSignUp = (bio, image, courses = undefined, phone, location
         const uid = getState().auth.userId
 
         const locationCords = { lat: location.coords.latitude, lon: location.coords.longitude }
-        
+        let city = undefined
+        let country = undefined
+
         await fetch(
             `https://api.geoapify.com/v1/geocode/reverse?lat=${locationCords.lat}&lon=${locationCords.lon}&format=json&apiKey=${GEOPIFY_API}`
         ).then(response => response.json())
         .then(result => {
-           locationName = result.results[0].formatted
+           city = result.results[0].city
+           country = result.results[0].country
         })
 
         const response = await fetch(
@@ -32,7 +35,8 @@ export const addDataOnSignUp = (bio, image, courses = undefined, phone, location
                     courses,
                     phone,
                     locationCords,
-                    locationName
+                    city,
+                    country
 
                 })
             }

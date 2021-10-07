@@ -2,11 +2,13 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Platform, } from 'react-native';
 import MapView, { Marker } from 'react-native-maps'
 
+// import envs, { GEOPIFY_API } from '../config/env'
+
 const MapScreen = props => {
   const [selectedLocation, setSelectedLocation] = useState()
   const mapRegion = {
-    latitude: 37.78,
-    longitude: -122.43,
+    latitude: 31.771959,
+    longitude: 35.217018,
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421
   }
@@ -24,6 +26,12 @@ const MapScreen = props => {
       return
     }
     console.log(selectedLocation)
+  //   fetch(
+  //     `https://api.geoapify.com/v1/geocode/reverse?lat=${selectedLocation.lat}&lon=${selectedLocation.lng}&format=json&apiKey=${GEOPIFY_API}`
+  // ).then(response => response.json())
+  // .then(result => {
+  //    console.log(result.results[0].city + ', ' + result.results[0].country)
+  // })
     props.navigation.navigate('Update User', { pickedLocation: selectedLocation })
   }, [selectedLocation])
 

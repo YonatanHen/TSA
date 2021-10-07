@@ -9,21 +9,22 @@ const LocationPicker = props => {
     const [isFetching, setIsFetching] = useState(false)
     const [pickedLocation, setPickedLocation] = useState()
 
-    // const mapPickedLocation = props.navigation.getParam('pickedLocation')
+    const mapPickedLocation = props.route.params.pickedLocation
 
     const {onLocationPicked} = props
 
     useEffect(() => {
-        if(onLocationPicked.pickedLocation) {
-            setPickedLocation(onLocationPicked.pickedLocation)
-            props.onLocationPicked(onLocationPicked.pickedLocation)
+        console.log(props)
+        if(mapPickedLocation) {
+            setPickedLocation(mapPickedLocation)
+            props.onLocationPicked(mapPickedLocation)
         }
-    }, [onLocationPicked])
+    }, [mapPickedLocation, onLocationPicked])
 
     const verifyPermissions = async () => {
         //Related to ios permissions
-        const result = await Permissions.askAsync(Permissions.LOCATION)
-        if (result.status !== 'granted') {
+        const { status, permissions } = await Permissions.askAsync(Permissions.LOCATION)
+        if (status !== 'granted') {
             Alert.alert('Insufficicent permissions!', 'you need to grant location permissions to use this app.', [{ text: 'Okay' }])
             return false
         }
@@ -39,9 +40,9 @@ const LocationPicker = props => {
 
         try {
             const location = await Location.getCurrentPositionAsync({
-                timeout: 5000
+                timeout: 5000,
+                enableHighAccuracy: true
             })
-            console.log(location)
             setPickedLocation({
                 lat: location.coords.latitude,
                 lng: location.coords.longitude
@@ -62,10 +63,9 @@ const LocationPicker = props => {
 
     return (
         <View style={styles.locationPicker}>
-            <Text>{pickedLocation ? pickedLocation.coords.latitude : 'No location chosen yet!'}</Text>
-            {/* <MapPreview style={styles.mapPreview} location={pickedLocation} onPress={pickOnMapHandler}>
+            <MapPreview style={styles.mapPreview} location={pickedLocation} onPress={pickOnMapHandler}>
                 {isFetching ? <ActivityIndicator size='large' /> : <Text>No location chosen yet!</Text>}
-            </MapPreview> */}
+            </MapPreview>
             <View style={styles.actions}>
                 <Button title='Get User Location' onPress={getLocationHandler} />
                 <Button title='Pick on map' onPress={pickOnMapHandler} />

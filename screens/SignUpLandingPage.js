@@ -150,6 +150,7 @@ const SignUpLandingPage = props => {
                     />
                     <LocationPicker
                         navigation={props.navigation}
+                        route={props.route}
                         onLocationPicked={locationPickedHandler}
                     />
                     {isLoading ? (<ActivityIndicator size='small' color={'#eb7134'} />) : (
