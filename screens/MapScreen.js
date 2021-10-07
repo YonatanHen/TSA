@@ -26,12 +26,12 @@ const MapScreen = props => {
       return
     }
     console.log(selectedLocation)
-  //   fetch(
-  //     `https://api.geoapify.com/v1/geocode/reverse?lat=${selectedLocation.lat}&lon=${selectedLocation.lng}&format=json&apiKey=${GEOPIFY_API}`
-  // ).then(response => response.json())
-  // .then(result => {
-  //    console.log(result.results[0].city + ', ' + result.results[0].country)
-  // })
+    //   fetch(
+    //     `https://api.geoapify.com/v1/geocode/reverse?lat=${selectedLocation.lat}&lon=${selectedLocation.lng}&format=json&apiKey=${GEOPIFY_API}`
+    // ).then(response => response.json())
+    // .then(result => {
+    //    console.log(result.results[0].city + ', ' + result.results[0].country)
+    // })
     props.navigation.navigate('Update User', { pickedLocation: selectedLocation })
   }, [selectedLocation])
 
@@ -61,7 +61,7 @@ const MapScreen = props => {
 
 export const ScreenOptions = (navData) => {
   if (navData.route.params) {
-    const {saveLocation } = navData.route.params
+    const { saveLocation } = navData.route.params
     return {
       headerRight: () => (<TouchableOpacity styles={styles.headerButton} onPress={saveLocation}>
         <Text style={styles.headerButtonText}>Save</Text>
