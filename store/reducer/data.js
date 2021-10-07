@@ -5,7 +5,9 @@ const initialState = {
     courses: [],
     phone: '',
     image: '',
-    location: ''
+    locationCords: '',
+    city: '',
+    country: ''
 }
 
 export default (state = initialState, action) => {
@@ -16,9 +18,11 @@ export default (state = initialState, action) => {
                 courses: action.courses,
                 phone: action.phone,
                 image: action.image,
-                location: action.location
+                locationCords: action.locationCords,
+                city: action.city,
+                country: action.country
             }
-                
+
         default:
             return state
     }

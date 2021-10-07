@@ -8,20 +8,24 @@ const UPDATE_USER_ON_SIGNUP = 'UPDATE_USER_ON_SIGNUP'
 
 export const addDataOnSignUp = (bio, image, courses = undefined, phone, location) => {
     return async (dispatch, getState) => {
+        if (!location) {
+            throw new Error('You must pick a location!')
+        }
         const token = getState().auth.token
         const uid = getState().auth.userId
 
-        const locationCords = { lat: location.coords.latitude, lon: location.coords.longitude }
+        console.log(location)
+
         let city = undefined
         let country = undefined
 
         await fetch(
-            `https://api.geoapify.com/v1/geocode/reverse?lat=${locationCords.lat}&lon=${locationCords.lon}&format=json&apiKey=${GEOPIFY_API}`
+            `https://api.geoapify.com/v1/geocode/reverse?lat=${location.lat}&lon=${location.lng}&format=json&apiKey=${GEOPIFY_API}`
         ).then(response => response.json())
-        .then(result => {
-           city = result.results[0].city
-           country = result.results[0].country
-        })
+            .then(result => {
+                city = result.results[0].city
+                country = result.results[0].country
+            })
 
         const response = await fetch(
             `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users/${uid}.json?auth=${token}`,
@@ -34,10 +38,9 @@ export const addDataOnSignUp = (bio, image, courses = undefined, phone, location
                     bio,
                     courses,
                     phone,
-                    locationCords,
+                    locationCords: location,
                     city,
                     country
-
                 })
             }
         )
@@ -53,6 +56,9 @@ export const addDataOnSignUp = (bio, image, courses = undefined, phone, location
                 bio,
                 courses,
                 phone,
+                locationCords: location,
+                city,
+                country
             }
         })
     }
