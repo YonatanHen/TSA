@@ -5,39 +5,31 @@ import { DrawerActions } from '@react-navigation/native'
 import { useDispatch, useSelector } from 'react-redux'
 
 import HeaderButton from '../components/buttons/HeaderButton'
-import { readAllUsers } from '../store/actions/representation'
 
 
 const AdminMainScreen = props => {
     const users = useSelector(state => state.representationLists.usersList)
-    const [isLoading, setIsLoading] = useState(false)
-
-    const dispatch = useDispatch()
-
-    useEffect(() => {
-            dispatch(readAllUsers())
-        // if(users.students) studentsListHandler(users.students.filter(student => student.institue === "Sami Shamoon College of Engineering"))
-    }, [])
+    const adminInstitue = useSelector(state => state.auth.institue)
 
     return (
         <View>
-            {/* {console.log([...Object.entries(users.tutors)][0][1].email)} */}
-            {isLoading ? <Text>Loading...</Text>
-                :
-                <SectionList
-                    sections={[
-                        {
-                            title: 'Tutors', data: users.tutors !== undefined ? [...Object.entries(users.tutors)].map(tutor => tutor[1].firstName + ' ' + tutor[1].lastName) : []
-                        },
-                        {
-                            title: 'Students', data: users.students !== undefined ? [...Object.entries(users.students)].map(student => student[1].firstName + ' ' + student[1].lastName) : []
-                        }
-                    ]}
-                    renderItem={({ item }) => <Text style={styles.item}>{item}</Text>}
-                    renderSectionHeader={({ section }) => <Text style={styles.sectionHeader}>{section.title}</Text>}
-                    keyExtractor={(item, index) => index}
-                />
-            }
+            <SectionList
+                sections={[
+                    {
+                        title: 'Tutors', data: users.tutors !== undefined ? [...Object.entries(users.tutors)]
+                        .filter(tutor => tutor[1].institue === adminInstitue)
+                        .map(tutor => tutor[1].firstName + ' ' + tutor[1].lastName) : []
+                    },
+                    {
+                        title: 'Students', data: users.students !== undefined ? [...Object.entries(users.students)]
+                        .filter(student => student[1].institue === adminInstitue)
+                        .map(student => student[1].firstName + ' ' + student[1].lastName) : []
+                    }
+                ]}
+                renderItem={({ item }) => <Text style={styles.item}>{item}</Text>}
+                renderSectionHeader={({ section }) => <Text style={styles.sectionHeader}>{section.title}</Text>}
+                keyExtractor={(item, index) => index}
+            />
 
         </View>
     )
