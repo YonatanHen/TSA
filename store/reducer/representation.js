@@ -1,7 +1,8 @@
-import { ACADEMIC_INSTITUTES } from '../actions/representation'
+import { ACADEMIC_INSTITUTES, READ_ALL_USERS } from '../actions/representation'
 
 const initialState = {
-    institutesList: []
+    institutesList: [],
+    usersList: []
 }
 
 export default (state = initialState, action) => {
@@ -10,7 +11,13 @@ export default (state = initialState, action) => {
             return {
                 institutesList: action.institutesList
             }
-    }
 
-    return state
+        case READ_ALL_USERS:
+            return {
+                usersList: action.usersList
+            }
+
+        default:
+            return state
+    }
 }

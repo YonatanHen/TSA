@@ -4,7 +4,8 @@ const initialState = {
     token: null,
     userId: null,
     signedUp: false,
-    role: null
+    role: null,
+    institue: null
     // didTryAutoLogin: false
 }
 
@@ -15,13 +16,15 @@ export default (state = initialState, action) => {
                 token: action.token,
                 userId: action.userId,
                 signedUp: true,
-                role: action.role
+                role: action.role,
+                institue: action.institue
             }
         case SIGNIN:
             return {
                 token: action.token,
                 userId: action.userId,
-                role: action.role
+                role: action.role,
+                institue: action.institue
             }
             case LOGOUT:
                 return {
