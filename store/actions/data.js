@@ -1,6 +1,6 @@
-import envs, { GEOPIFY_API } from '../../config/env'
+import envs from '../../config/env'
 
-const { FIREBASE_API_KEY } = envs
+const { FIREBASE_API_KEY, GEOPIFY_API, CLOUDINARY_NAME } = envs
 
 const SAVE_IMAGE = 'SAVE_IMAGE'
 const UPDATE_USER_ON_SIGNUP = 'UPDATE_USER_ON_SIGNUP'
@@ -69,9 +69,9 @@ export const uploadImage = (photo) => {
     console.log('IMAGE')
     const data = new FormData()
     data.append('file', photo)
-    data.append('upload_preset', cloudinaryName)
-    data.append("cloud_name", cloudinaryName)
-    fetch(`https://api.cloudinary.com/v1_1/${cloudinaryName}/upload`, {
+    data.append('upload_preset', CLOUDINARY_NAME)
+    data.append("cloud_name", CLOUDINARY_NAME)
+    fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_NAME}/upload`, {
       method: "post",
       body: data
     }).then(res => res.json()).
