@@ -1,7 +1,7 @@
 import React from 'react'
 import { Image, StyleSheet, TouchableOpacity } from 'react-native'
 
-import { GEOPIFY_API } from '../../config/env'
+import { GEOPIFY_API } from '@env'
 
 const MapPreview = props => {
     let imagePreviewUrl
