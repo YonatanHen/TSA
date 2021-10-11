@@ -1,12 +1,12 @@
 
 export default findAdmin = async (institute, role) => {
     const response = await fetch(
-        `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users/admins.json?institue=${institute}`
+        `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users/admins/${institute}/institute.json`
     )
 
     const resData = await response.json()
 
-    console.log('FIND ADMIN')
+    console.log('FIND ADMIN : ' + institute)
     console.log(resData)
 
     if ((role === 'admin' && !resData) || (role !== 'admin' && resData)) {
