@@ -1,5 +1,7 @@
 import envs from '../../config/env'
 
+import findAdmin from '../../utilities/findAdmin'
+
 const { FIREBASE_API_KEY } = envs
 
 export const SIGNUP = 'SIGNUP'
@@ -8,6 +10,8 @@ export const LOGOUT = 'LOGOUT'
 
 export const signup = (email, password, role, fname, lname, institute) => {
     return async dispatch => {
+        await findAdmin(institute, role)
+        
         const response = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${FIREBASE_API_KEY}`, {
             method: 'POST',
             headers: {
@@ -82,8 +86,6 @@ const writeUserData = async (user) => {
         })
 
     const resData = await response.json()
-
-    console.log(resData)
 
     if (!response.ok) {
         console.log(resData.error)

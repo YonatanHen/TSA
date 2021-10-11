@@ -18,11 +18,11 @@ const AppNavigator = props => {
 
     return (
         <NavigationContainer>
-            <MainNavigator />
-            {/* {isAuth && userRole === 'admin' && <AdminNavigator />}
+            {/* <MainNavigator /> */}
+            {isAuth && userRole === 'admin' && <AdminNavigator />}
             {isAuth && isSignUp && <MainNavigator />}
             {isAuth && !isSignUp && userRole !== 'admin' && <OptionsNavigator />}
-            {!isAuth && <AuthNavigator />} */}
+            {!isAuth && <AuthNavigator />}
         </NavigationContainer>
     )
 }
