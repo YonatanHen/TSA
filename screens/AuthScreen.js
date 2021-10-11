@@ -39,6 +39,7 @@ const AuthScreen = props => {
   const [isSignup, setIsSignup] = useState(false)
   const [error, setError] = useState()
   const [isLoading, setIsLoading] = useState(false)
+  const [AreInstitutesLoading, setAreInstitutesLoading] = useState(false)
 
   const dispatch = useDispatch()
 
@@ -64,11 +65,11 @@ const AuthScreen = props => {
 
   useEffect(() => {
     dispatch(representationActions.fetchInstitutes())
-  }, [representationActions])
+  })
 
   useEffect(() => {
     if (error) {
-      Alert.alert('An Error occured!', error, [{text: 'OK'}])
+      Alert.alert('An Error occured!', error, [{ text: 'OK' }])
     }
   }, [error])
 
@@ -150,7 +151,7 @@ const AuthScreen = props => {
           />
           {isSignup && (
             <>
-              <RolePicker 
+              <RolePicker
                 required
                 id='role'
                 onInputChange={inputChangeHandler}
@@ -173,13 +174,19 @@ const AuthScreen = props => {
                 onInputChange={inputChangeHandler}
                 initialValue="t"
               />
-              <AutoCompleteInput
-                required
-                id="institute"
-                onInputChange={inputChangeHandler}
-                placeholder='Institute Name'
-                initialValue="zdsdsd"
-              />
+              {AreInstitutesLoading ?
+                (
+                  <ActivityIndicator size='small' color={'#eb7134'} />
+                ) :
+                (
+                  <AutoCompleteInput
+                    required
+                    id="institute"
+                    onInputChange={inputChangeHandler}
+                    placeholder='Institute Name'
+                    initialValue=""
+                  />
+                )}
             </>
           )}
         </ScrollView>

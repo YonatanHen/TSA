@@ -3,6 +3,8 @@ import { TextInput, StyleSheet, View, Text, ActivityIndicator, SafeAreaView, Scr
 import Autocomplete from 'react-native-autocomplete-input'
 import { useSelector } from 'react-redux'
 
+import * as representationActions from '../../store/actions/representation'
+
 const INPUT_CHANGE = 'INPUT_CHANGE';
 const INPUT_BLUR = 'INPUT_BLUR';
 
@@ -25,7 +27,6 @@ const inputReducer = (state, action) => {
 };
 
 const AutoCompleteInput = props => {
-    const [isLoading, setIsLoading] = useState(false)
     const [instituteName, setinstituteName] = useState('')
     const [filteredList, setFilteredList] = useState([])
     const [inputState, dispatch] = useReducer(inputReducer, {
@@ -40,7 +41,7 @@ const AutoCompleteInput = props => {
     const { onInputChange, id } = props;
 
     useEffect(() => {
-        onInputChange(id, inputState.value, inputState.isValid);
+        onInputChange(id, inputState.value, inputState.isValid)
     }, [inputState, onInputChange, id]);
 
     const findInstitute = (text) => {

@@ -12,16 +12,12 @@ export const fetchInstitutes = () => {
         response = await response.text()
 
         response = response.split('\n').map(institue => institue.split(',')[1])
-        // console.log(response)
 
-        dispatch({
+        await dispatch({
             type: ACADEMIC_INSTITUTES,
             institutesList: response
         })
 
-        // .then(response => response.text())
-        // .then(result => console.log(result))
-        // .catch(error => console.log('error', error));
     }
 }
 
