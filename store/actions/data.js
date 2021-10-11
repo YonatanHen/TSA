@@ -64,19 +64,21 @@ export const addDataOnSignUp = (bio, image, courses = undefined, phone, location
     }
 }
 
-//NOT WORKING:!!
-// export const uploadImage = (photo) => {
-//     const data = new FormData()
-//     data.append('file', photo)
-//     data.append('upload_preset', cloudinaryName)
-//     data.append("cloud_name", cloudinaryName)
-//     fetch(`https://api.cloudinary.com/v1_1/${cloudinaryName}/upload`, {
-//       method: "post",
-//       body: data
-//     }).then(res => res.json()).
-//       then(data => {
-//         setPhoto(data.secure_url)
-//       }).catch(err => {
-//         throw new Error("An Error Occured While Uploading the Image!")
-//       })
-//   }
+
+export const uploadImage = (photo) => {
+    console.log('IMAGE')
+    const data = new FormData()
+    data.append('file', photo)
+    data.append('upload_preset', cloudinaryName)
+    data.append("cloud_name", cloudinaryName)
+    fetch(`https://api.cloudinary.com/v1_1/${cloudinaryName}/upload`, {
+      method: "post",
+      body: data
+    }).then(res => res.json()).
+      then(data => {
+        setPhoto(data.secure_url)
+      }).catch(err => {
+          console.log(err)
+        throw new Error("An Error Occured While Uploading the Image!")
+      })
+  }

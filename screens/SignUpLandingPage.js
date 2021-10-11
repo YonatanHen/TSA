@@ -99,6 +99,7 @@ const SignUpLandingPage = props => {
 
     const imageTakenHandler = imagePath => {
         setSelectedImage(imagePath)
+        dataActions.uploadImage(selectedImage.uri)
     }
 
     const locationPickedHandler = useCallback(location => {
