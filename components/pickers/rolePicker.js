@@ -13,17 +13,21 @@ const RolePicker = props => {
 
     return (
         <View style={styles.picker}>
-            <Text>Select Role: </Text>
-            <Picker
-                mode='dialog'
-                selectedValue={selectedValue}
-                style={{ height: 50, width: 150 }}
-                onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
-            >
-                <Picker.Item label="Admin" value="admin" />
-                <Picker.Item label="Tutor" value="tutor" />
-                <Picker.Item label="Student" value="student" />
-            </Picker>
+            <View>
+                <Text>Select Role: </Text>
+            </View>
+            <View>
+                <Picker
+                    mode='dialog'
+                    selectedValue={selectedValue}
+                    style={{ height: 50, width: 150 }}
+                    onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+                >
+                    <Picker.Item label="Admin" value="admin" />
+                    <Picker.Item label="Tutor" value="tutor" />
+                    <Picker.Item label="Student" value="student" />
+                </Picker>
+            </View>
         </View>
     )
 }
@@ -31,6 +35,7 @@ const RolePicker = props => {
 const styles = StyleSheet.create({
     picker: {
         flexDirection: 'row',
+        alignItems: 'center'
     },
 })
 

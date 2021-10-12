@@ -38,7 +38,6 @@ const AuthScreen = props => {
   const [isSignup, setIsSignup] = useState(false)
   const [error, setError] = useState()
   const [isLoading, setIsLoading] = useState(false)
-  const [AreInstitutesLoading, setAreInstitutesLoading] = useState(false)
 
   const dispatch = useDispatch()
 
@@ -61,11 +60,6 @@ const AuthScreen = props => {
     },
     formIsValid: false
   });
-
-  // useEffect(() => {
-  //   dispatch(representationActions.fetchInstitutes())
-  //   console.log('rerendered')
-  // }, [isSignup])
 
   useEffect(() => {
     if (error) {
