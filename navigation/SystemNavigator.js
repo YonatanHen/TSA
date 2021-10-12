@@ -5,7 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer'
 import AuthScreen from '../screens/AuthScreen'
 import MainPage from '../screens/MainPageScreen'
-import AdminMainScreen from '../screens/AdminMainScreen'
+import AdminMainScreen, { screenOptions as AdminScreenOptions } from '../screens/AdminMainScreen'
 import SignUpLandingPage from '../screens/SignUpLandingPage'
 import MapScreen, { ScreenOptions as MapScreenOptions } from '../screens/MapScreen'
 import { useDispatch } from 'react-redux'
@@ -73,7 +73,7 @@ const AdminDrawerNavigator = createStackNavigator()
 export const AdminNavigator = () => {
     return (
         <AdminDrawerNavigator.Navigator>
-            <AdminDrawerNavigator.Screen name="Admin Main" component={AdminMainScreen} options={{}} />
+            <AdminDrawerNavigator.Screen name="Admin Main" component={AdminMainScreen} options={AdminScreenOptions} />
         </AdminDrawerNavigator.Navigator>
     )
 }

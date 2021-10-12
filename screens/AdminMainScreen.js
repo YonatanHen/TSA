@@ -5,6 +5,7 @@ import { DrawerActions } from '@react-navigation/native'
 import { useDispatch, useSelector } from 'react-redux'
 
 import HeaderButton from '../components/buttons/HeaderButton'
+import { logout } from '../store/actions/auth'
 
 
 const AdminMainScreen = props => {
@@ -13,7 +14,7 @@ const AdminMainScreen = props => {
 
     useEffect(() => {
         console.log('USERS LOADED')
-    },[users])
+    }, [users])
 
     return (
         <View>
@@ -21,13 +22,13 @@ const AdminMainScreen = props => {
                 sections={[
                     {
                         title: 'Tutors', data: users.tutors !== undefined ? [...Object.entries(users.tutors)]
-                        .filter(tutor => tutor[1].institue === adminInstitue)
-                        .map(tutor => tutor[1].firstName + ' ' + tutor[1].lastName) : []
+                            .filter(tutor => tutor[1].institue === adminInstitue)
+                            .map(tutor => tutor[1].firstName + ' ' + tutor[1].lastName) : []
                     },
                     {
                         title: 'Students', data: users.students !== undefined ? [...Object.entries(users.students)]
-                        .filter(student => student[1].institue === adminInstitue)
-                        .map(student => student[1].firstName + ' ' + student[1].lastName) : []
+                            .filter(student => student[1].institue === adminInstitue)
+                            .map(student => student[1].firstName + ' ' + student[1].lastName) : []
                     }
                 ]}
                 renderItem={({ item }) => <Text style={styles.item}>{item}</Text>}
@@ -44,14 +45,16 @@ const AdminMainScreen = props => {
 }
 
 export const screenOptions = navData => {
+    const dispatch = useDispatch()
     return {
         headerTitle: 'Institute Users',
-        headerLeft: () => (
+        headerRight: () => (
             <HeaderButtons HeaderButtonComponent={HeaderButton}>
                 <Item
-                    title="Menu"
+                    title="Logout"
                     onPress={() => {
-                        navData.navigation.dispatch(DrawerActions.toggleDrawer());
+                        // navData.navigation.dispatch(DrawerActions.toggleDrawer());
+                        dispatch(logout())
                     }}
                 />
             </HeaderButtons>
