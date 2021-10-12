@@ -14,7 +14,7 @@ return (
     <NavigationContainer>
         {/* <MainNavigator /> */}
         {isAuth && userRole === 'admin' && <AdminNavigator />}
-        {isAuth && isSignUp && <MainNavigator />}
+        {isAuth && isSignUp && userRole !== 'admin' && <MainNavigator />}
         {isAuth && !isSignUp && userRole !== 'admin' && <OptionsNavigator />}
         {!isAuth && <AuthNavigator />}
     </NavigationContainer>

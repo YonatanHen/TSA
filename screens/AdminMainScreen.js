@@ -11,6 +11,10 @@ const AdminMainScreen = props => {
     const users = useSelector(state => state.representationLists.usersList)
     const adminInstitue = useSelector(state => state.auth.institue)
 
+    useEffect(() => {
+        console.log('USERS LOADED')
+    },[users])
+
     return (
         <View>
             {users ? (<SectionList
