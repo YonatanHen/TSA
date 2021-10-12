@@ -78,14 +78,14 @@ const AutoCompleteInput = props => {
                         inputState.value
                 }
                 onChangeText={(text) => findInstitute(text)}
-                renderItem={({ item }) => (
-                    filteredList.length > 1 && filteredList.length < 10 ? (
-                        <Text style={styles.itemText}>
-                            {item}
-                        </Text>) : (<></>)
-                )}
+                // renderItem={({ item }) => (
+                //     filteredList.length > 1 && filteredList.length < 10 ? (
+                //         <Text style={styles.itemText}>
+                //             {item}
+                //         </Text>) : (<></>)
+                // )}
             />
-            {inputState.value !== instituteName && filteredList.length == 1 && (
+            {inputState.value !== instituteName && (
                 <View style={styles.errorContainer}>
                     <Text style={styles.errorText}>Did you mean {instituteName} ?</Text>
                 </View>

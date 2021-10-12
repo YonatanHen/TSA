@@ -65,7 +65,8 @@ const AuthScreen = props => {
 
   useEffect(() => {
     dispatch(representationActions.fetchInstitutes())
-  })
+    console.log('rerendered')
+  }, [isSignup])
 
   useEffect(() => {
     if (error) {
@@ -118,7 +119,7 @@ const AuthScreen = props => {
   return (
     <KeyboardAvoidingView
       behavior="padding"
-      keyboardVerticalOffset={50}
+      keyboardVerticalOffset={0}
       style={styles.screen}
     >
       <View>
