@@ -13,7 +13,7 @@ const AdminMainScreen = props => {
 
     return (
         <View>
-            <SectionList
+            {users ? (<SectionList
                 sections={[
                     {
                         title: 'Tutors', data: users.tutors !== undefined ? [...Object.entries(users.tutors)]
@@ -29,7 +29,11 @@ const AdminMainScreen = props => {
                 renderItem={({ item }) => <Text style={styles.item}>{item}</Text>}
                 renderSectionHeader={({ section }) => <Text style={styles.sectionHeader}>{section.title}</Text>}
                 keyExtractor={(item, index) => index}
-            />
+            />) : (
+                <Text>
+                    Loading...
+                </Text>
+            )}
 
         </View>
     )

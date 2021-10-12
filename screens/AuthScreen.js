@@ -6,7 +6,6 @@ import Input from '../components/inputs/Input'
 import AutoCompleteInput from '../components/inputs/autoCompleteInput'
 import RolePicker from '../components/pickers/rolePicker'
 
-import * as representationActions from '../store/actions/representation'
 import * as authActions from '../store/actions/auth'
 
 const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE';
@@ -63,10 +62,10 @@ const AuthScreen = props => {
     formIsValid: false
   });
 
-  useEffect(() => {
-    dispatch(representationActions.fetchInstitutes())
-    console.log('rerendered')
-  }, [isSignup])
+  // useEffect(() => {
+  //   dispatch(representationActions.fetchInstitutes())
+  //   console.log('rerendered')
+  // }, [isSignup])
 
   useEffect(() => {
     if (error) {
@@ -175,19 +174,13 @@ const AuthScreen = props => {
                 onInputChange={inputChangeHandler}
                 initialValue="t"
               />
-              {AreInstitutesLoading ?
-                (
-                  <ActivityIndicator size='small' color={'#eb7134'} />
-                ) :
-                (
-                  <AutoCompleteInput
-                    required
-                    id="institute"
-                    onInputChange={inputChangeHandler}
-                    placeholder='Institute Name'
-                    initialValue=""
-                  />
-                )}
+              <AutoCompleteInput
+                required
+                id="institute"
+                onInputChange={inputChangeHandler}
+                placeholder='Institute Name'
+                initialValue=""
+              />
             </>
           )}
         </ScrollView>

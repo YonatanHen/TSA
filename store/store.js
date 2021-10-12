@@ -8,5 +8,7 @@ const rootReducer = combineReducers({
     representationLists: representationReducer,
     auth: authReducer
 });
-  
-export default createStore(rootReducer, applyMiddleware(ReduxThunk));
+
+const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
+
+export default store

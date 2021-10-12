@@ -2,8 +2,7 @@ import React, { useReducer, useState, useEffect } from 'react'
 import { TextInput, StyleSheet, View, Text, ActivityIndicator, SafeAreaView, ScrollView } from 'react-native'
 import Autocomplete from 'react-native-autocomplete-input'
 import { useSelector } from 'react-redux'
-
-import * as representationActions from '../../store/actions/representation'
+import {fetchInstitutes} from '../../store/actions/representation'
 
 const INPUT_CHANGE = 'INPUT_CHANGE';
 const INPUT_BLUR = 'INPUT_BLUR';
@@ -37,7 +36,6 @@ const AutoCompleteInput = props => {
 
     //fetch the institutes list from the store
     const institutesList = useSelector(state => state.representationLists.institutesList)
-
     const { onInputChange, id } = props;
 
     useEffect(() => {
@@ -56,7 +54,7 @@ const AutoCompleteInput = props => {
         }
         if (filteredList.length == 1) {
             text = filteredList[0]
-            setinstituteName(text)
+            setinstituteName(filteredList[0])
             setFilteredList([])
         }
 
