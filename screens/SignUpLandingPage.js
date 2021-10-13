@@ -67,6 +67,7 @@ const SignUpLandingPage = props => {
     const submitHandler = async () => {
         let action
         action = dataActions.addDataOnSignUp(
+            userRole,
             formState.inputValues.bio,
             selectedImage,
             formState.inputValues.courses,

@@ -1,13 +1,13 @@
 import envs from '../../config/env'
 
-const { FIREBASE_API_KEY, GEOPIFY_API } = envs
+const { GEOPIFY_API } = envs
 
 const UPDATE_USER_ON_SIGNUP = 'UPDATE_USER_ON_SIGNUP'
 
-import { uploadImage } from '../../utilities/uploadImage'
+import imageUploader from '../../utilities/uploadImage'
 
 
-export const addDataOnSignUp = (bio, image, courses = undefined, phone, location) => {
+export const addDataOnSignUp = (role, bio, image, courses = undefined, phone, location) => {
     return async (dispatch, getState) => {
         if (!location) {
             throw new Error('You must pick a location!')
@@ -17,6 +17,7 @@ export const addDataOnSignUp = (bio, image, courses = undefined, phone, location
 
         let city = undefined
         let country = undefined
+        let imageUrl = undefined
 
         await fetch(
             `https://api.geoapify.com/v1/geocode/reverse?lat=${location.lat}&lon=${location.lng}&format=json&apiKey=${GEOPIFY_API}`
@@ -26,8 +27,12 @@ export const addDataOnSignUp = (bio, image, courses = undefined, phone, location
                 country = result.results[0].country
             })
 
+        if (image) {
+            imageUrl = await imageUploader(image)
+        }
+
         const response = await fetch(
-            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users/${uid}.json?auth=${token}`,
+            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users/${role}s/${uid}.json?auth=${token}`,
             {
                 method: 'PATCH',
                 headers: {
@@ -39,18 +44,14 @@ export const addDataOnSignUp = (bio, image, courses = undefined, phone, location
                     phone,
                     locationCords: location,
                     city,
-                    country
+                    country,
+                    imageUrl
                 })
             }
         )
 
         if (!response.ok) {
             throw new Error('Something went wrong!')
-        }
-
-        if (image) {
-            console.log(image)
-            uploadImage(image)
         }
 
         dispatch({
@@ -63,7 +64,7 @@ export const addDataOnSignUp = (bio, image, courses = undefined, phone, location
                 locationCords: location,
                 city,
                 country,
-                image
+                imageUrl
             }
         })
     }

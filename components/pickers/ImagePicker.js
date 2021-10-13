@@ -3,8 +3,6 @@ import { View, Button, Text, StyleSheet, Image, Alert } from 'react-native'
 import * as ImagePicker from 'expo-image-picker'
 import * as Permissions from 'expo-permissions'
 
-import { uploadImage } from '../../utilities/uploadImage'
-
 const ImgPicker = props => {
     const [pickedImage, setPickedImage] = useState()
 
@@ -40,8 +38,8 @@ const ImgPicker = props => {
         )
         console.log(image)
         setPickedImage(image.uri)
-        props.onImageTaken(image.uri)
-        uploadImage(image)
+        props.onImageTaken(image)
+        // uploadImage(image)
     }
 
     return <View style={styles.ImagePicker}>
