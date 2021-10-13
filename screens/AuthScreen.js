@@ -173,7 +173,7 @@ const AuthScreen = props => {
                 id="institute"
                 onInputChange={inputChangeHandler}
                 placeholder='Institute Name'
-                initialValue=""
+                initialValue="Sami Shamoon College of Engineering"
               />
             </>
           )}

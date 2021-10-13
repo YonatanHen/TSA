@@ -4,6 +4,8 @@ const { FIREBASE_API_KEY, GEOPIFY_API } = envs
 
 const UPDATE_USER_ON_SIGNUP = 'UPDATE_USER_ON_SIGNUP'
 
+import { uploadImage } from '../../utilities/uploadImage'
+
 
 export const addDataOnSignUp = (bio, image, courses = undefined, phone, location) => {
     return async (dispatch, getState) => {
@@ -12,8 +14,6 @@ export const addDataOnSignUp = (bio, image, courses = undefined, phone, location
         }
         const token = getState().auth.token
         const uid = getState().auth.userId
-
-        console.log(location)
 
         let city = undefined
         let country = undefined
@@ -48,6 +48,11 @@ export const addDataOnSignUp = (bio, image, courses = undefined, phone, location
             throw new Error('Something went wrong!')
         }
 
+        if (image) {
+            console.log(image)
+            uploadImage(image)
+        }
+
         dispatch({
             type: UPDATE_USER_ON_SIGNUP,
             uid: uid,
@@ -57,7 +62,8 @@ export const addDataOnSignUp = (bio, image, courses = undefined, phone, location
                 phone,
                 locationCords: location,
                 city,
-                country
+                country,
+                image
             }
         })
     }
