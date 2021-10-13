@@ -11,7 +11,7 @@ export const LOGOUT = 'LOGOUT'
 export const signup = (email, password, role, fname, lname, institute) => {
     return async dispatch => {
         await findAdmin(institute, role)
-        
+
         const response = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${FIREBASE_API_KEY}`, {
             method: 'POST',
             headers: {
@@ -38,7 +38,15 @@ export const signup = (email, password, role, fname, lname, institute) => {
 
         writeUserData({ email: email, uid: resData.localId, firstName: fname, lastName: lname, institute: institute, role: role })
 
-        await dispatch({ type: SIGNUP, userId: resData.localId, token: resData.idToken, role, institute: institute })
+        await dispatch({
+            type: SIGNUP,
+            userId: resData.localId,
+            token: resData.idToken,
+            role,
+            institute: institute,
+            firstName: fname,
+            lastName: lname
+        })
     }
 }
 
@@ -65,7 +73,15 @@ export const login = (email, password) => {
 
         const user = await readUserData(resData.localId)
 
-        dispatch({ type: SIGNIN, userId: resData.localId, token: resData.idToken, role: user.role, institute: user.institute })
+        dispatch({
+            type: SIGNIN,
+            userId: resData.localId,
+            token: resData.idToken,
+            role: user.role,
+            institute: user.institute,
+            firstName: user.firstName,
+            lastName: user.lastName
+        })
     }
 }
 

@@ -1,4 +1,4 @@
-import { UPDATE_USER_ON_SIGNUP, SAVE_IMAGE } from '../actions/data'
+import { UPDATE_USER_ON_SIGNUP } from '../actions/data'
 
 const initialState = {
     bio: '',

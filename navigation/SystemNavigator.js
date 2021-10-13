@@ -4,11 +4,11 @@ import { Ionicons } from '@expo/vector-icons';
 import { createStackNavigator } from '@react-navigation/stack'
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer'
 import AuthScreen from '../screens/AuthScreen'
-import MainPage from '../screens/MainPageScreen'
+import MainPage, { ScreenOptions as MainScreenOptions } from '../screens/MainPageScreen'
 import AdminMainScreen, { screenOptions as AdminScreenOptions } from '../screens/AdminMainScreen'
 import SignUpLandingPage from '../screens/SignUpLandingPage'
 import MapScreen, { ScreenOptions as MapScreenOptions } from '../screens/MapScreen'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import * as authActions from '../store/actions/auth'
 
@@ -24,7 +24,7 @@ export const AuthNavigator = () => {
 
 const OptionsDrawerNavigator = createDrawerNavigator()
 
-export const OptionsNavigator = () => {
+export const OptionsNavigator = props => {
     const dispatch = useDispatch() //with the dispatch we can dispatch functions from redux store 
 
     return <OptionsDrawerNavigator.Navigator drawerContent={props => {
@@ -45,7 +45,7 @@ export const OptionsNavigator = () => {
         )
     }}
     >
-        <OptionsDrawerNavigator.Screen name="Main" component={MainPage} options={{
+        <OptionsDrawerNavigator.Screen name={`${props.user.firstName} ${props.user.lastName}`} component={MainPage} options={{
             drawerIcon: props => (
                 <Ionicons
                     name={Platform.OS === 'android' ? 'md-list' : 'ios-list'}
@@ -59,6 +59,8 @@ export const OptionsNavigator = () => {
 const MainDrawerNavigator = createStackNavigator()
 
 export const MainNavigator = () => {
+    const loggedInUser = useSelector(state => state.data)
+
     return (
         <MainDrawerNavigator.Navigator>
             <MainDrawerNavigator.Screen name="Update User" component={SignUpLandingPage} options={{}} />

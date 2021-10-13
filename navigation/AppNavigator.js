@@ -8,14 +8,14 @@ import { AuthNavigator, OptionsNavigator, MainNavigator, AdminNavigator } from '
 const AppNavigator = props => {
     const isAuth = useSelector(state => !!state.auth.token)
     const isSignUp = useSelector(state => !!state.auth.signedUp)
-    const userRole = useSelector(state => state.auth.role)
+    const user = useSelector(state => state.auth)
 
 return (
     <NavigationContainer>
         {/* <MainNavigator /> */}
-        {isAuth && userRole === 'admin' && <AdminNavigator />}
-        {isAuth && isSignUp && userRole !== 'admin' && <MainNavigator />}
-        {isAuth && !isSignUp && userRole !== 'admin' && <OptionsNavigator />}
+        {isAuth && user.role === 'admin' && <AdminNavigator />}
+        {isAuth && isSignUp && user.role !== 'admin' && <MainNavigator />}
+        {isAuth && !isSignUp && user.role !== 'admin' && <OptionsNavigator user={user}/>}
         {!isAuth && <AuthNavigator />}
     </NavigationContainer>
 )
