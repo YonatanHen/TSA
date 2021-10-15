@@ -6,6 +6,7 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer'
 import AuthScreen from '../screens/AuthScreen'
 import MainPage, { ScreenOptions as MainScreenOptions } from '../screens/MainPageScreen'
+import FindTutor from '../screens/FindTutor'
 import AdminMainScreen, { screenOptions as AdminScreenOptions } from '../screens/AdminMainScreen'
 import SignUpLandingPage from '../screens/SignUpLandingPage'
 import MapScreen, { ScreenOptions as MapScreenOptions } from '../screens/MapScreen'
@@ -15,6 +16,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 
 import * as authActions from '../store/actions/auth'
+import EditUser from '../screens/EditUser';
 
 const AuthStackNavigator = createStackNavigator()
 
@@ -30,8 +32,27 @@ const Tab = createMaterialBottomTabNavigator();
 
 export const TabsNavigator = () => {
   return (
-    <Tab.Navigator>
-        <Tab.Screen name="Main Menu" component={OptionsNavigator} /> 
+    <Tab.Navigator
+    screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size = 20 }) => {
+          let iconName;
+
+          if (route.name === 'Home') {
+            iconName = focused
+              ? 'home'
+              : 'home-outline';
+          } else if (route.name === 'Find Tutor') {
+            iconName = focused ? 'search' : 'search-outline';
+          }
+
+          // You can return any component that you like here!
+          return <Ionicons name={iconName} size={size} color={color} />;
+        },
+        tabBarActiveTintColor: 'tomato',
+        tabBarInactiveTintColor: 'gray',
+      })}>
+        <Tab.Screen name="Home" component={OptionsNavigator} /> 
+        <Tab.Screen name="Find Tutor" component={FindTutor}/> 
     </Tab.Navigator>
   );
 }
@@ -40,7 +61,6 @@ const OptionsDrawerNavigator = createDrawerNavigator()
 
 export const OptionsNavigator = props => {
     const user = useSelector(state => state.auth)
-    console.log(user)
     const dispatch = useDispatch() //with the dispatch we can dispatch functions from redux store 
 
     return <OptionsDrawerNavigator.Navigator drawerContent={props => {
@@ -61,8 +81,7 @@ export const OptionsNavigator = props => {
         )
     }}
     >
-        {/* name={`${props.user.firstName} ${props.user.lastName}`}  */}
-        <OptionsDrawerNavigator.Screen name={ user.firstName + ' ' + user.lastName} component={MainPage} options={{
+        <OptionsDrawerNavigator.Screen name={'Hello ' + user.firstName + ' ' + user.lastName} component={MainPage} options={{
             drawerIcon: props => (
                 <Ionicons
                     name={Platform.OS === 'android' ? 'md-list' : 'ios-list'}
@@ -70,6 +89,14 @@ export const OptionsNavigator = props => {
                 />
             )
         }} />
+        <OptionsDrawerNavigator.Screen name="Edit user" component={EditUser} options={{
+                     drawerIcon: props => (
+                        <Ionicons
+                            name='create-outline'
+                            size={23}
+                        />
+                    )
+        }}/>
     </OptionsDrawerNavigator.Navigator>
 }
 
@@ -81,7 +108,6 @@ export const MainNavigator = () => {
 
     return (
         <MainDrawerNavigator.Navigator>
-            {/* <MainDrawerNavigator.Screen name="TabsNav" component={MyTabs} options={{ headerShown: false }}/> */}
             <MainDrawerNavigator.Screen name="Update User" component={SignUpLandingPage} options={{}} />
             <MainDrawerNavigator.Screen name="Main" component={TabsNavigator} options={{ }} />
             <MainDrawerNavigator.Screen name="Map" component={MapScreen} options={MapScreenOptions} />
