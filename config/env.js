@@ -6,4 +6,5 @@ const EnvVariables = {
     GEOPIFY_API
 }
 
+console.log('')
 export default EnvVariables
