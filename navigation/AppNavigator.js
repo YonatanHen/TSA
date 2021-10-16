@@ -6,9 +6,9 @@ import { AuthNavigator, OptionsNavigator, MainNavigator, AdminNavigator, TabsNav
 
 
 const AppNavigator = props => {
-    const isAuth = useSelector(state => !!state.auth.token)
-    const isSignUp = useSelector(state => !!state.auth.signedUp)
-    const user = useSelector(state => state.auth)
+    const isAuth = useSelector(state => !!state.userData.token)
+    const isSignUp = useSelector(state => !!state.userData.signedUp)
+    const user = useSelector(state => state.userData)
 
 return (
     <NavigationContainer>

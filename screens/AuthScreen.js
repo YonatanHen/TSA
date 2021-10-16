@@ -6,7 +6,7 @@ import Input from '../components/inputs/Input'
 import AutoCompleteInput from '../components/inputs/autoCompleteInput'
 import RolePicker from '../components/pickers/rolePicker'
 
-import * as authActions from '../store/actions/auth'
+import * as userDataActions from '../store/actions/userData'
 
 const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE';
 
@@ -70,7 +70,7 @@ const AuthScreen = props => {
   const authHandler = async () => {
     let action;
     if (isSignup) {
-      action = authActions.signup(
+      action = userDataActions.signup(
         formState.inputValues.email,
         formState.inputValues.password,
         formState.inputValues.role,
@@ -80,7 +80,7 @@ const AuthScreen = props => {
       );
     }
     else {
-      action = authActions.login(
+      action = userDataActions.login(
         formState.inputValues.email,
         formState.inputValues.password
       );

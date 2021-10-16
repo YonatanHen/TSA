@@ -5,12 +5,12 @@ import { DrawerActions } from '@react-navigation/native'
 import { useDispatch, useSelector } from 'react-redux'
 
 import HeaderButton from '../components/buttons/HeaderButton'
-import { logout } from '../store/actions/auth'
+import { logout } from '../store/actions/userData'
 
 
 const AdminMainScreen = props => {
     const users = useSelector(state => state.representationLists.usersList)
-    const adminInstitue = useSelector(state => state.auth.institue)
+    const adminInstitue = useSelector(state => state.userData.institue)
 
     useEffect(() => {
         console.log('USERS LOADED')

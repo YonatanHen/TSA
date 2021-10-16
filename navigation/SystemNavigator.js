@@ -12,10 +12,7 @@ import SignUpLandingPage from '../screens/SignUpLandingPage'
 import MapScreen, { ScreenOptions as MapScreenOptions } from '../screens/MapScreen'
 import { useDispatch, useSelector } from 'react-redux'
 
-
-
-
-import * as authActions from '../store/actions/auth'
+import * as userDataActions from '../store/actions/userData'
 import EditUser from '../screens/EditUser';
 
 const AuthStackNavigator = createStackNavigator()
@@ -60,7 +57,7 @@ export const TabsNavigator = () => {
 const OptionsDrawerNavigator = createDrawerNavigator()
 
 export const OptionsNavigator = props => {
-    const user = useSelector(state => state.auth)
+    const user = useSelector(state => state.userData)
     const dispatch = useDispatch() //with the dispatch we can dispatch functions from redux store 
 
     return <OptionsDrawerNavigator.Navigator drawerContent={props => {
@@ -73,7 +70,7 @@ export const OptionsNavigator = props => {
                     <Button
                         title="Logout"
                         onPress={() => {
-                            dispatch(authActions.logout())
+                            dispatch(userDataActions.logout())
                         }}
                     />
                 </View>
