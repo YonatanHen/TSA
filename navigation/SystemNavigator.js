@@ -6,7 +6,7 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer'
 import AuthScreen from '../screens/AuthScreen'
 import MainPage, { ScreenOptions as MainScreenOptions } from '../screens/MainPageScreen'
-import FindTutor from '../screens/FindTutor'
+import FindTutor, {screenOptions as FindTutorScreenOptions} from '../screens/FindTutor'
 import UserProfile from '../screens/UserProfile';
 import AdminMainScreen, { screenOptions as AdminScreenOptions } from '../screens/AdminMainScreen'
 import SignUpLandingPage from '../screens/SignUpLandingPage'
@@ -16,6 +16,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import * as userDataActions from '../store/actions/userData'
 import EditUser from '../screens/EditUser';
 
+//Auth Navigators
+
 const AuthStackNavigator = createStackNavigator()
 
 export const AuthNavigator = () => {
@@ -23,6 +25,28 @@ export const AuthNavigator = () => {
         <AuthStackNavigator.Navigator>
             <AuthStackNavigator.Screen name="Auth" component={AuthScreen} options={{ headerTitle: 'Welcome to the Students Scheduler App!' }} />
         </AuthStackNavigator.Navigator>
+    )
+}
+
+//Student Navigators
+
+const FindTutorStackNavigator = createStackNavigator()
+
+export const FindTutorNavigator = () => {
+    return (
+        <FindTutorStackNavigator.Navigator>
+            <FindTutorStackNavigator.Screen name="Find Tutor" component={FindTutor}  />
+        </FindTutorStackNavigator.Navigator>
+    )
+}
+
+const ProfileStackNavigator = createStackNavigator()
+
+export const UserProfileNavigator = () => {
+    return (
+        <ProfileStackNavigator.Navigator>
+            <ProfileStackNavigator.Screen name="User Profile" component={UserProfile}  />
+        </ProfileStackNavigator.Navigator>
     )
 }
 
@@ -51,8 +75,8 @@ export const TabsNavigator = () => {
         tabBarInactiveTintColor: 'gray',
       })}>
         <Tab.Screen name="Home" component={OptionsNavigator} /> 
-        <Tab.Screen name="Find Tutor" component={FindTutor}/> 
-        <Tab.Screen name="Profile" component={UserProfile}/>
+        <Tab.Screen name="Find Tutor" component={FindTutorNavigator}/> 
+        <Tab.Screen name="Profile" component={UserProfileNavigator}/>
     </Tab.Navigator>
   );
 }

@@ -14,21 +14,21 @@ const FindTutor = props => {
     )
 }
 
-export const screenOptions = navData => {
-    return {
-        headerTitle: 'Students Scheduler',
-        headerLeft: () => (
-            <HeaderButtons HeaderButtonComponent={HeaderButton}>
-                <Item
-                    title="Menu"
-                    onPress={() => {
-                        navData.navigation.dispatch(DrawerActions.toggleDrawer());
-                    }}
-                />
-            </HeaderButtons>
-        )
-    }
-}
+// export const screenOptions = navData => {
+//     return {
+//         headerTitle: 'Find Tutor',
+//         // headerLeft: () => (
+//         //     <HeaderButtons HeaderButtonComponent={HeaderButton}>
+//         //         <Item
+//         //             title="Find Tutor"
+//         //             onPress={() => {
+//         //                 navData.navigation.dispatch(DrawerActions.toggleDrawer());
+//         //             }}
+//         //         />
+//         //     </HeaderButtons>
+//         // )
+//     }
+// }
 
 const styles = StyleSheet.create({})
 
