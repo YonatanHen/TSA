@@ -29,7 +29,7 @@ export const AuthNavigator = () => {
 const Tab = createMaterialBottomTabNavigator();
 
 export const TabsNavigator = () => {
-    const userImage = useSelector(state => state.userData)
+    const userImage = useSelector(state => state.userData.imageUrl)
     console.log('USER DATA IS')
     console.log(userImage)
   return (
@@ -46,7 +46,7 @@ export const TabsNavigator = () => {
           }
           else if (route.name === 'Profile') {
             return <Image style={{ width: 25, height: 25 , borderRadius: 100,}} 
-            source={require('../images/Default-Profile-Picture.png')} />
+            source={userImage ? { uri: userImage } : require('../images/Default-Profile-Picture.png')} />
           }
         },
         tabBarActiveTintColor: 'tomato',
