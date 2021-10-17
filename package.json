@@ -42,7 +42,8 @@
     "react-navigation-header-buttons": "^3.0.1",
     "react-redux": "^7.2.4",
     "redux": "^4.1.1",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "rn-range-slider": "^2.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0"

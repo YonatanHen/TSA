@@ -63,7 +63,7 @@ export const TabsNavigator = () => {
           if (route.name === 'Home') {
             return <Ionicons name={focused ? 'home' : 'home-outline'} size={size} color={color} />;
 
-          } else if (route.name === 'Find Tutor') {
+          } else if (route.name === 'Find-Tutor') {
             return <Ionicons name={focused ? 'search' : 'search-outline'} size={size} color={color} />;
           }
           else if (route.name === 'Profile') {
@@ -75,7 +75,7 @@ export const TabsNavigator = () => {
         tabBarInactiveTintColor: 'gray',
       })}>
         <Tab.Screen name="Home" component={OptionsNavigator} /> 
-        <Tab.Screen name="Find Tutor" component={FindTutorNavigator}/> 
+        <Tab.Screen name="Find-Tutor" component={FindTutorNavigator}/> 
         <Tab.Screen name="Profile" component={UserProfileNavigator}/>
     </Tab.Navigator>
   );
