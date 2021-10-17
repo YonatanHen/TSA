@@ -136,8 +136,8 @@ export const addDataOnSignUp = (role, bio, image, courses = undefined, phone, lo
         if (!location) {
             throw new Error('You must pick a location!')
         }
-        const token = getState().auth.token
-        const uid = getState().auth.userId
+        const token = getState().userData.token
+        const uid = getState().userData.userId
 
         let city = undefined
         let country = undefined

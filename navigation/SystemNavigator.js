@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, SafeAreaView, Button } from 'react-native'
+import { View, SafeAreaView, Button, Image } from 'react-native'
 import { Ionicons } from '@expo/vector-icons';
 import { createStackNavigator } from '@react-navigation/stack'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
@@ -7,6 +7,7 @@ import { createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemL
 import AuthScreen from '../screens/AuthScreen'
 import MainPage, { ScreenOptions as MainScreenOptions } from '../screens/MainPageScreen'
 import FindTutor from '../screens/FindTutor'
+import UserProfile from '../screens/UserProfile';
 import AdminMainScreen, { screenOptions as AdminScreenOptions } from '../screens/AdminMainScreen'
 import SignUpLandingPage from '../screens/SignUpLandingPage'
 import MapScreen, { ScreenOptions as MapScreenOptions } from '../screens/MapScreen'
@@ -31,25 +32,26 @@ export const TabsNavigator = () => {
   return (
     <Tab.Navigator
     screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size = 20 }) => {
+        tabBarIcon: ({ focused, color, size = 25 }) => {
           let iconName;
 
           if (route.name === 'Home') {
-            iconName = focused
-              ? 'home'
-              : 'home-outline';
-          } else if (route.name === 'Find Tutor') {
-            iconName = focused ? 'search' : 'search-outline';
-          }
+            return <Ionicons name={focused ? 'home' : 'home-outline'} size={size} color={color} />;
 
-          // You can return any component that you like here!
-          return <Ionicons name={iconName} size={size} color={color} />;
+          } else if (route.name === 'Find Tutor') {
+            return <Ionicons name={focused ? 'search' : 'search-outline'} size={size} color={color} />;
+          }
+          else if (route.name === 'Profile') {
+            return <Image style={{ width: 25, height: 25 , borderRadius: 100,}} 
+            source={require('../images/Default-Profile-Picture.png')} />
+          }
         },
         tabBarActiveTintColor: 'tomato',
         tabBarInactiveTintColor: 'gray',
       })}>
         <Tab.Screen name="Home" component={OptionsNavigator} /> 
         <Tab.Screen name="Find Tutor" component={FindTutor}/> 
+        <Tab.Screen name="Profile" component={UserProfile}/>
     </Tab.Navigator>
   );
 }
@@ -62,7 +64,7 @@ export const OptionsNavigator = props => {
 
     return <OptionsDrawerNavigator.Navigator drawerContent={props => {
         return (
-            <View style={{ flex: 1, paddingTop: 20 }}>
+            <View style={{ flex: 1, paddingTop: '30%' }}>
                 <SafeAreaView forceInset={{ top: 'always', horizontal: 'never' }}>
                     <DrawerItemList {...props} />
                 </SafeAreaView>
