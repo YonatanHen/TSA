@@ -30,8 +30,6 @@ const Tab = createMaterialBottomTabNavigator();
 
 export const TabsNavigator = () => {
     const userImage = useSelector(state => state.userData.imageUrl)
-    console.log('USER DATA IS')
-    console.log(userImage)
   return (
     <Tab.Navigator
     screenOptions={({ route }) => ({
