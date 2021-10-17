@@ -1,16 +1,15 @@
 import React from 'react'
-import { StyleSheet, Text } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
-import { DrawerActions } from '@react-navigation/native';
 
 import HeaderButton from '../components/buttons/HeaderButton';
+import DistancePicker from '../components/pickers/distancePicker';
 
 const FindTutor = props => {
-
     return (
-        <Text>
-            Find Tutor screen
-        </Text>
+        <View style={styles.formContainer}>
+            <DistancePicker />
+        </View>
     )
 }
 
@@ -30,6 +29,12 @@ const FindTutor = props => {
 //     }
 // }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    formContainer: {
+        flex: 1,
+        alignItems: 'center',
+        paddingTop: 10
+    }
+})
 
 export default FindTutor

@@ -37,13 +37,13 @@
     "react-native-reanimated": "^2.2.2",
     "react-native-safe-area-context": "^3.2.0",
     "react-native-screens": "^3.5.0",
+    "react-native-slider": "^0.11.0",
     "react-native-vector-icons": "^8.1.0",
     "react-native-web": "~0.13.12",
     "react-navigation-header-buttons": "^3.0.1",
     "react-redux": "^7.2.4",
     "redux": "^4.1.1",
-    "redux-thunk": "^2.3.0",
-    "rn-range-slider": "^2.1.1"
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0"
