@@ -48,7 +48,7 @@ export const signup = (email, password, role, fname, lname, institute) => {
             role,
             institute: institute,
             firstName: fname,
-            lastName: lname
+            lastName: lname,
         })
     }
 }
@@ -75,15 +75,11 @@ export const login = (email, password) => {
         }
 
         const user = await readUserData(resData.localId)
-
+        
         dispatch({
             type: SIGNIN,
-            userId: resData.localId,
             token: resData.idToken,
-            role: user.role,
-            institute: user.institute,
-            firstName: user.firstName,
-            lastName: user.lastName
+            ...user
         })
     }
 }
@@ -181,15 +177,13 @@ export const addDataOnSignUp = (role, bio, image, courses = undefined, phone, lo
         dispatch({
             type: UPDATE_USER_ON_SIGNUP,
             uid: uid,
-            userData: {
-                bio,
-                courses,
-                phone,
-                locationCords: location,
-                city,
-                country,
-                imageUrl
-            }
+            bio,
+            courses,
+            phone,
+            locationCords: location,
+            city,
+            country,
+            imageUrl
         })
     }
 }

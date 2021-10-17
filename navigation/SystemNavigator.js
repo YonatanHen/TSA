@@ -29,6 +29,9 @@ export const AuthNavigator = () => {
 const Tab = createMaterialBottomTabNavigator();
 
 export const TabsNavigator = () => {
+    const userImage = useSelector(state => state.userData)
+    console.log('USER DATA IS')
+    console.log(userImage)
   return (
     <Tab.Navigator
     screenOptions={({ route }) => ({

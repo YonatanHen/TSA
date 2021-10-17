@@ -3,17 +3,17 @@ import { LOGOUT, SIGNIN, SIGNUP, UPDATE_USER_ON_SIGNUP } from '../actions/userDa
 const initialState = {
     //On sign-in/up
     token: null,
-    userId: null,
+    uid: null,
     signedUp: false,
     role: null,
-    institue: null,
+    institute: null,
     firstName: null,
     lastName: null,
     //Addittional details
     bio: '',
     courses: [],
     phone: '',
-    image: '',
+    imageUrl: '',
     locationCords: '',
     city: '',
     country: ''
@@ -26,10 +26,10 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 token: action.token,
-                userId: action.userId,
+                uid: action.userId,
                 signedUp: true,
                 role: action.role,
-                institue: action.institue,
+                institue: action.institute,
                 firstName: action.firstName,
                 lastName: action.lastName
             }
@@ -37,11 +37,18 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 token: action.token,
-                userId: action.userId,
+                uid: action.uid,
                 role: action.role,
-                institue: action.institue,
+                institute: action.institute,
                 firstName: action.firstName,
-                lastName: action.lastName
+                lastName: action.lastName,
+                bio: action.bio,
+                courses: action.courses,
+                phone: action.phone,
+                imageUrl: action.imageUrl,
+                locationCords: action.locationCords,
+                city: action.city,
+                country: action.country
             }
         case LOGOUT:
             return {
@@ -52,7 +59,7 @@ export default (state = initialState, action) => {
                 bio: action.bio,
                 courses: action.courses,
                 phone: action.phone,
-                image: action.image,
+                imageUrl: action.image,
                 locationCords: action.locationCords,
                 city: action.city,
                 country: action.country
