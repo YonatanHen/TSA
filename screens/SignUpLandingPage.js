@@ -3,8 +3,8 @@ import { StyleSheet, View, KeyboardAvoidingView, ActivityIndicator, Button, Aler
 import { ScrollView } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Input from '../components/inputs/Input'
-import MultipleInput from '../components/inputs/multipleInput'
+import Input from '../components/Inputs/LoginAndSignUp/Input'
+import MultipleInput from '../components/Inputs/LoginAndSignUp/multipleInput'
 import ImagePicker from '../components/pickers/ImagePicker'
 import LocationPicker from '../components/pickers/LocationPicker'
 

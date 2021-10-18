@@ -2,7 +2,6 @@ import React, { useReducer, useState, useEffect } from 'react'
 import { TextInput, StyleSheet, View, Text, ActivityIndicator, SafeAreaView, ScrollView } from 'react-native'
 import Autocomplete from 'react-native-autocomplete-input'
 import { useSelector } from 'react-redux'
-import {fetchInstitutes} from '../../store/actions/representation'
 
 const INPUT_CHANGE = 'INPUT_CHANGE';
 const INPUT_BLUR = 'INPUT_BLUR';
