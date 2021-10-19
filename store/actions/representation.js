@@ -1,21 +1,22 @@
 export const ACADEMIC_INSTITUTES = 'ACADEMIC_INSTITUTES'
 export const READ_ALL_USERS = 'READ_ALL_USERS'
 
+import institutesList from '../../data/world-universities'
+
 export const fetchInstitutes = () => {
     return async dispatch => {
-        let response = await fetch("https://raw.githubusercontent.com/endSly/world-universities-csv/master/world-universities.csv", {
-            method: 'GET',
-            body: '',
-            redirect: 'follow'
-        })
+        // let response = await fetch("https://raw.githubusercontent.com/endSly/world-universities-csv/master/world-universities.csv", {
+        //     method: 'GET',
+        //     body: '',
+        //     redirect: 'follow'
+        // })
 
-        response = await response.text()
-
-        response = response.split('\n').map(institue => institue.split(',')[1])
+        // response = await response.text()
+        list = institutesList.split('\n').map(institue => institue.split(',')[1])
 
         dispatch({
             type: ACADEMIC_INSTITUTES,
-            institutesList: response
+            institutesList: list
         })
 
     }
