@@ -31,20 +31,18 @@ const FindTutor = props => {
     return (
         <>
             <View style={styles.formContainer}>
-                <ScrollView>
-                    <View style={styles.searchInputs}>
-                        <DistancePicker />
-                        <Input
-                            initialValue=""
-                            placeholder="Enter course name"
-                            onInputChange={inputChangeHandler}
-                        />
-                        <Input
-                            initialValue=""
-                            placeholder="Enter tutor name"
-                            onInputChange={inputChangeHandler}
-                        />
-                    </View>
+                <ScrollView>                        
+                    <DistancePicker />
+                    <Input
+                        initialValue=""
+                        placeholder="Enter course name"
+                        onInputChange={inputChangeHandler}
+                    />
+                    <Input
+                        initialValue=""
+                        placeholder="Enter tutor name"
+                        onInputChange={inputChangeHandler}
+                    />
                 </ScrollView>
             </View>
 
@@ -88,10 +86,6 @@ const styles = StyleSheet.create({
         paddingTop: 10,
         alignItems: 'center',
 
-    },
-    searchInputs: {
-        flex: 1,
-        // alignItems: 'center',
     },
     tutorsList: {
         flex: 1.5,
