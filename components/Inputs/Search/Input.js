@@ -25,7 +25,7 @@ const Input = props => {
 
 const styles = StyleSheet.create({
   input: {
-    flex: 1,
+    // flex: 1,
     paddingHorizontal: 2,
     paddingVertical: 8,
     borderBottomColor: '#ccc',

@@ -36,6 +36,7 @@ const DistancePicker = props => {
 
 const styles = StyleSheet.create({
     picker: {
+        flex: 1,
         flexDirection: 'row',
         alignItems: 'center'
     },
