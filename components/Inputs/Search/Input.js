@@ -8,7 +8,7 @@ const Input = props => {
   const { onInputChange, id } = props;
 
   useEffect(() => {
-    onInputChange(id, inputState.value);
+    onInputChange(id, inputState);
   }, [inputState, onInputChange]);
 
   return (
@@ -16,7 +16,7 @@ const Input = props => {
       <TextInput
         {...props}
         style={styles.input}
-        value={inputState.value}
+        value={inputState}
         onChangeText={text => inputStateHandler(text)}
       />
     </View>

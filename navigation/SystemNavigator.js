@@ -105,7 +105,7 @@ export const OptionsNavigator = props => {
         )
     }}
     >
-        <OptionsDrawerNavigator.Screen name={'Hello ' + user.firstName + ' ' + user.lastName} component={MainPage} options={{
+        <OptionsDrawerNavigator.Screen name={'Main'} component={MainPage} options={{
             drawerIcon: props => (
                 <Ionicons
                     name={Platform.OS === 'android' ? 'md-list' : 'ios-list'}

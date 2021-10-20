@@ -20,15 +20,15 @@ const FindTutor = props => {
     })
 
     useEffect(() => {
-        console.log(users.tutors)
-    }, [users])
-
+        console.log(formState)
+    }, [users, formState])
 
     const inputChangeHandler = useCallback(
         (inputIdentifier, inputValue) => {
+            console.log(inputIdentifier, inputValue)
             formStateHandler({
-                value: inputValue,
-                input: inputIdentifier
+                ...formState,
+                [inputIdentifier]: inputValue
             })
         },
         [formStateHandler]
@@ -38,13 +38,17 @@ const FindTutor = props => {
         <>
             <View style={styles.formContainer}>
                 <ScrollView>
-                    <DistancePicker />
+                    <DistancePicker
+                        id="distance"
+                    />
                     <Input
+                        id="courseName"
                         initialValue=""
                         placeholder="Enter course name"
                         onInputChange={inputChangeHandler}
                     />
                     <Input
+                        id="TutorName"
                         initialValue=""
                         placeholder="Enter tutor name"
                         onInputChange={inputChangeHandler}
@@ -55,12 +59,16 @@ const FindTutor = props => {
             <View style={styles.tutorsList}>
                 {users ? (users.tutors !== undefined ? (<ScrollView>
                     {[...Object.entries(users.tutors)]
-                        .filter(tutor => tutor[1].institute === LoggedInUser.institute)
+                        .filter(tutor => tutor[1].institute === LoggedInUser.institute
+                            && tutor[1].courses.includes(formState.courseName))
                         .map(tutor => {
+                            console.log(tutor)
                             return (
                                 <TutorItem
+                                    key={tutor[1].uid}
                                     name={tutor[1].firstName + ' ' + tutor[1].lastName}
-                                    userImage ={tutor[1].imageUrl}
+                                    userImage={tutor[1].imageUrl}
+                                    distance={'5km'}
                                 />
                             )
                         })}
@@ -72,15 +80,6 @@ const FindTutor = props => {
                     <ActivityIndicator size='large' color={'black'} />
                 )}
             </View>
-
-
-            {/* {users.tutors !== undefined ? [...Object.entries(users.tutors)]
-                    .filter(tutor => tutor[1].institue === adminInstitue && `${tutor[1].firstName} ${tutor[1].lastName}`.includes(searchInput))
-                    .map((tutor) => {
-                        return (
-                            
-                    )
-                    }) : ['No tutors found']} */}
         </>
     )
 }
