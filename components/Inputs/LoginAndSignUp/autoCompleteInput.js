@@ -68,19 +68,13 @@ const AutoCompleteInput = props => {
                 autoCorrect={false}
                 style={styles.autocompleteContainer}
                 inputContainerStyle={{ borderWidth: 0 }}
-                data={filteredList}
+                // data={filteredList}
                 defaultValue={
                     inputState.value === '' ?
                         '' :
                         inputState.value
                 }
                 onChangeText={(text) => findInstitute(text)}
-                // renderItem={({ item }) => (
-                //     filteredList.length > 1 && filteredList.length < 10 ? (
-                //         <Text style={styles.itemText}>
-                //             {item}
-                //         </Text>) : (<></>)
-                // )}
             />
             {inputState.value !== instituteName && (
                 <View style={styles.errorContainer}>

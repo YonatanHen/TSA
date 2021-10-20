@@ -113,7 +113,7 @@ export const OptionsNavigator = props => {
                 />
             )
         }} />
-        <OptionsDrawerNavigator.Screen name="Edit user" component={EditUser} options={{
+        <OptionsDrawerNavigator.Screen name={"Edit user"} component={EditUser} options={{
                      drawerIcon: props => (
                         <Ionicons
                             name='create-outline'
@@ -132,9 +132,9 @@ export const MainNavigator = () => {
 
     return (
         <MainDrawerNavigator.Navigator>
-            <MainDrawerNavigator.Screen name="Update User" component={SignUpLandingPage} options={{}} />
-            <MainDrawerNavigator.Screen name="Main" component={TabsNavigator} options={{ }} />
-            <MainDrawerNavigator.Screen name="Map" component={MapScreen} options={MapScreenOptions} />
+            <MainDrawerNavigator.Screen name={"Update User"} component={SignUpLandingPage} options={{}} />
+            <MainDrawerNavigator.Screen name={"Main"} component={TabsNavigator} options={{ }} />
+            <MainDrawerNavigator.Screen name={"Map"} component={MapScreen} options={MapScreenOptions} />
         </MainDrawerNavigator.Navigator>
     )
 }
