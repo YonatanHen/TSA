@@ -26,7 +26,7 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 token: action.token,
-                uid: action.userId,
+                uid: action.uid,
                 signedUp: true,
                 role: action.role,
                 institue: action.institute,

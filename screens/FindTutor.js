@@ -1,5 +1,5 @@
-import React, { useState, useCallback } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import React, { useState, useCallback, useEffect } from 'react'
+import { StyleSheet, Text, View, ActivityIndicator } from 'react-native'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
 import HeaderButton from '../components/buttons/HeaderButton';
@@ -10,12 +10,18 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { useSelector } from 'react-redux';
 
 const FindTutor = props => {
-    const usersList = useSelector(state => state.representationLists.usersList)
+    const users = useSelector(state => state.representationLists.usersList)
+    const LoggedInUser = useSelector(state => state.userData)
+
     const [formState, formStateHandler] = useState({
         distance: '2km',
         courseName: '',
         TutorName: ''
     })
+
+    useEffect(() => {
+        console.log(users.tutors)
+    }, [users])
 
 
     const inputChangeHandler = useCallback(
@@ -31,7 +37,7 @@ const FindTutor = props => {
     return (
         <>
             <View style={styles.formContainer}>
-                <ScrollView>                        
+                <ScrollView>
                     <DistancePicker />
                     <Input
                         initialValue=""
@@ -47,9 +53,24 @@ const FindTutor = props => {
             </View>
 
             <View style={styles.tutorsList}>
-                <ScrollView>
-                    <TutorItem />
+                {users ? (users.tutors !== undefined ? (<ScrollView>
+                    {[...Object.entries(users.tutors)]
+                        .filter(tutor => tutor[1].institute === LoggedInUser.institute)
+                        .map(tutor => {
+                            return (
+                                <TutorItem
+                                    name={tutor[1].firstName + ' ' + tutor[1].lastName}
+                                    userImage ={tutor[1].imageUrl}
+                                />
+                            )
+                        })}
+
                 </ScrollView>
+                ) : (
+                    <Text>No Tutors found.</Text>
+                )) : (
+                    <ActivityIndicator size='large' color={'black'} />
+                )}
             </View>
 
 

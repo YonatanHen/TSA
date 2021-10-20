@@ -43,7 +43,7 @@ export const signup = (email, password, role, fname, lname, institute) => {
 
         await dispatch({
             type: SIGNUP,
-            userId: resData.localId,
+            uid: resData.localId,
             token: resData.idToken,
             role,
             institute: institute,
@@ -133,7 +133,7 @@ export const addDataOnSignUp = (role, bio, image, courses = undefined, phone, lo
             throw new Error('You must pick a location!')
         }
         const token = getState().userData.token
-        const uid = getState().userData.userId
+        const uid = getState().userData.uid
 
         let city = undefined
         let country = undefined
