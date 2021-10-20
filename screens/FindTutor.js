@@ -25,7 +25,6 @@ const FindTutor = props => {
 
     const inputChangeHandler = useCallback(
         (inputIdentifier, inputValue) => {
-            console.log(inputIdentifier, inputValue)
             formStateHandler({
                 ...formState,
                 [inputIdentifier]: inputValue
@@ -60,9 +59,8 @@ const FindTutor = props => {
                 {users ? (users.tutors !== undefined ? (<ScrollView>
                     {[...Object.entries(users.tutors)]
                         .filter(tutor => tutor[1].institute === LoggedInUser.institute
-                            && tutor[1].courses.includes(formState.courseName))
+                            && tutor[1].courses.some(course => course.includes(formState.courseName)))
                         .map(tutor => {
-                            console.log(tutor)
                             return (
                                 <TutorItem
                                     key={tutor[1].uid}
