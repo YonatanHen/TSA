@@ -56,13 +56,15 @@ export default (state = initialState, action) => {
             }
         case UPDATE_USER_ON_SIGNUP:
             return {
+                ...state,
                 bio: action.bio,
                 courses: action.courses,
                 phone: action.phone,
                 imageUrl: action.image,
                 locationCords: action.locationCords,
                 city: action.city,
-                country: action.country
+                country: action.country,
+                signedUp: false,
             }
         default:
             return state

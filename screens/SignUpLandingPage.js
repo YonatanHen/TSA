@@ -65,8 +65,7 @@ const SignUpLandingPage = props => {
     });
 
     const submitHandler = async () => {
-        let action
-        action = userDataActions.addDataOnSignUp(
+        let action = userDataActions.addDataOnSignUp(
             userRole,
             formState.inputValues.bio,
             selectedImage,
@@ -77,14 +76,14 @@ const SignUpLandingPage = props => {
         setError(null)
         setIsLoading(true);
         try {
-            await dispatch(action)
-            props.navigation.navigate('Main')
+            //CAnt navigate after dispatch, when i deleted dispatch the navigate function worked.
+            dispatch(action)
+            // props.navigation.navigate('Student Home', {screen: 'Home'})
         } catch (err) {
-            console.log(err)
             setError(err.message)
             setIsLoading(false)
         }
-    };
+    }
 
     const inputChangeHandler = useCallback(
         (inputIdentifier, inputValue, inputValidity) => {
@@ -158,15 +157,6 @@ const SignUpLandingPage = props => {
                         <View style={styles.buttonContainer}>
                             <View style={styles.button}>
                                 <Button title={'Submit'} color='#eb7134' onPress={submitHandler} />
-                            </View>
-                            <View style={styles.button}>
-                                <Button
-                                    title={'Skip'}
-                                    onPress={() => {
-                                        props.navigation.navigate('Main')
-                                    }}
-                                    color='#66a11f'
-                                />
                             </View>
                         </View>
                     )}

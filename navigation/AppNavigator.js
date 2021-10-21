@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { NavigationContainer } from '@react-navigation/native'
 import AppLoading from 'expo-app-loading'
-import { AuthNavigator, OptionsNavigator, MainNavigator, AdminNavigator, TabsNavigator } from './SystemNavigator'
+import { AuthNavigator, MainNavigator, AdminNavigator, TabsNavigator } from './SystemNavigator'
 
 
 const AppNavigator = props => {

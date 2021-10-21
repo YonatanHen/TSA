@@ -33,6 +33,9 @@ export const signup = (email, password, role, fname, lname, institute) => {
             if (resData.error.message === 'EMAIL_EXISTS') {
                 throw new Error('Email already exists')
             }
+            else if (resData.error.message === 'EMAIL_NOT_FOUND') {
+                throw new Error('User is not exists in our database')
+            }
             else {
                 throw new Error('Something went wrong')
             }

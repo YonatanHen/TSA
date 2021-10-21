@@ -6,7 +6,7 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer'
 import AuthScreen from '../screens/AuthScreen'
 import MainPage, { ScreenOptions as MainScreenOptions } from '../screens/MainPageScreen'
-import FindTutor, {screenOptions as FindTutorScreenOptions} from '../screens/FindTutor'
+import FindTutor, { screenOptions as FindTutorScreenOptions } from '../screens/FindTutor'
 import UserProfile from '../screens/UserProfile';
 import AdminMainScreen, { screenOptions as AdminScreenOptions } from '../screens/AdminMainScreen'
 import SignUpLandingPage from '../screens/SignUpLandingPage'
@@ -35,7 +35,7 @@ const FindTutorStackNavigator = createStackNavigator()
 export const FindTutorNavigator = () => {
     return (
         <FindTutorStackNavigator.Navigator>
-            <FindTutorStackNavigator.Screen name="Find Tutor" component={FindTutor}  />
+            <FindTutorStackNavigator.Screen name="Find Tutor" component={FindTutor} />
         </FindTutorStackNavigator.Navigator>
     )
 }
@@ -45,46 +45,46 @@ const ProfileStackNavigator = createStackNavigator()
 export const UserProfileNavigator = () => {
     return (
         <ProfileStackNavigator.Navigator>
-            <ProfileStackNavigator.Screen name="User Profile" component={UserProfile}  />
+            <ProfileStackNavigator.Screen name="User Profile" component={UserProfile} />
         </ProfileStackNavigator.Navigator>
     )
 }
 
 const Tab = createMaterialBottomTabNavigator();
 
-export const TabsNavigator = () => {
+export const TabsNavigator = props => {
     const userImage = useSelector(state => state.userData.imageUrl)
-  return (
-    <Tab.Navigator
-    screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size = 25 }) => {
-          let iconName;
+    return (
+        <Tab.Navigator
+            screenOptions={({ route }) => ({
+                tabBarIcon: ({ focused, color, size = 25 }) => {
+                    let iconName;
 
-          if (route.name === 'Home') {
-            return <Ionicons name={focused ? 'home' : 'home-outline'} size={size} color={color} />;
+                    if (route.name === 'Home') {
+                        return <Ionicons name={focused ? 'home' : 'home-outline'} size={size} color={color} />;
 
-          } else if (route.name === 'Find-Tutor') {
-            return <Ionicons name={focused ? 'search' : 'search-outline'} size={size} color={color} />;
-          }
-          else if (route.name === 'Profile') {
-            return <Image style={{ width: 25, height: 25 , borderRadius: 100,}} 
-            source={userImage ? { uri: userImage } : require('../images/Default-Profile-Picture.png')} />
-          }
-        },
-        tabBarActiveTintColor: 'tomato',
-        tabBarInactiveTintColor: 'gray',
-      })}>
-        <Tab.Screen name="Home" component={OptionsNavigator} /> 
-        <Tab.Screen name="Find-Tutor" component={FindTutorNavigator}/> 
-        <Tab.Screen name="Profile" component={UserProfileNavigator}/>
-    </Tab.Navigator>
-  );
+                    } else if (route.name === 'Find-Tutor') {
+                        return <Ionicons name={focused ? 'search' : 'search-outline'} size={size} color={color} />;
+                    }
+                    else if (route.name === 'Profile') {
+                        return <Image style={{ width: 25, height: 25, borderRadius: 100, }}
+                            source={userImage ? { uri: userImage } : require('../images/Default-Profile-Picture.png')} />
+                    }
+                },
+                tabBarActiveTintColor: 'tomato',
+                tabBarInactiveTintColor: 'gray',
+            })}>
+            <Tab.Screen name="Home" component={OptionsNavigator} />
+            <Tab.Screen name="Find-Tutor" component={FindTutorNavigator} />
+            <Tab.Screen name="Profile" component={UserProfileNavigator} />
+        </Tab.Navigator>
+    );
 }
 
 const OptionsDrawerNavigator = createDrawerNavigator()
 
 export const OptionsNavigator = props => {
-    const user = useSelector(state => state.userData)
+
     const dispatch = useDispatch() //with the dispatch we can dispatch functions from redux store 
 
     return <OptionsDrawerNavigator.Navigator drawerContent={props => {
@@ -114,13 +114,13 @@ export const OptionsNavigator = props => {
             )
         }} />
         <OptionsDrawerNavigator.Screen name={"Edit user"} component={EditUser} options={{
-                     drawerIcon: props => (
-                        <Ionicons
-                            name='create-outline'
-                            size={23}
-                        />
-                    )
-        }}/>
+            drawerIcon: props => (
+                <Ionicons
+                    name='create-outline'
+                    size={23}
+                />
+            )
+        }} />
     </OptionsDrawerNavigator.Navigator>
 }
 
@@ -128,13 +128,13 @@ export const OptionsNavigator = props => {
 
 const MainDrawerNavigator = createStackNavigator()
 
-export const MainNavigator = () => {
+export const MainNavigator = props => {
 
     return (
         <MainDrawerNavigator.Navigator>
-            <MainDrawerNavigator.Screen name={"Update User"} component={SignUpLandingPage} options={{}} />
-            <MainDrawerNavigator.Screen name={"Main"} component={TabsNavigator} options={{ }} />
-            <MainDrawerNavigator.Screen name={"Map"} component={MapScreen} options={MapScreenOptions} />
+            <MainDrawerNavigator.Screen name="Update User" component={SignUpLandingPage} options={{}} />
+            <MainDrawerNavigator.Screen name="Student Home" component={TabsNavigator} options={{ headerShown: false }} />
+            <MainDrawerNavigator.Screen name="Map" component={MapScreen} options={MapScreenOptions} />
         </MainDrawerNavigator.Navigator>
     )
 }

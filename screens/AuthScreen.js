@@ -130,7 +130,7 @@ const AuthScreen = props => {
             keyboardType="email-address"
             errorText="Please enter a valid email address."
             onInputChange={inputChangeHandler}
-            initialValue="test7@test.com"
+            initialValue="test700@test.com"
           />
           <Input
             required
@@ -173,7 +173,7 @@ const AuthScreen = props => {
                 id="institute"
                 onInputChange={inputChangeHandler}
                 placeholder='Institute Name'
-                initialValue=""
+                initialValue="Sami Shamoon College of Engineering"
               />
             </>
           )}
