@@ -15,13 +15,12 @@ const FindTutor = props => {
     const LoggedInUser = useSelector(state => state.userData)
 
     const [formState, formStateHandler] = useState({
-        distance: 2000,
+        distance: null,
         courseName: '',
         TutorName: ''
     })
 
     useEffect(() => {
-        console.log(formState)
     }, [users, formState])
 
     const inputChangeHandler = useCallback(

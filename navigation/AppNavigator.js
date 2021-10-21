@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { NavigationContainer } from '@react-navigation/native'
-import { AuthNavigator, MainNavigator, AdminNavigator, TabsNavigator } from './SystemNavigator'
+import { AuthNavigator, MainNavigator, AdminNavigator, TabsStudentNavigator, TabsTutorNavigator } from './SystemNavigator'
 
 
 const AppNavigator = props => {
@@ -14,7 +14,8 @@ return (
         {/* <MyTabs /> */}
         {isAuth && user.role === 'admin' && <AdminNavigator />}
         {isAuth && isSignUp && user.role !== 'admin' && <MainNavigator />}
-        {isAuth && !isSignUp && user.role !== 'admin' && <TabsNavigator user={user}/>}
+        {isAuth && !isSignUp && user.role === 'student' && <TabsStudentNavigator user={user}/>}
+        {isAuth && !isSignUp && user.role === 'tutor' && <TabsTutorNavigator user={user}/>}
         {!isAuth && <AuthNavigator />}
     </NavigationContainer>
 )
