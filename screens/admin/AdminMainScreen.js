@@ -4,8 +4,8 @@ import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 import { DrawerActions } from '@react-navigation/native'
 import { useDispatch, useSelector } from 'react-redux'
 
-import HeaderButton from '../components/buttons/HeaderButton'
-import { logout } from '../store/actions/userData'
+import HeaderButton from '../../components/buttons/HeaderButton'
+import { logout } from '../../store/actions/userData'
 
 
 const AdminMainScreen = props => {

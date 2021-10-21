@@ -3,12 +3,12 @@ import { StyleSheet, View, KeyboardAvoidingView, ActivityIndicator, Button, Aler
 import { ScrollView } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Input from '../components/Inputs/LoginAndSignUp/Input'
-import MultipleInput from '../components/Inputs/LoginAndSignUp/multipleInput'
-import ImagePicker from '../components/pickers/ImagePicker'
-import LocationPicker from '../components/pickers/LocationPicker'
+import Input from '../../components/Inputs/LoginAndSignUp/Input'
+import MultipleInput from '../../components/Inputs/LoginAndSignUp/multipleInput'
+import ImagePicker from '../../components/pickers/ImagePicker'
+import LocationPicker from '../../components/pickers/LocationPicker'
 
-import * as userDataActions from '../store/actions/userData'
+import * as userDataActions from '../../store/actions/userData'
 
 const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE';
 

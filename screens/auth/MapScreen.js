@@ -2,8 +2,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Platform, } from 'react-native';
 import MapView, { Marker } from 'react-native-maps'
 
-// import envs, { GEOPIFY_API } from '../config/env'
-
 const MapScreen = props => {
   const [selectedLocation, setSelectedLocation] = useState()
   const mapRegion = {

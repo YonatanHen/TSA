@@ -2,11 +2,11 @@ import React, { useEffect, useState, useCallback, useReducer } from 'react'
 import { Button, KeyboardAvoidingView, ScrollView, StyleSheet, Text, View, ActivityIndicator, Alert, Keyboard } from 'react-native'
 import { useDispatch } from 'react-redux'
 
-import Input from '../components/Inputs/LoginAndSignUp/Input'
-import AutoCompleteInput from '../components/Inputs/LoginAndSignUp/autoCompleteInput'
-import RolePicker from '../components/pickers/rolePicker'
+import Input from '../../components/Inputs/LoginAndSignUp/Input'
+import AutoCompleteInput from '../../components/Inputs/LoginAndSignUp/autoCompleteInput'
+import RolePicker from '../../components/pickers/rolePicker'
 
-import * as userDataActions from '../store/actions/userData'
+import * as userDataActions from '../../store/actions/userData'
 
 const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE';
 
