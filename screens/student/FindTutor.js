@@ -2,14 +2,14 @@ import React, { useState, useCallback, useEffect } from 'react'
 import { StyleSheet, Text, View, ActivityIndicator } from 'react-native'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
-import HeaderButton from '../components/buttons/HeaderButton';
-import DistancePicker from '../components/pickers/distancePicker'
-import Input from '../components/Inputs/Search/Input'
-import TutorItem from '../components/List Items/TutorSearchItem'
+import HeaderButton from '../../components/buttons/HeaderButton';
+import DistancePicker from '../../components/pickers/distancePicker'
+import Input from '../../components/Inputs/Search/Input'
+import TutorItem from '../../components/List Items/TutorSearchItem'
 import { ScrollView } from 'react-native-gesture-handler'
 import { useSelector } from 'react-redux'
 
-import distanceCalc from '../utilities/calculateDistance'
+import distanceCalc from '../../utilities/calculateDistance'
 
 
 const FindTutor = props => {

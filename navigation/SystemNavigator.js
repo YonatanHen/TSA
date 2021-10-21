@@ -4,17 +4,18 @@ import { Ionicons } from '@expo/vector-icons';
 import { createStackNavigator } from '@react-navigation/stack'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer'
-import AuthScreen from '../screens/AuthScreen'
-import MainPage, { ScreenOptions as MainScreenOptions } from '../screens/MainPageScreen'
-import FindTutor, { screenOptions as FindTutorScreenOptions } from '../screens/FindTutor'
-import UserProfile from '../screens/UserProfile';
-import AdminMainScreen, { screenOptions as AdminScreenOptions } from '../screens/AdminMainScreen'
-import SignUpLandingPage from '../screens/SignUpLandingPage'
-import MapScreen, { ScreenOptions as MapScreenOptions } from '../screens/MapScreen'
+import AuthScreen from '../screens/auth/AuthScreen'
+import MapScreen, { ScreenOptions as MapScreenOptions } from '../screens/auth/MapScreen'
+import SignUpLandingPage from '../screens/auth/SignUpLandingPage'
+import MainPage, { ScreenOptions as MainScreenOptions } from '../screens/student/MainPageScreen'
+import FindTutor, { screenOptions as FindTutorScreenOptions } from '../screens/student/FindTutor'
+import UserProfile from '../screens/user/UserProfile'
+import EditUser from '../screens/user/EditUser'
+import AdminMainScreen, { screenOptions as AdminScreenOptions } from '../screens/admin/AdminMainScreen'
+
 import { useDispatch, useSelector } from 'react-redux'
 
 import * as userDataActions from '../store/actions/userData'
-import EditUser from '../screens/EditUser';
 
 //Auth Navigators
 

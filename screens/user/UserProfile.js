@@ -3,13 +3,13 @@ import { StyleSheet, Text } from 'react-native'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { DrawerActions } from '@react-navigation/native';
 
-import HeaderButton from '../components/buttons/HeaderButton';
+import HeaderButton from '../../components/buttons/HeaderButton';
 
-const EditUser = props => {
+const UserProfile = props => {
 
     return (
         <Text>
-            Edit user
+            User profile screen
         </Text>
     )
 }
@@ -32,4 +32,4 @@ export const screenOptions = navData => {
 
 const styles = StyleSheet.create({})
 
-export default EditUser
+export default UserProfile

@@ -3,13 +3,13 @@ import { StyleSheet, Text } from 'react-native'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { DrawerActions } from '@react-navigation/native';
 
-import HeaderButton from '../components/buttons/HeaderButton';
+import HeaderButton from '../../components/buttons/HeaderButton';
 
-const UserProfile = props => {
+const MainPage = props => {
 
     return (
         <Text>
-            User profile screen
+            Welcome to the Students Scheduler app!
         </Text>
     )
 }
@@ -32,4 +32,4 @@ export const screenOptions = navData => {
 
 const styles = StyleSheet.create({})
 
-export default UserProfile
+export default MainPage
