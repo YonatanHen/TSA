@@ -50,9 +50,12 @@ export const FindTutorNavigator = () => {
 const ProfileStackNavigator = createStackNavigator()
 
 export const UserProfileNavigator = () => {
+    const user = useSelector(state => state.userData)
     return (
         <ProfileStackNavigator.Navigator>
-            <ProfileStackNavigator.Screen name="User Profile" component={UserProfile} />
+            <ProfileStackNavigator.Screen name="User Profile">
+                {props => <UserProfile {...props} user={user}/>}    
+            </ProfileStackNavigator.Screen>
         </ProfileStackNavigator.Navigator>
     )
 }
