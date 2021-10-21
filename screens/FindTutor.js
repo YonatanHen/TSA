@@ -3,18 +3,21 @@ import { StyleSheet, Text, View, ActivityIndicator } from 'react-native'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
 import HeaderButton from '../components/buttons/HeaderButton';
-import DistancePicker from '../components/pickers/distancePicker';
+import DistancePicker from '../components/pickers/distancePicker'
 import Input from '../components/Inputs/Search/Input'
 import TutorItem from '../components/List Items/TutorSearchItem'
-import { ScrollView } from 'react-native-gesture-handler';
-import { useSelector } from 'react-redux';
+import { ScrollView } from 'react-native-gesture-handler'
+import { useSelector } from 'react-redux'
+
+import distanceCalc from '../utilities/calculateDistance'
+
 
 const FindTutor = props => {
     const users = useSelector(state => state.representationLists.usersList)
     const LoggedInUser = useSelector(state => state.userData)
 
     const [formState, formStateHandler] = useState({
-        distance: '2km',
+        distance: 2000,
         courseName: '',
         TutorName: ''
     })
@@ -39,6 +42,7 @@ const FindTutor = props => {
                 <ScrollView>
                     <DistancePicker
                         id="distance"
+                        onInputChange={inputChangeHandler}
                     />
                     <Input
                         id="courseName"
@@ -60,14 +64,16 @@ const FindTutor = props => {
                     {[...Object.entries(users.tutors)]
                         .filter(tutor => tutor[1].institute === LoggedInUser.institute
                             && tutor[1].courses.some(course => course.toLowerCase().includes(formState.courseName.toLowerCase()))
-                            && `${tutor[1].firstName} ${tutor[1].lastName}`.toLowerCase().includes(formState.TutorName.toLowerCase()))
+                            && `${tutor[1].firstName} ${tutor[1].lastName}`.toLowerCase().includes(formState.TutorName.toLowerCase())
+                            && (formState.distance == null
+                            || distanceCalc(tutor[1].locationCords.lat, tutor[1].locationCords.lng, LoggedInUser.locationCords.lat, LoggedInUser.locationCords.lng) <= formState.distance))
                         .map(tutor => {
                             return (
                                 <TutorItem
                                     key={tutor[1].uid}
                                     name={tutor[1].firstName + ' ' + tutor[1].lastName}
                                     userImage={tutor[1].imageUrl}
-                                    distance={'5km'}
+                                    distance={`${distanceCalc(tutor[1].locationCords.lat, tutor[1].locationCords.lng, LoggedInUser.locationCords.lat, LoggedInUser.locationCords.lng)}m`}
                                 />
                             )
                         })}
