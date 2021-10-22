@@ -7,6 +7,7 @@ import AutoCompleteInput from '../../components/Inputs/LoginAndSignUp/autoComple
 import RolePicker from '../../components/pickers/rolePicker'
 
 import * as userDataActions from '../../store/actions/userData'
+import InstitutesModal from '../../components/modals/institutesListModal'
 
 const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE';
 
@@ -38,7 +39,8 @@ const AuthScreen = props => {
   const [isSignup, setIsSignup] = useState(false)
   const [error, setError] = useState()
   const [isLoading, setIsLoading] = useState(false)
-
+  const [isModalShown, setIsModalShown] = useState(false)
+ 
   const dispatch = useDispatch()
 
   const [formState, dispatchFormState] = useReducer(formReducer, {
@@ -66,6 +68,7 @@ const AuthScreen = props => {
       Alert.alert('An Error occured!', error, [{ text: 'OK' }])
     }
   }, [error])
+
 
   const authHandler = async () => {
     let action;
@@ -107,6 +110,7 @@ const AuthScreen = props => {
     },
     [dispatchFormState]
   );
+  
 
 
   return (
@@ -168,13 +172,24 @@ const AuthScreen = props => {
                 onInputChange={inputChangeHandler}
                 initialValue="t"
               />
-              <AutoCompleteInput
-                required
-                id="institute"
-                onInputChange={inputChangeHandler}
-                placeholder='Institute Name'
-                initialValue="Sami Shamoon College of Engineering"
-              />
+              <View style={styles.autoCompleteInstituteContainer}>
+                <View style={styles.autoCompleteInput}>
+                  <AutoCompleteInput
+                    required
+                    id="institute"
+                    onInputChange={inputChangeHandler}
+                    placeholder='Institute Name'
+                    initialValue="Sami Shamoon College of Engineering"
+                  />
+                </View>
+                <View style={styles.findButtonContainer}>
+                  <Button title='Find' onPress={() => setIsModalShown(true)}/>
+                  <InstitutesModal
+                    isShown={isModalShown}
+                    setIsModalShown={setIsModalShown}
+                  />
+                </View>
+              </View>
             </>
           )}
         </ScrollView>
@@ -218,6 +233,18 @@ styles = StyleSheet.create({
   },
   button: {
     marginVertical: 3
+  },
+  autoCompleteInstituteContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  autoCompleteInput: {
+    flex: 1
+  },
+  findButtonContainer: {
+    height: '40%',
+    marginTop: 10,
+    marginLeft: 2
   },
 })
 
