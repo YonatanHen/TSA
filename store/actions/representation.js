@@ -6,8 +6,9 @@ import institutesList from '../../data/world-universities'
 export const fetchInstitutes = () => {
     return async dispatch => {
 
-        list = institutesList.split('\n').map(institue => institue.split(',')[1])
+        var list = institutesList.split('\n').map(institue => institue.split(',')[1])
 
+        list = list.filter((x,y) => list.indexOf(x) == y).sort((a, b) => a.localeCompare(b))
         dispatch({
             type: ACADEMIC_INSTITUTES,
             institutesList: list
