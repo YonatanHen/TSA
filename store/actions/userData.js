@@ -135,6 +135,9 @@ export const addDataOnSignUp = (role, bio, image, courses = undefined, phone, lo
         if (!location) {
             throw new Error('You must pick a location!')
         }
+        if(!phone || phone === '') {
+            throw new Error('You must enter a phone number!')
+        }
         const token = getState().userData.token
         const uid = getState().userData.uid
 

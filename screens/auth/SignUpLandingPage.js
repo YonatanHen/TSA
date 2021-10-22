@@ -76,10 +76,9 @@ const SignUpLandingPage = props => {
         setError(null)
         setIsLoading(true);
         try {
-            //CAnt navigate after dispatch, when i deleted dispatch the navigate function worked.
-            dispatch(action)
-            // props.navigation.navigate('Student Home', {screen: 'Home'})
+            await dispatch(action)
         } catch (err) {
+            console.log(err)
             setError(err.message)
             setIsLoading(false)
         }
