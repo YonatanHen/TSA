@@ -21,6 +21,7 @@ const FindTutor = props => {
     })
 
     useEffect(() => {
+        console.log(users)
     }, [users, formState])
 
     const inputChangeHandler = useCallback(

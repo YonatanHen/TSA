@@ -5,13 +5,7 @@ import institutesList from '../../data/world-universities'
 
 export const fetchInstitutes = () => {
     return async dispatch => {
-        // let response = await fetch("https://raw.githubusercontent.com/endSly/world-universities-csv/master/world-universities.csv", {
-        //     method: 'GET',
-        //     body: '',
-        //     redirect: 'follow'
-        // })
 
-        // response = await response.text()
         list = institutesList.split('\n').map(institue => institue.split(',')[1])
 
         dispatch({

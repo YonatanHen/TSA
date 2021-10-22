@@ -29,7 +29,7 @@ export default (state = initialState, action) => {
                 uid: action.uid,
                 signedUp: true,
                 role: action.role,
-                institue: action.institute,
+                institute: action.institute,
                 firstName: action.firstName,
                 lastName: action.lastName
             }
