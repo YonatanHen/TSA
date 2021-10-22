@@ -12,7 +12,7 @@ const UserProfile = props => {
         <>
         <View style={styles.profileContainer}>
         <View style={styles.image}>
-                <Image style={{ width: 180, height:180, borderRadius: 100, }}
+                <Image style={{ width: 180, height:180, borderRadius: 100, borderColor: 'deepskyblue', borderWidth: 5 }}
                             source={user.userImage ? { uri: user.userImage } : require('../../images/Default-Profile-Picture.png')} />
                 </View>
             <View style={styles.nameHeader}>
@@ -92,14 +92,14 @@ const styles = StyleSheet.create({
         marginTop: '5%'
     },
     nameHeader: {
-        marginTop: '7%',
+        marginTop: '3%',
     },
     row: {
         flexDirection: 'row',
         marginBottom: '3%'        
     },
     sectionTitle: {
-        flex: 3,
+        flex: 5,
         paddingStart: '2%',
         alignItems: 'center'
     },

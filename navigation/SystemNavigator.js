@@ -9,7 +9,7 @@ import AuthScreen from '../screens/auth/AuthScreen'
 import MapScreen, { ScreenOptions as MapScreenOptions } from '../screens/auth/MapScreen'
 import SignUpLandingPage from '../screens/auth/SignUpLandingPage'
 
-import MainPage, { ScreenOptions as MainScreenOptions } from '../screens/student/MainPageScreen'
+import MainPage, { ScreenOptions as MainScreenOptions, screenOptions } from '../screens/student/MainPageScreen'
 import FindTutor, { screenOptions as FindTutorScreenOptions } from '../screens/student/FindTutor'
 
 import UserProfile from '../screens/user/UserProfile'
@@ -29,7 +29,7 @@ const AuthStackNavigator = createStackNavigator()
 
 export const AuthNavigator = () => {
     return (
-        <AuthStackNavigator.Navigator>
+        <AuthStackNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' } }}>
             <AuthStackNavigator.Screen name="Auth" component={AuthScreen} options={{ headerTitle: 'Welcome to the Students Scheduler App!' }} />
         </AuthStackNavigator.Navigator>
     )
@@ -41,7 +41,7 @@ const FindTutorStackNavigator = createStackNavigator()
 
 export const FindTutorNavigator = () => {
     return (
-        <FindTutorStackNavigator.Navigator>
+        <FindTutorStackNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' } }}>
             <FindTutorStackNavigator.Screen name="Find-Tutor" component={FindTutor} />
         </FindTutorStackNavigator.Navigator>
     )
@@ -52,9 +52,9 @@ const ProfileStackNavigator = createStackNavigator()
 export const UserProfileNavigator = () => {
     const user = useSelector(state => state.userData)
     return (
-        <ProfileStackNavigator.Navigator>
+        <ProfileStackNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' } }}>
             <ProfileStackNavigator.Screen name="User Profile">
-                {props => <UserProfile {...props} user={user}/>}    
+                {props => <UserProfile {...props} user={user} />}
             </ProfileStackNavigator.Screen>
         </ProfileStackNavigator.Navigator>
     )
@@ -66,7 +66,7 @@ export const TabsStudentNavigator = props => {
     const userImage = useSelector(state => state.userData.imageUrl)
     return (
         <Tab.Navigator
-            screenOptions={({ route }) => ({
+            screenOptions={{ cardStyle: 'white' }, ({ route }) => ({
                 tabBarIcon: ({ focused, color, size = 25 }) => {
                     let iconName;
 
@@ -83,6 +83,7 @@ export const TabsStudentNavigator = props => {
                 },
                 tabBarActiveTintColor: 'tomato',
                 tabBarInactiveTintColor: 'gray',
+
             })}>
             <Tab.Screen name="Home" component={OptionsNavigator} />
             <Tab.Screen name="Find Tutor" component={FindTutorNavigator} />
@@ -97,7 +98,7 @@ const LessonsStackNavigator = createStackNavigator()
 
 export const LessonsNavigator = () => {
     return (
-        <ProfileStackNavigator.Navigator>
+        <ProfileStackNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' } }}>
             <ProfileStackNavigator.Screen name="Tutor Lessons" component={TutorLessons} />
         </ProfileStackNavigator.Navigator>
     )
@@ -122,6 +123,7 @@ export const TabsTutorNavigator = props => {
                 },
                 tabBarActiveTintColor: 'tomato',
                 tabBarInactiveTintColor: 'gray',
+                cardStyle: 'white'
             })}>
             <Tab.Screen name="Home" component={OptionsNavigator} />
             <Tab.Screen name="My Lessons" component={LessonsNavigator} />
@@ -161,7 +163,8 @@ export const OptionsNavigator = props => {
                     size={23}
                 />
             )
-        }} />
+        }}
+        />
         <OptionsDrawerNavigator.Screen name={"Edit user"} component={EditUser} options={{
             drawerIcon: props => (
                 <Ionicons
@@ -180,7 +183,7 @@ const MainDrawerNavigator = createStackNavigator()
 export const MainNavigator = props => {
 
     return (
-        <MainDrawerNavigator.Navigator>
+        <MainDrawerNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' } }}>
             <MainDrawerNavigator.Screen name="Update User" component={SignUpLandingPage} options={{}} />
             <MainDrawerNavigator.Screen name="Student Home" component={TabsNavigator} options={{ headerShown: false }} />
             <MainDrawerNavigator.Screen name="Map" component={MapScreen} options={MapScreenOptions} />
@@ -194,7 +197,7 @@ const AdminDrawerNavigator = createStackNavigator()
 
 export const AdminNavigator = () => {
     return (
-        <AdminDrawerNavigator.Navigator>
+        <AdminDrawerNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' } }}>
             <AdminDrawerNavigator.Screen name="Admin Main" component={AdminMainScreen} options={AdminScreenOptions} />
         </AdminDrawerNavigator.Navigator>
     )

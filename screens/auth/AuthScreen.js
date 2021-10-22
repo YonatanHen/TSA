@@ -182,8 +182,8 @@ const AuthScreen = props => {
       <View style={styles.buttonContainer}>
         <View style={styles.button}>
           {isLoading ?
-            (<ActivityIndicator size='small' color={'#eb7134'} />) :
-            (<Button title={'Submit'} color='#eb7134' onPress={authHandler} />)}
+            (<ActivityIndicator size='small' color={'deepskyblue'} />) :
+            (<Button title={'Submit'} color='deepskyblue' onPress={authHandler} />)}
         </View>
         <View style={styles.button}>
           <Button
@@ -191,7 +191,7 @@ const AuthScreen = props => {
             onPress={() => {
               setIsSignup(prevState => !prevState);
             }}
-            color='#66a11f'
+            color='dodgerblue'
           />
         </View>
       </View>

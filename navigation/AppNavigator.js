@@ -9,16 +9,16 @@ const AppNavigator = props => {
     const isSignUp = useSelector(state => !!state.userData.signedUp)
     const user = useSelector(state => state.userData)
 
-return (
-    <NavigationContainer>
-        {/* <MyTabs /> */}
-        {isAuth && user.role === 'admin' && <AdminNavigator />}
-        {isAuth && isSignUp && user.role !== 'admin' && <MainNavigator />}
-        {isAuth && !isSignUp && user.role === 'student' && <TabsStudentNavigator user={user}/>}
-        {isAuth && !isSignUp && user.role === 'tutor' && <TabsTutorNavigator user={user}/>}
-        {!isAuth && <AuthNavigator />}
-    </NavigationContainer>
-)
+    return (
+        <NavigationContainer>
+            {/* <MyTabs /> */}
+            {isAuth && user.role === 'admin' && <AdminNavigator />}
+            {isAuth && isSignUp && user.role !== 'admin' && <MainNavigator />}
+            {isAuth && !isSignUp && user.role === 'student' && <TabsStudentNavigator user={user} />}
+            {isAuth && !isSignUp && user.role === 'tutor' && <TabsTutorNavigator user={user} />}
+            {!isAuth && <AuthNavigator />}
+        </NavigationContainer>
+    )
 }
 
 export default AppNavigator

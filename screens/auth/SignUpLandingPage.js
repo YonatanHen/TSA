@@ -153,10 +153,10 @@ const SignUpLandingPage = props => {
                         route={props.route}
                         onLocationPicked={locationPickedHandler}
                     />
-                    {isLoading ? (<ActivityIndicator size='small' color={'#eb7134'} />) : (
+                    {isLoading ? (<ActivityIndicator size='small' color={'deepskyblue'} />) : (
                         <View style={styles.buttonContainer}>
                             <View style={styles.button}>
-                                <Button title={'Submit'} color='#eb7134' onPress={submitHandler} />
+                                <Button title={'Submit'} color='deepskyblue' onPress={submitHandler} />
                             </View>
                         </View>
                     )}
