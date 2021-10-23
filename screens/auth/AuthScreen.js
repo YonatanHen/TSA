@@ -142,10 +142,10 @@ const AuthScreen = props => {
             id="password"
             placeholder="Password"
             keyboardType="default"
-            errorText="Please enter a valid password."
+            errorText={isSignup ? "Valid password must conatain one letter, one number and 6 charcates at least" : "Please enter a valid password"}
             secureTextEntry={true}
             onInputChange={inputChangeHandler}
-            initialValue="123456"
+            initialValue="123456A"
           />
           {isSignup && (
             <>
