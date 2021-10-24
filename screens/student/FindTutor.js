@@ -67,18 +67,20 @@ const FindTutor = props => {
                                 || distanceCalc(tutor[1].locationCords.lat, tutor[1].locationCords.lng, LoggedInUser.locationCords.lat, LoggedInUser.locationCords.lng) <= formState.distance))
                         .map(tutor => {
                             return (
-                                <TouchableOpacity
-                                    key={tutor[1].uid}
-                                    onPress={
-                                        () => props.navigation.navigate("Find Tutor", { screen: 'Read Only Profile', params: { user: tutor[1] } })
-                                    }
-                                >
-                                    <TutorItem
-                                        name={tutor[1].firstName + ' ' + tutor[1].lastName}
-                                        userImage={tutor[1].imageUrl}
-                                        distance={`${distanceCalc(tutor[1].locationCords.lat, tutor[1].locationCords.lng, LoggedInUser.locationCords.lat, LoggedInUser.locationCords.lng)}m`}
-                                    />
-                                </TouchableOpacity>
+                                <>
+                                    <TouchableOpacity
+                                        key={tutor[1].uid.toString()}
+                                        onPress={
+                                            () => props.navigation.navigate("Find Tutor", { screen: 'Read Only Profile', params: { user: tutor[1] } })
+                                        }
+                                    >
+                                        <TutorItem
+                                            name={tutor[1].firstName + ' ' + tutor[1].lastName}
+                                            userImage={tutor[1].imageUrl}
+                                            distance={`${distanceCalc(tutor[1].locationCords.lat, tutor[1].locationCords.lng, LoggedInUser.locationCords.lat, LoggedInUser.locationCords.lng)}m`}
+                                        />
+                                    </TouchableOpacity>
+                                </>
                             )
                         })}
 

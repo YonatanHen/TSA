@@ -9,7 +9,6 @@ import { useSelector } from 'react-redux'
 
 const UserProfile = (props) => {
     const user = useSelector(state => state.userData)
-    console.log(props)
 
     return (
         <>

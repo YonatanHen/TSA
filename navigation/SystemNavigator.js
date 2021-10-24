@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { View, SafeAreaView, Button, Image } from 'react-native'
 import { Ionicons } from '@expo/vector-icons';
 import { createStackNavigator } from '@react-navigation/stack'
@@ -20,6 +20,7 @@ import AdminMainScreen, { screenOptions as AdminScreenOptions } from '../screens
 import TutorLessons from '../screens/tutor/TutorLessons'
 
 import { useDispatch, useSelector } from 'react-redux'
+import { StackActions } from '@react-navigation/native';
 
 import * as userDataActions from '../store/actions/userData'
 import UserReadOnlyProfile from '../screens/user/UserReadOnlyProfile';
@@ -40,11 +41,17 @@ export const AuthNavigator = () => {
 
 const FindTutorStackNavigator = createStackNavigator()
 
-export const FindTutorNavigator = () => {
+export const FindTutorNavigator = props => {
+    useEffect(() => {
+        props.navigation.reset({
+            index: 0,
+            routes: [{name: 'Find-Tutor'}]
+        })
+    }, [])
     return (
-        <FindTutorStackNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' } }}>
+        <FindTutorStackNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' } }} >
             <FindTutorStackNavigator.Screen name="Find-Tutor" component={FindTutor} />
-            <FindTutorStackNavigator.Screen name="Read Only Profile" component={UserReadOnlyProfile} options={{headerTitle: ''}}/>
+            <FindTutorStackNavigator.Screen name="Read Only Profile" component={UserReadOnlyProfile} options={{ headerTitle: '' }} />
         </FindTutorStackNavigator.Navigator>
     )
 }
