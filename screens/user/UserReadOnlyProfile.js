@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { StyleSheet, Text, View, Image } from 'react-native'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { DrawerActions } from '@react-navigation/native';
@@ -6,6 +6,7 @@ import { DrawerActions } from '@react-navigation/native';
 import HeaderButton from '../../components/buttons/HeaderButton';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useSelector } from 'react-redux'
+import { CommonActions } from '@react-navigation/native'
 
 const UserReadOnlyProfile = (props) => {
     const user = props.route.params.user

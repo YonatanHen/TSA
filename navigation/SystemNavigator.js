@@ -44,6 +44,7 @@ export const FindTutorNavigator = () => {
     return (
         <FindTutorStackNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' } }}>
             <FindTutorStackNavigator.Screen name="Find-Tutor" component={FindTutor} />
+            <FindTutorStackNavigator.Screen name="Read Only Profile" component={UserReadOnlyProfile} options={{headerTitle: ''}}/>
         </FindTutorStackNavigator.Navigator>
     )
 }
@@ -53,10 +54,7 @@ const ProfileStackNavigator = createStackNavigator()
 export const UserProfileNavigator = () => {
     return (
         <ProfileStackNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' } }}>
-            <ProfileStackNavigator.Screen name="User Profile">
-                {props => <UserProfile { ...props} />}
-            </ProfileStackNavigator.Screen>
-            <ProfileStackNavigator.Screen name="Read Only Profile" component={UserReadOnlyProfile} />
+            <ProfileStackNavigator.Screen name="User Profile" component={UserProfile} />
         </ProfileStackNavigator.Navigator>
     )
 }

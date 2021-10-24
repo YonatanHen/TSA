@@ -70,7 +70,7 @@ const FindTutor = props => {
                                 <TouchableOpacity
                                     key={tutor[1].uid}
                                     onPress={
-                                        () => props.navigation.navigate("Profile", { screen: 'Read Only Profile', params: { user: tutor[1] } })
+                                        () => props.navigation.navigate("Find Tutor", { screen: 'Read Only Profile', params: { user: tutor[1] } })
                                     }
                                 >
                                     <TutorItem
