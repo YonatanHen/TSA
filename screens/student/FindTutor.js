@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react'
-import { StyleSheet, Text, View, ActivityIndicator } from 'react-native'
+import { StyleSheet, Text, View, ActivityIndicator, TouchableOpacity } from 'react-native'
 
 import DistancePicker from '../../components/pickers/distancePicker'
 import Input from '../../components/Inputs/Search/Input'
@@ -8,6 +8,7 @@ import { ScrollView } from 'react-native-gesture-handler'
 import { useSelector } from 'react-redux'
 
 import distanceCalc from '../../utilities/calculateDistance'
+
 
 
 const FindTutor = props => {
@@ -21,7 +22,6 @@ const FindTutor = props => {
     })
 
     useEffect(() => {
-        console.log(users)
     }, [users, formState])
 
     const inputChangeHandler = useCallback(
@@ -64,15 +64,21 @@ const FindTutor = props => {
                             && tutor[1].courses.some(course => course.toLowerCase().includes(formState.courseName.toLowerCase()))
                             && `${tutor[1].firstName} ${tutor[1].lastName}`.toLowerCase().includes(formState.TutorName.toLowerCase())
                             && (formState.distance == null
-                            || distanceCalc(tutor[1].locationCords.lat, tutor[1].locationCords.lng, LoggedInUser.locationCords.lat, LoggedInUser.locationCords.lng) <= formState.distance))
+                                || distanceCalc(tutor[1].locationCords.lat, tutor[1].locationCords.lng, LoggedInUser.locationCords.lat, LoggedInUser.locationCords.lng) <= formState.distance))
                         .map(tutor => {
                             return (
-                                <TutorItem
+                                <TouchableOpacity
                                     key={tutor[1].uid}
-                                    name={tutor[1].firstName + ' ' + tutor[1].lastName}
-                                    userImage={tutor[1].imageUrl}
-                                    distance={`${distanceCalc(tutor[1].locationCords.lat, tutor[1].locationCords.lng, LoggedInUser.locationCords.lat, LoggedInUser.locationCords.lng)}m`}
-                                />
+                                    onPress={
+                                        () => props.navigation.navigate("Profile", { screen: 'Read Only Profile', params: { user: tutor[1] } })
+                                    }
+                                >
+                                    <TutorItem
+                                        name={tutor[1].firstName + ' ' + tutor[1].lastName}
+                                        userImage={tutor[1].imageUrl}
+                                        distance={`${distanceCalc(tutor[1].locationCords.lat, tutor[1].locationCords.lng, LoggedInUser.locationCords.lat, LoggedInUser.locationCords.lng)}m`}
+                                    />
+                                </TouchableOpacity>
                             )
                         })}
 

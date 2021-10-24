@@ -1,6 +1,8 @@
 import envs from '../../config/env'
 
+
 import findAdmin from '../../utilities/findAdmin'
+import { readAllUsers } from '../actions/representation'
 
 const { FIREBASE_API_KEY, GEOPIFY_API } = envs
 
@@ -74,12 +76,12 @@ export const login = (email, password) => {
                 throw new Error('User is not exists in our database')
             }
             else {
-                throw new Error('Something went wrong')    
+                throw new Error('Something went wrong')
             }
         }
 
         const user = await readUserData(resData.localId)
-        
+
         dispatch({
             type: SIGNIN,
             token: resData.idToken,
@@ -136,7 +138,7 @@ export const addDataOnSignUp = (role, bio, image, courses = undefined, phone, lo
         if (!location) {
             throw new Error('You must pick a location!')
         }
-        if(!phone || phone === '') {
+        if (!phone || phone === '') {
             throw new Error('You must enter a phone number!')
         }
         const token = getState().userData.token
@@ -180,6 +182,9 @@ export const addDataOnSignUp = (role, bio, image, courses = undefined, phone, lo
         if (!response.ok) {
             throw new Error('Something went wrong!')
         }
+
+        //Check if this line did not failed.
+        await dispatch(readAllUsers())
 
         dispatch({
             type: UPDATE_USER_ON_SIGNUP,

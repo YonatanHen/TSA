@@ -22,6 +22,7 @@ import TutorLessons from '../screens/tutor/TutorLessons'
 import { useDispatch, useSelector } from 'react-redux'
 
 import * as userDataActions from '../store/actions/userData'
+import UserReadOnlyProfile from '../screens/user/UserReadOnlyProfile';
 
 //Auth Navigators
 
@@ -50,12 +51,12 @@ export const FindTutorNavigator = () => {
 const ProfileStackNavigator = createStackNavigator()
 
 export const UserProfileNavigator = () => {
-    const user = useSelector(state => state.userData)
     return (
         <ProfileStackNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' } }}>
             <ProfileStackNavigator.Screen name="User Profile">
-                {props => <UserProfile {...props} user={user} />}
+                {props => <UserProfile { ...props} />}
             </ProfileStackNavigator.Screen>
+            <ProfileStackNavigator.Screen name="Read Only Profile" component={UserReadOnlyProfile} />
         </ProfileStackNavigator.Navigator>
     )
 }

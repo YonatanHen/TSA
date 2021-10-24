@@ -7,8 +7,8 @@ import HeaderButton from '../../components/buttons/HeaderButton';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useSelector } from 'react-redux'
 
-const UserProfile = (props) => {
-    const user = useSelector(state => state.userData)
+const UserReadOnlyProfile = (props) => {
+    const user = props.route.params.user
 
     return (
         <>
@@ -117,4 +117,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default UserProfile
+export default UserReadOnlyProfile
