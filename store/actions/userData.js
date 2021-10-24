@@ -33,9 +33,6 @@ export const signup = (email, password, role, fname, lname, institute) => {
             if (resData.error.message === 'EMAIL_EXISTS') {
                 throw new Error('Email already exists')
             }
-            else if (resData.error.message === 'EMAIL_NOT_FOUND') {
-                throw new Error('User is not exists in our database')
-            }
             else {
                 throw new Error('Something went wrong')
             }
@@ -73,8 +70,12 @@ export const login = (email, password) => {
         const resData = await response.json()
 
         if (!response.ok) {
-            console.log(resData.error)
-            throw new Error('Something went wrong')
+            if (resData.error.message === 'EMAIL_NOT_FOUND') {
+                throw new Error('User is not exists in our database')
+            }
+            else {
+                throw new Error('Something went wrong')    
+            }
         }
 
         const user = await readUserData(resData.localId)
