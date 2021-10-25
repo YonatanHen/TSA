@@ -39,8 +39,7 @@ const formReducer = (state, action) => {
 //Building the signing up at first, later we will add the login :)
 const EditUser = props => {
     const user = useSelector(state => state.userData)
-    console.log(user)
-
+    
     const [selectedImage, setSelectedImage] = useState()
     const [selectedLocation, setSelectedLocation] = useState()
     const [isSignup, setIsSignup] = useState(false)
@@ -133,11 +132,11 @@ const EditUser = props => {
         >
             <View style={styles.inputForm}>
                 <ScrollView>
-                    <ImagePicker
+                    {/* <ImagePicker
                         onImageTaken={imageTakenHandler}
                         uri={user.imageUrl}
                         editPage
-                    />
+                    /> */}
                     <Input
                         required
                         email
@@ -195,18 +194,7 @@ const EditUser = props => {
                         maxLength={100}
                         style={styles.bio}
                     />
-                    {user.role === 'tutor' && (
-                        <MultipleInput
-                            id="courses"
-                            placeholder='Type course name'
-                            initialValue={user.courses}
-                            required
-                            onInputChange={inputChangeHandler}
-                            maxLength={100}
-                            style={styles.bio}
-                            errorText='Enter one course at least'
-                        />
-                    )}
+
                     <Input
                         id="phone"
                         placeholder="Enter your phone number - format: xxx-xxx-xxxx"

@@ -1,4 +1,4 @@
-import { LOGOUT, SIGNIN, SIGNUP, UPDATE_USER_ON_SIGNUP } from '../actions/userData'
+import { LOGOUT, SIGNIN, SIGNUP, UPDATE_USER_ON_SIGNUP, EDIT_USER } from '../actions/userData'
 
 const initialState = {
     //On sign-in/up
@@ -69,6 +69,11 @@ export default (state = initialState, action) => {
                 country: action.country,
                 signedUp: false,
             }
+        case EDIT_USER: 
+        return {
+            ...state,
+
+        }
         default:
             return state
     }

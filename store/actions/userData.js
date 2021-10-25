@@ -4,14 +4,16 @@ import envs from '../../config/env'
 import findAdmin from '../../utilities/findAdmin'
 import { readAllUsers } from '../actions/representation'
 
-const { FIREBASE_API_KEY, GEOPIFY_API } = envs
+const { FIREBASE_API_KEY } = envs
 
 export const SIGNUP = 'SIGNUP'
 export const SIGNIN = 'SIGNIN'
 export const LOGOUT = 'LOGOUT'
+export const EDIT_USER = 'EDIT_USER'
 export const UPDATE_USER_ON_SIGNUP = 'UPDATE_USER_ON_SIGNUP'
 
 import imageUploader from '../../utilities/cloudinary/uploadImage'
+import setCityAndCountryByLocation from '../../utilities/setCityAndCountryByLocation'
 
 export const signup = (email, password, role, fname, lname, institute) => {
     return async dispatch => {
@@ -144,18 +146,16 @@ export const addDataOnSignUp = (role, bio, image, courses = undefined, phone, lo
         }
         const token = getState().userData.token
         const uid = getState().userData.uid
+        
+        let city, country, imageUrl = undefined
 
-        let city = undefined
-        let country = undefined
-        let imageUrl = undefined
+        if(location){
+            let locationValues = await setCityAndCountryByLocation(location)
+            city = locationValues.city
+            country = locationValues.country
+        }
+        console.log(city, country)
 
-        await fetch(
-            `https://api.geoapify.com/v1/geocode/reverse?lat=${location.lat}&lon=${location.lng}&format=json&apiKey=${GEOPIFY_API}`
-        ).then(response => response.json())
-            .then(result => {
-                city = result.results[0].city
-                country = result.results[0].country
-            })
 
         if (image) {
             imageUrl = await imageUploader(image)
@@ -201,6 +201,19 @@ export const addDataOnSignUp = (role, bio, image, courses = undefined, phone, lo
     }
 }
 
+export const updateUser = (email, fname, lname, institute, bio, phone, location) => {
+    return async (dispatch, getState) => {
 
 
-
+        dispatch({
+            type: UPDATE_USER_ON_SIGNUP,
+            uid: uid,
+            bio,
+            courses,
+            phone,
+            locationCords: location,
+            city,
+            country,
+        })
+    }
+}
