@@ -10,6 +10,7 @@ import LocationPicker from '../../components/pickers/LocationPicker'
 
 import * as userDataActions from '../../store/actions/userData'
 import InstitutesModal from '../../components/modals/institutesListModal'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
 const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE';
 
@@ -99,13 +100,27 @@ const EditUser = props => {
         try {
             await dispatch(action);
             setIsLoading(false);
-            Alert.alert('An Error occured!', error, [{ text: 'OK' }])
+            Alert.alert('User updated successfully!', '', [{ text: 'OK' }])
         } catch (err) {
             console.log(err)
             setError(err.message);
             setIsLoading(false);
         }
-    };
+    }
+
+    const deleteUserHandler = async () => {
+        let action = userDataActions.deleteUser()
+        setError(null);
+        setIsLoading(true);
+        try {
+            await dispatch(action);
+            Alert.alert('User deleted successfully!', '', [{ text: 'OK' }])
+        } catch (err) {
+            console.log(err)
+            setError(err.message);
+        }
+        setIsLoading(false);
+    }
 
     const inputChangeHandler = useCallback(
         (inputIdentifier, inputValue, inputValidity) => {
@@ -235,13 +250,18 @@ const EditUser = props => {
                         onInputChange={inputChangeHandler}
                         initialValue={user.password}
                     /> */}
-                    <View style={styles.buttonContainer}>
-                        <View style={styles.button}>
-                            {isLoading ?
-                                (<ActivityIndicator size='small' color={'deepskyblue'} />) :
-                                (<Button title={'Submit'} color='deepskyblue' onPress={submitHandler} />)}
+                    {isLoading ? (<ActivityIndicator size='small' color={'deepskyblue'} />) : (
+                        <View style={styles.buttonContainer}>
+                            <View style={styles.button}>
+                                    <Button title={'Submit'} color='deepskyblue' onPress={submitHandler} />
+                            </View>
+                            <TouchableOpacity onPress={deleteUserHandler}>
+                                <View style={{ marginVertical: 10}}>
+                                    <Text style={{ color: 'red' , fontSize: 12, borderBottomWidth: 0.5, borderBottomColor: 'red'}}>Delete user</Text>
+                                </View>
+                            </TouchableOpacity>
                         </View>
-                    </View>
+                    )}
                 </ScrollView>
             </View>
         </KeyboardAvoidingView >

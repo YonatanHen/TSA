@@ -259,3 +259,47 @@ export const updateUser = (email, fname, lname, institute, bio, courses = undefi
         return {message: 'User updated successfully.'}
     }
 }
+
+export const deleteUser = () => {
+    return async (dispatch, getState) => {
+        const token = getState().userData.token
+        const uid = getState().userData.uid
+        const role = getState().userData.role
+
+
+        let response = await fetch(
+            `https://identitytoolkit.googleapis.com/v1/accounts:delete?key=${FIREBASE_API_KEY}`,
+            {       
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    idToken: token
+                })
+            }
+        ).then(res => res.json())
+        .then(res => console.log(res))
+        .catch(err => {
+            throw new Error('Error in delete authentication details!')
+        })
+
+        response = await fetch(
+            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users/${role}s/${uid}.json?auth=${token}`,
+            {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+        ).then(res => res.json())
+        .then(res => console.log(res))
+        .catch(err => {
+            throw new Error('Error in delete user details!')
+        })
+
+        await dispatch({
+            type: LOGOUT
+        })
+    }
+}

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { View, Button, Text, ActivityIndicator, Alert, StyleSheet } from 'react-native'
 import * as Location from 'expo-location'
-import * as Permissions from 'expo-permissions'
 
 import MapPreview from '../previews/MapPreview'
 
@@ -23,7 +22,7 @@ const LocationPicker = props => {
 
     const verifyPermissions = async () => {
         //Related to ios permissions
-        const { status, permissions } = await Permissions.askAsync(Permissions.LOCATION)
+        const { status } = await Location.requestForegroundPermissionsAsync()
         if (status !== 'granted') {
             Alert.alert('Insufficicent permissions!', 'you need to grant location permissions to use this app.', [{ text: 'Okay' }])
             return false
