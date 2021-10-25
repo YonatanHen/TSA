@@ -6,12 +6,13 @@ import * as Permissions from 'expo-permissions'
 import MapPreview from '../previews/MapPreview'
 
 const LocationPicker = props => {
+    const {currentLocation, onLocationPicked} = props
+
     const [isFetching, setIsFetching] = useState(false)
-    const [pickedLocation, setPickedLocation] = useState()
+    const [pickedLocation, setPickedLocation] = useState(currentLocation)
 
     const mapPickedLocation = props.route.params ? props.route.params.pickedLocation : null
 
-    const {onLocationPicked} = props
 
     useEffect(() => {
         if(mapPickedLocation) {

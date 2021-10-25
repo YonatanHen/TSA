@@ -154,8 +154,6 @@ export const addDataOnSignUp = (role, bio, image, courses = undefined, phone, lo
             city = locationValues.city
             country = locationValues.country
         }
-        console.log(city, country)
-
 
         if (image) {
             imageUrl = await imageUploader(image)
@@ -201,19 +199,63 @@ export const addDataOnSignUp = (role, bio, image, courses = undefined, phone, lo
     }
 }
 
-export const updateUser = (email, fname, lname, institute, bio, phone, location) => {
+export const updateUser = (email, fname, lname, institute, bio, courses = undefined, phone, location) => {
     return async (dispatch, getState) => {
+        const token = getState().userData.token
+        const uid = getState().userData.uid
+        const role = getState().userData.role
+        
+        let city, country = undefined
 
+        if(location){
+            let locationValues = await setCityAndCountryByLocation(location)
+            city = locationValues.city
+            country = locationValues.country
+        }
 
-        dispatch({
-            type: UPDATE_USER_ON_SIGNUP,
-            uid: uid,
-            bio,
-            courses,
-            phone,
-            locationCords: location,
-            city,
-            country,
-        })
+        const response = await fetch(
+            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users/${role}s/${uid}.json?auth=${token}`,
+            {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email,
+                    fname,
+                    lname,
+                    institute,
+                    bio,
+                    phone,
+                    courses,
+                    locationCords: location,
+                    city,
+                    country,
+                })
+            }
+        )
+
+        if (!response.ok) {
+            throw new Error('Something went wrong!')
+        }
+
+        //Check if this line did not failed.
+        await dispatch(readAllUsers())
+
+        // dispatch({
+        //     type: EDIT_USER,
+        //     email,
+        //     fname,
+        //     lname,
+        //     institute,
+        //     bio,
+        //     phone,
+        //     courses,
+        //     locationCords: location,
+        //     city,
+        //     country,
+        // })
+
+        return {message: 'User updated successfully.'}
     }
 }

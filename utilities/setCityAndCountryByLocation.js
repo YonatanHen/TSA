@@ -3,7 +3,6 @@ import envs from '../config/env'
 const { GEOPIFY_API } = envs
 
 export default async (location) => {
-    console.log(location)
     var city, country
     await fetch(
         `https://api.geoapify.com/v1/geocode/reverse?lat=${location.lat}&lon=${location.lng}&format=json&apiKey=${GEOPIFY_API}`)

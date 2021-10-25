@@ -65,12 +65,12 @@ const MultipleInput = props => {
                     value={input}
                     onChangeText={textChangeHandler}
                 />
-                <View style={styles.addButtonContainer}>
-                    <Button
-                        title='Add'
-                        onPress={addCourseHandler}
-                    />
-                </View>
+                    <View style={styles.addButtonContainer}>
+                        <Button
+                            title='Add'
+                            onPress={addCourseHandler}
+                        />
+                    </View>
             </View>
             {!inputState.isValid && inputState.value !== '' && (
                 <View style={styles.errorContainer}>
