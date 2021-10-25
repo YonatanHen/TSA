@@ -39,9 +39,10 @@ const formReducer = (state, action) => {
 //Building the signing up at first, later we will add the login :)
 const EditUser = props => {
     const user = useSelector(state => state.userData)
-    
+    console.log(user)
+
     const [selectedImage, setSelectedImage] = useState()
-    const [selectedLocation, setSelectedLocation] = useState()
+    const [selectedLocation, setSelectedLocation] = useState(user.locationCords)
     const [isSignup, setIsSignup] = useState(false)
     const [error, setError] = useState()
     const [isLoading, setIsLoading] = useState(false)
@@ -81,22 +82,24 @@ const EditUser = props => {
     }, [error])
 
 
-    const authHandler = async () => {
-        let action;
+    const submitHandler = async () => {
+        let action; //email, fname, lname, institute, bio, courses = undefined, phone, location
         action = userDataActions.updateUser(
             formState.inputValues.email,
-            formState.inputValues.password,
-            formState.inputValues.role,
             formState.inputValues.fname,
             formState.inputValues.lname,
             formState.inputValues.institute,
-            formState.inputValues.email,
-            formState.inputValues.password
+            formState.inputValues.bio,
+            user.role === 'tutor' && formState.inputValues.courses,
+            formState.inputValues.phone,
+            selectedLocation
         )
         setError(null);
         setIsLoading(true);
         try {
             await dispatch(action);
+            setIsLoading(false);
+            Alert.alert('An Error occured!', error, [{ text: 'OK' }])
         } catch (err) {
             console.log(err)
             setError(err.message);
@@ -194,7 +197,18 @@ const EditUser = props => {
                         maxLength={100}
                         style={styles.bio}
                     />
-
+                    {user.role === 'tutor' && (
+                        <MultipleInput
+                            id="courses"
+                            placeholder='Type course name'
+                            initialValue={user.courses}
+                            required
+                            onInputChange={inputChangeHandler}
+                            maxLength={100}
+                            style={styles.bio}
+                            errorText='Enter one course at least'
+                        />
+                    )}
                     <Input
                         id="phone"
                         placeholder="Enter your phone number - format: xxx-xxx-xxxx"
@@ -208,8 +222,9 @@ const EditUser = props => {
                         navigation={props.navigation}
                         route={props.route}
                         onLocationPicked={locationPickedHandler}
+                        currentLocation={selectedLocation}
                     />
-                    <Input
+                    {/* <Input
                         required
                         password
                         id="password"
@@ -219,12 +234,12 @@ const EditUser = props => {
                         secureTextEntry={true}
                         onInputChange={inputChangeHandler}
                         initialValue={user.password}
-                    />
+                    /> */}
                     <View style={styles.buttonContainer}>
                         <View style={styles.button}>
                             {isLoading ?
                                 (<ActivityIndicator size='small' color={'deepskyblue'} />) :
-                                (<Button title={'Submit'} color='deepskyblue' onPress={authHandler} />)}
+                                (<Button title={'Submit'} color='deepskyblue' onPress={submitHandler} />)}
                         </View>
                     </View>
                 </ScrollView>
