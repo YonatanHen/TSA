@@ -10,7 +10,7 @@ const ImgPicker = props => {
 
     const verifyPermissions = async () => {
         //Related to ios permissions
-        const result = await Permissions.askAsync(Permissions.CAMERA, Permissions.CAMERA_ROLL)
+        const result = await ImagePicker.getCameraPermissionsAsync()
         if (result.status !== 'granted') {
             Alert.alert('Insufficicent permissions!', 'you need to grant permissions to use this app.', [{ text: 'Okay' }])
             return false
