@@ -11,7 +11,7 @@ export const SIGNIN = 'SIGNIN'
 export const LOGOUT = 'LOGOUT'
 export const UPDATE_USER_ON_SIGNUP = 'UPDATE_USER_ON_SIGNUP'
 
-import imageUploader from '../../utilities/uploadImage'
+import imageUploader from '../../utilities/cloudinary/uploadImage'
 
 export const signup = (email, password, role, fname, lname, institute) => {
     return async dispatch => {
@@ -48,6 +48,7 @@ export const signup = (email, password, role, fname, lname, institute) => {
             uid: resData.localId,
             token: resData.idToken,
             role,
+            email: email,
             institute: institute,
             firstName: fname,
             lastName: lname,

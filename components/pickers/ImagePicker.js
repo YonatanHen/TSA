@@ -3,8 +3,10 @@ import { View, Button, Text, StyleSheet, Image, Alert } from 'react-native'
 import * as ImagePicker from 'expo-image-picker'
 import * as Permissions from 'expo-permissions'
 
+import DeleteImage from '../../utilities/cloudinary/deleteImage'
+
 const ImgPicker = props => {
-    const [pickedImage, setPickedImage] = useState()
+    const [pickedImage, setPickedImage] = useState(props.uri)
 
     const verifyPermissions = async () => {
         //Related to ios permissions
@@ -39,17 +41,23 @@ const ImgPicker = props => {
         console.log(image)
         setPickedImage(image.uri)
         props.onImageTaken(image)
-        // uploadImage(image)
+    }
+
+    const deleteImageHandler = async () => {
+        DeleteImage(props.uri)
+        setPickedImage()
+        props.onImageTaken()
     }
 
     return <View style={styles.ImagePicker}>
         <View style={styles.imagePreview}>
-            {!pickedImage ? (<Text>No Image picked yet.</Text>) :
+            {!pickedImage ? (<Text>No Image picked</Text>) :
                 (<Image style={styles.image} source={{ uri: pickedImage }} />)}
         </View>
         <View style={styles.selectImageButtonsContainer}>
-            <Button title="Take Image" onPress={() => selectImageHandler('take')} />
+            <Button title="Take image" onPress={() => selectImageHandler('take')} />
             <Button title="Selcet from gallery" onPress={() => selectImageHandler('select')} />
+            {props.editPage && <Button title="Delete image" onPress={deleteImageHandler} />}
         </View>
     </View>
 }
@@ -59,8 +67,8 @@ const styles = StyleSheet.create({
         marginBottom: 15,
     },
     imagePreview: {
-        width: '50%',
-        height: 200,
+        width: 180,
+        height: 180,
         marginBottom: 10,
         justifyContent: 'center',
         alignItems: 'center',

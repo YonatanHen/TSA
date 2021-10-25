@@ -4,6 +4,7 @@ const initialState = {
     //On sign-in/up
     token: null,
     uid: null,
+    email: null,
     signedUp: false,
     role: null,
     institute: null,
@@ -31,13 +32,15 @@ export default (state = initialState, action) => {
                 role: action.role,
                 institute: action.institute,
                 firstName: action.firstName,
-                lastName: action.lastName
+                lastName: action.lastName,
+                email: action.email
             }
         case SIGNIN:
             return {
                 ...state,
                 token: action.token,
                 uid: action.uid,
+                email: action.email,
                 role: action.role,
                 institute: action.institute,
                 firstName: action.firstName,
