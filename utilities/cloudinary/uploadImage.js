@@ -1,5 +1,3 @@
-import { CLOUDINARY_NAME } from '../../config/env'
-
 export default async (photoUri) => {
   let url
   var data = new FormData();

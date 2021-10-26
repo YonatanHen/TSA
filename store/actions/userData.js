@@ -123,6 +123,14 @@ export const addDataOnSignUp = (role, bio, image, courses = undefined, phone, lo
         }
 
         if (image) {
+            // axios.get(`http://${IP_ADDRESS}:8000/upload-image/${image}`)
+            //  .then(res => {
+            //     imageUrl = res.data.url
+            //  })
+            //  .catch(err => {
+            //     throw new Error(err.data.error)
+
+            //  })
             imageUrl = await imageUploader(image)
         }
 

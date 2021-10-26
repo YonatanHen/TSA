@@ -40,7 +40,7 @@ const AuthScreen = props => {
   const [error, setError] = useState()
   const [isLoading, setIsLoading] = useState(false)
   const [isModalShown, setIsModalShown] = useState(false)
- 
+
   const dispatch = useDispatch()
 
   const [formState, dispatchFormState] = useReducer(formReducer, {
@@ -110,7 +110,7 @@ const AuthScreen = props => {
     },
     [dispatchFormState]
   );
-  
+
 
 
   return (
@@ -119,95 +119,92 @@ const AuthScreen = props => {
       keyboardVerticalOffset={0}
       style={styles.screen}
     >
-      <View>
-        <View>
-          <Text style={styles.label}>{isSignup ? 'Sign Up' : 'Login'}</Text>
-        </View>
-      </View>
-      <View style={styles.inputForm}>
-        <ScrollView>
-          <Input
-            required
-            email
-            id="email"
-            placeholder="E-Mail"
-            keyboardType="email-address"
-            errorText="Please enter a valid email address."
-            onInputChange={inputChangeHandler}
-            initialValue="test71@test.com"
-          />
-          <Input
-            required
-            password
-            id="password"
-            placeholder="Password"
-            keyboardType="default"
-            errorText={isSignup ? "Valid password must conatain one letter, one number and 6 charcates at least" : "Please enter a valid password"}
-            secureTextEntry={true}
-            onInputChange={inputChangeHandler}
-            initialValue="123456A"
-          />
-          {isSignup && (
-            <>
-              <RolePicker
-                required
-                id='role'
-                onInputChange={inputChangeHandler}
-              />
-              <Input
-                required
-                id="fname"
-                placeholder="First Name"
-                keyboardType="default"
-                errorText="Please enter a valid name."
-                onInputChange={inputChangeHandler}
-                initialValue="t"
-              />
-              <Input
-                required
-                id="lname"
-                placeholder="Last Name"
-                keyboardType="default"
-                errorText="Please enter a valid name."
-                onInputChange={inputChangeHandler}
-                initialValue="t"
-              />
-              <View style={styles.autoCompleteInstituteContainer}>
-                <View style={styles.autoCompleteInput}>
-                  <AutoCompleteInput
-                    required
-                    id="institute"
-                    onInputChange={inputChangeHandler}
-                    placeholder='Institute Name'
-                    initialValue="Sami Shamoon College of Engineering"
-                  />
+      <View style={{ borderWidth: 3, borderColor: 'deepskyblue', margin: '2%', padding: '1%', borderRadius: 30 }}>
+        <View style={styles.inputForm}>
+          <ScrollView>
+            <Input
+              required
+              email
+              id="email"
+              placeholder="E-Mail"
+              keyboardType="email-address"
+              errorText="Please enter a valid email address."
+              onInputChange={inputChangeHandler}
+              initialValue="test71@test.com"
+            />
+            <Input
+              required
+              password
+              id="password"
+              placeholder="Password"
+              keyboardType="default"
+              errorText={isSignup ? "Valid password must conatain one letter, one number and 6 charcates at least" : "Please enter a valid password"}
+              secureTextEntry={true}
+              onInputChange={inputChangeHandler}
+              initialValue="123456A"
+            />
+            {isSignup && (
+              <>
+                <RolePicker
+                  required
+                  id='role'
+                  onInputChange={inputChangeHandler}
+                />
+                <Input
+                  required
+                  id="fname"
+                  placeholder="First Name"
+                  keyboardType="default"
+                  errorText="Please enter a valid name."
+                  onInputChange={inputChangeHandler}
+                  initialValue="t"
+                />
+                <Input
+                  required
+                  id="lname"
+                  placeholder="Last Name"
+                  keyboardType="default"
+                  errorText="Please enter a valid name."
+                  onInputChange={inputChangeHandler}
+                  initialValue="t"
+                />
+                <View style={styles.autoCompleteInstituteContainer}>
+                  <View style={styles.autoCompleteInput}>
+                    <AutoCompleteInput
+                      required
+                      id="institute"
+                      onInputChange={inputChangeHandler}
+                      placeholder='Institute Name'
+                      initialValue="Sami Shamoon College of Engineering"
+                    />
+                  </View>
+                  <View style={styles.findButtonContainer}>
+                    <Button title='Find' onPress={() => setIsModalShown(true)} />
+                    <InstitutesModal
+                      isShown={isModalShown}
+                      setIsModalShown={setIsModalShown}
+                    />
+                  </View>
                 </View>
-                <View style={styles.findButtonContainer}>
-                  <Button title='Find' onPress={() => setIsModalShown(true)}/>
-                  <InstitutesModal
-                    isShown={isModalShown}
-                    setIsModalShown={setIsModalShown}
-                  />
-                </View>
+              </>
+            )}
+            <View style={styles.buttonContainer}>
+              <View style={styles.button}>
+                {isLoading ?
+                  (<ActivityIndicator size='small' color={'deepskyblue'} />) :
+                  (<Button title={'Submit'} color='deepskyblue' onPress={authHandler} />)}
               </View>
-            </>
-          )}
-        </ScrollView>
-      </View>
-      <View style={styles.buttonContainer}>
-        <View style={styles.button}>
-          {isLoading ?
-            (<ActivityIndicator size='small' color={'deepskyblue'} />) :
-            (<Button title={'Submit'} color='deepskyblue' onPress={authHandler} />)}
-        </View>
-        <View style={styles.button}>
-          <Button
-            title={`Switch to ${isSignup ? 'Login' : 'Sign Up'}`}
-            onPress={() => {
-              setIsSignup(prevState => !prevState);
-            }}
-            color='dodgerblue'
-          />
+              <View style={styles.button}>
+                <Button
+                  title={`Switch to ${isSignup ? 'Login' : 'Sign Up'}`}
+                  onPress={() => {
+                    setIsSignup(prevState => !prevState);
+                  }}
+                  color='dodgerblue'
+                />
+              </View>
+            </View>
+          </ScrollView>
         </View>
       </View>
     </KeyboardAvoidingView >
