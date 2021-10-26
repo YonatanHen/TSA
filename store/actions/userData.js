@@ -4,14 +4,16 @@ import envs from '../../config/env'
 import findAdmin from '../../utilities/findAdmin'
 import { readAllUsers } from '../actions/representation'
 
-const { FIREBASE_API_KEY, GEOPIFY_API } = envs
+const { FIREBASE_API_KEY } = envs
 
 export const SIGNUP = 'SIGNUP'
 export const SIGNIN = 'SIGNIN'
 export const LOGOUT = 'LOGOUT'
+export const EDIT_USER = 'EDIT_USER'
 export const UPDATE_USER_ON_SIGNUP = 'UPDATE_USER_ON_SIGNUP'
 
 import imageUploader from '../../utilities/cloudinary/uploadImage'
+import setCityAndCountryByLocation from '../../utilities/setCityAndCountryByLocation'
 
 export const signup = (email, password, role, fname, lname, institute) => {
     return async dispatch => {
@@ -144,18 +146,14 @@ export const addDataOnSignUp = (role, bio, image, courses = undefined, phone, lo
         }
         const token = getState().userData.token
         const uid = getState().userData.uid
+        
+        let city, country, imageUrl = undefined
 
-        let city = undefined
-        let country = undefined
-        let imageUrl = undefined
-
-        await fetch(
-            `https://api.geoapify.com/v1/geocode/reverse?lat=${location.lat}&lon=${location.lng}&format=json&apiKey=${GEOPIFY_API}`
-        ).then(response => response.json())
-            .then(result => {
-                city = result.results[0].city
-                country = result.results[0].country
-            })
+        if(location){
+            let locationValues = await setCityAndCountryByLocation(location)
+            city = locationValues.city
+            country = locationValues.country
+        }
 
         if (image) {
             imageUrl = await imageUploader(image)
@@ -201,6 +199,107 @@ export const addDataOnSignUp = (role, bio, image, courses = undefined, phone, lo
     }
 }
 
+export const updateUser = (email, fname, lname, institute, bio, courses = undefined, phone, location) => {
+    return async (dispatch, getState) => {
+        const token = getState().userData.token
+        const uid = getState().userData.uid
+        const role = getState().userData.role
+        
+        let city, country = undefined
+
+        if(location){
+            let locationValues = await setCityAndCountryByLocation(location)
+            city = locationValues.city
+            country = locationValues.country
+        }
+
+        const response = await fetch(
+            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users/${role}s/${uid}.json?auth=${token}`,
+            {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email,
+                    fname,
+                    lname,
+                    institute,
+                    bio,
+                    phone,
+                    courses,
+                    locationCords: location,
+                    city,
+                    country,
+                })
+            }
+        )
+
+        if (!response.ok) {
+            throw new Error('Something went wrong!')
+        }
+
+        //Check if this line did not failed.
+        await dispatch(readAllUsers())
+
+        // dispatch({
+        //     type: EDIT_USER,
+        //     email,
+        //     fname,
+        //     lname,
+        //     institute,
+        //     bio,
+        //     phone,
+        //     courses,
+        //     locationCords: location,
+        //     city,
+        //     country,
+        // })
+
+        return {message: 'User updated successfully.'}
+    }
+}
+
+export const deleteUser = () => {
+    return async (dispatch, getState) => {
+        const token = getState().userData.token
+        const uid = getState().userData.uid
+        const role = getState().userData.role
 
 
+        let response = await fetch(
+            `https://identitytoolkit.googleapis.com/v1/accounts:delete?key=${FIREBASE_API_KEY}`,
+            {       
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    idToken: token
+                })
+            }
+        ).then(res => res.json())
+        .then(res => console.log(res))
+        .catch(err => {
+            throw new Error('Error in delete authentication details!')
+        })
 
+        response = await fetch(
+            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users/${role}s/${uid}.json?auth=${token}`,
+            {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+        ).then(res => res.json())
+        .then(res => console.log(res))
+        .catch(err => {
+            throw new Error('Error in delete user details!')
+        })
+
+        await dispatch({
+            type: LOGOUT
+        })
+    }
+}

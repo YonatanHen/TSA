@@ -10,6 +10,7 @@ import LocationPicker from '../../components/pickers/LocationPicker'
 
 import * as userDataActions from '../../store/actions/userData'
 import InstitutesModal from '../../components/modals/institutesListModal'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
 const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE';
 
@@ -42,7 +43,7 @@ const EditUser = props => {
     console.log(user)
 
     const [selectedImage, setSelectedImage] = useState()
-    const [selectedLocation, setSelectedLocation] = useState()
+    const [selectedLocation, setSelectedLocation] = useState(user.locationCords)
     const [isSignup, setIsSignup] = useState(false)
     const [error, setError] = useState()
     const [isLoading, setIsLoading] = useState(false)
@@ -82,28 +83,44 @@ const EditUser = props => {
     }, [error])
 
 
-    const authHandler = async () => {
-        let action;
+    const submitHandler = async () => {
+        let action; //email, fname, lname, institute, bio, courses = undefined, phone, location
         action = userDataActions.updateUser(
             formState.inputValues.email,
-            formState.inputValues.password,
-            formState.inputValues.role,
             formState.inputValues.fname,
             formState.inputValues.lname,
             formState.inputValues.institute,
-            formState.inputValues.email,
-            formState.inputValues.password
+            formState.inputValues.bio,
+            user.role === 'tutor' && formState.inputValues.courses,
+            formState.inputValues.phone,
+            selectedLocation
         )
         setError(null);
         setIsLoading(true);
         try {
             await dispatch(action);
+            setIsLoading(false);
+            Alert.alert('User updated successfully!', '', [{ text: 'OK' }])
         } catch (err) {
             console.log(err)
             setError(err.message);
             setIsLoading(false);
         }
-    };
+    }
+
+    const deleteUserHandler = async () => {
+        let action = userDataActions.deleteUser()
+        setError(null);
+        setIsLoading(true);
+        try {
+            await dispatch(action);
+            Alert.alert('User deleted successfully!', '', [{ text: 'OK' }])
+        } catch (err) {
+            console.log(err)
+            setError(err.message);
+        }
+        setIsLoading(false);
+    }
 
     const inputChangeHandler = useCallback(
         (inputIdentifier, inputValue, inputValidity) => {
@@ -133,11 +150,11 @@ const EditUser = props => {
         >
             <View style={styles.inputForm}>
                 <ScrollView>
-                    <ImagePicker
+                    {/* <ImagePicker
                         onImageTaken={imageTakenHandler}
                         uri={user.imageUrl}
                         editPage
-                    />
+                    /> */}
                     <Input
                         required
                         email
@@ -220,8 +237,9 @@ const EditUser = props => {
                         navigation={props.navigation}
                         route={props.route}
                         onLocationPicked={locationPickedHandler}
+                        currentLocation={selectedLocation}
                     />
-                    <Input
+                    {/* <Input
                         required
                         password
                         id="password"
@@ -231,14 +249,19 @@ const EditUser = props => {
                         secureTextEntry={true}
                         onInputChange={inputChangeHandler}
                         initialValue={user.password}
-                    />
-                    <View style={styles.buttonContainer}>
-                        <View style={styles.button}>
-                            {isLoading ?
-                                (<ActivityIndicator size='small' color={'deepskyblue'} />) :
-                                (<Button title={'Submit'} color='deepskyblue' onPress={authHandler} />)}
+                    /> */}
+                    {isLoading ? (<ActivityIndicator size='small' color={'deepskyblue'} />) : (
+                        <View style={styles.buttonContainer}>
+                            <View style={styles.button}>
+                                    <Button title={'Submit'} color='deepskyblue' onPress={submitHandler} />
+                            </View>
+                            <TouchableOpacity onPress={deleteUserHandler}>
+                                <View style={{ marginVertical: 10}}>
+                                    <Text style={{ color: 'red' , fontSize: 12, borderBottomWidth: 0.5, borderBottomColor: 'red'}}>Delete user</Text>
+                                </View>
+                            </TouchableOpacity>
                         </View>
-                    </View>
+                    )}
                 </ScrollView>
             </View>
         </KeyboardAvoidingView >

@@ -3,14 +3,14 @@ import { View, Button, Text, StyleSheet, Image, Alert } from 'react-native'
 import * as ImagePicker from 'expo-image-picker'
 import * as Permissions from 'expo-permissions'
 
-import DeleteImage from '../../utilities/cloudinary/deleteImage'
+// import DeleteImage from '../../utilities/cloudinary/deleteImage'
 
 const ImgPicker = props => {
     const [pickedImage, setPickedImage] = useState(props.uri)
 
     const verifyPermissions = async () => {
         //Related to ios permissions
-        const result = await Permissions.askAsync(Permissions.CAMERA, Permissions.CAMERA_ROLL)
+        const result = await ImagePicker.getCameraPermissionsAsync()
         if (result.status !== 'granted') {
             Alert.alert('Insufficicent permissions!', 'you need to grant permissions to use this app.', [{ text: 'Okay' }])
             return false
@@ -43,11 +43,11 @@ const ImgPicker = props => {
         props.onImageTaken(image)
     }
 
-    const deleteImageHandler = async () => {
-        DeleteImage(props.uri)
-        setPickedImage()
-        props.onImageTaken()
-    }
+    // const deleteImageHandler = async () => {
+    //     DeleteImage(props.uri)
+    //     setPickedImage()
+    //     props.onImageTaken()
+    // }
 
     return <View style={styles.ImagePicker}>
         <View style={styles.imagePreview}>
@@ -57,7 +57,7 @@ const ImgPicker = props => {
         <View style={styles.selectImageButtonsContainer}>
             <Button title="Take image" onPress={() => selectImageHandler('take')} />
             <Button title="Selcet from gallery" onPress={() => selectImageHandler('select')} />
-            {props.editPage && <Button title="Delete image" onPress={deleteImageHandler} />}
+            {/* {props.editPage && <Button title="Delete image" onPress={deleteImageHandler} />} */}
         </View>
     </View>
 }
