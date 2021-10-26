@@ -24,6 +24,7 @@ import { StackActions } from '@react-navigation/native';
 
 import * as userDataActions from '../store/actions/userData'
 import UserReadOnlyProfile from '../screens/user/UserReadOnlyProfile';
+import MeetingsScheduler from '../screens/student/MeetingsScheduler';
 
 //Auth Navigators
 
@@ -50,8 +51,9 @@ export const FindTutorNavigator = props => {
     }, [])
     return (
         <FindTutorStackNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' } }} >
-            <FindTutorStackNavigator.Screen name="Find-Tutor" component={FindTutor} />
+            <FindTutorStackNavigator.Screen name="Find-Tutor" component={FindTutor} options={{ headerTitle: 'Find A Tutor!' }}/>
             <FindTutorStackNavigator.Screen name="Read Only Profile" component={UserReadOnlyProfile} options={{ headerTitle: '' }} />
+            <FindTutorStackNavigator.Screen name="Schedule a Meeting" component={MeetingsScheduler} options={{ headerTitle: '' }} />
         </FindTutorStackNavigator.Navigator>
     )
 }
