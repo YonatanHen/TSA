@@ -15,7 +15,7 @@ const UserProfile = (props) => {
             <View style={styles.profileContainer}>
                 <View style={styles.image}>
                     <Image style={{ width: 180, height: 180, borderRadius: 100, borderColor: 'deepskyblue', borderWidth: 5 }}
-                        source={user.userImage ? { uri: user.userImage } : require('../../images/Default-Profile-Picture.png')} />
+                        source={user.imageUrl ? { uri: user.imageUrl } : require('../../images/Default-Profile-Picture.png')} />
                 </View>
                 <View style={styles.nameHeader}>
                     <Text style={{ fontSize: 30, fontWeight: 'bold', color: 'dodgerblue' }}>
