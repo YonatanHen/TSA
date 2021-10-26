@@ -2,9 +2,11 @@ import envs from '../../config/env'
 
 
 import findAdmin from '../../utilities/findAdmin'
+import writeUserData from '../../utilities/readWriteUserData/writeUserData'
+import readUserData from '../../utilities/readWriteUserData/readUserData'
 import { readAllUsers } from '../actions/representation'
 
-const { FIREBASE_API_KEY } = envs
+const { FIREBASE_API_KEY, IP_ADDRESS } = envs
 
 export const SIGNUP = 'SIGNUP'
 export const SIGNIN = 'SIGNIN'
@@ -14,6 +16,7 @@ export const UPDATE_USER_ON_SIGNUP = 'UPDATE_USER_ON_SIGNUP'
 
 import imageUploader from '../../utilities/cloudinary/uploadImage'
 import setCityAndCountryByLocation from '../../utilities/setCityAndCountryByLocation'
+import axios from 'axios'
 
 export const signup = (email, password, role, fname, lname, institute) => {
     return async dispatch => {
@@ -85,6 +88,9 @@ export const login = (email, password) => {
 
         const user = await readUserData(resData.localId)
 
+        axios.get(`http://${IP_ADDRESS}:8000/login`)
+        .then(res => console.log(res.data.message))
+
         dispatch({
             type: SIGNIN,
             token: resData.idToken,
@@ -95,45 +101,6 @@ export const login = (email, password) => {
 
 export const logout = () => {
     return { type: LOGOUT }
-}
-
-
-const writeUserData = async (user) => {
-    const response = await fetch(
-        `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users/${user.role}s/${user.uid}.json`,
-        {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(user)
-        })
-
-    const resData = await response.json()
-
-    if (!response.ok) {
-        console.log(resData.error)
-        throw new Error('Something went wrong')
-    }
-
-    return
-}
-
-const readUserData = async (uid) => {
-    const response = await fetch(`https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users.json`)
-
-    const resData = await response.json()
-
-    const users = await Object.assign({}, resData.admins, resData.tutors, resData.students)
-
-    if (!response.ok) {
-        console.log(resData.error)
-        throw new Error('Something went wrong')
-    }
-
-    const user = users[uid]
-
-    return user
 }
 
 export const addDataOnSignUp = (role, bio, image, courses = undefined, phone, location) => {
