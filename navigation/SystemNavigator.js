@@ -207,6 +207,7 @@ export const AdminNavigator = () => {
     return (
         <AdminDrawerNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' } }}>
             <AdminDrawerNavigator.Screen name="Admin Main" component={AdminMainScreen} options={AdminScreenOptions} />
+            <AdminDrawerNavigator.Screen name="User Profile" component={UserReadOnlyProfile} options={{}} />
         </AdminDrawerNavigator.Navigator>
     )
 }

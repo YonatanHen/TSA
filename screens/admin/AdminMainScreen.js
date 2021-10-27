@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, Text, SectionList, View, TextInput } from 'react-native'
+import { StyleSheet, Text, SectionList, View, TextInput, TouchableOpacity } from 'react-native'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 import { DrawerActions } from '@react-navigation/native'
 import { useDispatch, useSelector } from 'react-redux'
@@ -35,12 +35,24 @@ const AdminMainScreen = props => {
                     {
                         title: 'Tutors', data: users.tutors !== undefined ? [...Object.entries(users.tutors)]
                             .filter(tutor => tutor[1].institue === adminInstitue && `${tutor[1].firstName} ${tutor[1].lastName}`.includes(searchInput))
-                            .map(tutor => `${tutor[1].firstName} ${tutor[1].lastName}`) : ['No tutors found']
+                            .map(tutor => {
+                                return (
+                                    <TouchableOpacity onPress={() => props.navigation.navigate("User Profile", { user: tutor[1] })}>
+                                        <Text>{tutor[1].firstName} {tutor[1].lastName}</Text>
+                                    </TouchableOpacity>
+                                )
+                            }) : ['No tutors found']
                     },
                     {
                         title: 'Students', data: users.students !== undefined ? [...Object.entries(users.students)]
                             .filter(student => student[1].institue === adminInstitue && `${student[1].firstName} ${student[1].lastName}`.includes(searchInput))
-                            .map(student => `${student[1].firstName} ${student[1].lastName}`) : ['No students found.']
+                            .map(student => {
+                                return (
+                                    <TouchableOpacity onPress={() => props.navigation.navigate("User Profile",  { user: student[1] })}>
+                                        <Text>{student[1].firstName} {student[1].lastName}</Text>
+                                    </TouchableOpacity>
+                                )
+                            }) : ['No students found.']
                     }
                 ]}
                 renderItem={({ item }) => <Text style={styles.item}>{item}</Text>}
@@ -55,6 +67,9 @@ const AdminMainScreen = props => {
         </View>
     )
 }
+
+//   () => props.navigation.navigate("Find Tutor", { screen: 'Read Only Profile', params: { user: tutor[1] } })
+
 
 export const screenOptions = navData => {
     const dispatch = useDispatch()
