@@ -89,7 +89,7 @@ export const login = (email, password) => {
         const user = await readUserData(resData.localId)
 
         axios.get(`http://${IP_ADDRESS}:8000/login`)
-        .then(res => console.log(res.data.message))
+            .then(res => console.log(res.data.message))
 
         dispatch({
             type: SIGNIN,
@@ -113,10 +113,10 @@ export const addDataOnSignUp = (role, bio, image, courses = undefined, phone, lo
         }
         const token = getState().userData.token
         const uid = getState().userData.uid
-        
+
         let city, country, imageUrl = undefined
 
-        if(location){
+        if (location) {
             let locationValues = await setCityAndCountryByLocation(location)
             city = locationValues.city
             country = locationValues.country
@@ -179,10 +179,10 @@ export const updateUser = (email, fname, lname, institute, bio, courses = undefi
         const token = getState().userData.token
         const uid = getState().userData.uid
         const role = getState().userData.role
-        
+
         let city, country = undefined
 
-        if(location){
+        if (location) {
             let locationValues = await setCityAndCountryByLocation(location)
             city = locationValues.city
             country = locationValues.country
@@ -231,7 +231,7 @@ export const updateUser = (email, fname, lname, institute, bio, courses = undefi
         //     country,
         // })
 
-        return {message: 'User updated successfully.'}
+        return { message: 'User updated successfully.' }
     }
 }
 
@@ -244,7 +244,7 @@ export const deleteUser = () => {
 
         let response = await fetch(
             `https://identitytoolkit.googleapis.com/v1/accounts:delete?key=${FIREBASE_API_KEY}`,
-            {       
+            {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -254,10 +254,10 @@ export const deleteUser = () => {
                 })
             }
         ).then(res => res.json())
-        .then(res => console.log(res))
-        .catch(err => {
-            throw new Error('Error in delete authentication details!')
-        })
+            .then(res => console.log(res))
+            .catch(err => {
+                throw new Error('Error in delete authentication details!')
+            })
 
         response = await fetch(
             `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users/${role}s/${uid}.json?auth=${token}`,
@@ -268,13 +268,41 @@ export const deleteUser = () => {
                 }
             }
         ).then(res => res.json())
-        .then(res => console.log(res))
-        .catch(err => {
-            throw new Error('Error in delete user details!')
-        })
+            .then(res => console.log(res))
+            .catch(err => {
+                throw new Error('Error in delete user details!')
+            })
 
         await dispatch({
             type: LOGOUT
         })
+    }
+}
+
+export const disableUser = (user) => {
+    return async (dispatch, getState) => {
+        const token = getState().userData.token
+
+
+        response = await fetch(
+            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users/${user.role}s/${user.uid}.json?auth=${token}`,
+            {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    ...user,
+                    disabled: true
+                })
+            }
+        ).then(res => res.json())
+            .then(res => console.log(res))
+            .catch(err => {
+                console.log(err)
+                throw new Error('Error in disable user!')
+            })
+
+        await dispatch(readAllUsers())
     }
 }
