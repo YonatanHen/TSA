@@ -31,11 +31,14 @@ const UserReadOnlyProfile = (props) => {
 
                             </View>
                         </View>
-                        {loggedInUser.role === 'student' && <View style={styles.row}>
+                        {loggedInUser.role === 'student' &&
                             <View style={{ alignItems: 'center' }}>
-                                <Button title={`Schdule a Meeting with ${user.firstName}`} onPress={() => props.navigation.navigate('Schedule a Meeting')} />
+                                <Button 
+                                    title={`Schdule a Meeting with ${user.firstName}`} 
+                                    onPress={() => props.navigation.navigate('Schedule a Meeting')} 
+                                />
                             </View>
-                        </View>}
+                        }
                     </>
                 )}
             </ScrollView>
