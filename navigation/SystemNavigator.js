@@ -12,7 +12,7 @@ import SignUpLandingPage from '../screens/auth/SignUpLandingPage'
 import MainPage, { ScreenOptions as MainScreenOptions, screenOptions } from '../screens/student/MainPageScreen'
 import FindTutor, { screenOptions as FindTutorScreenOptions } from '../screens/student/FindTutor'
 
-import UserProfile from '../screens/user/UserProfile'
+import LoggedInUserProfile from '../screens/user/LoggedInUserProfile'
 import EditUser from '../screens/user/EditUser'
 
 import AdminMainScreen, { screenOptions as AdminScreenOptions } from '../screens/admin/AdminMainScreen'
@@ -23,7 +23,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { StackActions } from '@react-navigation/native';
 
 import * as userDataActions from '../store/actions/userData'
-import UserReadOnlyProfile from '../screens/user/UserReadOnlyProfile';
+import UserProfile from '../screens/user/UserProfile';
 import MeetingsScheduler from '../screens/student/MeetingsScheduler';
 
 //Auth Navigators
@@ -52,7 +52,7 @@ export const FindTutorNavigator = props => {
     return (
         <FindTutorStackNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' } }} >
             <FindTutorStackNavigator.Screen name="Find-Tutor" component={FindTutor} options={{ headerTitle: 'Find A Tutor!' }}/>
-            <FindTutorStackNavigator.Screen name="Read Only Profile" component={UserReadOnlyProfile} options={{ headerTitle: '' }} />
+            <FindTutorStackNavigator.Screen name="Read Only Profile" component={UserProfile} options={{ headerTitle: '' }} />
             <FindTutorStackNavigator.Screen name="Schedule a Meeting" component={MeetingsScheduler} options={{ headerTitle: '' }} />
         </FindTutorStackNavigator.Navigator>
     )
@@ -63,7 +63,7 @@ const ProfileStackNavigator = createStackNavigator()
 export const UserProfileNavigator = () => {
     return (
         <ProfileStackNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' } }}>
-            <ProfileStackNavigator.Screen name="User Profile" component={UserProfile} />
+            <ProfileStackNavigator.Screen name="User Profile" component={LoggedInUserProfile} />
         </ProfileStackNavigator.Navigator>
     )
 }
@@ -207,7 +207,7 @@ export const AdminNavigator = () => {
     return (
         <AdminDrawerNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' } }}>
             <AdminDrawerNavigator.Screen name="Admin Main" component={AdminMainScreen} options={AdminScreenOptions} />
-            <AdminDrawerNavigator.Screen name="User Profile" component={UserReadOnlyProfile} options={{}} />
+            <AdminDrawerNavigator.Screen name="User Profile" component={UserProfile} options={{}} />
         </AdminDrawerNavigator.Navigator>
     )
 }
