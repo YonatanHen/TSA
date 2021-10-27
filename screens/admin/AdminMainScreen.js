@@ -38,7 +38,7 @@ const AdminMainScreen = props => {
                             .map(tutor => {
                                 return (
                                     <TouchableOpacity onPress={() => props.navigation.navigate("User Profile", { user: tutor[1] })}>
-                                        <Text>{tutor[1].firstName} {tutor[1].lastName}</Text>
+                                        <Text style={tutor[1].disabled && { color: 'red' }}>{tutor[1].firstName} {tutor[1].lastName}</Text>
                                     </TouchableOpacity>
                                 )
                             }) : ['No tutors found']
@@ -49,7 +49,7 @@ const AdminMainScreen = props => {
                             .map(student => {
                                 return (
                                     <TouchableOpacity onPress={() => props.navigation.navigate("User Profile",  { user: student[1] })}>
-                                        <Text>{student[1].firstName} {student[1].lastName}</Text>
+                                        <Text style={student[1].disabled && { color: 'red' }}>{student[1].firstName} {student[1].lastName}</Text>
                                     </TouchableOpacity>
                                 )
                             }) : ['No students found.']

@@ -283,7 +283,7 @@ export const deleteUser = () => {
     }
 }
 
-export const disableUser = (user) => {
+export const disableEnableUser = (user) => {
     return async (dispatch, getState) => {
         const token = getState().userData.token
 
@@ -297,14 +297,14 @@ export const disableUser = (user) => {
                 },
                 body: JSON.stringify({
                     ...user,
-                    disabled: true
+                    disabled: user.disabled ? false : true
                 })
             }
         ).then(res => res.json())
             .then(res => console.log(res))
             .catch(err => {
                 console.log(err)
-                throw new Error('Error in disable user!')
+                throw new Error('Error in disable/enable user!')
             })
 
         await dispatch(readAllUsers())

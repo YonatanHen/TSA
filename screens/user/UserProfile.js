@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Ionicons } from '@expo/vector-icons';
 
 import { ProfileCommonData } from '../../components/userProfile/profileCommonData'
-import { disableUser } from '../../store/actions/userData'
+import { disableEnableUser } from '../../store/actions/userData'
 
 const UserProfile = (props) => {
     const loggedInUser = useSelector(state => state.userData)
@@ -14,7 +14,7 @@ const UserProfile = (props) => {
 
     const disableUserHandler = () => {
         Alert.alert(
-            "Are you sure?", `Do you want to disable ${user.firstName} ${user.lastName}?`,
+            "Are you sure?", `Do you want to ${user.disabled ? 'enable' : 'disable'} ${user.firstName} ${user.lastName}?`,
             [
                 {
                     text: "No",
@@ -22,13 +22,13 @@ const UserProfile = (props) => {
                 },
                 {
                     text: "Yes", onPress: () => {
-                        dispatch(disableUser(user))
+                        dispatch(disableEnableUser(user))
                         props.navigation.goBack()
 
                     }
                 }
             ]
-        )      
+        )
     }
 
     return (
@@ -73,10 +73,10 @@ const UserProfile = (props) => {
                         color="deepskyblue"
                         onPress={() => console.log('pressed')}
                     />
-                    <Ionicons //disable user
-                        name='cloud-offline-sharp'
+                    <Ionicons //disable/enable user
+                        name={user.disabled ? 'cloud-sharp' : 'cloud-offline-sharp'}
                         size={40}
-                        color="red"
+                        color={user.disabled ? 'green' : 'red'}
                         onPress={() => disableUserHandler()}
                     />
                 </View>
