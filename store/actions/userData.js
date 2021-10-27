@@ -88,6 +88,10 @@ export const login = (email, password) => {
 
         const user = await readUserData(resData.localId)
 
+        if(user.disabled) {
+            throw new Error('Account is disabled. please contact your institute for more info.')
+        }
+
         axios.get(`http://${IP_ADDRESS}:8000/login`)
             .then(res => console.log(res.data.message))
 
