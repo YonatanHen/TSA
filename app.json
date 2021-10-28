@@ -33,6 +33,7 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "description": ""
+    "description": "",
+    "userInterfaceStyle": "automatic"
   }
 }
