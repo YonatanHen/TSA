@@ -3,16 +3,16 @@ import { Button, View } from "react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 export default props => {
-  const { isDatePickerVisible, setDatePickerVisibility, setTime } = props
+  const { isDatePickerVisible, setDatePickerVisibility, setItems, items, date } = props
 
   const hideDatePicker = () => {
     setDatePickerVisibility(false);
   };
 
-  const handleConfirm = async (date) => {
-    var startTime = await date.toLocaleTimeString()
-    var endTime = await new Date(date.setHours(date.getHours() + 1)).toLocaleTimeString()
-    await setTime(date)
+  const handleConfirm = async (pickedTime) => {
+    var startTime = await pickedTime.toLocaleTimeString([], {timeStyle: 'short'})
+    var endTime = await new Date(pickedTime.setHours(pickedTime.getHours() + 1)).toLocaleTimeString([], {timeStyle: 'short'})
+    await setItems({...items, [date]: [{time: `${startTime} - ${endTime}`}]})
     console.warn(`${startTime} - ${endTime}`);
     hideDatePicker();
   };

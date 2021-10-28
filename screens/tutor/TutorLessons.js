@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ActivityIndicator, View, Text, TouchableOpacity, StyleSheet, Button, Alert } from 'react-native'
 import { Agenda } from 'react-native-calendars'
 import { Card } from 'react-native-paper'
@@ -7,10 +7,18 @@ import DatePicker from '../../components/pickers/datePicker'
 
 
 const TutorLessons = props => {
-    const [items, setItems] = useState(props.tutorDates ? props.tutorDates : {})
+    const [items, setItems] = useState({
+        '2021-10-22': [],
+        '2021-10-23': [{ time: 'item 2 - any js object' }],
+        '2021-10-24': [],
+        '2021-10-25': [{ time: 'item 3 - any js object' }]
+    })
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
     const [date, setDate] = useState(null)
-    const [time, setTime] = useState(null)
+
+    useEffect(() => {
+        console.log(items)
+    },[items, setItems])
 
     const dateFormatter = (dateObj) => {
         return Intl.DateTimeFormat('sv-SE').format(dateObj)
@@ -21,7 +29,7 @@ const TutorLessons = props => {
             <TouchableOpacity>
                 <Card>
                     <Card.Content>
-                        <Text>{item.name}</Text>
+                        <Text>{item.time}</Text>
                     </Card.Content>
                 </Card>
             </TouchableOpacity>
@@ -37,19 +45,14 @@ const TutorLessons = props => {
     return (
         <>
             <Agenda
-                items={{
-                    '2021-10-22': [],
-                    '2021-10-23': [{ name: 'item 2 - any js object', time: '2:57:16 PM' }],
-                    '2021-10-24': [],
-                    '2021-10-25': [{ name: 'item 3 - any js object' }]
-                }}
+                items={items}
                 selected={dateFormatter(new Date())}
                 showClosingKnob={true}
                 renderItem={renderDay}
                 onDayPress={(day) => {
                     console.log(day)
                     console.log(new Date(day.dateString))
-                    setDate(new Date(day.dateString))
+                    setDate(dateFormatter(new Date(day.dateString)))
                 }}
             />
             <View style={styles.datePickerButtonContainer}>
@@ -58,7 +61,9 @@ const TutorLessons = props => {
             <DatePicker
                 setDatePickerVisibility={setDatePickerVisibility}
                 isDatePickerVisible={isDatePickerVisible}
-                setTime={setTime}
+                items={items}
+                setItems={setItems}
+                date={date}
             />
         </>
     )
