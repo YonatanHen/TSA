@@ -22,7 +22,7 @@ import TutorLessons from '../screens/tutor/TutorLessons'
 import { useDispatch, useSelector } from 'react-redux'
 import { StackActions } from '@react-navigation/native';
 
-import * as userDataActions from '../store/actions/userData'
+import * as dataActions from '../store/actions/data/userData'
 import UserProfile from '../screens/user/UserProfile';
 import MeetingsScheduler from '../screens/student/MeetingsScheduler';
 
@@ -71,7 +71,7 @@ export const UserProfileNavigator = () => {
 const Tab = createMaterialBottomTabNavigator();
 
 export const TabsStudentNavigator = props => {
-    const userImage = useSelector(state => state.userData.imageUrl)
+    const userImage = useSelector(state => state.data.imageUrl)
     return (
         <Tab.Navigator
             screenOptions={{ cardStyle: 'white' }, ({ route }) => ({
@@ -113,7 +113,7 @@ export const LessonsNavigator = () => {
 }
 
 export const TabsTutorNavigator = props => {
-    const userImage = useSelector(state => state.userData.imageUrl)
+    const userImage = useSelector(state => state.data.imageUrl)
     return (
         <Tab.Navigator
             screenOptions={({ route }) => ({
@@ -156,7 +156,7 @@ export const OptionsNavigator = props => {
                     <Button
                         title="Logout"
                         onPress={() => {
-                            dispatch(userDataActions.logout())
+                            dispatch(dataActions.logout())
                         }}
                     />
                 </View>
@@ -189,7 +189,7 @@ export const OptionsNavigator = props => {
 const MainDrawerNavigator = createStackNavigator()
 
 export const MainNavigator = props => {
-    const userRole = useSelector(state => state.userData.role)
+    const userRole = useSelector(state => state.data.role)
     return (
         <MainDrawerNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' } }}>
             <MainDrawerNavigator.Screen name="Update User" component={SignUpLandingPage} options={{}} />

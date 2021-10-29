@@ -8,7 +8,7 @@ import MultipleInput from '../../components/Inputs/LoginAndSignUp/multipleInput'
 import ImagePicker from '../../components/pickers/ImagePicker'
 import LocationPicker from '../../components/pickers/LocationPicker'
 
-import * as userDataActions from '../../store/actions/userData'
+import { addDataOnSignUp } from '../../store/actions/data/userData'
 
 const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE';
 
@@ -41,7 +41,7 @@ const SignUpLandingPage = props => {
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState()
 
-    const userRole = useSelector(state => state.userData.role)
+    const userRole = useSelector(state => state.data.role)
 
     const dispatch = useDispatch()
 
@@ -65,7 +65,7 @@ const SignUpLandingPage = props => {
     });
 
     const submitHandler = async () => {
-        let action = userDataActions.addDataOnSignUp(
+        let action = addDataOnSignUp(
             userRole,
             formState.inputValues.bio,
             selectedImage,

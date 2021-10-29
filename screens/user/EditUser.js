@@ -8,7 +8,7 @@ import MultipleInput from '../../components/Inputs/LoginAndSignUp/multipleInput'
 import ImagePicker from '../../components/pickers/ImagePicker'
 import LocationPicker from '../../components/pickers/LocationPicker'
 
-import * as userDataActions from '../../store/actions/userData'
+import { deleteUser, updateUser } from '../../store/actions/data/userData'
 import InstitutesModal from '../../components/modals/institutesListModal'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
@@ -39,7 +39,7 @@ const formReducer = (state, action) => {
 
 //Building the signing up at first, later we will add the login :)
 const EditUser = props => {
-    const user = useSelector(state => state.userData)
+    const user = useSelector(state => state.data)
     console.log(user)
 
     const [selectedImage, setSelectedImage] = useState()
@@ -85,7 +85,7 @@ const EditUser = props => {
 
     const submitHandler = async () => {
         let action; //email, fname, lname, institute, bio, courses = undefined, phone, location
-        action = userDataActions.updateUser(
+        action = updateUser(
             formState.inputValues.email,
             formState.inputValues.fname,
             formState.inputValues.lname,
@@ -109,7 +109,7 @@ const EditUser = props => {
     }
 
     const deleteUserHandler = async () => {
-        let action = userDataActions.deleteUser()
+        let action = deleteUser()
         setError(null);
         setIsLoading(true);
         try {

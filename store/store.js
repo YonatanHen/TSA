@@ -2,11 +2,11 @@ import { createStore, combineReducers, applyMiddleware } from 'redux'
 import ReduxThunk from 'redux-thunk'
 
 import representationReducer from './reducer/representation'
-import userDataReducer from './reducer/userData'
+import dataReducer from './reducer/data'
 
 const rootReducer = combineReducers({
     representationLists: representationReducer,
-    userData: userDataReducer,
+    data: dataReducer,
 });
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));

@@ -6,23 +6,23 @@ import 'intl';
 import 'intl/locale-data/jsonp/en';
 
 import DatePicker from '../../components/pickers/datePicker'
+import { useDispatch } from 'react-redux';
 
 
 const TutorLessons = props => {
-    const [items, setItems] = useState({
-        '2021-10-22': [],
-        '2021-10-23': [{ time: 'item 2 - any js object' }],
-        '2021-10-24': [],
-        '2021-10-25': [{ time: 'item 3 - any js object' }]
-    })
+    const [items, setItems] = useState({})
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
     const [date, setDate] = useState(null)
 
+    const dispatch = useDispatch()
+
     useEffect(() => {
+        
         console.log(items)
     },[items, setItems])
 
     const dateFormatter = (dateObj) => {
+        //Formats the date to the pattern of yyyy-mm-dd
         return dateObj.toISOString().split('T')[0]
     }
 

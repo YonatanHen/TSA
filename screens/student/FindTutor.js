@@ -13,7 +13,7 @@ import distanceCalc from '../../utilities/calculateDistance'
 
 const FindTutor = props => {
     const users = useSelector(state => state.representationLists.usersList)
-    const LoggedInUser = useSelector(state => state.userData)
+    const LoggedInUser = useSelector(state => state.data)
 
     const [formState, formStateHandler] = useState({
         distance: null,

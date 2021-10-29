@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 import { ProfileCommonData } from '../../components/userProfile/profileCommonData'
 
 const LoggedInUserProfile = (props) => {
-    const user = useSelector(state => state.userData)
+    const user = useSelector(state => state.data)
 
     return (
         <>

@@ -5,13 +5,13 @@ import { DrawerActions } from '@react-navigation/native'
 import { useDispatch, useSelector } from 'react-redux'
 
 import HeaderButton from '../../components/buttons/HeaderButton'
-import { logout } from '../../store/actions/userData'
+import { logout } from '../../store/actions/data/userData'
 
 
 const AdminMainScreen = props => {
     const [searchInput, setSearchInput] = useState('')
     const users = useSelector(state => state.representationLists.usersList)
-    const adminInstitue = useSelector(state => state.userData.institue)
+    const adminInstitue = useSelector(state => state.data.institue)
 
     useEffect(() => {
     }, [users, searchInput])

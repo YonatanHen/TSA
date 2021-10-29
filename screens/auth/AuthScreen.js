@@ -6,7 +6,7 @@ import Input from '../../components/Inputs/LoginAndSignUp/Input'
 import AutoCompleteInput from '../../components/Inputs/LoginAndSignUp/autoCompleteInput'
 import RolePicker from '../../components/pickers/rolePicker'
 
-import * as userDataActions from '../../store/actions/userData'
+import { signup, login } from '../../store/actions/data/userData'
 import InstitutesModal from '../../components/modals/institutesListModal'
 
 const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE';
@@ -73,7 +73,7 @@ const AuthScreen = props => {
   const authHandler = async () => {
     let action;
     if (isSignup) {
-      action = userDataActions.signup(
+      action = signup(
         formState.inputValues.email,
         formState.inputValues.password,
         formState.inputValues.role,
@@ -83,7 +83,7 @@ const AuthScreen = props => {
       );
     }
     else {
-      action = userDataActions.login(
+      action = login(
         formState.inputValues.email,
         formState.inputValues.password
       );

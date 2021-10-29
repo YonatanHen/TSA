@@ -1,10 +1,10 @@
-import envs from '../../config/env'
+import envs from '../../../config/env'
 
 
-import findAdmin from '../../utilities/findAdmin'
-import writeUserData from '../../utilities/readWriteUserData/writeUserData'
-import readUserData from '../../utilities/readWriteUserData/readUserData'
-import { readAllUsers } from '../actions/representation'
+import findAdmin from '../../../utilities/findAdmin'
+import writedata from '../../../utilities/readWriteUserData/writeUserData'
+import readUserData from '../../../utilities/readWriteUserData/readUserData'
+import { readAllUsers } from '../representation'
 
 const { FIREBASE_API_KEY, IP_ADDRESS } = envs
 
@@ -14,8 +14,8 @@ export const LOGOUT = 'LOGOUT'
 export const EDIT_USER = 'EDIT_USER'
 export const UPDATE_USER_ON_SIGNUP = 'UPDATE_USER_ON_SIGNUP'
 
-import imageUploader from '../../utilities/cloudinary/uploadImage'
-import setCityAndCountryByLocation from '../../utilities/setCityAndCountryByLocation'
+import imageUploader from '../../../utilities/cloudinary/uploadImage'
+import setCityAndCountryByLocation from '../../../utilities/setCityAndCountryByLocation'
 import axios from 'axios'
 
 export const signup = (email, password, role, fname, lname, institute) => {
@@ -46,7 +46,7 @@ export const signup = (email, password, role, fname, lname, institute) => {
 
         }
 
-        writeUserData({ email: email, uid: resData.localId, firstName: fname, lastName: lname, institute: institute, role: role })
+        writedata({ email: email, uid: resData.localId, firstName: fname, lastName: lname, institute: institute, role: role })
 
         await dispatch({
             type: SIGNUP,
@@ -115,8 +115,8 @@ export const addDataOnSignUp = (role, bio, image, courses = undefined, phone, lo
         if (!phone || phone === '') {
             throw new Error('You must enter a phone number!')
         }
-        const token = getState().userData.token
-        const uid = getState().userData.uid
+        const token = getState().data.token
+        const uid = getState().data.uid
 
         let city, country, imageUrl = undefined
 
@@ -180,9 +180,9 @@ export const addDataOnSignUp = (role, bio, image, courses = undefined, phone, lo
 
 export const updateUser = (email, fname, lname, institute, bio, courses = undefined, phone, location) => {
     return async (dispatch, getState) => {
-        const token = getState().userData.token
-        const uid = getState().userData.uid
-        const role = getState().userData.role
+        const token = getState().data.token
+        const uid = getState().data.uid
+        const role = getState().data.role
 
         let city, country = undefined
 
@@ -241,9 +241,9 @@ export const updateUser = (email, fname, lname, institute, bio, courses = undefi
 
 export const deleteUser = () => {
     return async (dispatch, getState) => {
-        const token = getState().userData.token
-        const uid = getState().userData.uid
-        const role = getState().userData.role
+        const token = getState().data.token
+        const uid = getState().data.uid
+        const role = getState().data.role
 
 
         let response = await fetch(
@@ -285,7 +285,7 @@ export const deleteUser = () => {
 
 export const disableEnableUser = (user) => {
     return async (dispatch, getState) => {
-        const token = getState().userData.token
+        const token = getState().data.token
 
 
         response = await fetch(

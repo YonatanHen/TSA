@@ -1,4 +1,5 @@
-import { LOGOUT, SIGNIN, SIGNUP, UPDATE_USER_ON_SIGNUP, EDIT_USER } from '../actions/userData'
+import { LOGOUT, SIGNIN, SIGNUP, UPDATE_USER_ON_SIGNUP, EDIT_USER } from '../actions/data/userData'
+import { ADD_LESSON } from '../actions/data/tutorData'
 
 const initialState = {
     //On sign-in/up
@@ -17,7 +18,8 @@ const initialState = {
     imageUrl: '',
     locationCords: '',
     city: '',
-    country: ''
+    country: '',
+    lessons: {}
     // didTryAutoLogin: false
 }
 
