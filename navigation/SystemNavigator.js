@@ -192,7 +192,7 @@ export const MainNavigator = props => {
     const userRole = useSelector(state => state.data.role)
     return (
         <MainDrawerNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' } }}>
-            <MainDrawerNavigator.Screen name="Update User" component={SignUpLandingPage} options={{}} />
+            <MainDrawerNavigator.Screen name="Update User" component={EditUser} options={{}} />
             <MainDrawerNavigator.Screen name="Student Home" component={userRole === 'student' ? (TabsStudentNavigator) : (TabsTutorNavigator)} options={{ headerShown: false }} />
             <MainDrawerNavigator.Screen name="Map" component={MapScreen} options={MapScreenOptions} />
         </MainDrawerNavigator.Navigator>
