@@ -5,33 +5,32 @@ import { Card } from 'react-native-paper'
 import 'intl';
 import 'intl/locale-data/jsonp/en';
 
-import DatePicker from '../../components/pickers/datePicker'
-import { useDispatch } from 'react-redux';
+import NewLessonPicker from '../../components/pickers/newLessonPicker'
+import { useSelector } from 'react-redux';
 
 
 const TutorLessons = props => {
-    const [items, setItems] = useState({})
+    const user = useSelector(state => state.data)
+    console.log(user)
+    const [lessons, setLessons] = useState(user.lessons ? user.lessons : {})
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
     const [date, setDate] = useState(null)
 
-    const dispatch = useDispatch()
 
     useEffect(() => {
-        
-        console.log(items)
-    },[items, setItems])
+    },[setLessons])
 
     const dateFormatter = (dateObj) => {
         //Formats the date to the pattern of yyyy-mm-dd
         return dateObj.toISOString().split('T')[0]
     }
 
-    const renderDay = (item) => {
+    const renderDay = (lesson) => {
         return (
             <TouchableOpacity>
                 <Card>
                     <Card.Content>
-                        <Text>{item.time}</Text>
+                        <Text>{lesson.time}</Text>
                     </Card.Content>
                 </Card>
             </TouchableOpacity>
@@ -47,7 +46,7 @@ const TutorLessons = props => {
     return (
         <>
             <Agenda
-                items={items}
+                items={lessons}
                 selected={dateFormatter(new Date())}
                 showClosingKnob={true}
                 renderItem={renderDay}
@@ -58,11 +57,11 @@ const TutorLessons = props => {
             <View style={styles.datePickerButtonContainer}>
                 <Button color={'deepskyblue'} title="Add Lesson Option" onPress={showDatePicker} />
             </View>
-            <DatePicker
+            <NewLessonPicker
                 setDatePickerVisibility={setDatePickerVisibility}
                 isDatePickerVisible={isDatePickerVisible}
-                items={items}
-                setItems={setItems}
+                items={lessons}
+                setItems={setLessons}
                 date={date}
             />
         </>

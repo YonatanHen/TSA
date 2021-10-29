@@ -53,7 +53,8 @@ export default (state = initialState, action) => {
                 imageUrl: action.imageUrl,
                 locationCords: action.locationCords,
                 city: action.city,
-                country: action.country
+                country: action.country,
+                lessons: action.lessons
             }
         case LOGOUT:
             return {
@@ -76,6 +77,11 @@ export default (state = initialState, action) => {
             ...state,
 
         }
+        case ADD_LESSON:
+            return {
+                ...state,
+                lessons: action.lessons
+            }
         default:
             return state
     }

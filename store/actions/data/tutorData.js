@@ -7,8 +7,19 @@ export const DELETE_LESSON = 'DELETE_LESSON'
 
 export const addLesson = (lessons) => {
     return async (dispatch, getState) => {
-        const user = getState()
+        const user = await {...getState().data, lessons}
         console.log(user)
+        try {
+            await writeUserData(user)
+        } catch {
+            throw new Error("Can't add new lesson, please try again later")
+        }
+
+        await dispatch({
+            type: ADD_LESSON,
+            lessons: lessons
+        })
+
     }
 }
 
