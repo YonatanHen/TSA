@@ -29,16 +29,16 @@ const TutorLessons = props => {
     const renderDay = (lesson) => {
         return (
             <TouchableOpacity>
-                <Card>
+                <Card style={styles.card}>
                     <Card.Content>
-                        <Text>{lesson.time}</Text>
+                        <Text style={{ fontWeight: 'bold' }}>{lesson.time}</Text>
                         {lesson.student ? (
                             <View>
                                 <Text>Add here student details</Text>
                                 <Text>Add here lesson topic details</Text>
                             </View>
                         ) : (
-                            <Text>Available!</Text>
+                            <Text style={{ color: 'deepskyblue' }}>Available!</Text>
                         )}
                         
                     </Card.Content>
@@ -84,6 +84,9 @@ const styles = StyleSheet.create({
     datePickerButtonContainer: {
         margin: 2,
         padding: 5
+    },
+    card: {
+        marginVertical: 10,
     }
 })
 

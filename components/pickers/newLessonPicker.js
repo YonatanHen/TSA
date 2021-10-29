@@ -15,8 +15,8 @@ export default props => {
   };
 
   const handleConfirm = async (pickedTime) => {
-    var startTime = await pickedTime.toLocaleTimeString([], {timeStyle: 'short'})
-    var endTime = new Date(pickedTime.setHours(pickedTime.getHours() + 1)).toLocaleTimeString([], {timeStyle: 'short'})
+    var startTime = await pickedTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    var endTime = new Date(pickedTime.setHours(pickedTime.getHours() + 1)).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
 
     const newLesson = lessons[date] ? {...lessons, [date]: [...lessons[date] , {time: `${startTime} - ${endTime}`}]} : {...lessons, [date]: [{time: `${startTime} - ${endTime}`}]}
 
@@ -36,6 +36,8 @@ export default props => {
       <DateTimePickerModal
         isVisible={isDatePickerVisible}
         mode="time"
+        locale="en_GB"
+        is24Hour
         onConfirm={handleConfirm}
         onCancel={hideDatePicker}
       />
