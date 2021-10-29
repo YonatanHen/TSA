@@ -19,8 +19,10 @@ export const fetchInstitutes = () => {
 
 export const readAllUsers = () => {
     return async dispatch => {
+        let time1 = performance.now();
         const response = await fetch(`https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users.json`)
-
+        let time2 = performance.now();
+        console.log(time2 - time1)
         const users = await response.json()
 
         if (!response.ok) {
