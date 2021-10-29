@@ -8,7 +8,7 @@ export const DELETE_LESSON = 'DELETE_LESSON'
 export const addLesson = (lessons) => {
     return async (dispatch, getState) => {
         const user = await {...getState().data, lessons}
-        console.log(user)
+
         try {
             await writeUserData(user)
         } catch {
