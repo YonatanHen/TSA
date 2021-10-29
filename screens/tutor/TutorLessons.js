@@ -18,6 +18,7 @@ const TutorLessons = props => {
 
 
     useEffect(() => {
+        console.log(lessons)
     },[setLessons])
 
     const dateFormatter = (dateObj) => {
@@ -31,7 +32,15 @@ const TutorLessons = props => {
                 <Card>
                     <Card.Content>
                         <Text>{lesson.time}</Text>
-                        <Text>Available!</Text>
+                        {lesson.student ? (
+                            <View>
+                                <Text>Add here student details</Text>
+                                <Text>Add here lesson topic details</Text>
+                            </View>
+                        ) : (
+                            <Text>Available!</Text>
+                        )}
+                        
                     </Card.Content>
                 </Card>
             </TouchableOpacity>
@@ -61,8 +70,8 @@ const TutorLessons = props => {
             <NewLessonPicker
                 setDatePickerVisibility={setDatePickerVisibility}
                 isDatePickerVisible={isDatePickerVisible}
-                items={lessons}
-                setItems={setLessons}
+                lessons={lessons}
+                setLessons={setLessons}
                 date={date}
             />
         </>
