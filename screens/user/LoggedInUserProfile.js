@@ -21,7 +21,7 @@ const LoggedInUserProfile = (props) => {
                         <View style={styles.sectionContent}>
                             {user.courses.map(course => {
                                 return (
-                                    <Text>
+                                    <Text key={course}>
                                         {course}
                                     </Text>
                                 )

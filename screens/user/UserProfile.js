@@ -44,9 +44,9 @@ const UserProfile = (props) => {
                         </Text>
                             </View>
                             <View style={styles.sectionContent}>
-                                {user.courses.map(course => {
+                                {user.courses.map((course) => {
                                     return (
-                                        <Text>
+                                        <Text key={course}>
                                             {course}
                                         </Text>
                                     )
