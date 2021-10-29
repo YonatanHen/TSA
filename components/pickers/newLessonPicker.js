@@ -18,16 +18,17 @@ export default props => {
     var startTime = await pickedTime.toLocaleTimeString([], {timeStyle: 'short'})
     var endTime = new Date(pickedTime.setHours(pickedTime.getHours() + 1)).toLocaleTimeString([], {timeStyle: 'short'})
 
-    setItems({...items, [date]: [{time: `${startTime} - ${endTime}`}]})
-    hideDatePicker();
+    const newLesson = items.date ? {...items, [date]: [{time: `${startTime} - ${endTime}`}]} : {...items, [date]: [...items[date] , {time: `${startTime} - ${endTime}`}]}
 
     try {
-      dispatch(addLesson({...items, [date]: [{time: `${startTime} - ${endTime}`}]}))
+      dispatch(addLesson(newLesson))
+      setItems(newLesson)
     } catch (err) {
       Alert.alert('An Error occured!', err, [{ text: 'OK' }])
       // Delete the item that has been added previously from the state
-      await setItems(items)
     }
+
+    hideDatePicker();
   };
 
   return (

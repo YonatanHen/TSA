@@ -31,6 +31,7 @@ const TutorLessons = props => {
                 <Card>
                     <Card.Content>
                         <Text>{lesson.time}</Text>
+                        <Text>Available!</Text>
                     </Card.Content>
                 </Card>
             </TouchableOpacity>
