@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { ActivityIndicator, View, Text, TouchableOpacity, StyleSheet, Button, Alert } from 'react-native'
 import { Agenda } from 'react-native-calendars'
 import { Card } from 'react-native-paper'
+import 'intl';
+import 'intl/locale-data/jsonp/en';
 
 import DatePicker from '../../components/pickers/datePicker'
 
@@ -21,7 +23,7 @@ const TutorLessons = props => {
     },[items, setItems])
 
     const dateFormatter = (dateObj) => {
-        return Intl.DateTimeFormat('sv-SE').format(dateObj)
+        return dateObj.toISOString().split('T')[0]
     }
 
     const renderDay = (item) => {
@@ -50,8 +52,6 @@ const TutorLessons = props => {
                 showClosingKnob={true}
                 renderItem={renderDay}
                 onDayPress={(day) => {
-                    console.log(day)
-                    console.log(new Date(day.dateString))
                     setDate(dateFormatter(new Date(day.dateString)))
                 }}
             />
