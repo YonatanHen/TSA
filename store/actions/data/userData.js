@@ -217,23 +217,21 @@ export const updateUser = (email, fname, lname, institute, bio, courses = undefi
         if (!response.ok) {
             throw new Error('Something went wrong!')
         }
-
-        //Check if this line did not failed.
         await dispatch(readAllUsers())
 
-        // dispatch({
-        //     type: EDIT_USER,
-        //     email,
-        //     fname,
-        //     lname,
-        //     institute,
-        //     bio,
-        //     phone,
-        //     courses,
-        //     locationCords: location,
-        //     city,
-        //     country,
-        // })
+        dispatch({
+            type: EDIT_USER,
+            email,
+            fname,
+            lname,
+            institute,
+            bio,
+            phone,
+            courses,
+            locationCords: location,
+            city,
+            country,
+        })
 
         return { message: 'User updated successfully.' }
     }
@@ -277,6 +275,8 @@ export const deleteUser = () => {
                 throw new Error('Error in delete user details!')
             })
 
+        await dispatch(readAllUsers())
+
         await dispatch({
             type: LOGOUT
         })
@@ -288,7 +288,7 @@ export const disableEnableUser = (user) => {
         const token = getState().data.token
 
 
-        response = await fetch(
+        await fetch(
             `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users/${user.role}s/${user.uid}.json?auth=${token}`,
             {
                 method: 'PATCH',
