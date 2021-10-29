@@ -140,6 +140,19 @@ export const TabsTutorNavigator = props => {
     );
 }
 
+//general users navigators
+
+const EditUserStackNavigator = createStackNavigator()
+
+export const EditUserNavigator = () => {
+    return (
+        <LessonsStackNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' } }}>
+            <LessonsStackNavigator.Screen name="Edit User" component={EditUser} />
+            <LessonsStackNavigator.Screen name="Map" component={MapScreen} screenOptions={MapScreenOptions}/>
+        </LessonsStackNavigator.Navigator>
+    )
+}
+
 const OptionsDrawerNavigator = createDrawerNavigator()
 
 export const OptionsNavigator = props => {
@@ -173,7 +186,7 @@ export const OptionsNavigator = props => {
             )
         }}
         />
-        <OptionsDrawerNavigator.Screen name={"Edit user"} component={EditUser} options={{
+        <OptionsDrawerNavigator.Screen name={"Edit user"} component={EditUserNavigator} options={{
             drawerIcon: props => (
                 <Ionicons
                     name='create-outline'
@@ -192,9 +205,9 @@ export const MainNavigator = props => {
     const userRole = useSelector(state => state.data.role)
     return (
         <MainDrawerNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' } }}>
-            <MainDrawerNavigator.Screen name="Update User" component={EditUser} options={{}} />
+            <MainDrawerNavigator.Screen name="Update User" component={SignUpLandingPage} options={{}} />
             <MainDrawerNavigator.Screen name="Student Home" component={userRole === 'student' ? (TabsStudentNavigator) : (TabsTutorNavigator)} options={{ headerShown: false }} />
-            <MainDrawerNavigator.Screen name="Map" component={MapScreen} options={MapScreenOptions} />
+            <MainDrawerNavigator.Screen name="Map" component={MapScreen} options={MapScreenOptions} options={{ headerShown: false }} />
         </MainDrawerNavigator.Navigator>
     )
 }
@@ -207,7 +220,7 @@ export const AdminNavigator = () => {
     return (
         <AdminDrawerNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' } }}>
             <AdminDrawerNavigator.Screen name="Admin Main" component={AdminMainScreen} options={AdminScreenOptions} />
-            <AdminDrawerNavigator.Screen name="User Profile" component={UserProfile} options={{}} />
+            <AdminDrawerNavigator.Screen name="User Profile" component={UserProfile} />
         </AdminDrawerNavigator.Navigator>
     )
 }
