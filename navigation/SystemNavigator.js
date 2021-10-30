@@ -147,7 +147,7 @@ export const EditUserNavigator = () => {
     return (
         <LessonsStackNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' } }}>
             <LessonsStackNavigator.Screen name="Edit User" component={EditUser} />
-            <LessonsStackNavigator.Screen name="Map" component={MapScreen} screenOptions={MapScreenOptions}/>
+            <LessonsStackNavigator.Screen name="Map" component={MapScreen} options={MapScreenOptions} />
         </LessonsStackNavigator.Navigator>
     )
 }
@@ -206,7 +206,7 @@ export const MainNavigator = props => {
         <MainDrawerNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' } }}>
             <MainDrawerNavigator.Screen name="Update User" component={SignUpLandingPage} options={{}} />
             <MainDrawerNavigator.Screen name="Student Home" component={userRole === 'student' ? (TabsStudentNavigator) : (TabsTutorNavigator)} options={{ headerShown: false }} />
-            <MainDrawerNavigator.Screen name="Map" component={MapScreen} options={MapScreenOptions} options={{ headerShown: false }} />
+            <MainDrawerNavigator.Screen name="Map" component={MapScreen} options={MapScreenOptions} />
         </MainDrawerNavigator.Navigator>
     )
 }

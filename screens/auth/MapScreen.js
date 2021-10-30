@@ -24,12 +24,7 @@ const MapScreen = props => {
       return
     }
     console.log(selectedLocation)
-    //   fetch(
-    //     `https://api.geoapify.com/v1/geocode/reverse?lat=${selectedLocation.lat}&lon=${selectedLocation.lng}&format=json&apiKey=${GEOPIFY_API}`
-    // ).then(response => response.json())
-    // .then(result => {
-    //    console.log(result.results[0].city + ', ' + result.results[0].country)
-    // })
+    
     props.navigation.navigate('Update User', { pickedLocation: selectedLocation })
   }, [selectedLocation])
 
@@ -49,7 +44,7 @@ const MapScreen = props => {
   return (
     <MapView
       style={styles.map}
-      region={mapRegion}
+      initialRegion={mapRegion}
       onPress={selectLocationHandler}
     >
       {markerCoordinates && <Marker title='Picked Location' coordinate={markerCoordinates} />}
