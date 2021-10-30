@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { View, SafeAreaView, Button, Image } from 'react-native'
+import { View, SafeAreaView, Button, Image, Platform } from 'react-native'
 import { Ionicons } from '@expo/vector-icons';
 import { createStackNavigator } from '@react-navigation/stack'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
@@ -25,14 +25,24 @@ import * as dataActions from '../store/actions/data/userData'
 import UserProfile from '../screens/user/UserProfile';
 import MeetingsScheduler from '../screens/student/MeetingsScheduler';
 
+//style
+
+const headerStyle = {
+    headerStyle: {},
+    headerTitleStyle: {
+        color: 'deepskyblue'
+    },
+    headerTitleAlign: 'center'
+}
+
 //Auth Navigators
 
 const AuthStackNavigator = createStackNavigator()
 
 export const AuthNavigator = () => {
     return (
-        <AuthStackNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' } }}>
-            <AuthStackNavigator.Screen name="Auth" component={AuthScreen} options={{ headerTitle: 'Welcome to the Students Scheduler App!' }} />
+        <AuthStackNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' }, ...headerStyle }}>
+            <AuthStackNavigator.Screen name="Auth" component={AuthScreen} options={{ headerTitle: 'Welcome!' }} />
         </AuthStackNavigator.Navigator>
     )
 }
@@ -45,12 +55,12 @@ export const FindTutorNavigator = props => {
     useEffect(() => {
         props.navigation.reset({
             index: 0,
-            routes: [{name: 'Find-Tutor'}]
+            routes: [{ name: 'Find-Tutor' }]
         })
     }, [])
     return (
-        <FindTutorStackNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' } }} >
-            <FindTutorStackNavigator.Screen name="Find-Tutor" component={FindTutor} options={{ headerTitle: 'Find A Tutor!' }}/>
+        <FindTutorStackNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' }, ...headerStyle }} >
+            <FindTutorStackNavigator.Screen name="Find-Tutor" component={FindTutor} options={{ headerTitle: 'Find A Tutor!' }} />
             <FindTutorStackNavigator.Screen name="Read Only Profile" component={UserProfile} options={{ headerTitle: '' }} />
             <FindTutorStackNavigator.Screen name="Schedule a Meeting" component={MeetingsScheduler} options={{ headerTitle: '' }} />
         </FindTutorStackNavigator.Navigator>
@@ -61,7 +71,7 @@ const ProfileStackNavigator = createStackNavigator()
 
 export const UserProfileNavigator = () => {
     return (
-        <ProfileStackNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' } }}>
+        <ProfileStackNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' }, ...headerStyle }}>
             <ProfileStackNavigator.Screen name="User Profile" component={LoggedInUserProfile} />
         </ProfileStackNavigator.Navigator>
     )
@@ -105,7 +115,7 @@ const LessonsStackNavigator = createStackNavigator()
 
 export const LessonsNavigator = () => {
     return (
-        <LessonsStackNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' } }}>
+        <LessonsStackNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' }, ...headerStyle }}>
             <LessonsStackNavigator.Screen name="Tutor Lessons" component={TutorLessons} />
         </LessonsStackNavigator.Navigator>
     )
@@ -145,7 +155,7 @@ const EditUserStackNavigator = createStackNavigator()
 
 export const EditUserNavigator = () => {
     return (
-        <LessonsStackNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' } }}>
+        <LessonsStackNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' }, ...headerStyle }}>
             <LessonsStackNavigator.Screen name="Edit User" component={EditUser} />
             <LessonsStackNavigator.Screen name="Map" component={MapScreen} options={MapScreenOptions} />
         </LessonsStackNavigator.Navigator>
@@ -203,7 +213,7 @@ const MainDrawerNavigator = createStackNavigator()
 export const MainNavigator = props => {
     const userRole = useSelector(state => state.data.role)
     return (
-        <MainDrawerNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' } }}>
+        <MainDrawerNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' }, ...headerStyle }}>
             <MainDrawerNavigator.Screen name="Update User" component={SignUpLandingPage} options={{}} />
             <MainDrawerNavigator.Screen name="Student Home" component={userRole === 'student' ? (TabsStudentNavigator) : (TabsTutorNavigator)} options={{ headerShown: false }} />
             <MainDrawerNavigator.Screen name="Map" component={MapScreen} options={MapScreenOptions} />
@@ -217,7 +227,7 @@ const AdminDrawerNavigator = createStackNavigator()
 
 export const AdminNavigator = () => {
     return (
-        <AdminDrawerNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' } }}>
+        <AdminDrawerNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' }, ...headerStyle }}>
             <AdminDrawerNavigator.Screen name="Admin Main" component={AdminMainScreen} options={AdminScreenOptions} />
             <AdminDrawerNavigator.Screen name="User Profile" component={UserProfile} />
         </AdminDrawerNavigator.Navigator>

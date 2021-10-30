@@ -79,6 +79,7 @@ export const screenOptions = navData => {
             <HeaderButtons HeaderButtonComponent={HeaderButton}>
                 <Item
                     title="Logout"
+                    color='grey'
                     onPress={() => {
                         // navData.navigation.dispatch(DrawerActions.toggleDrawer());
                         dispatch(logout())
