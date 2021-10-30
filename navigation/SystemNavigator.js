@@ -20,7 +20,6 @@ import AdminMainScreen, { screenOptions as AdminScreenOptions } from '../screens
 import TutorLessons from '../screens/tutor/TutorLessons'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { StackActions } from '@react-navigation/native';
 
 import * as dataActions from '../store/actions/data/userData'
 import UserProfile from '../screens/user/UserProfile';
