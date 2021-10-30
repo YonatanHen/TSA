@@ -28,9 +28,11 @@ import MeetingsScheduler from '../screens/student/MeetingsScheduler';
 //style
 
 const headerStyle = {
-    headerStyle: {},
+    headerStyle: {
+        backgroundColor: Platform.OS === 'android' ?  'white' : 'deepskyblue'
+    },
     headerTitleStyle: {
-        color: 'deepskyblue'
+        color: Platform.OS === 'android' ? 'deepskyblue' : 'white'
     },
     headerTitleAlign: 'center'
 }
