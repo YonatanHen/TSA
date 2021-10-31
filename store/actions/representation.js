@@ -1,6 +1,5 @@
 export const ACADEMIC_INSTITUTES = 'ACADEMIC_INSTITUTES'
 export const READ_ALL_USERS = 'READ_ALL_USERS'
-export const UPDATE_ONE_USER = 'UPDATE_ONE_USER'
 
 import institutesList from '../../data/world-universities'
 
@@ -37,3 +36,4 @@ export const readAllUsers = () => {
         })
     }
 }
+

@@ -61,7 +61,7 @@ const UserProfile = (props) => {
                             <View style={{ alignItems: 'center', marginTop: 10 }}>
                                 <Button
                                     title={`Schedule a Meeting with ${user.firstName}`}
-                                    onPress={() => props.navigation.navigate({name: 'Schedule a Meeting' , params: { lessons: user.lessons } })}
+                                    onPress={() => props.navigation.navigate({name: 'Schedule a Meeting' , params: { user: user } })}
                                 />
                             </View>
                         }

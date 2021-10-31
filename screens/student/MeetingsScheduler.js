@@ -4,13 +4,29 @@ import { Agenda } from 'react-native-calendars'
 import { Card } from 'react-native-paper'
 import 'intl';
 import 'intl/locale-data/jsonp/en';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+
+import CoursePicker from '../../components/pickers/coursePicker'
 
 
 const ScheduleMeeting = props => {
     const user = useSelector(state => state.data)
 
-    const [lessons, setLessons] = useState(props.route.params.lessons ? props.route.params.lessons : {})
+    const tutorData = props.route.params.user
+
+    const [lessons, setLessons] = useState(tutorData.lessons ? tutorData.lessons : {})
+    const [isDialogVisible, setDialogVisibility] = useState(false)
+
+    // const dispatch = useDispatch()
+
+    // const scheduleLesson = async () => {
+    //     try {
+
+    //         // await dispatch(scheduleLesson(tutorData, `${user.firstName} ${user.lastName}`, selectedCourse, lessonDate, lessonTime))
+    //     } catch (err) {
+    //         console.log(err)
+    //     }
+    // }
 
 
     useEffect(() => {
@@ -20,7 +36,7 @@ const ScheduleMeeting = props => {
 
     const renderDay = (lesson) => {
         return (
-            <TouchableOpacity onPress={() => {}}>
+            <TouchableOpacity onPress={() => setDialogVisibility(true)}>
                 <Card style={styles.card}>
                     <Card.Content>
                         <Text style={{ fontWeight: 'bold' }}>{lesson.time}</Text>
@@ -47,6 +63,10 @@ const ScheduleMeeting = props => {
                 // selected={dateFormatter(new Date())}
                 showClosingKnob={true}
                 renderItem={renderDay}
+            />
+            <CoursePicker 
+                visible={isDialogVisible}
+                setDialogVisibility={setDialogVisibility}
             />
         </>
     )

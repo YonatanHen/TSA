@@ -24,16 +24,6 @@ const InstitutesModal = props => {
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
                     <Text style={{ fontSize: 20 , color: 'dodgerblue'}}>Institutes List: </Text>
-
-                        {/* <ScrollView>
-                            {institutesList.map(institute => {
-                                return (
-                                    <View style={{ marginVertical: 2}}>
-                                        <Text key={key++}>{institute}</Text>
-                                    </View>
-                                )
-                            })}
-                        </ScrollView> */}
                         <SafeAreaView style={styles.container}>
                             <FlatList
                                 data={institutesList}
