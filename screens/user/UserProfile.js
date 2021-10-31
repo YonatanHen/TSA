@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 import { ProfileCommonData } from '../../components/userProfile/profileCommonData'
 import { disableEnableUser } from '../../store/actions/data/userData'
+import { updateOneUser } from '../../store/actions/representation'
 
 const UserProfile = (props) => {
     const loggedInUser = useSelector(state => state.data)
@@ -35,6 +36,7 @@ const UserProfile = (props) => {
         <>
             <ScrollView style={{ flexDirection: 'column' }}>
                 <ProfileCommonData user={user} />
+
                 {user.role === 'tutor' && (
                     <>
                         <View style={styles.row}>
@@ -54,17 +56,19 @@ const UserProfile = (props) => {
 
                             </View>
                         </View>
+                        
                         {loggedInUser.role === 'student' &&
-                            <View style={{ alignItems: 'center' }}>
+                            <View style={{ alignItems: 'center', marginTop: 10 }}>
                                 <Button
-                                    title={`Schdule a Meeting with ${user.firstName}`}
-                                    onPress={() => props.navigation.navigate('Schedule a Meeting')}
+                                    title={`Schedule a Meeting with ${user.firstName}`}
+                                    onPress={() => props.navigation.navigate({name: 'Schedule a Meeting' , params: { lessons: user.lessons } })}
                                 />
                             </View>
                         }
                     </>
                 )}
             </ScrollView>
+
             {loggedInUser.role === 'admin' && (<View style={styles.adminIcons}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                     <Ionicons //edit user

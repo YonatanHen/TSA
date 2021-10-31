@@ -256,7 +256,6 @@ export const deleteUser = () => {
                 })
             }
         ).then(res => res.json())
-            .then(res => console.log(res))
             .catch(err => {
                 throw new Error('Error in delete authentication details!')
             })
@@ -270,7 +269,6 @@ export const deleteUser = () => {
                 }
             }
         ).then(res => res.json())
-            .then(res => console.log(res))
             .catch(err => {
                 throw new Error('Error in delete user details!')
             })
@@ -301,7 +299,6 @@ export const disableEnableUser = (user) => {
                 })
             }
         ).then(res => res.json())
-            .then(res => console.log(res))
             .catch(err => {
                 console.log(err)
                 throw new Error('Error in disable/enable user!')

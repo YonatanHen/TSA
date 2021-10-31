@@ -28,7 +28,7 @@ const TutorLessons = props => {
 
     const renderDay = (lesson) => {
         return (
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => console.log('Add delete lesson option here')}>
                 <Card style={styles.card}>
                     <Card.Content>
                         <Text style={{ fontWeight: 'bold' }}>{lesson.time}</Text>
@@ -64,8 +64,10 @@ const TutorLessons = props => {
                     setDate(dateFormatter(new Date(day.dateString)))
                 }}
             />
-            <View style={styles.datePickerButtonContainer}>
-                <Button color={'deepskyblue'} title="Add Lesson Option" onPress={showDatePicker} />
+            <View style={{ alignItems: 'center'}}>
+                <View style={styles.datePickerButtonContainer}>
+                    <Button color={'deepskyblue'} title="Add" onPress={showDatePicker} />
+                </View>
             </View>
             <NewLessonPicker
                 setDatePickerVisibility={setDatePickerVisibility}
@@ -83,7 +85,8 @@ const TutorLessons = props => {
 const styles = StyleSheet.create({
     datePickerButtonContainer: {
         margin: 2,
-        padding: 5
+        padding: 5,
+        width: '50%',
     },
     card: {
         marginVertical: 10,

@@ -58,9 +58,8 @@ const FindTutor = props => {
             </View>
 
             <View style={styles.tutorsList}>
-                {users ? (users.tutors !== undefined ? (<ScrollView>
-                    {[...Object.entries(users.tutors)]
-                        .filter(tutor => tutor[1].institute === LoggedInUser.institute
+                {users ? (users.tutors !== [] ? (<ScrollView>
+                        {users.tutors.filter(tutor => tutor[1].institute === LoggedInUser.institute
                             && tutor[1].courses.some(course => course.toLowerCase().includes(formState.courseName.toLowerCase()))
                             && `${tutor[1].firstName} ${tutor[1].lastName}`.toLowerCase().includes(formState.TutorName.toLowerCase())
                             && (formState.distance == null

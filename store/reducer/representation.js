@@ -1,4 +1,4 @@
-import { ACADEMIC_INSTITUTES, READ_ALL_USERS, UPDATE_USER_IN_LIST, DELETE_USER_FROM_LIST } from '../actions/representation'
+import { ACADEMIC_INSTITUTES, READ_ALL_USERS } from '../actions/representation'
 
 const initialState = {
     institutesList: [],

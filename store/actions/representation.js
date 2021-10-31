@@ -1,5 +1,6 @@
 export const ACADEMIC_INSTITUTES = 'ACADEMIC_INSTITUTES'
 export const READ_ALL_USERS = 'READ_ALL_USERS'
+export const UPDATE_ONE_USER = 'UPDATE_ONE_USER'
 
 import institutesList from '../../data/world-universities'
 
@@ -23,7 +24,7 @@ export const readAllUsers = () => {
         const response = await fetch(`https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users.json`)
         let time2 = performance.now();
         console.log(time2 - time1)
-        const users = await response.json()
+        var users = await response.json()
 
         if (!response.ok) {
             console.log(resData.error)
@@ -32,7 +33,7 @@ export const readAllUsers = () => {
 
         dispatch({
             type: READ_ALL_USERS,
-            usersList: users
+            usersList: {admins: Object.entries(users.admins), tutors: Object.entries(users.tutors), students: Object.entries(users.students)}
         })
     }
 }
