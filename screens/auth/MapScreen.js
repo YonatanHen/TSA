@@ -4,6 +4,7 @@ import MapView, { Marker } from 'react-native-maps'
 
 const MapScreen = props => {
   const [selectedLocation, setSelectedLocation] = useState()
+  
   const mapRegion = {
     latitude: 31.771959,
     longitude: 35.217018,
@@ -24,8 +25,8 @@ const MapScreen = props => {
       return
     }
     console.log(selectedLocation)
-    
-    props.navigation.navigate('Update User', { pickedLocation: selectedLocation })
+
+    props.navigation.navigate('Edit User', { pickedLocation: selectedLocation })
   }, [selectedLocation])
 
   useEffect(() => {

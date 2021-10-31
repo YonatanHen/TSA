@@ -1,20 +1,93 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-import { HeaderButtons, Item } from 'react-navigation-header-buttons';
-import { DrawerActions } from '@react-navigation/native';
+import React, { useEffect, useState } from 'react'
+import { ActivityIndicator, View, Text, TouchableOpacity, StyleSheet, Button, Alert } from 'react-native'
+import { Agenda } from 'react-native-calendars'
+import { Card } from 'react-native-paper'
+import 'intl';
+import 'intl/locale-data/jsonp/en';
 
-import HeaderButton from '../../components/buttons/HeaderButton';
-import AgendaCalendar from '../../components/calendar/agendaCalendar';
+import NewLessonPicker from '../../components/pickers/newLessonPicker'
+import { useSelector } from 'react-redux';
 
-const MeetingsScheduler = props => {
+
+const ScheduleMeeting = props => {
+    const user = useSelector(state => state.data)
+    console.log(user)
+    const [lessons, setLessons] = useState(user.lessons ? user.lessons : {})
+    const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+    const [date, setDate] = useState(null)
+
+
+    useEffect(() => {
+        console.log(lessons)
+    },[setLessons])
+
+    const dateFormatter = (dateObj) => {
+        //Formats the date to the pattern of yyyy-mm-dd
+        return dateObj.toISOString().split('T')[0]
+    }
+
+    const renderDay = (lesson) => {
+        return (
+            <TouchableOpacity>
+                <Card style={styles.card}>
+                    <Card.Content>
+                        <Text style={{ fontWeight: 'bold' }}>{lesson.time}</Text>
+                        {lesson.student ? (
+                            <View>
+                                <Text>Add here student details</Text>
+                                <Text>Add here lesson topic details</Text>
+                            </View>
+                        ) : (
+                            <Text style={{ color: 'deepskyblue' }}>Available!</Text>
+                        )}
+                        
+                    </Card.Content>
+                </Card>
+            </TouchableOpacity>
+        )
+    }
+
+    const showDatePicker = () => {
+        if (date) {
+            setDatePickerVisibility(true);
+        } else Alert.alert('Select a Date from the calendar first!')
+    }
 
     return (
-        <View style={{ flex: 1 }}>
-            <AgendaCalendar />
-        </View>
+        <>
+            <Agenda
+                items={lessons}
+                selected={dateFormatter(new Date())}
+                showClosingKnob={true}
+                renderItem={renderDay}
+                onDayPress={(day) => {
+                    setDate(dateFormatter(new Date(day.dateString)))
+                }}
+            />
+            <View style={styles.datePickerButtonContainer}>
+                <Button color={'deepskyblue'} title="Add Lesson Option" onPress={showDatePicker} />
+            </View>
+            <NewLessonPicker
+                setDatePickerVisibility={setDatePickerVisibility}
+                isDatePickerVisible={isDatePickerVisible}
+                lessons={lessons}
+                setLessons={setLessons}
+                date={date}
+            />
+        </>
     )
 }
 
-const styles = StyleSheet.create({})
 
-export default MeetingsScheduler
+
+const styles = StyleSheet.create({
+    datePickerButtonContainer: {
+        margin: 2,
+        padding: 5
+    },
+    card: {
+        marginVertical: 10,
+    }
+})
+
+export default ScheduleMeeting

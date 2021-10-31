@@ -67,9 +67,10 @@ const FindTutor = props => {
                                 || distanceCalc(tutor[1].locationCords.lat, tutor[1].locationCords.lng, LoggedInUser.locationCords.lat, LoggedInUser.locationCords.lng) <= formState.distance))
                         .map(tutor => {
                             return (
-                                <>
+                                <View
+                                    key={tutor[1].uid.toString()}
+                                >
                                     <TouchableOpacity
-                                        key={tutor[1].uid.toString()}
                                         onPress={
                                             () => props.navigation.navigate("Find Tutor", { screen: 'Read Only Profile', params: { user: tutor[1] } })
                                         }
@@ -80,7 +81,7 @@ const FindTutor = props => {
                                             distance={`${distanceCalc(tutor[1].locationCords.lat, tutor[1].locationCords.lng, LoggedInUser.locationCords.lat, LoggedInUser.locationCords.lng)}m`}
                                         />
                                     </TouchableOpacity>
-                                </>
+                                </View>
                             )
                         })}
 
