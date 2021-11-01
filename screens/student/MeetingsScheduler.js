@@ -30,7 +30,7 @@ const ScheduleMeeting = props => {
 
 
     useEffect(() => {
-        console.log(lessons)
+        console.log(tutorData)
     },[setLessons])
 
 
@@ -67,6 +67,7 @@ const ScheduleMeeting = props => {
             <CoursePicker 
                 visible={isDialogVisible}
                 setDialogVisibility={setDialogVisibility}
+                coursesList={tutorData.courses}
             />
         </>
     )
