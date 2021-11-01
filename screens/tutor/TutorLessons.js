@@ -19,7 +19,7 @@ const TutorLessons = props => {
 
     useEffect(() => {
         console.log(lessons)
-    },[setLessons])
+    }, [setLessons])
 
     const dateFormatter = (dateObj) => {
         //Formats the date to the pattern of yyyy-mm-dd
@@ -32,15 +32,15 @@ const TutorLessons = props => {
                 <Card style={styles.card}>
                     <Card.Content>
                         <Text style={{ fontWeight: 'bold' }}>{lesson.time}</Text>
-                        {lesson.student ? (
+                        {lesson.student !== undefined ? (
                             <View>
-                                <Text>Add here student details</Text>
-                                <Text>Add here lesson topic details</Text>
+                                <Text>{lesson.student}</Text>
+                                <Text>{lesson.course}</Text>
                             </View>
                         ) : (
                             <Text style={{ color: 'deepskyblue' }}>Available!</Text>
                         )}
-                        
+
                     </Card.Content>
                 </Card>
             </TouchableOpacity>
@@ -56,7 +56,10 @@ const TutorLessons = props => {
     return (
         <>
             <Agenda
-                items={lessons}
+                items={{
+                    ...lessons,
+                    '2021-11-01': [{ name: 'item 3 - any js object' }, { name: 'any js object' }]
+                }}
                 selected={dateFormatter(new Date())}
                 showClosingKnob={true}
                 renderItem={renderDay}
@@ -64,7 +67,7 @@ const TutorLessons = props => {
                     setDate(dateFormatter(new Date(day.dateString)))
                 }}
             />
-            <View style={{ alignItems: 'center'}}>
+            <View style={{ alignItems: 'center' }}>
                 <View style={styles.datePickerButtonContainer}>
                     <Button color={'deepskyblue'} title="Add" onPress={showDatePicker} />
                 </View>

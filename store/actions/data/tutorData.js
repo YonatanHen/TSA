@@ -35,24 +35,35 @@ export const scheduleLesson = (tutorData, studentName, courseName, lessonDate, l
         const studentUid = getState().data.uid
         const token = getState().data.token
 
-        const response = await fetch(
-            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users/tutors/${tutorData.uid}/lessons/${lessonDate}/${lessonTime}/time.json?auth=${token}`,
+        var lessons = await fetch(`https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users/tutors/${tutorData.uid}/lessons.json?auth=${token}`)
+                            .then(res => res.json())
+
+        lessons = await lessons[lessonDate].map(item => {
+            if (item.time === lessonTime) return (
+                {
+                    ...item,
+                    studentUid: studentUid,
+                    student: studentName,
+                    course: courseName
+                }
+            )
+        })
+
+        const updateLessons = await fetch(
+            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users/tutors/${tutorData.uid}/lessons/${lessonDate}.json?auth=${token}`,
             {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    ...tutorData,
-                    course: courseName,
-                    studentUid: studentUid,
-                    studentName: studentName
+                    ...lessons
                 })
             }
         )
 
-        if(!response.ok) {
-            throw new Error('An error occured with schedule this meeyins, please try again later')
+        if(!updateLessons.ok) {
+            throw new Error('An error occured while trying to schedule this meetings, please try again later')
         }
 
         await dispatch(readAllUsers())

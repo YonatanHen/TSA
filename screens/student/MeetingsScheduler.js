@@ -7,6 +7,7 @@ import 'intl/locale-data/jsonp/en';
 import { useDispatch, useSelector } from 'react-redux';
 
 import CoursePicker from '../../components/pickers/coursePicker'
+import { scheduleLesson } from '../../store/actions/data/tutorData'
 
 
 const ScheduleMeeting = props => {
@@ -16,39 +17,48 @@ const ScheduleMeeting = props => {
 
     const [lessons, setLessons] = useState(tutorData.lessons ? tutorData.lessons : {})
     const [isDialogVisible, setDialogVisibility] = useState(false)
+    const [lessonDate, setLessonDate] = useState({
+        day: null,
+        time: null
+    })
+    const [selectedCourse, setSelectedCourse] = useState()
 
-    // const dispatch = useDispatch()
+    const dispatch = useDispatch()
 
-    // const scheduleLesson = async () => {
-    //     try {
+    const scheduleLessonHandler = async () => {
+        try {
+            await dispatch(scheduleLesson(tutorData, `${user.firstName} ${user.lastName}`, selectedCourse, lessonDate.day, lessonDate.time))
+        } catch (err) {
+            console.log(err)
+        }
+    }
 
-    //         // await dispatch(scheduleLesson(tutorData, `${user.firstName} ${user.lastName}`, selectedCourse, lessonDate, lessonTime))
-    //     } catch (err) {
-    //         console.log(err)
-    //     }
-    // }
+    const onTimeClickHandler = (lesson) => {
+        setDialogVisibility(true)
+        setLessonDate({...lessonDate, time: lesson.time })
+    }
 
 
     useEffect(() => {
-        console.log(tutorData)
-    },[setLessons])
+        console.log(lessonDate)
+    }, [setLessons, scheduleLesson])
 
 
     const renderDay = (lesson) => {
         return (
-            <TouchableOpacity onPress={() => setDialogVisibility(true)}>
+            <TouchableOpacity onPress={() => onTimeClickHandler(lesson)}>
                 <Card style={styles.card}>
                     <Card.Content>
                         <Text style={{ fontWeight: 'bold' }}>{lesson.time}</Text>
                         {lesson.student ? (
                             <View>
-                                <Text>{user.firstName} {user.lastName}</Text>
-                                <Text>Add here lesson topic details</Text>
+                                <Text>{lesson.student}</Text>
+                                <Text>{lesson.course}</Text>
                             </View>
                         ) : (
                             <Text style={{ color: 'deepskyblue' }}>Available!</Text>
                         )}
-                        
+
                     </Card.Content>
                 </Card>
             </TouchableOpacity>
@@ -63,11 +73,15 @@ const ScheduleMeeting = props => {
                 // selected={dateFormatter(new Date())}
                 showClosingKnob={true}
                 renderItem={renderDay}
+                onDayPress={(day) => {setLessonDate({...lessonDate, day: day.dateString })}}
             />
-            <CoursePicker 
+            <CoursePicker
                 visible={isDialogVisible}
                 setDialogVisibility={setDialogVisibility}
                 coursesList={tutorData.courses}
+                scheduleLessonHandler={scheduleLessonHandler}
+                selectedCourse={selectedCourse}
+                setSelectedCourse={setSelectedCourse}
             />
         </>
     )
