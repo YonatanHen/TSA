@@ -26,31 +26,49 @@ const ScheduleMeeting = props => {
     const dispatch = useDispatch()
 
     const scheduleLessonHandler = async () => {
+        const updatedLessons = {
+            ...lessons,
+            [lessonDate.day]: await lessons[lessonDate.day].map(item => {
+                if (item.time === lessonDate.time) {
+                    return (
+                        lessonDate.time = {
+                            ...item,
+                            studentUid: user.uid,
+                            student: `${user.firstName} ${user.lastName}`,
+                            course: selectedCourse
+                        }
+                    )
+                } else return item
+            })
+        }
+
         try {
-            await dispatch(scheduleLesson(tutorData, `${user.firstName} ${user.lastName}`, selectedCourse, lessonDate.day, lessonDate.time))
+            await dispatch(scheduleLesson(updatedLessons, tutorData))
+            await setLessons(updatedLessons)
         } catch (err) {
-            console.log(err)
+            Alert.alert('An Error occured!', err, [{ text: 'Okay' }])
         }
     }
 
     const onTimeClickHandler = (lesson) => {
         setDialogVisibility(true)
-        setLessonDate({...lessonDate, time: lesson.time })
+        setLessonDate({ ...lessonDate, time: lesson.time })
     }
 
 
     useEffect(() => {
-        console.log(lessonDate)
-    }, [setLessons, scheduleLesson])
+        // console.log(lessonDate)
+    }, [setLessons, scheduleLesson, scheduleLessonHandler])
 
 
     const renderDay = (lesson) => {
+        console.log(lesson)
         return (
             <TouchableOpacity onPress={() => onTimeClickHandler(lesson)}>
                 <Card style={styles.card}>
                     <Card.Content>
                         <Text style={{ fontWeight: 'bold' }}>{lesson.time}</Text>
-                        {lesson.student ? (
+                        {lesson.student !== undefined ? (
                             <View>
                                 <Text>{lesson.student}</Text>
                                 <Text>{lesson.course}</Text>
@@ -73,7 +91,7 @@ const ScheduleMeeting = props => {
                 // selected={dateFormatter(new Date())}
                 showClosingKnob={true}
                 renderItem={renderDay}
-                onDayPress={(day) => {setLessonDate({...lessonDate, day: day.dateString })}}
+                onDayPress={(day) => { setLessonDate({ ...lessonDate, day: day.dateString }) }}
             />
             <CoursePicker
                 visible={isDialogVisible}

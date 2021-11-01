@@ -32,7 +32,7 @@ const TutorLessons = props => {
                 <Card style={styles.card}>
                     <Card.Content>
                         <Text style={{ fontWeight: 'bold' }}>{lesson.time}</Text>
-                        {lesson.student !== undefined ? (
+                        {lesson.student ? (
                             <View>
                                 <Text>{lesson.student}</Text>
                                 <Text>{lesson.course}</Text>

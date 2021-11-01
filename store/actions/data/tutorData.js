@@ -30,27 +30,12 @@ export const deleteLesson = (lessons, user) => {
 
 }
 
-export const scheduleLesson = (tutorData, studentName, courseName, lessonDate, lessonTime) => {
+export const scheduleLesson = (lessons, tutorData) => {
     return async (dispatch, getState) => {
-        const studentUid = getState().data.uid
         const token = getState().data.token
 
-        var lessons = await fetch(`https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users/tutors/${tutorData.uid}/lessons.json?auth=${token}`)
-                            .then(res => res.json())
-
-        lessons = await lessons[lessonDate].map(item => {
-            if (item.time === lessonTime) return (
-                {
-                    ...item,
-                    studentUid: studentUid,
-                    student: studentName,
-                    course: courseName
-                }
-            )
-        })
-
         const updateLessons = await fetch(
-            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users/tutors/${tutorData.uid}/lessons/${lessonDate}.json?auth=${token}`,
+            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users/tutors/${tutorData.uid}/lessons.json?auth=${token}`,
             {
                 method: 'PATCH',
                 headers: {
