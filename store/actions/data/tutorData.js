@@ -1,9 +1,11 @@
 import envs from '../../../config/env'
+import readUserData from '../../../utilities/readWriteUserData/readUserData'
 
 import writeUserData from '../../../utilities/readWriteUserData/writeUserData'
 import { readAllUsers } from '../representation'
 
-export const ADD_LESSON = 'ADD_LESSON'
+export const ADD_LESSON_TO_TUTOR_USER = 'ADD_LESSON_TO_TUTOR_USER'
+export const ADD_LESSON_TO_STUDENT_USER = 'ADD_LESSON_TO_STUDENT_USER'
 export const DELETE_LESSON = 'DELETE_LESSON'
 
 export const addLesson = (lessons) => {
@@ -19,7 +21,7 @@ export const addLesson = (lessons) => {
         await dispatch(readAllUsers())
 
         await dispatch({
-            type: ADD_LESSON,
+            type: ADD_LESSON_TO_TUTOR_USER,
             lessons: lessons
         })
 
@@ -30,9 +32,10 @@ export const deleteLesson = (lessons, user) => {
 
 }
 
-export const scheduleLesson = (lessons, tutorData) => {
+export const scheduleLesson = (lessons, tutorData ,lessonDay, lessonTime, selectedCourse) => {
     return async (dispatch, getState) => {
         const token = getState().data.token
+        const studentUserUid = getState().data.uid
 
         const updateLessons = await fetch(
             `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users/tutors/${tutorData.uid}/lessons.json?auth=${token}`,
@@ -51,7 +54,27 @@ export const scheduleLesson = (lessons, tutorData) => {
             throw new Error('An error occured while trying to schedule this meetings, please try again later')
         }
 
+        const AddLessonToStudent = await fetch(
+            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users/tutors/${studentUserUid.uid}/lessons/${lessonDay}: ${lessonTime}.json?auth=${token}`,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    tutor: `${tutorData.firstName} ${tutorData.lastName}`,
+                    course: selectedCourse
+                })
+            }
+        )
+
+        if(!AddLessonToStudent.ok) {
+            throw new Error('An error occured while trying to schedule this meetings, please try again later')
+        }
+
         await dispatch(readAllUsers())
+        
+        await dispatch(readUserData(studentUserUid))
         
     }
 }

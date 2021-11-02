@@ -28,22 +28,24 @@ const TutorLessons = props => {
 
     const renderDay = (lesson) => {
         return (
-            <TouchableOpacity onPress={() => console.log('Add delete lesson option here')}>
-                <Card style={styles.card}>
-                    <Card.Content>
-                        <Text style={{ fontWeight: 'bold' }}>{lesson.time}</Text>
-                        {lesson.student ? (
-                            <View>
-                                <Text>{lesson.student}</Text>
-                                <Text>{lesson.course}</Text>
-                            </View>
-                        ) : (
-                            <Text style={{ color: 'deepskyblue' }}>Available!</Text>
-                        )}
+            <View style={styles.cardContainer}>
+                <TouchableOpacity onPress={() => console.log('Add delete lesson option here')}>
+                    <Card style={styles.card}>
+                        <Card.Content>
+                            <Text style={{ fontWeight: 'bold', fontSize: 16 }}>{lesson.time}</Text>
+                            {lesson.student ? (
+                                <View>
+                                    <Text>student: {lesson.student}</Text>
+                                    <Text>course: {lesson.course}</Text>
+                                </View>
+                            ) : (
+                                <Text style={{ color: 'deepskyblue', fontWeight: 'bold' }}>Available!</Text>
+                            )}
 
-                    </Card.Content>
-                </Card>
-            </TouchableOpacity>
+                        </Card.Content>
+                    </Card>
+                </TouchableOpacity>
+            </View>
         )
     }
 
@@ -86,6 +88,9 @@ const TutorLessons = props => {
 
 
 const styles = StyleSheet.create({
+    cardContainer: {
+        paddingHorizontal: 10
+    },
     datePickerButtonContainer: {
         margin: 2,
         padding: 5,
