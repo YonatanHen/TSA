@@ -25,7 +25,6 @@ const ScheduleMeeting = props => {
 
     const scheduleLessonHandler = async () => {
         const lessonDay = lessons[lessonDate]
-        console.log(lessonDay)
         const updatedLessons = {
             ...lessons,
             [lessonDate]: await lessonDay.map(item => {

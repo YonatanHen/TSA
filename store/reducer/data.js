@@ -1,5 +1,5 @@
 import { LOGOUT, SIGNIN, SIGNUP, UPDATE_USER_ON_SIGNUP, EDIT_USER } from '../actions/data/userData'
-import { ADD_LESSON_TO_TUTOR_USER } from '../actions/data/tutorData'
+import { ADD_LESSON } from '../actions/data/tutorData'
 
 const initialState = {
     //On sign-in/up
@@ -75,9 +75,19 @@ export default (state = initialState, action) => {
         case EDIT_USER:
             return {
                 ...state,
-
+                email: action.email,
+                institute: action.institute,
+                firstName: action.firstName,
+                lastName: action.lastName,
+                bio: action.bio,
+                courses: action.courses,
+                phone: action.phone,
+                imageUrl: action.imageUrl,
+                locationCords: action.locationCords,
+                city: action.city,
+                country: action.country,
             }
-        case ADD_LESSON_TO_TUTOR_USER:
+        case ADD_LESSON:
             return {
                 ...state,
                 lessons: action.lessons

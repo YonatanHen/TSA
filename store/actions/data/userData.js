@@ -192,6 +192,19 @@ export const updateUser = (email, fname, lname, institute, bio, courses = undefi
             country = locationValues.country
         }
 
+        const editedUser = {
+            email,
+            firstName: fname,
+            lastName: lname,
+            institute,
+            bio,
+            phone,
+            courses,
+            locationCords: location,
+            city,
+            country,
+        }
+
         const response = await fetch(
             `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users/${role}s/${uid}.json?auth=${token}`,
             {
@@ -199,18 +212,7 @@ export const updateUser = (email, fname, lname, institute, bio, courses = undefi
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({
-                    email,
-                    fname,
-                    lname,
-                    institute,
-                    bio,
-                    phone,
-                    courses,
-                    locationCords: location,
-                    city,
-                    country,
-                })
+                body: JSON.stringify(editedUser)
             }
         )
 
@@ -221,19 +223,8 @@ export const updateUser = (email, fname, lname, institute, bio, courses = undefi
 
         dispatch({
             type: EDIT_USER,
-            email,
-            fname,
-            lname,
-            institute,
-            bio,
-            phone,
-            courses,
-            locationCords: location,
-            city,
-            country,
+            ...editedUser
         })
-
-        return { message: 'User updated successfully.' }
     }
 }
 

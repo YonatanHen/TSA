@@ -1,11 +1,10 @@
-import envs from '../../../config/env'
 import readUserData from '../../../utilities/readWriteUserData/readUserData'
 
 import writeUserData from '../../../utilities/readWriteUserData/writeUserData'
 import { readAllUsers } from '../representation'
 
-export const ADD_LESSON_TO_TUTOR_USER = 'ADD_LESSON_TO_TUTOR_USER'
-export const ADD_LESSON_TO_STUDENT_USER = 'ADD_LESSON_TO_STUDENT_USER'
+export const ADD_LESSON = 'ADD_LESSON'
+
 export const DELETE_LESSON = 'DELETE_LESSON'
 
 export const addLesson = (lessons) => {
@@ -21,7 +20,7 @@ export const addLesson = (lessons) => {
         await dispatch(readAllUsers())
 
         await dispatch({
-            type: ADD_LESSON_TO_TUTOR_USER,
+            type: ADD_LESSON,
             lessons: lessons
         })
 
@@ -37,8 +36,6 @@ export const scheduleLesson = (lessons, tutorData ,lessonDay, lessonTime, select
         const token = getState().data.token
         const studentUserUid = getState().data.uid
 
-        let resData
-
         const updateLessons = await fetch(
             `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users/tutors/${tutorData.uid}/lessons.json?auth=${token}`,
             {
@@ -52,10 +49,7 @@ export const scheduleLesson = (lessons, tutorData ,lessonDay, lessonTime, select
             }
         )
 
-        resData = updateLessons.json()
-
         if(!updateLessons.ok) {
-            console.log(resData.error)
             throw new Error('An error occured while trying to schedule this meetings, please try again later')
         }
 
@@ -73,16 +67,20 @@ export const scheduleLesson = (lessons, tutorData ,lessonDay, lessonTime, select
             }
         )
 
-        resData = addLessonToStudent.json()
-
         if(!addLessonToStudent.ok) {
-            console.log(resData.error)
             throw new Error('An error occured while trying to schedule this meetings, please try again later')
         }
 
         await dispatch(readAllUsers())
         
-        await dispatch(readUserData(studentUserUid))
+
+        //TODO: There is a problem with code below
+        // const user = await dispatch(readUserData(studentUserUid))
+
+        // await dispatch({
+        //     type: ADD_LESSON,
+        //     lessons: user.lessons
+        // })
         
     }
 }

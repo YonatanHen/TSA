@@ -19,18 +19,15 @@ export const fetchInstitutes = () => {
 
 export const readAllUsers = () => {
     return async dispatch => {
-        let time1 = performance.now();
         const response = await fetch(`https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users.json`)
-        let time2 = performance.now();
-        console.log(time2 - time1)
         var users = await response.json()
-
+        
         if (!response.ok) {
-            console.log(resData.error)
+            console.log(users.error)
             throw new Error('Something went wrong')
         }
 
-        dispatch({
+        await dispatch({
             type: READ_ALL_USERS,
             usersList: {admins: Object.entries(users.admins), tutors: Object.entries(users.tutors), students: Object.entries(users.students)}
         })
