@@ -37,6 +37,8 @@ export const scheduleLesson = (lessons, tutorData ,lessonDay, lessonTime, select
         const token = getState().data.token
         const studentUserUid = getState().data.uid
 
+        let resData
+
         const updateLessons = await fetch(
             `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users/tutors/${tutorData.uid}/lessons.json?auth=${token}`,
             {
@@ -50,14 +52,17 @@ export const scheduleLesson = (lessons, tutorData ,lessonDay, lessonTime, select
             }
         )
 
+        resData = updateLessons.json()
+
         if(!updateLessons.ok) {
+            console.log(resData.error)
             throw new Error('An error occured while trying to schedule this meetings, please try again later')
         }
 
-        const AddLessonToStudent = await fetch(
-            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users/tutors/${studentUserUid.uid}/lessons/${lessonDay}: ${lessonTime}.json?auth=${token}`,
+        const addLessonToStudent = await fetch(
+            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users/students/${studentUserUid}/lessons/${lessonDay}/${lessonTime}.json?auth=${token}`,
             {
-                method: 'POST',
+                method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -68,7 +73,10 @@ export const scheduleLesson = (lessons, tutorData ,lessonDay, lessonTime, select
             }
         )
 
-        if(!AddLessonToStudent.ok) {
+        resData = addLessonToStudent.json()
+
+        if(!addLessonToStudent.ok) {
+            console.log(resData.error)
             throw new Error('An error occured while trying to schedule this meetings, please try again later')
         }
 

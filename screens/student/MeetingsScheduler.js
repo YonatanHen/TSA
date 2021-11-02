@@ -18,29 +18,32 @@ const ScheduleMeeting = props => {
     const [lessons, setLessons] = useState(tutorData.lessons ? tutorData.lessons : {})
     const [isDialogVisible, setDialogVisibility] = useState(false)
     const [lessonDate, setLessonDate] = useState()
+    const [lessonTime, setLessonTime] = useState()
     const [selectedCourse, setSelectedCourse] = useState()
 
     const dispatch = useDispatch()
 
     const scheduleLessonHandler = async () => {
+        const lessonDay = lessons[lessonDate]
+        console.log(lessonDay)
+        const updatedLessons = {
+            ...lessons,
+            [lessonDate]: await lessonDay.map(item => {
+                if (item.time === lessonTime) {
+                    return (
+                        {
+                            ...item,
+                            studentUid: user.uid,
+                            student: `${user.firstName} ${user.lastName}`,
+                            course: selectedCourse
+                        }
+                    )
+                } else return item
+            })
+        }
+
         try {
-            const lessonDay = lessons[lessonDate.day]
-            const updatedLessons = {
-                ...lessons,
-                [lessonDate.day]: await lessonDay.map(item => {
-                    if (item.time === lessonDate.time) {
-                        return (
-                            lessonDate.time = {
-                                ...item,
-                                studentUid: user.uid,
-                                student: `${user.firstName} ${user.lastName}`,
-                                course: selectedCourse
-                            }
-                        )
-                    } else return item
-                })
-            }
-            await dispatch(scheduleLesson(updatedLessons, tutorData, lessonDate.day, lessonDate.time, selectedCourse))
+            await dispatch(scheduleLesson(updatedLessons, tutorData, lessonDate, lessonTime, selectedCourse))
             await setLessons(updatedLessons)
         } catch (err) {
             Alert.alert('An Error occured!', err, [{ text: 'Okay' }])
@@ -48,10 +51,9 @@ const ScheduleMeeting = props => {
     }
 
     const onTimeClickHandler = async (lesson) => {
-        console.log(lessonDate)
         if (lessonDate) {
             setDialogVisibility(true)
-            await setLessonDate({ ...lessonDate, time: lesson.time })
+            await setLessonTime(lesson.time)
         } else Alert.alert('Select a Date from the calendar first!')
     }
 
@@ -64,7 +66,10 @@ const ScheduleMeeting = props => {
     const renderDay = (lesson) => {
         return (
             <View style={styles.cardContainer}>
-                <TouchableOpacity onPress={() => !lesson.student ? onTimeClickHandler(lesson) : Alert.alert('Alert', "You can't schedule taken lesson.", [{ text: 'Okay' }])}>
+                <TouchableOpacity onPress={() => {
+                    if (!lesson.student) onTimeClickHandler(lesson)
+                    else Alert.alert('Alert', "You can't schedule taken lesson.", [{ text: 'Okay' }])
+                }}>
                     <Card style={styles.card}>
                         <Card.Content>
                             <Text style={{ fontWeight: 'bold', fontSize: 16 }}>{lesson.time}</Text>
@@ -91,7 +96,7 @@ const ScheduleMeeting = props => {
                 // selected={dateFormatter(new Date())}
                 showClosingKnob={true}
                 renderItem={renderDay}
-                onDayPress={async (day) => { setLessonDate({ ...lessonDate, day: day.dateString }) }}
+                onDayPress={async (day) => { setLessonDate(day.dateString) }}
             />
             <CoursePicker
                 visible={isDialogVisible}
