@@ -190,6 +190,7 @@ export const OptionsNavigator = props => {
         }}
     >
         <OptionsDrawerNavigator.Screen name={'Main'} component={MainPage} options={{
+            headerTintColor: 'deepskyblue',
             drawerIcon: props => (
                 <Ionicons
                     name={Platform.OS === 'android' ? 'md-list' : 'ios-list'}
@@ -199,6 +200,7 @@ export const OptionsNavigator = props => {
         }}
         />
         <OptionsDrawerNavigator.Screen name={"Edit user"} component={EditUserNavigator} options={{
+            headerTintColor: 'deepskyblue',
             drawerIcon: props => (
                 <Ionicons
                     name='create-outline'
