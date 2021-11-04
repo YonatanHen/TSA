@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
         marginLeft: 2
     },
     errorText: {
-        color: 'red'
+        color: 'mediumaquamarine'
     },
     coursesContainer: {
 

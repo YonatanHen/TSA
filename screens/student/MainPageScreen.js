@@ -12,7 +12,7 @@ const MainPage = props => {
     const loggedInUser = useSelector(state => state.data)
 
     return (
-        <View style={{ alignItems: 'center' }}>
+        <View style={{ alignItems: 'center', backgroundColor: 'white', height: '100%' }}>
             {loggedInUser.lessons !== {} ? (
                 <ScrollView>
                     <View style={{ alignItems: 'center' }}>
@@ -23,7 +23,7 @@ const MainPage = props => {
                             console.log(lesson)
                             return (
                                 <View key={`${date[0]} - ${lesson[0]}`} style={{ alignItems: 'center', marginTop: 5 }}>
-                                    <Card>
+                                    <Card style={{ backgroundColor: 'honeydew' , elevation: 8 }}>
                                         <Card.Content style={{ alignItems: 'center' }}>
                                             <Title style={{ color: 'deepskyblue' }}>{date[0]} at {lesson[0]}</Title>
                                             <Paragraph style={{ fontWeight: '600'}}>
@@ -37,7 +37,7 @@ const MainPage = props => {
                     })}
                 </ScrollView>
             ) : (
-                <Text style={styles.title}>No lessons planned.</Text>
+                <Text style={styles.title}>No lessons has been planned.</Text>
             )}
         </View>
     )

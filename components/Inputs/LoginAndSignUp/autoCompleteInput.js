@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
         margin: 2,
     },
     errorText: {
-        color: 'red'
+        color: 'mediumaquamarine'
       }
 });
 

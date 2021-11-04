@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
     textAlignVertical: 'top'
   },
   errorText: {
-    color: 'red'
+    color: 'mediumaquamarine'
   }
 })
 

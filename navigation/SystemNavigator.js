@@ -29,7 +29,7 @@ import MeetingsScheduler from '../screens/student/MeetingsScheduler';
 
 const headerStyle = {
     headerStyle: {
-        backgroundColor: Platform.OS === 'android' ?  'white' : 'deepskyblue'
+        backgroundColor: Platform.OS === 'android' ? 'white' : 'deepskyblue'
     },
     headerTitleStyle: {
         color: Platform.OS === 'android' ? 'deepskyblue' : 'white'
@@ -85,7 +85,7 @@ export const TabsStudentNavigator = props => {
     const userImage = useSelector(state => state.data.imageUrl)
     return (
         <Tab.Navigator
-            screenOptions={{ cardStyle: 'white' }, ({ route }) => ({
+            screenOptions={({ route }) => ({
                 tabBarIcon: ({ focused, color, size = 25 }) => {
                     let iconName;
 
@@ -170,23 +170,24 @@ export const OptionsNavigator = props => {
 
     const dispatch = useDispatch() //with the dispatch we can dispatch functions from redux store 
 
-    return <OptionsDrawerNavigator.Navigator drawerContent={props => {
-        return (
-            <View style={{ flex: 1, paddingTop: '30%' }}>
-                <SafeAreaView forceInset={{ top: 'always', horizontal: 'never' }}>
-                    <DrawerItemList {...props} />
-                </SafeAreaView>
-                <View style={{ position: 'absolute', bottom: 0, width: '100%' }}>
-                    <Button
-                        title="Logout"
-                        onPress={() => {
-                            dispatch(dataActions.logout())
-                        }}
-                    />
+    return <OptionsDrawerNavigator.Navigator
+        drawerContent={props => {
+            return (
+                <View style={{ flex: 1, paddingTop: '30%' }}>
+                    <SafeAreaView forceInset={{ top: 'always', horizontal: 'never' }}>
+                        <DrawerItemList {...props} />
+                    </SafeAreaView>
+                    <View style={{ position: 'absolute', bottom: 0, width: '100%' }}>
+                        <Button
+                            title="Logout"
+                            onPress={() => {
+                                dispatch(dataActions.logout())
+                            }}
+                        />
+                    </View>
                 </View>
-            </View>
-        )
-    }}
+            )
+        }}
     >
         <OptionsDrawerNavigator.Screen name={'Main'} component={MainPage} options={{
             drawerIcon: props => (
