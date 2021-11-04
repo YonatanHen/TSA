@@ -152,6 +152,7 @@ const AuthScreen = props => {
                 />
                 <Input
                   required
+                  firstName
                   id="fname"
                   placeholder="First Name"
                   keyboardType="default"
@@ -161,6 +162,7 @@ const AuthScreen = props => {
                 />
                 <Input
                   required
+                  lastName
                   id="lname"
                   placeholder="Last Name"
                   keyboardType="default"

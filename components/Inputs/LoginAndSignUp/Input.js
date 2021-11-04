@@ -32,13 +32,14 @@ const Input = props => {
   const { onInputChange, id } = props;
 
   useEffect(() => {
-      onInputChange(id, inputState.value, inputState.isValid);
+    onInputChange(id, inputState.value, inputState.isValid);
   }, [inputState, onInputChange, id]);
 
   const textChangeHandler = text => {
     const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     const phoneNumberRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/
     const passwordRegex = /^(?=.*[A-Za-z])(?=.*[0-9]).*$/
+    const nameRegex = /^[a-zA-Z]+(?:-[a-zA-Z]+)*$/
 
     let isValid = true;
     if (props.required && text.trim().length === 0) {
@@ -49,6 +50,9 @@ const Input = props => {
     }
     if (props.email && !emailRegex.test(text.toLowerCase())) {
       isValid = false;
+    }
+    if ((props.firstName || props.lastName) && !nameRegex.test(text)) {
+      isValid = false
     }
     if (props.min != null && +text < props.min) {
       isValid = false;
@@ -62,7 +66,7 @@ const Input = props => {
     if (props.phoneNumber && !phoneNumberRegex.test(text)) {
       isValid = false
     }
-    
+
     dispatch({ type: INPUT_CHANGE, value: text, isValid: isValid });
   };
 
