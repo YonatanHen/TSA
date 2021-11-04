@@ -25,7 +25,7 @@ const MainPage = props => {
                                 <View key={`${date[0]} - ${lesson[0]}`} style={{ alignItems: 'center', marginTop: 5 }}>
                                     <Card>
                                         <Card.Content style={{ alignItems: 'center' }}>
-                                            <Title>{date[0]} at {lesson[0]}</Title>
+                                            <Title style={{ color: 'deepskyblue' }}>{date[0]} at {lesson[0]}</Title>
                                             <Paragraph style={{ fontWeight: '600'}}>
                                                 {lesson[1].tutor} - {lesson[1].course}
                                             </Paragraph>
