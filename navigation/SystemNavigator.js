@@ -14,6 +14,7 @@ import FindTutor, { screenOptions as FindTutorScreenOptions } from '../screens/s
 
 import LoggedInUserProfile from '../screens/user/LoggedInUserProfile'
 import EditUser from '../screens/user/EditUser'
+import Inbox from '../screens/user/Inbox'
 
 import AdminMainScreen, { screenOptions as AdminScreenOptions } from '../screens/admin/AdminMainScreen'
 
@@ -157,10 +158,21 @@ const EditUserStackNavigator = createStackNavigator()
 
 export const EditUserNavigator = () => {
     return (
-        <LessonsStackNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' }, ...headerStyle }}>
-            <LessonsStackNavigator.Screen name="Edit User" component={EditUser} />
-            <LessonsStackNavigator.Screen name="Map" component={MapScreen} options={MapScreenOptions} />
-        </LessonsStackNavigator.Navigator>
+        <EditUserStackNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' }, ...headerStyle }}>
+            <EditUserStackNavigator.Screen name="Edit User" component={EditUser} />
+            <EditUserStackNavigator.Screen name="Map" component={MapScreen} options={MapScreenOptions} />
+        </EditUserStackNavigator.Navigator>
+    )
+}
+
+const InboxStackNavigator = createStackNavigator()
+
+export const InboxNavigator = props => {
+
+    return (
+        <InboxStackNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' }, ...headerStyle }}>
+            <InboxStackNavigator.Screen name="Inbox" component={Inbox} options={{ headerShown: false }} />
+        </InboxStackNavigator.Navigator>
     )
 }
 
@@ -208,8 +220,18 @@ export const OptionsNavigator = props => {
                 />
             )
         }} />
+        <OptionsDrawerNavigator.Screen name={"Inbox"} component={InboxNavigator} options={{
+            headerTintColor: 'deepskyblue',
+            drawerIcon: props => (
+                <Ionicons
+                    name='mail-outline'
+                    size={23}
+                />
+            )
+        }} />
     </OptionsDrawerNavigator.Navigator>
 }
+
 
 
 
