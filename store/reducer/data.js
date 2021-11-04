@@ -19,7 +19,8 @@ const initialState = {
     locationCords: '',
     city: '',
     country: '',
-    lessons: {}
+    lessons: {},
+    notificationsToken: ''
     // didTryAutoLogin: false
 }
 
@@ -71,6 +72,7 @@ export default (state = initialState, action) => {
                 city: action.city,
                 country: action.country,
                 signedUp: false,
+                notificationsToken: action.notificationsToken
             }
         case EDIT_USER:
             return {

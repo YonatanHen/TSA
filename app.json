@@ -1,5 +1,10 @@
 {
   "expo": {
+    "plugins": [
+      [
+        "expo-notifications"
+      ]
+    ],
     "name": "students-scheduler",
     "slug": "students-scheduler",
     "version": "1.0.0",

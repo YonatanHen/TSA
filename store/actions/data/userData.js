@@ -16,6 +16,8 @@ export const UPDATE_USER_ON_SIGNUP = 'UPDATE_USER_ON_SIGNUP'
 
 import imageUploader from '../../../utilities/cloudinary/uploadImage'
 import setCityAndCountryByLocation from '../../../utilities/setCityAndCountryByLocation'
+
+import * as Notifications from 'expo-notifications';
 import axios from 'axios'
 
 export const signup = (email, password, role, fname, lname, institute) => {
@@ -138,6 +140,8 @@ export const addDataOnSignUp = (role, bio, image, courses = undefined, phone, lo
             imageUrl = await imageUploader(image)
         }
 
+        const notificationsToken = (await Notifications.getExpoPushTokenAsync()).data
+
         const response = await fetch(
             `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users/${role}s/${uid}.json?auth=${token}`,
             {
@@ -152,7 +156,8 @@ export const addDataOnSignUp = (role, bio, image, courses = undefined, phone, lo
                     locationCords: location,
                     city,
                     country,
-                    imageUrl
+                    imageUrl,
+                    notificationsToken: notificationsToken
                 })
             }
         )
@@ -173,7 +178,8 @@ export const addDataOnSignUp = (role, bio, image, courses = undefined, phone, lo
             locationCords: location,
             city,
             country,
-            imageUrl
+            imageUrl,
+            notificationsToken: notificationsToken
         })
     }
 }
