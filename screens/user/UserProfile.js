@@ -35,7 +35,7 @@ const UserProfile = (props) => {
     return (
         <>
             <ScrollView style={{ flexDirection: 'column' }}>
-                <ProfileCommonData user={user} />
+                <ProfileCommonData user={user} loggedInUser={loggedInUser} />
 
                 {user.role === 'tutor' && (
                     <>
