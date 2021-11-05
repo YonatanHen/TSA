@@ -33,26 +33,26 @@ const AdminMainScreen = props => {
             {users ? (<SectionList
                 sections={[
                     {
-                        title: 'Tutors', data: users.tutors !== [] ?
-                            users.tutors.filter(tutor => tutor[1].institue === adminInstitue && `${tutor[1].firstName} ${tutor[1].lastName}`.includes(searchInput))
+                        title: 'Tutors', data: users.tutors ?
+                            (users.tutors.filter(tutor => tutor[1].institue === adminInstitue && `${tutor[1].firstName} ${tutor[1].lastName}`.includes(searchInput))
                             .map(tutor => {
                                 return (
                                     <TouchableOpacity onPress={() => props.navigation.navigate("User Profile", { user: tutor[1] })}>
                                         <Text style={tutor[1].disabled ? { color: 'red' } : { color: 'black' }}>{tutor[1].firstName} {tutor[1].lastName}</Text>
                                     </TouchableOpacity>
                                 )
-                            }) : ['No tutors found']
+                            })) : ['No tutors found']
                     },
                     {
-                        title: 'Students', data: users.students !== [] ? 
-                        users.students.filter(student => student[1].institue === adminInstitue && `${student[1].firstName} ${student[1].lastName}`.includes(searchInput))
+                        title: 'Students', data: users.students ? 
+                        (users.students.filter(student => student[1].institue === adminInstitue && `${student[1].firstName} ${student[1].lastName}`.includes(searchInput))
                             .map(student => {
                                 return (
                                     <TouchableOpacity onPress={() => props.navigation.navigate("User Profile",  { user: student[1] })}>
                                         <Text style={student[1].disabled ? { color: 'red' } : { color: 'black' }}>{student[1].firstName} {student[1].lastName}</Text>
                                     </TouchableOpacity>
                                 )
-                            }) : ['No students found.']
+                            })) : ['No students found.']
                     }
                 ]}
                 renderItem={({ item }) => <Text style={styles.item}>{item}</Text>}
