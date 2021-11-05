@@ -13,7 +13,7 @@ const MainPage = props => {
 
     return (
         <View style={{ alignItems: 'center', backgroundColor: 'white', height: '100%' }}>
-            {loggedInUser.lessons !== {} ? (
+            {loggedInUser.lessons && loggedInUser.lessons !== {} ? (
                 <ScrollView>
                     <View style={{ alignItems: 'center' }}>
                         <Text style={styles.title}>Upcoming Lessons</Text>

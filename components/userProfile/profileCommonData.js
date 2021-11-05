@@ -49,7 +49,7 @@ export const ProfileCommonData = props => {
                     </Text>
                 </View>
             </View>
-            {user.uid !== loggedInUser.uid && <View style={{ flexDirection: 'row', justifyContent: 'center', marginBottom: 15 }}>
+            {loggedInUser && user.uid !== loggedInUser.uid && <View style={{ flexDirection: 'row', justifyContent: 'center', marginBottom: 15 }}>
                 <Ionicons
                     name="logo-whatsapp"
                     size={40}
