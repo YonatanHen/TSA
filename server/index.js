@@ -1,6 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 var FormData = require('form-data');
+const cloudinary = require('cloudinary').v2
 const fetch = require("node-fetch");
 
 const app = express()
@@ -41,6 +42,19 @@ app.get('/upload-image/:photoUri', async (req, res) => {
         })
 
     res.send({ url: url })
+})
+
+app.get('/delete-image/:photoUri', async (req, res) => {
+    require('dotenv').config({ path: '../.env' })
+    let public_id = imageUrl.split('/')
+    public_id = public_id[public_id.length - 1].split('.')[0]
+    cloudinary.api.delete_resources(['public_id'], (err, result) => {
+        if (err || result.deleted.sample === 'not_found') {
+            throw new Error('An error occured!')
+        }
+
+        return res.send({ message: 'Image deleted successfully' })
+    })
 })
 
 app.get('/*', async (Req, res) => {

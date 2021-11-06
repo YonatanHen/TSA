@@ -40,11 +40,8 @@ const formReducer = (state, action) => {
 //Building the signing up at first, later we will add the login :)
 const EditUser = props => {
     const user = useSelector(state => state.data)
-    console.log(user)
 
-    const [selectedImage, setSelectedImage] = useState()
     const [selectedLocation, setSelectedLocation] = useState(user.locationCords)
-    const [isSignup, setIsSignup] = useState(false)
     const [error, setError] = useState()
     const [isLoading, setIsLoading] = useState(false)
     const [isModalShown, setIsModalShown] = useState(false)
@@ -134,9 +131,6 @@ const EditUser = props => {
         [dispatchFormState]
     );
 
-    const imageTakenHandler = imagePath => {
-        setSelectedImage(imagePath)
-    }
 
     const locationPickedHandler = useCallback(location => {
         setSelectedLocation(location)
@@ -150,11 +144,6 @@ const EditUser = props => {
         >
             <View style={styles.inputForm}>
                 <ScrollView>
-                    {/* <ImagePicker
-                        onImageTaken={imageTakenHandler}
-                        uri={user.imageUrl}
-                        editPage
-                    /> */}
                     <Input
                         required
                         email

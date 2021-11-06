@@ -4,8 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Ionicons } from '@expo/vector-icons';
 
 import { ProfileCommonData } from '../../components/userProfile/profileCommonData'
-import { disableEnableUser } from '../../store/actions/data/userData'
-import { updateOneUser } from '../../store/actions/representation'
+import { disableEnableUser } from '../../store/actions/data/adminData'
 
 const UserProfile = (props) => {
     const loggedInUser = useSelector(state => state.data)

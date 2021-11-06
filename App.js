@@ -13,7 +13,6 @@ I18nManager.allowRTL(false);
 
 export default function App() {
   useEffect(() => {
-    store.dispatch(readAllUsers())
     store.dispatch(fetchInstitutes())
   }, [])
   return (

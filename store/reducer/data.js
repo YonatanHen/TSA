@@ -20,7 +20,8 @@ const initialState = {
     city: '',
     country: '',
     lessons: {},
-    notificationsToken: ''
+    notificationsToken: '',
+    studentsQueue: [] 
     // didTryAutoLogin: false
 }
 

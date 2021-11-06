@@ -60,7 +60,6 @@ const TutorLessons = props => {
             <Agenda
                 items={{
                     ...lessons,
-                    '2021-11-01': [{ name: 'item 3 - any js object' }, { name: 'any js object' }]
                 }}
                 selected={dateFormatter(new Date())}
                 showClosingKnob={true}

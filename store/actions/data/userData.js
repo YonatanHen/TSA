@@ -48,7 +48,9 @@ export const signup = (email, password, role, fname, lname, institute) => {
 
         }
 
-        writedata({ email: email, uid: resData.localId, firstName: fname, lastName: lname, institute: institute, role: role })
+        await writedata({ email: email, uid: resData.localId, firstName: fname, lastName: lname, institute: institute, role: role })
+
+        await dispatch(readAllUsers())
 
         await dispatch({
             type: SIGNUP,
@@ -94,8 +96,10 @@ export const login = (email, password) => {
             throw new Error('Account is disabled. please contact your institute for more info.')
         }
 
-        // axios.get(`http://${IP_ADDRESS}:8000/login`)
-        //     .then(res => console.log(res.data.message))
+        axios.get(`http://${IP_ADDRESS}:8000/login`)
+            .then(res => console.log(res.data.message))
+
+        await dispatch(readAllUsers())
 
         dispatch({
             type: SIGNIN,
@@ -278,29 +282,3 @@ export const deleteUser = () => {
     }
 }
 
-export const disableEnableUser = (user) => {
-    return async (dispatch, getState) => {
-        const token = getState().data.token
-
-
-        await fetch(
-            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users/${user.role}s/${user.uid}.json?auth=${token}`,
-            {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    ...user,
-                    disabled: user.disabled ? false : true
-                })
-            }
-        ).then(res => res.json())
-            .catch(err => {
-                console.log(err)
-                throw new Error('Error in disable/enable user!')
-            })
-
-        await dispatch(readAllUsers())
-    }
-}

@@ -4,7 +4,6 @@ import writeUserData from '../../../utilities/readWriteUserData/writeUserData'
 import { readAllUsers } from '../representation'
 
 export const ADD_LESSON = 'ADD_LESSON'
-
 export const DELETE_LESSON = 'DELETE_LESSON'
 
 export const addLesson = (lessons) => {
