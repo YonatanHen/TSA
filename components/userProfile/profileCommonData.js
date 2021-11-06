@@ -1,7 +1,7 @@
 import { Ionicons } from '@expo/vector-icons'
 import React from 'react'
 import { StyleSheet, Text, View, Image, Linking, Platform } from 'react-native'
-import findPhoneCode from '../../utilities/findPhoneCode' 
+import findPhoneCode from '../../utilities/findPhoneCode'
 
 export const ProfileCommonData = props => {
     const { user, loggedInUser } = props
@@ -84,7 +84,7 @@ export const ProfileCommonData = props => {
                 </View>
                 <View style={styles.sectionContent}>
                     <Text style={{ fontSize: 16 }}>
-                        {user.country} , {user.city}
+                        {user.country} {user.city && `, ${user.city}`}
                     </Text>
                 </View>
             </View>

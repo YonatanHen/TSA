@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Platform, } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Platform, LogBox } from 'react-native';
 import MapView, { Marker } from 'react-native-maps'
 
 const MapScreen = props => {
@@ -54,6 +54,10 @@ const MapScreen = props => {
 };
 
 export const ScreenOptions = (navData) => {
+  LogBox.ignoreWarnings([
+    'Non-serializable values were found in the navigation state',
+  ]);
+
   if (navData.route.params) {
     const { saveLocation } = navData.route.params
     return {
