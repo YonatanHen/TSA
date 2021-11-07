@@ -194,7 +194,7 @@ const AuthScreen = props => {
               <View style={styles.button}>
                 {isLoading ?
                   (<ActivityIndicator size='small' color={'deepskyblue'} />) :
-                  (<Button title={'Submit'} color='deepskyblue' onPress={authHandler} />)}
+                  (<Button title={isSignup ? 'Sign-Up' : 'Log-In'} color='deepskyblue' onPress={authHandler} />)}
               </View>
               <View style={styles.button}>
                 <Button

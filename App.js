@@ -10,7 +10,6 @@ import { fetchInstitutes, readAllUsers } from './store/actions/representation'
 I18nManager.forceRTL(false);
 I18nManager.allowRTL(false);
 
-
 export default function App() {
   useEffect(() => {
     store.dispatch(fetchInstitutes())

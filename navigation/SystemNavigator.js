@@ -14,7 +14,6 @@ import FindTutor, { screenOptions as FindTutorScreenOptions } from '../screens/s
 
 import LoggedInUserProfile from '../screens/user/LoggedInUserProfile'
 import EditUser from '../screens/user/EditUser'
-import Inbox from '../screens/user/Inbox'
 
 import AdminMainScreen, { screenOptions as AdminScreenOptions } from '../screens/admin/AdminMainScreen'
 
@@ -166,17 +165,6 @@ export const EditUserNavigator = () => {
     )
 }
 
-const InboxStackNavigator = createStackNavigator()
-
-export const InboxNavigator = props => {
-
-    return (
-        <InboxStackNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' }, ...headerStyle }}>
-            <InboxStackNavigator.Screen name="Inbox" component={Inbox} options={{ headerShown: false }} />
-        </InboxStackNavigator.Navigator>
-    )
-}
-
 const OptionsDrawerNavigator = createDrawerNavigator()
 
 export const OptionsNavigator = props => {
@@ -217,15 +205,6 @@ export const OptionsNavigator = props => {
             drawerIcon: props => (
                 <Ionicons
                     name='create-outline'
-                    size={23}
-                />
-            )
-        }} />
-        <OptionsDrawerNavigator.Screen name={"Inbox"} component={InboxNavigator} options={{
-            headerTintColor: 'deepskyblue',
-            drawerIcon: props => (
-                <Ionicons
-                    name='mail-outline'
                     size={23}
                 />
             )
