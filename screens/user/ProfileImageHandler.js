@@ -8,6 +8,7 @@ const ProfileImageHandler = props => {
     const user = useSelector(state => state.data)
 
     const [selectedImage, setSelectedImage] = useState()
+    
     const imageTakenHandler = imagePath => {
         setSelectedImage(imagePath)
     }
