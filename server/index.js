@@ -3,9 +3,16 @@ const cors = require('cors')
 var FormData = require('form-data');
 const cloudinary = require('cloudinary').v2
 const fetch = require("node-fetch");
+const envs = require('dotenv').config({ path: '../.env' }).parsed
+cloudinary.config({ 
+    cloud_name: envs.CLOUDINARY_NAME,
+    api_key: envs.CLOUDINARY_API_KEY,
+    api_secret: envs.CLOUDINARY_API_SECRET
+});
 
 const app = express()
 
+app.use(express.json())
 app.use(cors())
 
 const port = process.env.PORT || 8000
@@ -44,17 +51,20 @@ app.get('/upload-image/:photoUri', async (req, res) => {
     res.send({ url: url })
 })
 
-app.get('/delete-image/:photoUri', async (req, res) => {
-    require('dotenv').config({ path: '../.env' })
-    let public_id = imageUrl.split('/')
-    public_id = public_id[public_id.length - 1].split('.')[0]
-    cloudinary.api.delete_resources(['public_id'], (err, result) => {
-        if (err || result.deleted.sample === 'not_found') {
-            throw new Error('An error occured!')
-        }
+app.post('/delete-image', async (req, res) => {
+    const imageUrl = req.body.imageUrl
+    try {
 
-        return res.send({ message: 'Image deleted successfully' })
-    })
+        let public_id = imageUrl.split('/')
+        public_id = public_id[public_id.length - 1].split('.')[0]
+        cloudinary.uploader.destroy(public_id, (err, result) => {
+            if (err || result.deleted === 'not_found') {
+                throw new Error('An error occured!')
+            }
+
+            return res.send({ message: 'Image deleted successfully' })
+        })
+    } catch (err) { console.log(err) }
 })
 
 app.get('/*', async (Req, res) => {
