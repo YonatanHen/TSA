@@ -119,7 +119,7 @@ const AuthScreen = props => {
       keyboardVerticalOffset={0}
       style={styles.screen}
     >
-      <View style={{ borderWidth: 3, borderColor: 'deepskyblue', margin: '2%', padding: '1%', borderRadius: 30 }}>
+      <View style={{ marginHorizontal: '2%' }}>
         <View style={styles.inputForm}>
           <ScrollView>
             <Input
@@ -228,7 +228,8 @@ styles = StyleSheet.create({
   buttonContainer: {
     justifyContent: 'space-evenly',
     display: 'flex',
-    alignItems: "center"
+    alignItems: "center",
+    marginTop: '5%'
   },
   button: {
     marginVertical: 3

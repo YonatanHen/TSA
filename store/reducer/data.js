@@ -1,5 +1,6 @@
 import { LOGOUT, SIGNIN, SIGNUP, UPDATE_USER_ON_SIGNUP, EDIT_USER } from '../actions/data/userData'
 import { ADD_LESSON } from '../actions/data/tutorData'
+import { ADD_IMAGE, DELETE_IMAGE } from '../actions/data/profilePictureActions'
 
 const initialState = {
     //On sign-in/up
@@ -94,6 +95,16 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 lessons: action.lessons
+            }
+        case ADD_IMAGE:
+            return {
+                ...state,
+                imageUrl: action.imageUrl
+            }
+        case DELETE_IMAGE:
+            return {
+                ...state,
+                imageUrl: ''
             }
         default:
             return state
