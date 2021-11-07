@@ -7,7 +7,7 @@ import 'intl/locale-data/jsonp/en';
 import { useDispatch, useSelector } from 'react-redux';
 
 import CoursePicker from '../../components/pickers/coursePicker'
-import { scheduleLesson } from '../../store/actions/data/tutorData'
+import { scheduleLesson } from '../../store/actions/data/studentData'
 
 
 const ScheduleMeeting = props => {
@@ -74,7 +74,7 @@ const ScheduleMeeting = props => {
                             <Text style={{ fontWeight: 'bold', fontSize: 16 }}>{lesson.time}</Text>
                             {lesson.student ? (
                                 <View>
-                                    <Text style={{ fontWeight: 'bold' }}>Taken</Text>
+                                    <Text style={{ fontWeight: 'bold' }}>Busy</Text>
                                 </View>
                             ) : (
                                 <Text style={{ color: 'deepskyblue', fontWeight: 'bold' }}>Available!</Text>
