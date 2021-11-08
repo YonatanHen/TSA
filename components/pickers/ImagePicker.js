@@ -25,12 +25,13 @@ const ImgPicker = props => {
             return
         }
 
-        const image = action === 'select' ? (await ImagePicker.launchImageLibraryAsync({
-            allowsEditing: true,
-            aspect: [16, 9],
-            quality: 0.5,
-            base64: true,
-        })
+        const image = action === 'select' ? (
+            await ImagePicker.launchImageLibraryAsync({
+                allowsEditing: true,
+                aspect: [16, 9],
+                quality: 0.5,
+                base64: true,
+            })
         ) : (
             await ImagePicker.launchCameraAsync({
                 allowsEditing: true,
@@ -39,15 +40,13 @@ const ImgPicker = props => {
                 base64: true,
             })
         )
-        console.log(image)
         setPickedImage(image.uri)
         props.onImageTaken(image)
     }
 
     const deleteImageHandler = async () => {
-        // DeleteImage(props.uri)
         setPickedImage()
-        props.onImageTaken()
+        await props.editPage && props.onDeleteImage()
     }
 
     return <View style={styles.ImagePicker}>
@@ -56,9 +55,12 @@ const ImgPicker = props => {
                 (<Image style={styles.image} source={{ uri: pickedImage }} />)}
         </View>
         <View style={styles.selectImageButtonsContainer}>
-            <Button title="Take image" onPress={() => selectImageHandler('take')} />
-            <Button title="Selcet from gallery" onPress={() => selectImageHandler('select')} />
-            {props.editPage && <Button title="Delete image" onPress={deleteImageHandler} />}
+            {props.editPage && !pickedImage && (
+                <>
+                    <Button title="Take image" onPress={() => selectImageHandler('take')} />
+                    <Button title="Selcet from gallery" onPress={() => selectImageHandler('select')} />
+                </>)}
+            {props.editPage && pickedImage && <Button title="Delete image" onPress={() => deleteImageHandler()} />}
         </View>
     </View>
 }
