@@ -6,7 +6,7 @@ import Input from '../../components/Inputs/LoginAndSignUp/Input'
 import AutoCompleteInput from '../../components/Inputs/LoginAndSignUp/autoCompleteInput'
 import RolePicker from '../../components/pickers/rolePicker'
 
-import { signup, login } from '../../store/actions/data/userData'
+import { signup, login, resetPassword } from '../../store/actions/data/userData'
 import InstitutesModal from '../../components/modals/institutesListModal'
 
 const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE';
@@ -111,6 +111,19 @@ const AuthScreen = props => {
     [dispatchFormState]
   );
 
+  const forgotPasswordHandler = async () => {
+    if(formState.inputValues.email !== '') {
+      try {
+        await resetPassword(formState.inputValues.email)
+        Alert.alert(`Password reset email has been sent to ${formState.inputValues.email}`, '', [{ text: 'OK' }])
+      } catch(err) {
+        setError(err.message);
+      }
+
+    }
+    else {
+      Alert.alert('You must set your email address!', '', [{ text: 'OK' }])}
+  }
 
 
   return (
@@ -209,12 +222,20 @@ const AuthScreen = props => {
           </ScrollView>
         </View>
       </View>
+      {!isSignup && <View style={styles.forgotPassword}>
+              <Text 
+              style={{ color: 'dodgerblue', borderBottomWidth: 1, borderBottomColor: 'dodgerblue'}}
+              onPress={forgotPasswordHandler}
+              >
+                Forgot your password?
+              </Text>
+            </View>}
     </KeyboardAvoidingView >
   )
 }
 
 
-styles = StyleSheet.create({
+const styles = StyleSheet.create({
   screen: {
     flex: 1
   },
@@ -246,6 +267,12 @@ styles = StyleSheet.create({
     marginTop: 10,
     marginLeft: 2
   },
+  forgotPassword: {
+    marginTop: 'auto',
+    alignItems: 'center',
+    bottom: 10
+
+  }
 })
 
 export default AuthScreen

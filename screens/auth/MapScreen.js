@@ -54,9 +54,7 @@ const MapScreen = props => {
 };
 
 export const ScreenOptions = (navData) => {
-  LogBox.ignoreWarnings([
-    'Non-serializable values were found in the navigation state',
-  ]);
+  LogBox.ignoreLogs(['Warning: ...']);
 
   if (navData.route.params) {
     const { saveLocation } = navData.route.params

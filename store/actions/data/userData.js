@@ -92,7 +92,7 @@ export const login = (email, password) => {
 
         const user = await readUserData(resData.localId)
 
-        if(user.disabled) {
+        if (user.disabled) {
             throw new Error('Account is disabled. please contact your institute for more info.')
         }
 
@@ -282,4 +282,21 @@ export const deleteUser = () => {
     }
 }
 
+export const resetPassword = async (email) => {
+    const response = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=${FIREBASE_API_KEY}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            requestType: "PASSWORD_RESET",
+            email: email,
+        })
+    })
 
+    if (!response.ok) {
+        throw new Error('Something went wrong!')
+    }
+
+    return
+}
