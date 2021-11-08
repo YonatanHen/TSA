@@ -77,7 +77,7 @@ const FindTutor = props => {
                                         <TutorItem
                                             name={tutor[1].firstName + ' ' + tutor[1].lastName}
                                             userImage={tutor[1].imageUrl}
-                                            distance={`${distanceCalc(tutor[1].locationCords.lat, tutor[1].locationCords.lng, LoggedInUser.locationCords.lat, LoggedInUser.locationCords.lng)}m`}
+                                            distance={`${distanceCalc(tutor[1].locationCords.lat, tutor[1].locationCords.lng, LoggedInUser.locationCords.lat, LoggedInUser.locationCords.lng)/1000} km`}
                                         />
                                     </TouchableOpacity>
                                 </View>
