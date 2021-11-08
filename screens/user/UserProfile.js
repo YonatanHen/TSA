@@ -64,15 +64,15 @@ const UserProfile = (props) => {
                                 />
                             </View>
                         }
-                        <View style={{ alignItems: 'center', marginTop: 10 }}>
-                            <Button
-                                color='deepskyblue'
-                                title={`Go Back`}
-                                onPress={() => props.navigation.goBack()}
-                            />
-                        </View>
                     </>
                 )}
+                <View style={{ alignItems: 'center', marginTop: 10 }}>
+                    <Button
+                        color='deepskyblue'
+                        title={`Go Back`}
+                        onPress={() => props.navigation.goBack()}
+                    />
+                </View>
             </ScrollView>
 
             {loggedInUser.role === 'admin' && (<View style={styles.adminIcons}>
