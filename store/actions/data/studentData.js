@@ -43,7 +43,6 @@ export const scheduleLesson = (lessons, tutorData ,lessonDay, lessonTime, select
             throw new Error('An error occured while trying to schedule this meetings, please try again later')
         }
 
-        //This line of code is O.K
         await dispatch(readAllUsers())    
         
         const user = await readUserData(studentUserUid)

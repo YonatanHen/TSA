@@ -9,7 +9,7 @@ import AuthScreen from '../screens/auth/AuthScreen'
 import MapScreen, { ScreenOptions as MapScreenOptions } from '../screens/auth/MapScreen'
 import SignUpLandingPage from '../screens/auth/SignUpLandingPage'
 
-import MainPage, { ScreenOptions as MainScreenOptions, screenOptions } from '../screens/student/MainPageScreen'
+import MainPage, { ScreenOptions as MainScreenOptions } from '../screens/user/MainPageScreen'
 import FindTutor, { screenOptions as FindTutorScreenOptions } from '../screens/student/FindTutor'
 
 import LoggedInUserProfile from '../screens/user/LoggedInUserProfile'

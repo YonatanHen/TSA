@@ -1,19 +1,14 @@
 import React from 'react'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import { HeaderButtons, Item } from 'react-navigation-header-buttons';
-import { DrawerActions } from '@react-navigation/native';
 import { Card, Title, Paragraph } from 'react-native-paper'
 
-import HeaderButton from '../../components/buttons/HeaderButton';
 import { useSelector } from 'react-redux';
 
-import 
-
-const MainPage = props => {
+const StudentMain = props => {
     const loggedInUser = useSelector(state => state.data)
 
     return (
-        <View style={{ alignItems: 'center', backgroundColor: 'white', height: '100%' }}>
+        <View>
             {loggedInUser.lessons && loggedInUser.lessons !== {} ? (
                 <ScrollView>
                     <View style={{ alignItems: 'center' }}>
@@ -43,21 +38,6 @@ const MainPage = props => {
     )
 }
 
-export const screenOptions = navData => {
-    return {
-        headerTitle: 'Students Scheduler',
-        headerLeft: () => (
-            <HeaderButtons HeaderButtonComponent={HeaderButton}>
-                <Item
-                    title="Menu"
-                    onPress={() => {
-                        navData.navigation.dispatch(DrawerActions.toggleDrawer());
-                    }}
-                />
-            </HeaderButtons>
-        )
-    }
-}
 
 const styles = StyleSheet.create({
     title: {
@@ -67,4 +47,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default MainPage
+export default StudentMain

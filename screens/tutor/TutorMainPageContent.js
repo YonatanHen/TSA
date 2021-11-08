@@ -1,25 +1,20 @@
 import React from 'react'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import { HeaderButtons, Item } from 'react-navigation-header-buttons';
-import { DrawerActions } from '@react-navigation/native';
 import { Card, Title, Paragraph } from 'react-native-paper'
 
-import HeaderButton from '../../components/buttons/HeaderButton';
 import { useSelector } from 'react-redux';
 
-import 
-
-const MainPage = props => {
+const TutorMain = props => {
     const loggedInUser = useSelector(state => state.data)
 
     return (
-        <View style={{ alignItems: 'center', backgroundColor: 'white', height: '100%' }}>
+        <View>
             {loggedInUser.lessons && loggedInUser.lessons !== {} ? (
                 <ScrollView>
                     <View style={{ alignItems: 'center' }}>
                         <Text style={styles.title}>Upcoming Lessons</Text>
                     </View>
-                    {Object.entries(loggedInUser.lessons).map(date => {
+                    {/* {Object.entries(loggedInUser.lessons).map(date => {
                         return Object.entries(date[1]).map(lesson => {
                             return (
                                 <View key={`${date[0]} - ${lesson[0]}`} style={{ alignItems: 'center', marginTop: 5 }}>
@@ -34,7 +29,7 @@ const MainPage = props => {
                                 </View>
                             )
                         })
-                    })}
+                    })} */}
                 </ScrollView>
             ) : (
                 <Text style={styles.title}>No lessons has been planned.</Text>
@@ -43,21 +38,6 @@ const MainPage = props => {
     )
 }
 
-export const screenOptions = navData => {
-    return {
-        headerTitle: 'Students Scheduler',
-        headerLeft: () => (
-            <HeaderButtons HeaderButtonComponent={HeaderButton}>
-                <Item
-                    title="Menu"
-                    onPress={() => {
-                        navData.navigation.dispatch(DrawerActions.toggleDrawer());
-                    }}
-                />
-            </HeaderButtons>
-        )
-    }
-}
 
 const styles = StyleSheet.create({
     title: {
@@ -67,4 +47,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default MainPage
+export default TutorMain
