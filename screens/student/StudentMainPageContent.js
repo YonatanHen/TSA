@@ -1,3 +1,4 @@
+import { Ionicons } from '@expo/vector-icons';
 import React from 'react'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import { Card, Title, Paragraph } from 'react-native-paper'
@@ -5,8 +6,8 @@ import { Card, Title, Paragraph } from 'react-native-paper'
 import { useSelector } from 'react-redux';
 
 const StudentMain = props => {
-    const loggedInUser = useSelector(state => state.data)
-
+    const { loggedInUser, users, navigation } = props
+    const tutors = Object.fromEntries(users.tutors)
     return (
         <View>
             {loggedInUser.lessons && loggedInUser.lessons !== {} ? (
@@ -18,12 +19,34 @@ const StudentMain = props => {
                         return Object.entries(date[1]).map(lesson => {
                             return (
                                 <View key={`${date[0]} - ${lesson[0]}`} style={{ alignItems: 'center', marginTop: 5 }}>
-                                    <Card style={{ backgroundColor: 'honeydew' , elevation: 8 }}>
+                                    <Card style={{ backgroundColor: 'honeydew', elevation: 8 }}>
                                         <Card.Content style={{ alignItems: 'center' }}>
                                             <Title style={{ color: 'deepskyblue' }}>{date[0]} at {lesson[0]}</Title>
-                                            <Paragraph style={{ fontWeight: '600'}}>
-                                                {lesson[1].tutor} - {lesson[1].course}
+                                            <Paragraph style={{ fontWeight: '600' }}>
+                                                {tutors[lesson[1].tutorId].firstName} {tutors[lesson[1].tutorId].lastName}- {lesson[1].course}
                                             </Paragraph>
+                                            <View style={styles.icons}>
+                                                <Ionicons
+                                                    name="person"
+                                                    size={25}
+                                                    color="slategray"
+                                                    onPress={() => {
+                                                        navigation.navigate("Main", { screen: 'User Profile', params: { user: tutors[lesson[1].tutorId] } })
+                                                    }}
+                                                />
+                                                <Ionicons
+                                                    name="checkmark"
+                                                    size={25}
+                                                    color="green"
+                                                // onPress={() => openUrl('whatsapp')}
+                                                />
+                                                <Ionicons
+                                                    name="close"
+                                                    size={25}
+                                                    color="red"
+                                                // onPress={() => openUrl('whatsapp')}
+                                                />
+                                            </View>
                                         </Card.Content>
                                     </Card>
                                 </View>
@@ -44,6 +67,11 @@ const styles = StyleSheet.create({
         color: 'dodgerblue',
         fontSize: 26,
         fontWeight: 'bold'
+    },
+    icons: {
+        alignItems: 'center',
+        flexDirection: 'row',
+        marginTop: 10
     }
 })
 

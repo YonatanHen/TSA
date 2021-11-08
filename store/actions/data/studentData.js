@@ -33,7 +33,7 @@ export const scheduleLesson = (lessons, tutorData ,lessonDay, lessonTime, select
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    tutor: `${tutorData.firstName} ${tutorData.lastName}`,
+                    tutorId: tutorData.uid,
                     course: selectedCourse
                 })
             }
@@ -45,7 +45,7 @@ export const scheduleLesson = (lessons, tutorData ,lessonDay, lessonTime, select
 
         await dispatch(readAllUsers())    
         
-        const user = await readUserData(studentUserUid)
+        const user = readUserData(studentUserUid)
 
         console.log('The User is' + user)
 

@@ -5,7 +5,7 @@ import { Card, Title, Paragraph } from 'react-native-paper'
 import { useSelector } from 'react-redux';
 
 const TutorMain = props => {
-    const loggedInUser = useSelector(state => state.data)
+    const {loggedInUser, users} = props
 
     return (
         <View>

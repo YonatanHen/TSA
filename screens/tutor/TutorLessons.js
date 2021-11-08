@@ -11,7 +11,8 @@ import { useSelector } from 'react-redux';
 
 const TutorLessons = props => {
     const user = useSelector(state => state.data)
-    console.log(user)
+    const users = useSelector(state => state.representationLists.usersList)
+
     const [lessons, setLessons] = useState(user.lessons ? user.lessons : {})
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
     const [date, setDate] = useState(null)
@@ -33,9 +34,9 @@ const TutorLessons = props => {
                     <Card style={styles.card}>
                         <Card.Content>
                             <Text style={{ fontWeight: 'bold', fontSize: 16 }}>{lesson.time}</Text>
-                            {lesson.student ? (
+                            {lesson.studentId ? (
                                 <View>
-                                    <Text>student: {lesson.student}</Text>
+                                    <Text>student: {users.students[lesson.studentId][1].firstName} {users.students[lesson.studentId][1].lastName}</Text>
                                     <Text>course: {lesson.course}</Text>
                                 </View>
                             ) : (

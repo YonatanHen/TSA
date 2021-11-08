@@ -55,15 +55,22 @@ const UserProfile = (props) => {
 
                             </View>
                         </View>
-                        
+
                         {loggedInUser.role === 'student' &&
                             <View style={{ alignItems: 'center', marginTop: 10 }}>
                                 <Button
                                     title={`Schedule a Meeting with ${user.firstName}`}
-                                    onPress={() => props.navigation.navigate({name: 'Schedule a Meeting' , params: { user: user } })}
+                                    onPress={() => props.navigation.navigate({ name: 'Schedule a Meeting', params: { user: user } })}
                                 />
                             </View>
                         }
+                        <View style={{ alignItems: 'center', marginTop: 10 }}>
+                            <Button
+                                color='deepskyblue'
+                                title={`Go Back`}
+                                onPress={() => props.navigation.goBack()}
+                            />
+                        </View>
                     </>
                 )}
             </ScrollView>

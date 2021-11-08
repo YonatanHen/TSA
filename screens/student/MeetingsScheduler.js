@@ -32,8 +32,7 @@ const ScheduleMeeting = props => {
                     return (
                         {
                             ...item,
-                            studentUid: user.uid,
-                            student: `${user.firstName} ${user.lastName}`,
+                            studentId: user.uid,
                             course: selectedCourse
                         }
                     )
@@ -66,13 +65,13 @@ const ScheduleMeeting = props => {
         return (
             <View style={styles.cardContainer}>
                 <TouchableOpacity onPress={() => {
-                    if (!lesson.student) onTimeClickHandler(lesson)
+                    if (!lesson.studentId) onTimeClickHandler(lesson)
                     else Alert.alert('Alert', "You can't schedule taken lesson.", [{ text: 'Okay' }])
                 }}>
                     <Card style={styles.card}>
                         <Card.Content>
                             <Text style={{ fontWeight: 'bold', fontSize: 16 }}>{lesson.time}</Text>
-                            {lesson.student ? (
+                            {lesson.studentId ? (
                                 <View>
                                     <Text style={{ fontWeight: 'bold' }}>Busy</Text>
                                 </View>

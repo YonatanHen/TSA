@@ -165,6 +165,18 @@ export const EditUserNavigator = () => {
     )
 }
 
+const MainPageStackNavigator = createStackNavigator()
+
+export const MainPageNavigator = () => {
+    return (
+        <MainPageStackNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' }, headerShown: false }}>
+            <MainPageStackNavigator.Screen name="Main Page" component={MainPage} />
+            <AdminDrawerNavigator.Screen name="User Profile" component={UserProfile} />
+        </MainPageStackNavigator.Navigator>
+    )
+}
+
+
 const OptionsDrawerNavigator = createDrawerNavigator()
 
 export const OptionsNavigator = props => {
@@ -190,7 +202,7 @@ export const OptionsNavigator = props => {
             )
         }}
     >
-        <OptionsDrawerNavigator.Screen name={'Main'} component={MainPage} options={{
+        <OptionsDrawerNavigator.Screen name={'Main'} component={MainPageNavigator} options={{
             headerTintColor: 'deepskyblue',
             drawerIcon: props => (
                 <Ionicons
