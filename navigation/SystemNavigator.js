@@ -209,7 +209,7 @@ export const OptionsNavigator = props => {
                 />
             )
         }} />
-        <OptionsDrawerNavigator.Screen name={"Profile Image Handler"} component={ProfileImageHandler} options={{
+        <OptionsDrawerNavigator.Screen name={"Profile Image"} component={ProfileImageHandler} options={{
             headerTintColor: 'deepskyblue',
             drawerIcon: props => (
                 <Ionicons
