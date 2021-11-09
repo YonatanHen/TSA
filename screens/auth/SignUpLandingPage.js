@@ -129,7 +129,7 @@ const SignUpLandingPage = props => {
                     {userRole === 'tutor' && (
                         <MultipleInput
                             id="courses"
-                            placeholder='Type course name'
+                            placeholder='add courses, delete by typing on course name'
                             initialValue={[]}
                             required
                             onInputChange={inputChangeHandler}

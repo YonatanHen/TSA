@@ -204,7 +204,7 @@ const EditUser = props => {
                     {user.role === 'tutor' && (
                         <MultipleInput
                             id="courses"
-                            placeholder='Type course name'
+                            placeholder='add courses, delete by typing on course name'
                             initialValue={user.courses}
                             required
                             onInputChange={inputChangeHandler}
@@ -228,17 +228,6 @@ const EditUser = props => {
                         onLocationPicked={locationPickedHandler}
                         currentLocation={selectedLocation}
                     />
-                    {/* <Input
-                        required
-                        password
-                        id="password"
-                        placeholder="Confirm by typing your password"
-                        keyboardType="default"
-                        errorText="Valid password must conatain one letter, one number and 6 charcates at least"
-                        secureTextEntry={true}
-                        onInputChange={inputChangeHandler}
-                        initialValue={user.password}
-                    /> */}
                     {isLoading ? (<ActivityIndicator size='small' color={'deepskyblue'} />) : (
                         <View style={styles.buttonContainer}>
                             <View style={styles.button}>
