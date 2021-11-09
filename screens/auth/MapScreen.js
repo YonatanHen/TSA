@@ -2,6 +2,10 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Platform, LogBox } from 'react-native';
 import MapView, { Marker } from 'react-native-maps'
 
+LogBox.ignoreLogs([
+  'Non-serializable values were found in the navigation state',
+ ]);
+
 const MapScreen = props => {
   const [selectedLocation, setSelectedLocation] = useState()
   
@@ -54,7 +58,6 @@ const MapScreen = props => {
 };
 
 export const ScreenOptions = (navData) => {
-  LogBox.ignoreLogs(['Warning: ...']);
 
   if (navData.route.params) {
     const { saveLocation } = navData.route.params
