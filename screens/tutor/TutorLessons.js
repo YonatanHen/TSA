@@ -13,11 +13,11 @@ const TutorLessons = props => {
     const user = useSelector(state => state.data)
     const lessons = useSelector(state => state.lessons.lessons)
     const users = useSelector(state => state.representationLists.usersList)
-    console.log()
     const [tutorLessons, setLessons] = useState(lessons[user.institute][user.uid] ? lessons[user.institute][user.uid] : {})
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
     const [date, setDate] = useState(null)
 
+    const students = Object.fromEntries(users.students)
 
     useEffect(() => {
         console.log(tutorLessons)
@@ -37,7 +37,7 @@ const TutorLessons = props => {
                             <Text style={{ fontWeight: 'bold', fontSize: 16 }}>{lesson.time}</Text>
                             {lesson.studentId ? (
                                 <View>
-                                    {/* <Text>student: {students[lesson.studentId].firstName} {students[lesson.studentId].lastName}</Text> */}
+                                    <Text>student: {students[lesson.studentId].firstName} {students[lesson.studentId].lastName}</Text>
                                     <Text>course: {lesson.course}</Text>
                                 </View>
                             ) : (

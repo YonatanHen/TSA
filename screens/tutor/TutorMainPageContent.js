@@ -5,8 +5,8 @@ import { Ionicons } from '@expo/vector-icons';
 
 
 const TutorMain = props => {
-    const { loggedInUser, users, navigation } = props
-    const students = Object.fromEntries(users.students)
+    const { loggedInUser, students, navigation } = props
+
     return (
         <View>
             {loggedInUser.lessons && loggedInUser.lessons !== {} ? (
