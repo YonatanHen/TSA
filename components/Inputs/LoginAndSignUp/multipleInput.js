@@ -24,7 +24,7 @@ const inputReducer = (state, action) => {
 const MultipleInput = props => {
     const [inputState, dispatch] = useReducer(inputReducer, {
         value: props.initialValue !== [] ? props.initialValue : [],
-        isValid: props.initiallyValid,
+        isValid: props.initialValue !== [],
         touched: false
     })
 
