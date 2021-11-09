@@ -29,8 +29,6 @@ const Input = props => {
     touched: false
   })
 
-  console.log(inputState)
-
   const { onInputChange, id } = props;
 
   useEffect(() => {

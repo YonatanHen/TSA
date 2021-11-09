@@ -3,6 +3,7 @@ import { TextInput, StyleSheet, View, Text, Button, Alert } from 'react-native'
 
 const INPUT_CHANGE = 'INPUT_CHANGE';
 const COURSE_ADDED = 'COURSE_ADDED'
+const COURSE_DELETED = 'COURSE_DELETED'
 
 const inputReducer = (state, action) => {
     switch (action.type) {
@@ -15,6 +16,11 @@ const inputReducer = (state, action) => {
             return {
                 ...state,
                 value: [...state.value, action.value],
+            }
+        case COURSE_DELETED:
+            return {
+                ...state,
+                value: state.value.filter(el => el !== action.value)
             }
         default:
             return state;
@@ -48,12 +54,16 @@ const MultipleInput = props => {
 
     const addCourseHandler = () => {
         if (input === '') {
-            Alert.alert('Error', 'Course name can not be empty!' , [{text: 'OK'}])
+            Alert.alert('Error', 'Course name can not be empty!', [{ text: 'OK' }])
         }
         else {
             dispatch({ type: COURSE_ADDED, value: input })
             inputHandler('')
         }
+    }
+
+    const deleteCourseHandler = (courseName) => {
+        dispatch({ type: COURSE_DELETED, value: courseName })
     }
 
     return (
@@ -65,12 +75,12 @@ const MultipleInput = props => {
                     value={input}
                     onChangeText={textChangeHandler}
                 />
-                    <View style={styles.addButtonContainer}>
-                        <Button
-                            title='Add'
-                            onPress={addCourseHandler}
-                        />
-                    </View>
+                <View style={styles.addButtonContainer}>
+                    <Button
+                        title='Add'
+                        onPress={addCourseHandler}
+                    />
+                </View>
             </View>
             {!inputState.isValid && inputState.value !== '' && (
                 <View style={styles.errorContainer}>
@@ -78,7 +88,14 @@ const MultipleInput = props => {
                 </View>
             )}
             <View style={styles.coursesContainer}>
-                <Text>{inputState.value.join(',')}</Text>
+                {inputState.value.map((courseName, index) => {
+                    return (
+                        <Text key={index} onPress={() => deleteCourseHandler(courseName)}>
+                            {courseName}{index != inputState.value.length - 1 ? ',' : ''}
+                        </Text>
+                    )
+                })}
+                {/* <Text>{inputState.value.join(',')}</Text> */}
             </View>
         </View>
     )
@@ -107,7 +124,7 @@ const styles = StyleSheet.create({
         color: 'mediumaquamarine'
     },
     coursesContainer: {
-
+        flexDirection: 'row'
     }
 })
 
