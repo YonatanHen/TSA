@@ -25,7 +25,7 @@ const inputReducer = (state, action) => {
 };
 
 const AutoCompleteInput = props => {
-    const [instituteName, setinstituteName] = useState('')
+    const [instituteName, setinstituteName] = useState(props.initialValue ? props.initialValue : '')
     const [filteredList, setFilteredList] = useState([])
     const [inputState, dispatch] = useReducer(inputReducer, {
         value: props.initialValue ? props.initialValue : '',

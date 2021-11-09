@@ -25,9 +25,11 @@ const inputReducer = (state, action) => {
 const Input = props => {
   const [inputState, dispatch] = useReducer(inputReducer, {
     value: props.initialValue ? props.initialValue : '',
-    isValid: props.initiallyValid,
+    isValid: props.initialValue !== '',
     touched: false
   })
+
+  console.log(inputState)
 
   const { onInputChange, id } = props;
 
@@ -80,7 +82,7 @@ const Input = props => {
         value={inputState.value}
         onChangeText={textChangeHandler}
       />
-      {!inputState.isValid && inputState.value !== '' && (
+      {!inputState.isValid && (
         <View style={styles.errorContainer}>
           <Text style={styles.errorText}>{props.errorText}</Text>
         </View>
