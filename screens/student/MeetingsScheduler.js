@@ -34,7 +34,8 @@ const ScheduleMeeting = props => {
                         {
                             ...item,
                             studentId: user.uid,
-                            course: selectedCourse
+                            course: selectedCourse,
+                            approved: false
                         }
                     )
                 } else return item
