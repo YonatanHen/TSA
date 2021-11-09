@@ -48,14 +48,14 @@ export const addLesson = (lessons) => {
             throw new Error('An error occured while trying to schedule this meetings, please try again later')
         }
 
-        // await dispatch(readAllUsers())
+        await dispatch(readLessons())
 
-        await dispatch({
-            type: ADD_LESSON,
-            tutorInstitute: user.institute,
-            tutorId: user.uid,
-            tutorLessons: lessons
-        })
+        // await dispatch({
+        //     type: ADD_LESSON,
+        //     tutorInstitute: user.institute,
+        //     tutorId: user.uid,
+        //     tutorLessons: lessons
+        // })
 
     }
 }
@@ -72,13 +72,12 @@ export const deleteLesson = (lessonDate, lessonTime) => {
     }
 }
 
-export const scheduleLesson = (lessons, tutorData ,lessonDay, lessonTime, selectedCourse) => {
+export const scheduleLesson = (lessons, tutorData) => {
     return async (dispatch, getState) => {
-        const token = getState().data.token
-        const studentUserUid = getState().data.uid
+        const user = getState().data
 
         const updateLessons = await fetch(
-            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/lessons/${tutorData.uid}.json?auth=${token}`,
+            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/lessons/${tutorData.institute}/${tutorData.uid}.json`,
             {
                 method: 'PATCH',
                 headers: {
@@ -94,15 +93,14 @@ export const scheduleLesson = (lessons, tutorData ,lessonDay, lessonTime, select
             throw new Error('An error occured while trying to schedule this meetings, please try again later')
         }
 
-        await dispatch(readAllUsers())    
-        
-        const user = readUserData(studentUserUid)
+        await dispatch(readLessons())
 
-        console.log('The User is' + user)
+        // await dispatch({
+        //     type: ADD_LESSON,
+        //     tutorInstitute: user.institute,
+        //     tutorId: user.uid,
+        //     tutorLessons: lessons
+        // })
 
-        await dispatch({
-            type: ADD_LESSON,
-            lessons: user.lessons
-        })
     }
 }

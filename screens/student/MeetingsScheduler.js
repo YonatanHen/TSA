@@ -14,8 +14,9 @@ const ScheduleMeeting = props => {
     const user = useSelector(state => state.data)
 
     const tutorData = props.route.params.user
+    const LessonsObject = useSelector(state => state.lessons.lessons)
 
-    const [lessons, setLessons] = useState(tutorData.lessons ? tutorData.lessons : {})
+    const [lessons, setLessons] = useState(LessonsObject[tutorData.institute][tutorData.uid] ? LessonsObject[tutorData.institute][tutorData.uid] : {})
     const [isDialogVisible, setDialogVisibility] = useState(false)
     const [lessonDate, setLessonDate] = useState()
     const [lessonTime, setLessonTime] = useState()
@@ -41,7 +42,7 @@ const ScheduleMeeting = props => {
         }
 
         try {
-            await dispatch(scheduleLesson(updatedLessons, tutorData, lessonDate, lessonTime, selectedCourse))
+            await dispatch(scheduleLesson(updatedLessons, tutorData))
             await setLessons(updatedLessons)
         } catch (err) {
             Alert.alert('An Error occured!', err, [{ text: 'Okay' }])
