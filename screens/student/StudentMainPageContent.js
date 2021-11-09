@@ -3,8 +3,6 @@ import React from 'react'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import { Card, Title, Paragraph } from 'react-native-paper'
 
-import { useSelector } from 'react-redux';
-
 const StudentMain = props => {
     const { loggedInUser, users, navigation } = props
     const tutors = Object.fromEntries(users.tutors)
@@ -33,12 +31,6 @@ const StudentMain = props => {
                                                     onPress={() => {
                                                         navigation.navigate("Main", { screen: 'User Profile', params: { user: tutors[lesson[1].tutorId] } })
                                                     }}
-                                                />
-                                                <Ionicons
-                                                    name="checkmark"
-                                                    size={25}
-                                                    color="green"
-                                                // onPress={() => openUrl('whatsapp')}
                                                 />
                                                 <Ionicons
                                                     name="close"

@@ -1,8 +1,10 @@
+import { ADD_LESSON } from '../actions/data/lessonsData'
 import { ACADEMIC_INSTITUTES, READ_ALL_USERS } from '../actions/representation'
 
 const initialState = {
     institutesList: [],
-    usersList: []
+    usersList: [],
+    lessons: []
 }
 
 export default (state = initialState, action) => {
@@ -18,6 +20,11 @@ export default (state = initialState, action) => {
                 ...state,
                 usersList: action.usersList
             }
+        case ADD_LESSON:
+            return {
+                ...state,
+                lessons: [...state.lesson, action.tutorLessonsO]
+        }
         default:
             return state
     }

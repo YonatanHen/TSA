@@ -7,7 +7,7 @@ import 'intl/locale-data/jsonp/en';
 import { useDispatch, useSelector } from 'react-redux';
 
 import CoursePicker from '../../components/pickers/coursePicker'
-import { scheduleLesson } from '../../store/actions/data/studentData'
+import { scheduleLesson } from '../../store/actions/data/lessonsData'
 
 
 const ScheduleMeeting = props => {

@@ -19,6 +19,7 @@ import setCityAndCountryByLocation from '../../../utilities/setCityAndCountryByL
 
 import * as Notifications from 'expo-notifications';
 import axios from 'axios'
+import { readLessons } from './lessonsData'
 
 export const signup = (email, password, role, fname, lname, institute) => {
     return async dispatch => {
@@ -51,6 +52,7 @@ export const signup = (email, password, role, fname, lname, institute) => {
         await writedata({ email: email, uid: resData.localId, firstName: fname, lastName: lname, institute: institute, role: role })
 
         await dispatch(readAllUsers())
+        await dispatch(readLessons())
 
         await dispatch({
             type: SIGNUP,
@@ -100,6 +102,7 @@ export const login = (email, password) => {
             .then(res => console.log(res.data.message))
 
         await dispatch(readAllUsers())
+        await dispatch(readLessons())
 
         dispatch({
             type: SIGNIN,

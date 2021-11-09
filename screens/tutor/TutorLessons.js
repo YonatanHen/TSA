@@ -11,17 +11,16 @@ import { useSelector } from 'react-redux';
 
 const TutorLessons = props => {
     const user = useSelector(state => state.data)
+    const lessons = useSelector(state => state.lessons.lessons)
     const users = useSelector(state => state.representationLists.usersList)
-
-    const students = Object.fromEntries(users.students)
-
-    const [lessons, setLessons] = useState(user.lessons ? user.lessons : {})
+    console.log()
+    const [tutorLessons, setLessons] = useState(lessons[user.institute][user.uid] ? lessons[user.institute][user.uid] : {})
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
     const [date, setDate] = useState(null)
 
 
     useEffect(() => {
-        console.log(lessons)
+        console.log(tutorLessons)
     }, [setLessons])
 
     const dateFormatter = (dateObj) => {
@@ -38,7 +37,7 @@ const TutorLessons = props => {
                             <Text style={{ fontWeight: 'bold', fontSize: 16 }}>{lesson.time}</Text>
                             {lesson.studentId ? (
                                 <View>
-                                    <Text>student: {students[lesson.studentId].firstName} {students[lesson.studentId].lastName}</Text>
+                                    {/* <Text>student: {students[lesson.studentId].firstName} {students[lesson.studentId].lastName}</Text> */}
                                     <Text>course: {lesson.course}</Text>
                                 </View>
                             ) : (
@@ -62,7 +61,7 @@ const TutorLessons = props => {
         <>
             <Agenda
                 items={{
-                    ...lessons,
+                    ...tutorLessons,
                 }}
                 selected={dateFormatter(new Date())}
                 showClosingKnob={true}
@@ -79,7 +78,7 @@ const TutorLessons = props => {
             <NewLessonPicker
                 setDatePickerVisibility={setDatePickerVisibility}
                 isDatePickerVisible={isDatePickerVisible}
-                lessons={lessons}
+                lessons={tutorLessons}
                 setLessons={setLessons}
                 date={date}
             />

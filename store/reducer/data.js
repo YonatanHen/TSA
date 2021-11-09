@@ -1,5 +1,5 @@
 import { LOGOUT, SIGNIN, SIGNUP, UPDATE_USER_ON_SIGNUP, EDIT_USER } from '../actions/data/userData'
-import { ADD_LESSON } from '../actions/data/tutorData'
+import { ADD_LESSON } from '../actions/data/lessonsData'
 import { ADD_IMAGE, DELETE_IMAGE } from '../actions/data/profilePictureActions'
 
 const initialState = {
