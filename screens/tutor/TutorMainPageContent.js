@@ -5,16 +5,18 @@ import { Ionicons } from '@expo/vector-icons';
 
 
 const TutorMain = props => {
-    const { loggedInUser, students, navigation } = props
+    const { loggedInUser, students, lessons, navigation } = props
+    
+    const tutorLessons = lessons ? lessons[loggedInUser.uid] : {}
 
     return (
         <View>
-            {loggedInUser.lessons && loggedInUser.lessons !== {} ? (
+            {tutorLessons !== {} ? (
                 <ScrollView>
                     <View style={{ alignItems: 'center' }}>
                         <Text style={styles.title}>Upcoming Lessons</Text>
                     </View>
-                    {Object.entries(loggedInUser.lessons).map(date => {
+                    {Object.entries(tutorLessons).map(date => {
                         console.log(date)
                         return date[1].filter(lesson => lesson.studentId !== undefined).map(lesson => {
                             return (
