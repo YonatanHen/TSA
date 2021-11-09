@@ -13,10 +13,12 @@ import TutorMain from '../tutor/TutorMainPageContent'
 const MainPage = props => {
     const loggedInUser = useSelector(state => state.data)
     const users = useSelector(state => state.representationLists.usersList)
+    const lessonsObject = useSelector(state => state.lessons.lessons)
+
     return (
         <View style={{ alignItems: 'center', backgroundColor: 'white', height: '100%' }}>
-            {loggedInUser.role === 'student' && <StudentMain loggedInUser={loggedInUser} users={users} navigation={props.navigation} />}
-            {loggedInUser.role === 'tutor' && <TutorMain loggedInUser={loggedInUser} users={users} navigation={props.navigation} />}
+            {loggedInUser.role === 'student' && <StudentMain loggedInUser={loggedInUser} tutors={Object.fromEntries(users.tutors)} lessons={lessonsObject[loggedInUser.institute]} navigation={props.navigation} />}
+            {loggedInUser.role === 'tutor' && <TutorMain loggedInUser={loggedInUser} students={Object.fromEntries(users.students)} lessons={lessonsObject[loggedInUser.institute]} navigation={props.navigation} />}
         </View>
     )
 }

@@ -4,52 +4,62 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import { Card, Title, Paragraph } from 'react-native-paper'
 
 const StudentMain = props => {
-    const { loggedInUser, users, navigation } = props
-    const tutors = Object.fromEntries(users.tutors)
+    const { loggedInUser, tutors, lessons, navigation } = props
+
+    console.log(tutors)
+
     return (
         <View>
-            {loggedInUser.lessons && loggedInUser.lessons !== {} ? (
+            {lessons !== {} ? (
                 <ScrollView>
                     <View style={{ alignItems: 'center' }}>
                         <Text style={styles.title}>Upcoming Lessons</Text>
                     </View>
-                    {Object.entries(loggedInUser.lessons).map(date => {
-                        return Object.entries(date[1]).map(lesson => {
-                            return (
-                                <View key={`${date[0]} - ${lesson[0]}`} style={{ alignItems: 'center', marginTop: 5 }}>
-                                    <Card style={{ backgroundColor: 'honeydew', elevation: 8 }}>
-                                        <Card.Content style={{ alignItems: 'center' }}>
-                                            <Title style={{ color: 'deepskyblue' }}>{date[0]} at {lesson[0]}</Title>
-                                            <Paragraph style={{ fontWeight: '600' }}>
-                                                {tutors[lesson[1].tutorId].firstName} {tutors[lesson[1].tutorId].lastName}- {lesson[1].course}
-                                            </Paragraph>
-                                            <View style={styles.icons}>
-                                                <Ionicons
-                                                    name="person"
-                                                    size={25}
-                                                    color="slategray"
-                                                    onPress={() => {
-                                                        navigation.navigate("Main", { screen: 'User Profile', params: { user: tutors[lesson[1].tutorId] } })
-                                                    }}
-                                                />
-                                                <Ionicons
-                                                    name="close"
-                                                    size={25}
-                                                    color="red"
-                                                // onPress={() => openUrl('whatsapp')}
-                                                />
-                                            </View>
-                                        </Card.Content>
-                                    </Card>
-                                </View>
-                            )
-                        })
+                    {Object.entries(lessons).map(tutorLessons => {
+                        return (
+                            Object.entries(tutorLessons[1]).map(date => {
+                                return (
+                                    date[1].filter(lesson => lesson.studentId === loggedInUser.uid)
+                                        .map(lesson => {
+                                            return (
+                                                <View key={`${date[0]} - ${lesson.time}`} style={{ alignItems: 'center', marginTop: 5 }}>
+                                                    <Card style={{ backgroundColor: 'honeydew', elevation: 8 }}>
+                                                        <Card.Content style={{ alignItems: 'center' }}>
+                                                            <Title style={{ color: 'deepskyblue' }}>{date[0]} at {lesson.time}</Title>
+                                                            <Paragraph style={{ fontWeight: '600' }}>
+                                                                {tutors[tutorLessons[0]].firstName} {tutors[tutorLessons[0]].lastName}- {lesson.course}
+                                                            </Paragraph>
+                                                            <View style={styles.icons}>
+                                                                <Ionicons
+                                                                    name="person"
+                                                                    size={25}
+                                                                    color="slategray"
+                                                                    onPress={() => {
+                                                                        navigation.navigate("Main", { screen: 'User Profile', params: { user: tutors[tutorLessons[0]] } })
+                                                                    }}
+                                                                />
+                                                                <Ionicons
+                                                                    name="close"
+                                                                    size={25}
+                                                                    color="red"
+                                                                // onPress={() => openUrl('whatsapp')}
+                                                                />
+                                                            </View>
+                                                        </Card.Content>
+                                                    </Card>
+                                                </View>
+                                            )
+                                        })
+                                )
+                            })
+                        )
                     })}
                 </ScrollView>
             ) : (
                 <Text style={styles.title}>No lessons has been planned.</Text>
-            )}
-        </View>
+            )
+            }
+        </View >
     )
 }
 
@@ -68,3 +78,32 @@ const styles = StyleSheet.create({
 })
 
 export default StudentMain
+
+// return (
+//     <View key={`${date[0]} - ${lesson[0]}`} style={{ alignItems: 'center', marginTop: 5 }}>
+//         <Card style={{ backgroundColor: 'honeydew', elevation: 8 }}>
+//             <Card.Content style={{ alignItems: 'center' }}>
+//                 <Title style={{ color: 'deepskyblue' }}>{date[0]} at {lesson[0]}</Title>
+//                 <Paragraph style={{ fontWeight: '600' }}>
+//                     {tutors[lesson[1].tutorId].firstName} {tutors[lesson[1].tutorId].lastName}- {lesson[1].course}
+//                 </Paragraph>
+//                 <View style={styles.icons}>
+//                     <Ionicons
+//                         name="person"
+//                         size={25}
+//                         color="slategray"
+//                         onPress={() => {
+//                             navigation.navigate("Main", { screen: 'User Profile', params: { user: tutors[lesson[1].tutorId] } })
+//                         }}
+//                     />
+//                     <Ionicons
+//                         name="close"
+//                         size={25}
+//                         color="red"
+//                     // onPress={() => openUrl('whatsapp')}
+//                     />
+//                 </View>
+//             </Card.Content>
+//         </Card>
+//     </View>
+// )
