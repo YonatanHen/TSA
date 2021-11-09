@@ -31,22 +31,20 @@ const TutorLessons = props => {
     const renderDay = (lesson) => {
         return (
             <View style={styles.cardContainer}>
-                <TouchableOpacity onPress={() => console.log('Add delete lesson option here')}>
-                    <Card style={styles.card}>
-                        <Card.Content>
-                            <Text style={{ fontWeight: 'bold', fontSize: 16 }}>{lesson.time}</Text>
-                            {lesson.studentId ? (
-                                <View>
-                                    <Text>student: {students[lesson.studentId].firstName} {students[lesson.studentId].lastName}</Text>
-                                    <Text>course: {lesson.course}</Text>
-                                </View>
-                            ) : (
-                                <Text style={{ color: 'deepskyblue', fontWeight: 'bold' }}>Available!</Text>
-                            )}
+                <Card style={styles.card}>
+                    <Card.Content>
+                        <Text style={{ fontWeight: 'bold', fontSize: 16 }}>{lesson.time}</Text>
+                        {lesson.studentId ? (
+                            <View>
+                                <Text>student: {students[lesson.studentId].firstName} {students[lesson.studentId].lastName}</Text>
+                                <Text>course: {lesson.course}</Text>
+                            </View>
+                        ) : (
+                            <Text style={{ color: 'deepskyblue', fontWeight: 'bold' }}>Available!</Text>
+                        )}
 
-                        </Card.Content>
-                    </Card>
-                </TouchableOpacity>
+                    </Card.Content>
+                </Card>
             </View>
         )
     }
