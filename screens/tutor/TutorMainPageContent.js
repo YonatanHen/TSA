@@ -6,7 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 const TutorMain = props => {
     const { loggedInUser, students, lessons, navigation } = props
-    
+
     const tutorLessons = lessons ? lessons[loggedInUser.uid] : {}
 
     return (
@@ -18,10 +18,10 @@ const TutorMain = props => {
                     </View>
                     {Object.entries(tutorLessons).map(date => {
                         console.log(date)
-                        return date[1].filter(lesson => lesson.studentId !== undefined).map(lesson => {
-                            return (
-                                <View key={`${date[0]} - ${lesson.time}`} style={{ alignItems: 'center', marginTop: 5 }}>
-                                    <Card style={{ backgroundColor: 'honeydew', elevation: 8 }}>
+                        return date[1].filter(lesson => lesson.studentId !== undefined)
+                            .map((lesson, index) => {
+                                return (
+                                    <Card style={{ backgroundColor: 'honeydew', elevation: 8, marginBottom: 10 }} key={index}>
                                         <Card.Content style={{ alignItems: 'center' }}>
                                             <Title style={{ color: 'deepskyblue' }}>{date[0]} at {lesson.time}</Title>
                                             <Paragraph style={{ fontWeight: '600' }}>
@@ -51,9 +51,8 @@ const TutorMain = props => {
                                             </View>
                                         </Card.Content>
                                     </Card>
-                                </View>
-                            )
-                        })
+                                )
+                            })
                     })}
                 </ScrollView>
             ) : (

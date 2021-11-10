@@ -21,8 +21,6 @@ const StudentMain = props => {
                                 return (
                                     date[1].filter(lesson => lesson.studentId === loggedInUser.uid)
                                         .map((lesson, index) => {
-                                            console.log(`${date[0]} - ${lesson.time}`)
-
                                             return (
                                                 <Card style={{ backgroundColor: 'honeydew', elevation: 8, marginBottom: 10 }} key={index} >
                                                     <Card.Content style={{ alignItems: 'center' }}>
