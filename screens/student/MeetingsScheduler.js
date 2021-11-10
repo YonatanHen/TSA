@@ -17,6 +17,7 @@ const ScheduleMeeting = props => {
     const LessonsObject = useSelector(state => state.lessons.lessons)
 
     const [lessons, setLessons] = useState(LessonsObject[tutorData.institute][tutorData.uid] ? LessonsObject[tutorData.institute][tutorData.uid] : {})
+    const [lessonsWithDates, setLessonsWithDates] = useState()
     const [isDialogVisible, setDialogVisibility] = useState(false)
     const [lessonDate, setLessonDate] = useState()
     const [lessonTime, setLessonTime] = useState()
@@ -32,7 +33,7 @@ const ScheduleMeeting = props => {
                 if (item.time === lessonTime) {
                     return (
                         {
-                            ...item,
+                            time: item.time,
                             studentId: user.uid,
                             course: selectedCourse,
                             approved: false
@@ -51,15 +52,21 @@ const ScheduleMeeting = props => {
     }
 
     const onTimeClickHandler = async (lesson) => {
-        if (!lessonDate) {
-            Alert.alert('Select a Date from the calendar first!')
-        } else if (lessons[lessonDate].find(lessonObj => lessonObj.time === lesson.time) == undefined) {
-            Alert.alert('The selected lesson is not match to the selected date')
-        } else {
-            setDialogVisibility(true)
-            await setLessonTime(lesson.time)
-        }
+        await setLessonDate(lesson.date)
+        await setLessonTime(lesson.time)
+        setDialogVisibility(true)
     }
+
+    useEffect(() => {
+        //Add date keys as fields to all of the objects.
+        if (lessons !== {}) {
+            var tempLessons = { ...lessons }
+            for (const [key, value] of Object.entries(tempLessons)) {
+                tempLessons[key] = tempLessons[key].map(lesson => { return ({ ...lesson, date: key }) })
+            }
+            setLessonsWithDates(tempLessons)
+        }
+    }, [])
 
 
     useEffect(() => {
@@ -95,15 +102,12 @@ const ScheduleMeeting = props => {
     return (
         <>
             <Agenda
-                items={lessons}
+                items={lessonsWithDates}
                 showClosingKnob={true}
                 renderItem={renderDay}
-                onDayPress={async (day) => { setLessonDate(day.dateString) }}
             />
             <CoursePicker
                 visible={isDialogVisible}
-                date={lessonDate}
-                time={lessonTime}
                 setDialogVisibility={setDialogVisibility}
                 coursesList={tutorData.courses}
                 scheduleLessonHandler={scheduleLessonHandler}

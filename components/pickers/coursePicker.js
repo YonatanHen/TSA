@@ -10,10 +10,9 @@ const CoursePicker = props => {
     return (
         <View>
             <Dialog.Container visible={visible}>
-                <Dialog.Title>{props.date} at {props.time}</Dialog.Title>
+                <Dialog.Title>Select Courses</Dialog.Title>
                 <Dialog.Description>
-                    
-                    Select a course:
+                    Press on the course that you want to learn:
                 </Dialog.Description>
                 {coursesList.map(courseName => {
                     if (selectedCourse && selectedCourse !== courseName) return (
