@@ -1,18 +1,28 @@
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react'
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
+import { Alert, ScrollView, StyleSheet, Text, View } from 'react-native'
 import { Card, Title, Paragraph } from 'react-native-paper'
 import { useDispatch } from 'react-redux';
 
-import { deleteStudentFromLesson } from '../../store/actions/data/lessonsData'
+import { cancelLesson } from '../../store/actions/data/lessonsData'
 
 const StudentMain = props => {
     const { loggedInUser, tutors, lessons, navigation } = props
 
     const dispatch = useDispatch()
 
-    const handleDeleteLesson = () => {
-        
+    const cancelLessonHandler = (tutorId, date, time) => {
+        Alert.alert('Are you sure?', 'Do you want to cancel this lesson?', [
+            {
+                text: 'Yes',
+                onPress: () => dispatch(cancelLesson(tutorId, date, time)),
+                style: 'default'
+            },
+            {
+                text: 'No',
+                style: 'cancel'
+            }
+        ])
     }
 
     return (
@@ -48,7 +58,7 @@ const StudentMain = props => {
                                                                 name="close"
                                                                 size={25}
                                                                 color="red"
-                                                            onPress={() => dispatch(deleteStudentFromLesson(tutorLessons[0], date[0], lesson.time))}
+                                                            onPress={() => cancelLessonHandler(tutorLessons[0], date[0], lesson.time)}
                                                             />
                                                         </View>
                                                     </Card.Content>

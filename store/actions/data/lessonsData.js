@@ -55,25 +55,42 @@ export const addLesson = (lessons) => {
 
 export const deleteLesson = (tutorUid, lessonDate, lessonTime) => {
     return async (dispatch, getState) => {
-        const user = await { ...getState().data, lessons }
+        const user = getState().data
 
-        var lessonsInDate = await fetch(
+        const response1 = await fetch(
             `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/lessons/${user.institute}/${tutorUid}/${lessonDate}.json`)
 
-        if (!lessonsInDate.ok) {
+        if (!response1.ok) {
             throw new Error("Can't fetch lessons, please try again later")
         }
 
-        // lessonsInDate = lessonsInDate.filter
+        var lessonsInDate = await response1.json()
 
+        const lessonIndex = lessonsInDate.findIndex((lesson) => lesson.time === lessonTime)
+
+        console.log(lessonIndex)
         console.log(lessonsInDate)
+
+        const response2 = await fetch(
+            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/lessons/${user.institute}/${tutorUid}/${lessonDate}/${lessonIndex}.json?token=${user.token}`,
+            {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+
+        if (!response2.ok) {
+            throw new Error("Can't delete lesson! please try again later.")
+        }
+
 
         await dispatch(readLessons())
 
     }
 }
 
-export const deleteStudentFromLesson = (tutorUid, lessonDate, lessonTime) => {
+export const cancelLesson = (tutorUid, lessonDate, lessonTime) => {
     return async (dispatch, getState) => {
         const user = getState().data
 
@@ -99,11 +116,11 @@ export const deleteStudentFromLesson = (tutorUid, lessonDate, lessonTime) => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({...lessonsInDate})
+                body: JSON.stringify({ ...lessonsInDate })
             })
 
         if (!response2.ok) {
-            throw new Error("Can't delete lesson! please try again later.")
+            throw new Error("Can't cancel lesson! please try again later.")
         }
 
 
