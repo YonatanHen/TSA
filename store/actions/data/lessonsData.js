@@ -1,7 +1,3 @@
-import writeUserData from '../../../utilities/readWriteUserData/writeUserData'
-import readUserData from '../../../utilities/readWriteUserData/readUserData'
-import { readAllUsers } from '../representation'
-
 export const DELETE_LESSON = 'DELETE_LESSON'
 export const ADD_LESSON = 'ADD_LESSON'
 export const READ_LESSONS = 'READ_LESSONS'
