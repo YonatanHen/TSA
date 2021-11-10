@@ -20,7 +20,6 @@ const TutorLessons = props => {
     const students = Object.fromEntries(users.students)
 
     useEffect(() => {
-        console.log(tutorLessons)
     }, [setLessons])
 
     const dateFormatter = (dateObj) => {
@@ -58,10 +57,8 @@ const TutorLessons = props => {
     return (
         <>
             <Agenda
-                items={{
-                    ...tutorLessons,
-                }}
-                selected={dateFormatter(new Date())}
+                items={tutorLessons}
+                // selected={dateFormatter(new Date())}
                 showClosingKnob={true}
                 renderItem={renderDay}
                 onDayPress={(day) => {

@@ -93,32 +93,3 @@ const styles = StyleSheet.create({
 })
 
 export default StudentMain
-
-// return (
-//     <View key={`${date[0]} - ${lesson[0]}`} style={{ alignItems: 'center', marginTop: 5 }}>
-//         <Card style={{ backgroundColor: 'honeydew', elevation: 8 }}>
-//             <Card.Content style={{ alignItems: 'center' }}>
-//                 <Title style={{ color: 'deepskyblue' }}>{date[0]} at {lesson[0]}</Title>
-//                 <Paragraph style={{ fontWeight: '600' }}>
-//                     {tutors[lesson[1].tutorId].firstName} {tutors[lesson[1].tutorId].lastName}- {lesson[1].course}
-//                 </Paragraph>
-//                 <View style={styles.icons}>
-//                     <Ionicons
-//                         name="person"
-//                         size={25}
-//                         color="slategray"
-//                         onPress={() => {
-//                             navigation.navigate("Main", { screen: 'User Profile', params: { user: tutors[lesson[1].tutorId] } })
-//                         }}
-//                     />
-//                     <Ionicons
-//                         name="close"
-//                         size={25}
-//                         color="red"
-//                     // onPress={() => openUrl('whatsapp')}
-//                     />
-//                 </View>
-//             </Card.Content>
-//         </Card>
-//     </View>
-// )

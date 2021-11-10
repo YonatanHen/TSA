@@ -51,15 +51,18 @@ const ScheduleMeeting = props => {
     }
 
     const onTimeClickHandler = async (lesson) => {
-        if (lessonDate) {
+        if (!lessonDate) {
+            Alert.alert('Select a Date from the calendar first!')
+        } else if (lessons[lessonDate].find(lessonObj => lessonObj.time === lesson.time) == undefined) {
+            Alert.alert('The selected lesson is not match to the selected date')
+        } else {
             setDialogVisibility(true)
             await setLessonTime(lesson.time)
-        } else Alert.alert('Select a Date from the calendar first!')
+        }
     }
 
 
     useEffect(() => {
-        // console.log(lessonDate)
     }, [setLessons, scheduleLesson, scheduleLessonHandler])
 
 
@@ -93,13 +96,14 @@ const ScheduleMeeting = props => {
         <>
             <Agenda
                 items={lessons}
-                // selected={dateFormatter(new Date())}
                 showClosingKnob={true}
                 renderItem={renderDay}
                 onDayPress={async (day) => { setLessonDate(day.dateString) }}
             />
             <CoursePicker
                 visible={isDialogVisible}
+                date={lessonDate}
+                time={lessonTime}
                 setDialogVisibility={setDialogVisibility}
                 coursesList={tutorData.courses}
                 scheduleLessonHandler={scheduleLessonHandler}
