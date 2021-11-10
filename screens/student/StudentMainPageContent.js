@@ -2,11 +2,18 @@ import { Ionicons } from '@expo/vector-icons';
 import React from 'react'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import { Card, Title, Paragraph } from 'react-native-paper'
+import { useDispatch } from 'react-redux';
+
+import { deleteStudentFromLesson } from '../../store/actions/data/lessonsData'
 
 const StudentMain = props => {
     const { loggedInUser, tutors, lessons, navigation } = props
 
-    console.log(lessons[loggedInUser.institute])
+    const dispatch = useDispatch()
+
+    const handleDeleteLesson = () => {
+        
+    }
 
     return (
         <View>
@@ -41,7 +48,7 @@ const StudentMain = props => {
                                                                 name="close"
                                                                 size={25}
                                                                 color="red"
-                                                            // onPress={() => openUrl('whatsapp')}
+                                                            onPress={() => dispatch(deleteStudentFromLesson(tutorLessons[0], date[0], lesson.time))}
                                                             />
                                                         </View>
                                                     </Card.Content>

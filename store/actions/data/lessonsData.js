@@ -21,7 +21,7 @@ export const readLessons = () => {
 
         await dispatch({
             type: READ_LESSONS,
-            lessons: lessons 
+            lessons: lessons
         })
 
     }
@@ -44,30 +44,70 @@ export const addLesson = (lessons) => {
             }
         )
 
-        if(!updateLessons.ok) {
+        if (!updateLessons.ok) {
             throw new Error('An error occured while trying to schedule this meetings, please try again later')
         }
 
         await dispatch(readLessons())
 
-        // await dispatch({
-        //     type: ADD_LESSON,
-        //     tutorInstitute: user.institute,
-        //     tutorId: user.uid,
-        //     tutorLessons: lessons
-        // })
+    }
+}
+
+export const deleteLesson = (tutorUid, lessonDate, lessonTime) => {
+    return async (dispatch, getState) => {
+        const user = await { ...getState().data, lessons }
+
+        var lessonsInDate = await fetch(
+            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/lessons/${user.institute}/${tutorUid}/${lessonDate}.json`)
+
+        if (!lessonsInDate.ok) {
+            throw new Error("Can't fetch lessons, please try again later")
+        }
+
+        // lessonsInDate = lessonsInDate.filter
+
+        console.log(lessonsInDate)
+
+        await dispatch(readLessons())
 
     }
 }
 
-export const deleteLesson = (lessonDate, lessonTime) => {
+export const deleteStudentFromLesson = (tutorUid, lessonDate, lessonTime) => {
     return async (dispatch, getState) => {
-        const user = await {...getState().data, lessons}
+        const user = getState().data
 
-        await dispatch({
-            type: ADD_LESSON,
-            lessons: lessons
-        })
+        const response1 = await fetch(
+            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/lessons/${user.institute}/${tutorUid}/${lessonDate}.json`)
+
+        if (!response1.ok) {
+            throw new Error("Can't fetch lessons, please try again later")
+        }
+
+        var lessonsInDate = await response1.json()
+
+        const lessonIndex = lessonsInDate.findIndex((lesson) => lesson.time === lessonTime)
+
+        lessonsInDate[lessonIndex] = { time: lessonsInDate[lessonIndex].time }
+        console.log(lessonIndex)
+        console.log(lessonsInDate)
+
+        const response2 = await fetch(
+            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/lessons/${user.institute}/${tutorUid}/${lessonDate}.json?token=${user.token}`,
+            {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({...lessonsInDate})
+            })
+
+        if (!response2.ok) {
+            throw new Error("Can't delete lesson! please try again later.")
+        }
+
+
+        await dispatch(readLessons())
 
     }
 }
@@ -89,18 +129,11 @@ export const scheduleLesson = (lessons, tutorData) => {
             }
         )
 
-        if(!updateLessons.ok) {
+        if (!updateLessons.ok) {
             throw new Error('An error occured while trying to schedule this meetings, please try again later')
         }
 
         await dispatch(readLessons())
-
-        // await dispatch({
-        //     type: ADD_LESSON,
-        //     tutorInstitute: user.institute,
-        //     tutorId: user.uid,
-        //     tutorLessons: lessons
-        // })
 
     }
 }
