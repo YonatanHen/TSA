@@ -1,16 +1,25 @@
 import React, { useState } from 'react'
-import { Text, View, TextInput, StyleSheet, Button } from 'react-native'
+import { Text, View, TextInput, StyleSheet, Button, Alert, ActivityIndicator } from 'react-native'
 import { useSelector } from 'react-redux'
 
-import ContactForm from '../../components/contact/contact'
 import sendMailToAdmin from '../../utilities/sendMailToAdmin'
 
 const Contact = props => {
     const user = useSelector(state => state.data)
     const [content, contentHandler] = useState('')
+    const [isLoading, setIsLoading] = useState(false)
 
-    const sendHandler = () => {
+    const sendHandler = async () => {
+        try {
+            setIsLoading(true)
+            await sendMailToAdmin(user.institute, user.email, `${user.firstName} ${user.lastName}`, content)
+            Alert.alert('Message has been sent successfully')
+        } catch (err) {
+            console.log(err)
+            Alert.alert('Error!', 'An error occured while sending the email, please try again later')
+        }
 
+        setIsLoading(false)
     }
 
     return (
@@ -23,7 +32,8 @@ const Contact = props => {
                 onChangeText={(text) => contentHandler(text)}
             />
             <View style={styles.buttonContainer}>
-                <Button title={"send"} onPress={sendHandler}/>
+                {isLoading ? (<ActivityIndicator size='small' color='deepskyblue' />)
+                    : (<Button title={"send"} onPress={sendHandler} />)}
             </View>
         </View>
     )

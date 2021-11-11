@@ -72,17 +72,15 @@ app.post('/delete-image', async (req, res) => {
 })
 
 app.post('/send-email', async (req, res) => {
-    const addressee = req.body.addressee
-    const addressed = req.body.addressed
+    const { addressed, addressee, name, content } = req.body
+    console.log('dsdsd')
+    console.log(addressed, addressee, name, content)
 
-    console.log(addressed, addressee)
-
-    mail({
-        from: "Fred Foo ✔ <foo@blurdybloop.com>", // sender address
-        to: "yonatan.h333@gmail.com", // list of receivers
-        subject: "Hello ✔", // Subject line
-        text: "Hello world", // plaintext body
-        // html: "<b>Hello world ✔</b>" // html body
+    await mail({
+        from: `${addressed}`, // sender address
+        to: `${addressee}`, // list of receivers
+        subject: `Message from ${name}`, // Subject line
+        text: content, // plaintext body
     });
 
     res.send()
