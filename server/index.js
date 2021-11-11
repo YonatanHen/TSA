@@ -4,7 +4,11 @@ var FormData = require('form-data');
 const cloudinary = require('cloudinary').v2
 const fetch = require("node-fetch");
 const envs = require('dotenv').config({ path: '../.env' }).parsed
-cloudinary.config({ 
+const mail = require("nodemailer").mail;
+
+
+
+cloudinary.config({
     cloud_name: envs.CLOUDINARY_NAME,
     api_key: envs.CLOUDINARY_API_KEY,
     api_secret: envs.CLOUDINARY_API_SECRET
@@ -65,6 +69,23 @@ app.post('/delete-image', async (req, res) => {
             return res.send({ message: 'Image deleted successfully' })
         })
     } catch (err) { console.log(err) }
+})
+
+app.post('/send-email', async (req, res) => {
+    const addressee = req.body.addressee
+    const addressed = req.body.addressed
+
+    console.log(addressed, addressee)
+
+    mail({
+        from: "Fred Foo ✔ <foo@blurdybloop.com>", // sender address
+        to: "yonatan.h333@gmail.com", // list of receivers
+        subject: "Hello ✔", // Subject line
+        text: "Hello world", // plaintext body
+        // html: "<b>Hello world ✔</b>" // html body
+    });
+
+    res.send()
 })
 
 app.get('/*', async (Req, res) => {

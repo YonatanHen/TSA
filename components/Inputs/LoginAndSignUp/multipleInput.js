@@ -95,7 +95,6 @@ const MultipleInput = props => {
                         </Text>
                     )
                 })}
-                {/* <Text>{inputState.value.join(',')}</Text> */}
             </View>
         </View>
     )

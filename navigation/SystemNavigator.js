@@ -25,6 +25,7 @@ import * as dataActions from '../store/actions/data/userData'
 import UserProfile from '../screens/user/UserProfile';
 import MeetingsScheduler from '../screens/student/MeetingsScheduler';
 import ProfileImageHandler from '../screens/user/ProfileImageHandler';
+import Contact from '../screens/user/Contact'
 
 //style
 
@@ -226,6 +227,15 @@ export const OptionsNavigator = props => {
             drawerIcon: props => (
                 <Ionicons
                     name='image-outline'
+                    size={23}
+                />
+            )
+        }} />
+                <OptionsDrawerNavigator.Screen name={"Contact Institute"} component={Contact} options={{
+            headerTintColor: 'deepskyblue',
+            drawerIcon: props => (
+                <Ionicons
+                    name='send'
                     size={23}
                 />
             )
