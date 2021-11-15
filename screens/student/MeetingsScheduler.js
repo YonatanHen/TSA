@@ -8,21 +8,21 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import CoursePicker from '../../components/pickers/coursePicker'
 import { scheduleLesson } from '../../store/actions/data/lessonsData'
-import pushToQueue from '../../utilities/queueing/pushToQueue';
+import {pushToQueue, popFromQueue} from '../../store/actions/data/queueing';
 
 
 const ScheduleMeeting = props => {
     const user = useSelector(state => state.data)
-
-    const tutorData = props.route.params.user
+    const tutorData = useSelector(state => state.representationLists.usersList.tutors).find(tutor => tutor[1].uid === props.route.params.user.uid)[1]
     const LessonsObject = useSelector(state => state.lessons.lessons)
-
+    console.log(tutorData)
     const [lessons, setLessons] = useState(LessonsObject[tutorData.institute][tutorData.uid] ? LessonsObject[tutorData.institute][tutorData.uid] : {})
     const [lessonsWithDates, setLessonsWithDates] = useState()
     const [isDialogVisible, setDialogVisibility] = useState(false)
     const [lessonDate, setLessonDate] = useState()
     const [lessonTime, setLessonTime] = useState()
     const [selectedCourse, setSelectedCourse] = useState()
+    const [isLoading, setIsLoading] = useState(false)
 
     const dispatch = useDispatch()
 
@@ -62,9 +62,19 @@ const ScheduleMeeting = props => {
         Alert.alert("Don't Worry!",
             'We can let you know when a new lesson with this tutor will be available by pressing on the OK button.',
             [{
-                text: 'OK', onPress: () => pushToQueue(tutorData, user.uid)
+                text: 'OK', onPress: async () => {
+                    setIsLoading(true)
+                    await dispatch(pushToQueue(tutorData, user.uid))
+                    setIsLoading(false)
+                }
             },
             { text: "I'm not interested" }])
+    }
+
+    const popFromQueueHandler = async () => {
+        setIsLoading(true)
+        await dispatch(popFromQueue(tutorData, user.uid))
+        setIsLoading(false)
     }
 
     useEffect(() => {
@@ -108,7 +118,6 @@ const ScheduleMeeting = props => {
         )
     }
 
-
     return (
         <>
             <Agenda
@@ -117,11 +126,22 @@ const ScheduleMeeting = props => {
                 renderItem={renderDay}
             />
             <View style={{ alignItems: 'center', marginBottom: 2 }}>
-                <TouchableOpacity onPress={noPlaceClickHandler}>
-                    <Text style={{ color: 'dodgerblue', borderBottomWidth: 3, borderBottomColor: 'dodgerblue', fontSize: 16 }}>
-                        No Place? Enter the queue!
+                {!isLoading ? (tutorData['studentsQueue'] && tutorData['studentsQueue'].includes(user.uid) ? (
+                    <TouchableOpacity onPress={popFromQueueHandler}>
+                        <Text style={{ color: 'dodgerblue', borderBottomWidth: 3, borderBottomColor: 'dodgerblue', fontSize: 16 }}>
+                            Quit the queue
                         </Text>
-                </TouchableOpacity>
+                    </TouchableOpacity>
+                ) : (
+                    <TouchableOpacity onPress={noPlaceClickHandler}>
+                        <Text style={{ color: 'dodgerblue', borderBottomWidth: 3, borderBottomColor: 'dodgerblue', fontSize: 16 }}>
+                            No Place? Enter the queue!
+                        </Text>
+                    </TouchableOpacity>
+                )) : (
+                    <ActivityIndicator size='small' color='dodgerblue' />
+                )}
+
             </View>
             <CoursePicker
                 visible={isDialogVisible}
