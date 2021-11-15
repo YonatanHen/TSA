@@ -57,6 +57,13 @@ const ScheduleMeeting = props => {
         setDialogVisibility(true)
     }
 
+    const noPlaceClickHandler = () => {
+        Alert.alert("Don't Worry!",
+            'We can let you know when a new lesson with this tutor will be available by pressing on the OK button.',
+            [{ text: 'OK' },
+            { text: "I'm not interested" }])
+    }
+
     useEffect(() => {
         //Add date keys as fields to all of the objects.
         if (lessons !== {}) {
@@ -106,6 +113,13 @@ const ScheduleMeeting = props => {
                 showClosingKnob={true}
                 renderItem={renderDay}
             />
+            <View style={{ alignItems: 'center', marginBottom: 2 }}>
+                <TouchableOpacity onPress={noPlaceClickHandler}>
+                    <Text style={{ color: 'dodgerblue', borderBottomWidth: 3, borderBottomColor: 'dodgerblue', fontSize: 16 }}>
+                        No Place? Enter the queue!
+                        </Text>
+                </TouchableOpacity>
+            </View>
             <CoursePicker
                 visible={isDialogVisible}
                 setDialogVisibility={setDialogVisibility}
