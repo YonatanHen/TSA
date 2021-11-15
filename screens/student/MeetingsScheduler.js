@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import CoursePicker from '../../components/pickers/coursePicker'
 import { scheduleLesson } from '../../store/actions/data/lessonsData'
+import pushToQueue from '../../utilities/queueing/pushToQueue';
 
 
 const ScheduleMeeting = props => {
@@ -60,7 +61,9 @@ const ScheduleMeeting = props => {
     const noPlaceClickHandler = () => {
         Alert.alert("Don't Worry!",
             'We can let you know when a new lesson with this tutor will be available by pressing on the OK button.',
-            [{ text: 'OK' },
+            [{
+                text: 'OK', onPress: () => pushToQueue(tutorData, user.uid)
+            },
             { text: "I'm not interested" }])
     }
 
