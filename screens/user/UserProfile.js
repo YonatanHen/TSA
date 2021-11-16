@@ -2,6 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, View, Button, ScrollView, Alert } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Ionicons } from '@expo/vector-icons';
+import { StackActions } from '@react-navigation/native';
 
 import { ProfileCommonData } from '../../components/userProfile/profileCommonData'
 import { disableEnableUser } from '../../store/actions/data/adminData'
@@ -70,7 +71,7 @@ const UserProfile = (props) => {
                     <Button
                         color='deepskyblue'
                         title={`Go Back`}
-                        onPress={() => props.navigation.goBack()}
+                        onPress={() => props.navigation.dispatch(StackActions.pop(1))}
                     />
                 </View>
             </ScrollView>
