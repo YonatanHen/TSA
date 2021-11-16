@@ -32,8 +32,8 @@ const TutorMain = props => {
         <View>
             {tutorLessons !== {} ? (
                 <ScrollView>
-                    <View style={{ alignItems: 'center' }}>
-                        <Text style={styles.title}>Upcoming Lessons</Text>
+                    <View style={{ alignItems: 'center', marginBottom: 5 }}>
+                        <Text style={styles.title}>My Lessons:</Text>
                     </View>
                     {Object.entries(tutorLessons).map(date => {
                         return date[1].filter(lesson => lesson.studentId !== undefined)
