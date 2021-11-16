@@ -1,5 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Alert, ScrollView, StyleSheet, Text, View } from 'react-native'
 import { Card, Title, Paragraph } from 'react-native-paper'
 import { useDispatch } from 'react-redux';
@@ -8,8 +8,17 @@ import { cancelLesson } from '../../store/actions/data/lessonsData'
 
 const StudentMain = props => {
     const { loggedInUser, tutors, lessons, navigation } = props
-
+    const upcomingLessons = Object.entries(lessons).map(tutorLessons => {
+            return (
+                Object.entries(tutorLessons[1]).map(date => {
+                    return (
+                        date[1].filter(lesson => lesson.studentId === loggedInUser.uid &&
+                            new Date() < new Date(`${date[0]}T${lesson.time.split(' ')[0]}`)))
+                }))
+        }).flat().flat()
+    
     const dispatch = useDispatch()
+    console.log(upcomingLessons)
 
     const cancelLessonHandler = (tutorId, date, time) => {
         Alert.alert('Are you sure?', 'Do you want to cancel this lesson?', [
@@ -27,7 +36,7 @@ const StudentMain = props => {
 
     return (
         <View>
-            {lessons !== {} ? (
+            {upcomingLessons.length > 0 ? (
                 <ScrollView>
                     <View style={{ alignItems: 'center' }}>
                         <Text style={styles.title}>Upcoming Lessons</Text>
@@ -36,7 +45,8 @@ const StudentMain = props => {
                         return (
                             Object.entries(tutorLessons[1]).map(date => {
                                 return (
-                                    date[1].filter(lesson => lesson.studentId === loggedInUser.uid)
+                                    date[1].filter(lesson => lesson.studentId === loggedInUser.uid &&
+                                        new Date() < new Date(`${date[0]}T${lesson.time.split(' ')[0]}`))
                                         .map((lesson, index) => {
                                             return (
                                                 <Card style={{ backgroundColor: 'honeydew', elevation: 8, marginBottom: 10 }} key={index} >
@@ -58,7 +68,7 @@ const StudentMain = props => {
                                                                 name="close"
                                                                 size={25}
                                                                 color="red"
-                                                            onPress={() => cancelLessonHandler(tutorLessons[0], date[0], lesson.time)}
+                                                                onPress={() => cancelLessonHandler(tutorLessons[0], date[0], lesson.time)}
                                                             />
                                                         </View>
                                                     </Card.Content>

@@ -3,7 +3,7 @@ import { readAllUsers } from '../../actions/representation'
 import writeUserData from '../../../utilities/readWriteUserData/writeUserData'
 
 export const pushToQueue = (tutorData, studentId) => {
-    return async dispatch => {
+    return async (dispatch, getState) => {
         let newQueue
         if (tutorData.studentsQueue === undefined) {
             newQueue = [studentId]
