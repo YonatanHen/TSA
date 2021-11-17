@@ -55,6 +55,12 @@ const ImgPicker = props => {
                 (<Image style={styles.image} source={{ uri: pickedImage }} />)}
         </View>
         <View style={styles.selectImageButtonsContainer}>
+            {!props.editPage && (
+                <>
+                    <Button title="Take image" onPress={() => selectImageHandler('take')} />
+                    <Button title="Selcet from gallery" onPress={() => selectImageHandler('select')} />
+                </>
+            )}
             {props.editPage && !pickedImage && (
                 <>
                     <Button title="Take image" onPress={() => selectImageHandler('take')} />
