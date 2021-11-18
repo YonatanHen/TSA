@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, SectionList, View, TextInput, TouchableOpacity } from 'react-native'
-import { HeaderButtons, Item } from 'react-navigation-header-buttons'
-import { DrawerActions } from '@react-navigation/native'
-import { useDispatch, useSelector } from 'react-redux'
-
-import HeaderButton from '../../components/buttons/HeaderButton'
-import { logout } from '../../store/actions/data/userData'
+import { useSelector } from 'react-redux'
 
 
 const AdminMainScreen = props => {
@@ -21,7 +16,7 @@ const AdminMainScreen = props => {
     }
 
     return (
-        <View>
+        <View style={{ padding: 5 }}>
             <View style={styles.inputContainer}>
                 <TextInput
                     style={styles.input}
@@ -35,24 +30,24 @@ const AdminMainScreen = props => {
                     {
                         title: 'Tutors', data: users.tutors ?
                             (users.tutors.filter(tutor => tutor[1].institue === adminInstitue && `${tutor[1].firstName} ${tutor[1].lastName}`.includes(searchInput))
-                            .map(tutor => {
-                                return (
-                                    <TouchableOpacity onPress={() => props.navigation.navigate("User Profile", { user: tutor[1] })}>
-                                        <Text style={tutor[1].disabled ? { color: 'red' } : { color: 'black' }}>{tutor[1].firstName} {tutor[1].lastName}</Text>
-                                    </TouchableOpacity>
-                                )
-                            })) : ['No tutors found']
+                                .map(tutor => {
+                                    return (
+                                        <TouchableOpacity onPress={() => props.navigation.navigate("User Profile", { user: tutor[1] })}>
+                                            <Text style={tutor[1].disabled ? { color: 'red' } : { color: 'black' }}>{tutor[1].firstName} {tutor[1].lastName}</Text>
+                                        </TouchableOpacity>
+                                    )
+                                })) : ['No tutors found']
                     },
                     {
-                        title: 'Students', data: users.students ? 
-                        (users.students.filter(student => student[1].institue === adminInstitue && `${student[1].firstName} ${student[1].lastName}`.includes(searchInput))
-                            .map(student => {
-                                return (
-                                    <TouchableOpacity onPress={() => props.navigation.navigate("User Profile",  { user: student[1] })}>
-                                        <Text style={student[1].disabled ? { color: 'red' } : { color: 'black' }}>{student[1].firstName} {student[1].lastName}</Text>
-                                    </TouchableOpacity>
-                                )
-                            })) : ['No students found.']
+                        title: 'Students', data: users.students ?
+                            (users.students.filter(student => student[1].institue === adminInstitue && `${student[1].firstName} ${student[1].lastName}`.includes(searchInput))
+                                .map(student => {
+                                    return (
+                                        <TouchableOpacity onPress={() => props.navigation.navigate("User Profile", { user: student[1] })}>
+                                            <Text style={student[1].disabled ? { color: 'red' } : { color: 'black' }}>{student[1].firstName} {student[1].lastName}</Text>
+                                        </TouchableOpacity>
+                                    )
+                                })) : ['No students found.']
                     }
                 ]}
                 renderItem={({ item }) => <Text style={styles.item}>{item}</Text>}
@@ -63,32 +58,29 @@ const AdminMainScreen = props => {
                     Loading...
                 </Text>
             )}
-
         </View>
     )
 }
 
-//   () => props.navigation.navigate("Find Tutor", { screen: 'Read Only Profile', params: { user: tutor[1] } })
 
-
-export const screenOptions = navData => {
-    const dispatch = useDispatch()
-    return {
-        headerTitle: 'Institute Users',
-        headerRight: () => (
-            <HeaderButtons HeaderButtonComponent={HeaderButton}>
-                <Item
-                    title="Logout"
-                    color='grey'
-                    onPress={() => {
-                        // navData.navigation.dispatch(DrawerActions.toggleDrawer());
-                        dispatch(logout())
-                    }}
-                />
-            </HeaderButtons>
-        )
-    }
-}
+// export const screenOptions = navData => {
+//     const dispatch = useDispatch()
+//     return {
+//         headerTitle: 'Institute Users',
+//         headerRight: () => (
+//             <HeaderButtons HeaderButtonComponent={HeaderButton}>
+//                 <Item
+//                     title="Logout"
+//                     color='grey'
+//                     onPress={() => {
+//                         // navData.navigation.dispatch(DrawerActions.toggleDrawer());
+//                         dispatch(logout())
+//                     }}
+//                 />
+//             </HeaderButtons>
+//         )
+//     }
+// }
 
 const styles = StyleSheet.create({
     sectionHeader: {

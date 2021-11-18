@@ -15,7 +15,7 @@ import FindTutor, { screenOptions as FindTutorScreenOptions } from '../screens/s
 import LoggedInUserProfile from '../screens/user/LoggedInUserProfile'
 import EditUser from '../screens/user/EditUser'
 
-import AdminMainScreen, { screenOptions as AdminScreenOptions } from '../screens/admin/AdminMainScreen'
+import AdminMainScreen from '../screens/admin/AdminMainScreen'
 
 import TutorLessons from '../screens/tutor/TutorLessons'
 
@@ -261,15 +261,64 @@ export const MainNavigator = props => {
 
 //Admin navigators
 
-const AdminDrawerNavigator = createStackNavigator()
+const InstituteUserStackNavigator = createStackNavigator()
 
-export const AdminNavigator = () => {
+export const InstituteUserNavigator = () => {
     return (
-        <AdminDrawerNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' }, ...headerStyle }}>
-            <AdminDrawerNavigator.Screen name="Admin Main" component={AdminMainScreen} options={AdminScreenOptions} />
-            <AdminDrawerNavigator.Screen name="User Profile" component={UserProfile} />
-        </AdminDrawerNavigator.Navigator>
+        <InstituteUserStackNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' }, ...headerStyle }}>
+            <InstituteUserStackNavigator.Screen name="Admin Main" component={AdminMainScreen} options={{ headerShown: false}} />
+            <InstituteUserStackNavigator.Screen name="User Profile" component={UserProfile} />
+        </InstituteUserStackNavigator.Navigator>
     )
 }
+
+const AdminDrawerNavigator = createDrawerNavigator()
+
+export const AdminNavigator = props => {
+
+    const dispatch = useDispatch() //with the dispatch we can dispatch functions from redux store 
+
+    return <AdminDrawerNavigator.Navigator
+        drawerContent={props => {
+            return (
+                <View style={{ flex: 1, paddingTop: '30%' }}>
+                    <SafeAreaView forceInset={{ top: 'always', horizontal: 'never' }}>
+                        <DrawerItemList {...props} />
+                    </SafeAreaView>
+                    <View style={{ position: 'absolute', bottom: 0, width: '100%' }}>
+                        <Button
+                            title="Logout"
+                            onPress={() => {
+                                dispatch(dataActions.logout())
+                            }}
+                        />
+                    </View>
+                </View>
+            )
+        }}
+    >
+        <AdminDrawerNavigator.Screen name={'Institute Users'} component={InstituteUserNavigator} options={{
+            headerTintColor: 'deepskyblue',
+            drawerIcon: props => (
+                <Ionicons
+                    name={Platform.OS === 'android' ? 'md-list' : 'ios-list'}
+                    size={23}
+                />
+            )
+        }}
+        />
+        <AdminDrawerNavigator.Screen name={"Edit user"} component={EditUserNavigator} options={{
+            headerTintColor: 'deepskyblue',
+            drawerIcon: props => (
+                <Ionicons
+                    name='create-outline'
+                    size={23}
+                />
+            )
+        }} />
+    </AdminDrawerNavigator.Navigator>
+}
+
+
 
 
