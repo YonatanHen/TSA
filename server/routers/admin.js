@@ -5,8 +5,6 @@ const request = require('request')
 
 router.get('/get-lessons-csv/:institute', async (req, res) => {
     const institute = req.params.institute
-    console.log(institute)
-    let data
 
     request.get({
         url: `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/lessons/${institute}.json`,
