@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { View, SafeAreaView, Button, Image, Platform } from 'react-native'
-import { Ionicons } from '@expo/vector-icons';
+import { FontAwesome, FontAwesome5, Ionicons } from '@expo/vector-icons';
 import { createStackNavigator } from '@react-navigation/stack'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer'
@@ -26,6 +26,7 @@ import UserProfile from '../screens/user/UserProfile';
 import MeetingsScheduler from '../screens/student/MeetingsScheduler';
 import ProfileImageHandler from '../screens/user/ProfileImageHandler';
 import Contact from '../screens/user/Contact'
+import { lessonsToCSV } from '../store/actions/data/adminData';
 
 //style
 
@@ -231,7 +232,7 @@ export const OptionsNavigator = props => {
                 />
             )
         }} />
-                <OptionsDrawerNavigator.Screen name={"Contact Institute"} component={Contact} options={{
+        <OptionsDrawerNavigator.Screen name={"Contact Institute"} component={Contact} options={{
             headerTintColor: 'deepskyblue',
             drawerIcon: props => (
                 <Ionicons
@@ -266,7 +267,7 @@ const InstituteUserStackNavigator = createStackNavigator()
 export const InstituteUserNavigator = () => {
     return (
         <InstituteUserStackNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' }, ...headerStyle }}>
-            <InstituteUserStackNavigator.Screen name="Admin Main" component={AdminMainScreen} options={{ headerShown: false}} />
+            <InstituteUserStackNavigator.Screen name="Admin Main" component={AdminMainScreen} options={{ headerShown: false }} />
             <InstituteUserStackNavigator.Screen name="User Profile" component={UserProfile} />
         </InstituteUserStackNavigator.Navigator>
     )
@@ -278,12 +279,17 @@ export const AdminNavigator = props => {
 
     const dispatch = useDispatch() //with the dispatch we can dispatch functions from redux store 
 
+
     return <AdminDrawerNavigator.Navigator
         drawerContent={props => {
             return (
                 <View style={{ flex: 1, paddingTop: '30%' }}>
                     <SafeAreaView forceInset={{ top: 'always', horizontal: 'never' }}>
                         <DrawerItemList {...props} />
+                        <DrawerItem label="Export lessons to CSV"
+                            icon={() => <FontAwesome5 name="file-csv" size={23} color="green" />}
+                            onPress={() => dispatch(lessonsToCSV())}
+                        />
                     </SafeAreaView>
                     <View style={{ position: 'absolute', bottom: 0, width: '100%' }}>
                         <Button

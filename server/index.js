@@ -3,12 +3,14 @@ const cors = require('cors')
 const mailsRouter = require('./routers/mails')
 const imagesRouter = require('./routers/images')
 const notificationsRouter = require('./routers/notifications')
+const adminRouter = require('./routers/admin')
 const app = express()
 
 app.use(express.json())
 app.use(mailsRouter)
 app.use(imagesRouter)
 app.use(notificationsRouter)
+app.use(adminRouter)
 app.use(cors())
 
 const port = process.env.PORT || 8000
@@ -21,6 +23,6 @@ app.get('/login', async (req, res) => {
     res.send("your'e logged in")
 })
 
-app.get('/*', async (Req, res) => {
+app.get('/*', async (req, res) => {
     res.send('TSA server')
 })
