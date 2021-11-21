@@ -128,7 +128,7 @@ const AuthScreen = props => {
 
   return (
     <KeyboardAvoidingView
-      behavior="padding"
+      behavior="height"
       keyboardVerticalOffset={0}
       style={styles.screen}
     >
@@ -263,7 +263,6 @@ const styles = StyleSheet.create({
     flex: 1
   },
   findButtonContainer: {
-    height: '40%',
     marginTop: 10,
     marginLeft: 2
   },
