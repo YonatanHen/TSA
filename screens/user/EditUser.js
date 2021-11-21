@@ -144,6 +144,14 @@ const EditUser = props => {
         >
             <View style={styles.inputForm}>
                 <ScrollView>
+                    {/* <View style={{ justifyContent: 'center', flexDirection: 'row' }}>
+                        <View style={{...styles.resetButtons, marginRight: 2}}>
+                            <Button title="Reset Email"  />
+                        </View>
+                        <View style={styles.resetButtons}>
+                            <Button title="Reset Password"  />
+                        </View>
+                    </View> */}
                     <Input
                         required
                         email
@@ -231,11 +239,11 @@ const EditUser = props => {
                     {isLoading ? (<ActivityIndicator size='small' color={'deepskyblue'} />) : (
                         <View style={styles.buttonContainer}>
                             <View style={styles.button}>
-                                    <Button title={'Submit'} color='deepskyblue' onPress={submitHandler} />
+                                <Button title={'Submit'} color='deepskyblue' onPress={submitHandler} />
                             </View>
                             <TouchableOpacity onPress={deleteUserHandler}>
-                                <View style={{ marginVertical: 10}}>
-                                    <Text style={{ color: 'red' , fontSize: 12, borderBottomWidth: 0.5, borderBottomColor: 'red'}}>Delete user</Text>
+                                <View style={{ marginVertical: 10 }}>
+                                    <Text style={{ color: 'red', fontSize: 12, borderBottomWidth: 0.5, borderBottomColor: 'red' }}>Delete user</Text>
                                 </View>
                             </TouchableOpacity>
                         </View>
@@ -257,6 +265,9 @@ styles = StyleSheet.create({
     inputForm: {
         width: '100%',
         padding: 10,
+    },
+    resetButtons: {
+        width: 100
     },
     buttonContainer: {
         justifyContent: 'space-evenly',

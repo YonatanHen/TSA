@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react'
-import { View, SafeAreaView, Button, Image, Platform } from 'react-native'
-import { FontAwesome, FontAwesome5, Ionicons } from '@expo/vector-icons';
+import { View, SafeAreaView, Button, Image, Platform, Text } from 'react-native'
+import { useDispatch, useSelector } from 'react-redux'
+import { FontAwesome5, Ionicons } from '@expo/vector-icons';
 import { createStackNavigator } from '@react-navigation/stack'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
-import { createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer'
+import { createDrawerNavigator, DrawerItem, DrawerItemList } from '@react-navigation/drawer'
 
 import AuthScreen from '../screens/auth/AuthScreen'
 import MapScreen, { ScreenOptions as MapScreenOptions } from '../screens/auth/MapScreen'
@@ -18,14 +19,12 @@ import EditUser from '../screens/user/EditUser'
 import AdminMainScreen from '../screens/admin/AdminMainScreen'
 
 import TutorLessons from '../screens/tutor/TutorLessons'
-
-import { useDispatch, useSelector } from 'react-redux'
-
 import * as dataActions from '../store/actions/data/userData'
 import UserProfile from '../screens/user/UserProfile';
 import MeetingsScheduler from '../screens/student/MeetingsScheduler';
 import ProfileImageHandler from '../screens/user/ProfileImageHandler';
 import Contact from '../screens/user/Contact'
+import ResetPassword from '../screens/user/ResetPassword'
 import { lessonsToCSV } from '../store/actions/data/adminData';
 
 //style
@@ -161,7 +160,7 @@ const EditUserStackNavigator = createStackNavigator()
 export const EditUserNavigator = () => {
     return (
         <EditUserStackNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' }, ...headerStyle }}>
-            <EditUserStackNavigator.Screen name="Edit User" component={EditUser} />
+            <EditUserStackNavigator.Screen name="Edit User" component={EditUser} options={{ headerShown: false }} />
             <EditUserStackNavigator.Screen name="Map" component={MapScreen} options={MapScreenOptions} />
         </EditUserStackNavigator.Navigator>
     )
@@ -241,6 +240,15 @@ export const OptionsNavigator = props => {
                 />
             )
         }} />
+        <OptionsDrawerNavigator.Screen name={"Reset Password"} component={ResetPassword} options={{
+            headerTintColor: 'deepskyblue',
+            drawerIcon: props => (
+                <Ionicons
+                    name="key"
+                    size={23}
+                    color="dodgerblue" />
+            )
+        }} />
     </OptionsDrawerNavigator.Navigator>
 }
 
@@ -277,7 +285,7 @@ const AdminDrawerNavigator = createDrawerNavigator()
 
 export const AdminNavigator = props => {
 
-    const dispatch = useDispatch() //with the dispatch we can dispatch functions from redux store 
+    const dispatch = useDispatch() //with the dispatch we can dispatch functions from redux store
 
 
     return <AdminDrawerNavigator.Navigator
@@ -292,6 +300,9 @@ export const AdminNavigator = props => {
                         />
                     </SafeAreaView>
                     <View style={{ position: 'absolute', bottom: 0, width: '100%' }}>
+                        <Button
+                            title="Change Password"
+                        />
                         <Button
                             title="Logout"
                             onPress={() => {
