@@ -301,9 +301,6 @@ export const AdminNavigator = props => {
                     </SafeAreaView>
                     <View style={{ position: 'absolute', bottom: 0, width: '100%' }}>
                         <Button
-                            title="Change Password"
-                        />
-                        <Button
                             title="Logout"
                             onPress={() => {
                                 dispatch(dataActions.logout())
@@ -331,6 +328,15 @@ export const AdminNavigator = props => {
                     name='create-outline'
                     size={23}
                 />
+            )
+        }} />
+        <OptionsDrawerNavigator.Screen name={"Reset Password"} component={ResetPassword} options={{
+            headerTintColor: 'deepskyblue',
+            drawerIcon: props => (
+                <Ionicons
+                    name="key"
+                    size={23}
+                    color="dodgerblue" />
             )
         }} />
     </AdminDrawerNavigator.Navigator>
