@@ -303,3 +303,36 @@ export const resetPassword = async (email) => {
 
     return
 }
+
+
+export const changePassword = (newPassword) => {
+    return async (dispatch, getState) => {
+        const token = getState().data.token
+        const response = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:update?key=${FIREBASE_API_KEY}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                idToken: token,
+                password: newPassword,
+                returnSecureToken: false
+            })
+        })
+
+
+        const resData = await response.json()
+
+        if (!response.ok) {
+            if(resData.error.message === 'INVALID_ID_TOKEN') {
+                throw new Error('Please login again!')
+            } else {
+                throw new Error('Something went wrong!')
+            }
+        }
+
+        await dispatch({
+            type: LOGOUT
+        })
+    }
+}
