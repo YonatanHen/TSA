@@ -13,6 +13,7 @@ export const SIGNIN = 'SIGNIN'
 export const LOGOUT = 'LOGOUT'
 export const EDIT_USER = 'EDIT_USER'
 export const UPDATE_USER_ON_SIGNUP = 'UPDATE_USER_ON_SIGNUP'
+export const CHANGE_EMAIL = 'CHANGE_EMAIL'
 
 import imageUploader from '../../../utilities/cloudinary/uploadImage'
 import setCityAndCountryByLocation from '../../../utilities/setCityAndCountryByLocation'
@@ -191,7 +192,7 @@ export const addDataOnSignUp = (role, bio, image, courses = undefined, phone, lo
     }
 }
 
-export const updateUser = (email, fname, lname, institute, bio, courses = undefined, phone, location) => {
+export const updateUser = (fname, lname, institute, bio, courses = undefined, phone, location) => {
     return async (dispatch, getState) => {
         const token = getState().data.token
         const uid = getState().data.uid
@@ -206,7 +207,6 @@ export const updateUser = (email, fname, lname, institute, bio, courses = undefi
         }
 
         const editedUser = {
-            email,
             firstName: fname,
             lastName: lname,
             institute,
@@ -336,3 +336,59 @@ export const changePassword = (newPassword) => {
         })
     }
 }
+
+export const changeEmail = (newEmail) => {
+    return async (dispatch, getState) => {
+        const user = getState().data
+        const response = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:update?key=${FIREBASE_API_KEY}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                idToken: user.token,
+                password: newEmail,
+                returnSecureToken: false
+            })
+        })
+
+
+        const resData = await response.json()
+
+        if (!response.ok) {
+            if(resData.error.message === 'EMAIL_EXISTS') {
+                throw new Error('The email address is already in use by another account!')
+            } else if(resData.error.message === 'INVALID_ID_TOKEN') {
+                throw new Error('Please login again!') 
+             } else {
+                throw new Error('Something went wrong!')
+            }
+        }
+
+        const response2 = await fetch(
+            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users/${user.role}s/${user.uid}.json?auth=${user.token}`,
+            {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({...user, email: newEmail})
+            }
+        )
+
+        if (!response2.ok) {
+            throw new Error('Something went wrong!')
+        }
+        await dispatch(readAllUsers())
+
+        dispatch({
+            type: EDIT_USER,
+            ...user, 
+            email: newEmail
+        })
+
+        await dispatch({
+            type: LOGOUT
+        })
+    }
+    }

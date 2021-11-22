@@ -1,4 +1,4 @@
-import { LOGOUT, SIGNIN, SIGNUP, UPDATE_USER_ON_SIGNUP, EDIT_USER } from '../actions/data/userData'
+import { LOGOUT, SIGNIN, SIGNUP, UPDATE_USER_ON_SIGNUP, EDIT_USER, CHANGE_EMAIL } from '../actions/data/userData'
 import { ADD_LESSON } from '../actions/data/lessonsData'
 import { ADD_IMAGE, DELETE_IMAGE } from '../actions/data/profilePictureActions'
 
@@ -90,6 +90,11 @@ export default (state = initialState, action) => {
                 locationCords: action.locationCords,
                 city: action.city,
                 country: action.country,
+            }
+        case CHANGE_EMAIL:
+            return {
+                ...state,
+                email: action.email
             }
         case ADD_LESSON:
             return {
