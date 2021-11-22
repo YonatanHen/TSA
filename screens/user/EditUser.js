@@ -83,7 +83,6 @@ const EditUser = props => {
     const submitHandler = async () => {
         let action; //email, fname, lname, institute, bio, courses = undefined, phone, location
         action = updateUser(
-            formState.inputValues.email,
             formState.inputValues.fname,
             formState.inputValues.lname,
             formState.inputValues.institute,
@@ -285,7 +284,6 @@ styles = StyleSheet.create({
         flex: 1
     },
     findButtonContainer: {
-        height: '40%',
         marginTop: 10,
         marginLeft: 2
     },

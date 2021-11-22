@@ -25,8 +25,8 @@ const ResetPassword = props => {
         else {
             try {
                 setIsLoading(true)
-                await dispatch(changePassword(passwords.newPassword))
-                setIsLoading(false)
+                dispatch(changePassword(passwords.newPassword))
+                await setIsLoading(false)
                 Alert.alert('Password changed succcessfully.')
             } catch (error) {
                 Alert.alert('Error!', error)
