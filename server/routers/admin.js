@@ -5,7 +5,6 @@ const request = require('request')
 
 router.get('/get-lessons-csv/:institute', async (req, res) => {
     const institute = req.params.institute
-
     request.get({
         url: `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/lessons/${institute}.json`,
         json: {}
@@ -13,10 +12,9 @@ router.get('/get-lessons-csv/:institute', async (req, res) => {
         if (err) {
             return res.status(400).send(err);
         } else if (response.statusCode === 200) {
-            const csv = JsonToCSV(body)
             res.header("Content-Disposition", "attachment;filename=lessons.csv");
             res.type("text/csv");
-            res.send(csv);
+            res.send(JsonToCSV(body));
 
         } else {
             console.log(response.statusCode);
