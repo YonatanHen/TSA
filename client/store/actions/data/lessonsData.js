@@ -1,3 +1,5 @@
+import axios from "axios"
+
 export const DELETE_LESSON = 'DELETE_LESSON'
 export const ADD_LESSON = 'ADD_LESSON'
 export const READ_LESSONS = 'READ_LESSONS'
@@ -26,7 +28,7 @@ export const readLessons = () => {
 export const addLesson = (lessons) => {
     return async (dispatch, getState) => {
         const user = getState().data
-        const queue = user.studetnsQueue
+        const queue = user.studentsQueue
 
         const updateLessons = await fetch(
             `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/lessons/${user.institute}/${user.uid}.json`,
@@ -46,6 +48,12 @@ export const addLesson = (lessons) => {
         }
 
         await dispatch(readLessons())
+
+        await axios.post(`http://10.0.0.4:8000/notify-students`, {
+            studentsQueue: queue,
+            tutorName: user.firstName + ' ' + user.lastName
+        }).then(res => console.log('success'))
+        .catch(err => console.log(err))
 
     }
 }

@@ -57,7 +57,8 @@ export default (state = initialState, action) => {
                 locationCords: action.locationCords,
                 city: action.city,
                 country: action.country,
-                lessons: action.lessons
+                lessons: action.lessons,
+                studentsQueue: action.studentsQueue
             }
         case LOGOUT:
             return {
