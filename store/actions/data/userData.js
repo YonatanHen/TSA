@@ -87,6 +87,8 @@ export const login = (email, password) => {
         if (!response.ok) {
             if (resData.error.message === 'EMAIL_NOT_FOUND') {
                 throw new Error('User is not exists in our database')
+            } else if (resData.error.message === 'INVALID_PASSWORD') {
+                throw new Error('The password is invalid')
             }
             else {
                 throw new Error('Something went wrong')
