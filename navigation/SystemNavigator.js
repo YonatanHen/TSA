@@ -47,7 +47,7 @@ const AuthStackNavigator = createStackNavigator()
 export const AuthNavigator = () => {
     return (
         <AuthStackNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' }, ...headerStyle }}>
-            <AuthStackNavigator.Screen name="Auth" component={AuthScreen} options={{ headerTitle: 'Welcome!' }} />
+            <AuthStackNavigator.Screen name="Auth" component={AuthScreen} options={{ headerTitle: 'TSA'  }} />
         </AuthStackNavigator.Navigator>
     )
 }
