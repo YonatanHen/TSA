@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1035472378835",
+    "firebase_url": "https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "students-scheduler",
+    "storage_bucket": "students-scheduler.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1035472378835:android:dcc94c759964eeaba06d26",
+        "android_client_info": {
+          "package_name": "com.tsa.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1035472378835-cule3c1dc5vpj1jkda2tvps70q6hhbis.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIo6PDmngpVcvLj8iOSVfoMq1QaqrKR_Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1035472378835-cule3c1dc5vpj1jkda2tvps70q6hhbis.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

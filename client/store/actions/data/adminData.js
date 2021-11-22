@@ -1,7 +1,5 @@
 import envs from '../../../config/env'
-import * as FileSystem from 'expo-file-system';
 
-import axios from 'axios'
 import { readAllUsers } from '../representation'
 import { Linking } from 'react-native'
 

@@ -26,6 +26,7 @@ export const readLessons = () => {
 export const addLesson = (lessons) => {
     return async (dispatch, getState) => {
         const user = getState().data
+        const queue = user.studetnsQueue
 
         const updateLessons = await fetch(
             `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/lessons/${user.institute}/${user.uid}.json`,
