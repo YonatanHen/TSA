@@ -10,7 +10,7 @@ import { cancelLesson } from '../../store/actions/data/lessonsData'
 const TutorMain = props => {
     const { loggedInUser, students, lessons, navigation } = props
 
-    const tutorLessons = lessons ? lessons[loggedInUser.uid] : {}
+    const tutorLessons = lessons ? lessons[loggedInUser.uid] : undefined
 
     const dispatch = useDispatch()
 
@@ -30,7 +30,7 @@ const TutorMain = props => {
 
     return (
         <View>
-            {tutorLessons !== {} ? (
+            {!!tutorLessons ? (
                 <ScrollView>
                     <View style={{ alignItems: 'center', marginBottom: 5 }}>
                         <Text style={styles.title}>My Lessons:</Text>

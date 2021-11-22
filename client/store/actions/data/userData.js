@@ -18,7 +18,7 @@ export const CHANGE_EMAIL = 'CHANGE_EMAIL'
 import imageUploader from '../../../utilities/cloudinary/uploadImage'
 import setCityAndCountryByLocation from '../../../utilities/setCityAndCountryByLocation'
 
-import * as Notifications from 'expo-notifications';
+import { sendPushNotification, registerForPushNotificationsAsync} from '../../../utilities/notifications' ;
 import axios from 'axios'
 import { readLessons } from './lessonsData'
 
@@ -97,6 +97,9 @@ export const login = (email, password) => {
 
         const user = await readUserData(resData.localId)
 
+        await sendPushNotification(user.notificationsToken)
+
+
         if (user.disabled) {
             throw new Error('Account is disabled. please contact your institute for more info.')
         }
@@ -150,7 +153,7 @@ export const addDataOnSignUp = (role, bio, image, courses = undefined, phone, lo
             imageUrl = await imageUploader(image)
         }
 
-        const notificationsToken = (await Notifications.getExpoPushTokenAsync()).data
+        const notificationsToken = await registerForPushNotificationsAsync()
 
         const response = await fetch(
             `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users/${role}s/${uid}.json?auth=${token}`,

@@ -24,8 +24,8 @@ import UserProfile from '../screens/user/UserProfile';
 import MeetingsScheduler from '../screens/student/MeetingsScheduler';
 import ProfileImageHandler from '../screens/user/ProfileImageHandler';
 import Contact from '../screens/user/Contact'
-import ResetPassword from '../../screens/user/ResetPassword'
-import ResetEmail from '../../screens/user/ResetEmail'
+import ResetPassword from '../screens/user/ResetPassword'
+import ResetEmail from '../screens/user/ResetEmail'
 import { lessonsToCSV } from '../store/actions/data/adminData';
 
 //style
