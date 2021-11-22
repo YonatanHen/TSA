@@ -11,12 +11,12 @@ Notifications.setNotificationHandler({
 });
 
 // Can use this function below, OR use Expo's Push Notification Tool-> https://expo.dev/notifications
-export async function sendPushNotification(expoPushToken) {
+export async function sendPushNotification(expoPushToken, title='Title', body='body') {
     const message = {
         to: expoPushToken,
         sound: 'default',
-        title: 'Original Title',
-        body: 'And here is the body!',
+        title: title,
+        body: body,
         data: { someData: 'goes here' },
     };
 
