@@ -143,15 +143,7 @@ const EditUser = props => {
         >
             <View style={styles.inputForm}>
                 <ScrollView>
-                    {/* <View style={{ justifyContent: 'center', flexDirection: 'row' }}>
-                        <View style={{...styles.resetButtons, marginRight: 2}}>
-                            <Button title="Reset Email"  />
-                        </View>
-                        <View style={styles.resetButtons}>
-                            <Button title="Reset Password"  />
-                        </View>
-                    </View> */}
-                    <Input
+                    {/* <Input
                         required
                         email
                         id="email"
@@ -160,7 +152,7 @@ const EditUser = props => {
                         errorText="Please enter a valid email address."
                         onInputChange={inputChangeHandler}
                         initialValue={user.email}
-                    />
+                    /> */}
                     <Input
                         required
                         id="fname"
@@ -264,9 +256,6 @@ styles = StyleSheet.create({
     inputForm: {
         width: '100%',
         padding: 10,
-    },
-    resetButtons: {
-        width: 100
     },
     buttonContainer: {
         justifyContent: 'space-evenly',

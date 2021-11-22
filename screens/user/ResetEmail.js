@@ -1,67 +1,48 @@
 import React, { useEffect, useState } from 'react'
 import { Button, View, StyleSheet, TextInput, Alert } from 'react-native'
 import { ActivityIndicator } from 'react-native-paper'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
-import { changePassword } from '../../store/actions/data/userData'
+import { changeEmail } from '../../store/actions/data/userData'
 
-const ResetPassword = props => {
-    const [passwords, setPasswords] = useState({
-        newPassword: '',
-        confirmedPassword: ''
-    })
+const ResetEmail = props => {
+    const userEmail = useSelector(state => state.data.email)
+    const [email, setEmail] = useState(userEmail)
     const [isLoading, setIsLoading] = useState(false)
 
     const dispatch = useDispatch()
 
     const submitHandler = async () => {
-        const passwordRegex = /^(?=.*[A-Za-z])(?=.*[0-9]).*$/
-        if (passwords.newPassword !== passwords.confirmedPassword) {
-            Alert.alert('Error!', 'Passwords does not match')
-        }
-        else if (!passwordRegex.test(passwords.newPassword)) {
-            Alert.alert('Error!', 'Password must contain 6 characters that includes numbers and letters')
+        const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if (!emailRegex.test(email.toLowerCase())) {
+            Alert.alert('Error!', 'Email format is not valid')
         }
         else {
             try {
                 setIsLoading(true)
-                dispatch(changePassword(passwords.newPassword))
+                dispatch(changeEmail(email))
                 await setIsLoading(false)
-                Alert.alert('Password changed succcessfully.')
+                Alert.alert('Email changed successfully')
             } catch (error) {
-                Alert.alert('Error!', error)
-            } 
-            
-            
+                Alert.alert('Error!', error.message)
+            }  
         }
-
     }
 
     return (
         <View style={styles.screen}>
             <View style={styles.inputForm}>
-                <TextInput
-                    style={styles.input}
-                    required
-                    placeholder="New password"
-                    keyboardType="default"
-                    initialValue=''
-                    secureTextEntry={true}
-                    onChangeText={(text) => setPasswords({ ...passwords, newPassword: text })}
-                />
-
-                <TextInput
-                    style={styles.input}
-                    required
-                    placeholder="Confirm the new password"
-                    keyboardType="default"
-                    initialValue=''
-                    secureTextEntry={true}
-                    onChangeText={(text) => setPasswords({ ...passwords, confirmedPassword: text })}
-                />
+                     <TextInput
+                        style={styles.input}
+                        required
+                        placeholder="New E-Mail"
+                        keyboardType="email-address"
+                        onChangeText={(text) => setEmail(text)}
+                        value={email}
+                    />
                 <View style={{ marginTop: 10 }}>
                     {!isLoading ? (
-                        <Button title='Reset Password' onPress={submitHandler} color="deepskyblue" />
+                        <Button title='Reset Email' onPress={submitHandler} color="deepskyblue" />
                     ) : (
                         <ActivityIndicator size="small" color="grey" />
                     )}
@@ -91,4 +72,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default ResetPassword
+export default ResetEmail

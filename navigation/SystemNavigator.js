@@ -25,6 +25,7 @@ import MeetingsScheduler from '../screens/student/MeetingsScheduler';
 import ProfileImageHandler from '../screens/user/ProfileImageHandler';
 import Contact from '../screens/user/Contact'
 import ResetPassword from '../screens/user/ResetPassword'
+import ResetEmail from '../screens/user/ResetEmail'
 import { lessonsToCSV } from '../store/actions/data/adminData';
 
 //style
@@ -249,6 +250,15 @@ export const OptionsNavigator = props => {
                     color="dodgerblue" />
             )
         }} />
+        <OptionsDrawerNavigator.Screen name={"Reset Email"} component={ResetEmail} options={{
+            headerTintColor: 'deepskyblue',
+            drawerIcon: props => (
+                <Ionicons
+                    name="mail"
+                    size={23}
+                    color="dodgerblue" />
+            )
+        }} />
     </OptionsDrawerNavigator.Navigator>
 }
 
@@ -335,6 +345,15 @@ export const AdminNavigator = props => {
             drawerIcon: props => (
                 <Ionicons
                     name="key"
+                    size={23}
+                    color="dodgerblue" />
+            )
+        }} />
+        <OptionsDrawerNavigator.Screen name={"Reset Email"} component={ResetEmail} options={{
+            headerTintColor: 'deepskyblue',
+            drawerIcon: props => (
+                <Ionicons
+                    name="mail"
                     size={23}
                     color="dodgerblue" />
             )

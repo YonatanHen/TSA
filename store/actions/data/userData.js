@@ -349,7 +349,7 @@ export const changeEmail = (newEmail) => {
             },
             body: JSON.stringify({
                 idToken: user.token,
-                password: newEmail,
+                email: newEmail,
                 returnSecureToken: false
             })
         })
@@ -374,12 +374,12 @@ export const changeEmail = (newEmail) => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({...user, email: newEmail})
+                body: JSON.stringify({email: newEmail})
             }
         )
 
         if (!response2.ok) {
-            throw new Error('Something went wrong!')
+            throw new Error('Something went wrong 2!')
         }
         await dispatch(readAllUsers())
 

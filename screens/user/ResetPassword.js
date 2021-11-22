@@ -29,7 +29,7 @@ const ResetPassword = props => {
                 setIsLoading(false)
                 Alert.alert('Password changed succcessfully.')
             } catch (error) {
-                Alert.alert('Error!', error)
+                Alert.alert('Error!',  error.message)
             } 
             
             
@@ -45,7 +45,6 @@ const ResetPassword = props => {
                     required
                     placeholder="New password"
                     keyboardType="default"
-                    initialValue=''
                     secureTextEntry={true}
                     onChangeText={(text) => setPasswords({ ...passwords, newPassword: text })}
                 />
@@ -55,7 +54,6 @@ const ResetPassword = props => {
                     required
                     placeholder="Confirm the new password"
                     keyboardType="default"
-                    initialValue=''
                     secureTextEntry={true}
                     onChangeText={(text) => setPasswords({ ...passwords, confirmedPassword: text })}
                 />
