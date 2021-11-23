@@ -1,5 +1,5 @@
 import { LOGOUT, SIGNIN, SIGNUP, UPDATE_USER_ON_SIGNUP, EDIT_USER, CHANGE_EMAIL } from '../actions/data/userData'
-import { ADD_LESSON } from '../actions/data/lessonsData'
+import { ADD_LESSON, CLEAR_QUEUE } from '../actions/data/lessonsData'
 import { ADD_IMAGE, DELETE_IMAGE } from '../actions/data/profilePictureActions'
 
 const initialState = {
@@ -58,7 +58,8 @@ export default (state = initialState, action) => {
                 city: action.city,
                 country: action.country,
                 lessons: action.lessons,
-                studentsQueue: action.studentsQueue
+                studentsQueue: action.studentsQueue,
+                notificationsToken: action.notificationsToken
             }
         case LOGOUT:
             return {
@@ -111,6 +112,11 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 imageUrl: ''
+            }
+        case CLEAR_QUEUE:
+            return {
+                ...state,
+                studentsQueue: []
             }
         default:
             return state

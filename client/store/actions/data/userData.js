@@ -97,7 +97,7 @@ export const login = (email, password) => {
 
         const user = await readUserData(resData.localId)
 
-        await sendPushNotification(user.notificationsToken)
+        // await sendPushNotification(user.notificationsToken)
 
 
         if (user.disabled) {

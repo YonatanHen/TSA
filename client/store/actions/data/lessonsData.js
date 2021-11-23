@@ -3,6 +3,7 @@ import axios from "axios"
 export const DELETE_LESSON = 'DELETE_LESSON'
 export const ADD_LESSON = 'ADD_LESSON'
 export const READ_LESSONS = 'READ_LESSONS'
+export const CLEAR_QUEUE = 'CLEAR_QUEUE'
 
 export const readLessons = () => {
     return async (dispatch) => {
@@ -49,12 +50,18 @@ export const addLesson = (lessons) => {
 
         await dispatch(readLessons())
 
-        await axios.post(`http://10.0.0.4:8000/notify-students`, {
-            studentsQueue: queue,
-            tutorName: user.firstName + ' ' + user.lastName
-        }).then(res => console.log('success'))
-        .catch(err => console.log(err))
+        //Notify studetns in the queue only if there are any.
+        if (queue && queue.length > 0) {
+            await axios.post(`http://10.0.0.4:8000/notify-students`, {
+                studentsQueue: queue,
+                tutorName: user.firstName + ' ' + user.lastName
+            }).then(res => console.log('success'))
+                .catch(err => { throw new Error(err) })
+        }
 
+        await dispatch({
+            type: CLEAR_QUEUE,
+        })
     }
 }
 

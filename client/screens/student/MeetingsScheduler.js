@@ -63,7 +63,7 @@ const ScheduleMeeting = props => {
             [{
                 text: 'OK', onPress: async () => {
                     setIsLoading(true)
-                    await dispatch(pushToQueue(tutorData, user.uid))
+                    await dispatch(pushToQueue(tutorData, user.uid, user.notificationsToken))
                     setIsLoading(false)
                 }
             },
