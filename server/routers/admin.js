@@ -2,6 +2,10 @@ const express = require('express')
 const router = new express.Router()
 const JsonToCSV = require('json2csv').parse
 const request = require('request')
+// const admin = require('firebase-admin').initializeApp({
+//     databaseURL: "https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app"
+// });
+
 
 router.get('/get-lessons-csv/:institute', async (req, res) => {
     const institute = req.params.institute
@@ -21,6 +25,13 @@ router.get('/get-lessons-csv/:institute', async (req, res) => {
         }
     })
 })
+
+// router.get('/disable-user/:uid', async (req, res) => {
+//     console.log(admin)
+//     res.send()
+    
+//     admin
+// })
 
 
 module.exports = router

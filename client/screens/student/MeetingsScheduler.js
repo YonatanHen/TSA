@@ -125,7 +125,7 @@ const ScheduleMeeting = props => {
                 renderItem={renderDay}
             />
             <View style={{ alignItems: 'center', marginBottom: 2 }}>
-                {!isLoading ? (tutorData['studentsQueue'] && tutorData['studentsQueue'].includes(user.uid) ? (
+                {!isLoading ? (tutorData['studentsQueue'] && tutorData['studentsQueue'].filter(u => user.uid === u.id).length > 0 ? (
                     <TouchableOpacity onPress={popFromQueueHandler}>
                         <Text style={{ color: 'dodgerblue', borderBottomWidth: 3, borderBottomColor: 'dodgerblue', fontSize: 16 }}>
                             Quit the queue

@@ -17,8 +17,7 @@ router.post('/notify-students', async (req, res) => {
         } else {
             const messages = []
             const message = {
-                to: 'ExponentPushToken[kFVlYhGbmwbIA4XZ5PqiSK]',
-                // `${token}`,
+                to: `${token}`,
                 data: { extraData: 'Some data' },
                 title: `${tutorName} has added new available lesson`,
                 body: 'Enter the TSA app to check this out',
