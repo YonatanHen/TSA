@@ -104,8 +104,8 @@ export const login = (email, password) => {
             throw new Error('Account is disabled. please contact your institute for more info.')
         }
 
-        axios.get(`http://${IP_ADDRESS}:8000/login`)
-            .then(res => console.log(res.data.message))
+        axios.get(`http://10.0.0.5:8000/login`)
+            .catch(err => console.log(err))
 
         await dispatch(readAllUsers())
         await dispatch(readLessons())

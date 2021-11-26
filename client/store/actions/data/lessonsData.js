@@ -1,4 +1,5 @@
 import axios from "axios"
+import { scheduleNotificationAsync } from 'expo-notifications'
 
 export const DELETE_LESSON = 'DELETE_LESSON'
 export const ADD_LESSON = 'ADD_LESSON'
@@ -29,7 +30,8 @@ export const readLessons = () => {
 export const addLesson = (lessons) => {
     return async (dispatch, getState) => {
         const user = getState().data
-        const queue = user.studentsQueue
+        var queue = user.studentsQueue
+
 
         const updateLessons = await fetch(
             `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/lessons/${user.institute}/${user.uid}.json`,
@@ -52,11 +54,13 @@ export const addLesson = (lessons) => {
 
         //Notify studetns in the queue only if there are any.
         if (queue && queue.length > 0) {
-            await axios.post(`http://10.0.0.4:8000/notify-students`, {
-                studentsQueue: queue,
+            console.log('yes')
+            await axios.post(`http://10.0.0.5:8000/notify-students`, {
+                tokensQueue: await queue.map(object => { return object.token }),
                 tutorName: user.firstName + ' ' + user.lastName
-            }).then(res => console.log('success'))
-                .catch(err => { throw new Error(err) })
+            })
+            // .then((res) => console.log('success'))
+            //     .catch((err) => { throw new Error(err) })
         }
 
         await dispatch({
