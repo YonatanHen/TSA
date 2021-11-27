@@ -23,11 +23,13 @@ const DistancePicker = props => {
                     style={{ height: 50, width: 150 }}
                     onValueChange={(itemValue, itemIndex) => selectedValueHandler(itemValue)}
                 >
-                    <Picker.Item label="2000m" value={2000} />
-                    <Picker.Item label="5000m" value={5000} />
-                    <Picker.Item label="10000m" value={10000} />
-                    <Picker.Item label="20000m" value={20000} />
-                    <Picker.Item label="30000m" value={30000} />
+                    <Picker.Item label="0.5 km" value={500} />
+                    <Picker.Item label="1 km" value={1000} />
+                    <Picker.Item label="2 km" value={2000} />
+                    <Picker.Item label="5 km" value={5000} />
+                    <Picker.Item label="10 km" value={10000} />
+                    <Picker.Item label="20 km" value={20000} />
+                    <Picker.Item label="30 km" value={30000} />
                     <Picker.Item label="Not Limited" value={null} />
                 </Picker>
             </View>
