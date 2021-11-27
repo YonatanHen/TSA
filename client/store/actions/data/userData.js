@@ -1,12 +1,9 @@
-import envs from '../../../config/env'
-
+import { IP_ADDRESS, FIREBASE_API_KEY } from '@env'
 
 import findAdmin from '../../../utilities/findAdmin'
 import writedata from '../../../utilities/readWriteUserData/writeUserData'
 import readUserData from '../../../utilities/readWriteUserData/readUserData'
 import { readAllUsers } from '../representation'
-
-const { FIREBASE_API_KEY, IP_ADDRESS } = envs
 
 export const SIGNUP = 'SIGNUP'
 export const SIGNIN = 'SIGNIN'
@@ -18,7 +15,7 @@ export const CHANGE_EMAIL = 'CHANGE_EMAIL'
 import imageUploader from '../../../utilities/cloudinary/uploadImage'
 import setCityAndCountryByLocation from '../../../utilities/setCityAndCountryByLocation'
 
-import { sendPushNotification, registerForPushNotificationsAsync} from '../../../utilities/notifications' ;
+import { sendPushNotification, registerForPushNotificationsAsync } from '../../../utilities/notifications';
 import axios from 'axios'
 import { readLessons } from './lessonsData'
 
@@ -104,7 +101,7 @@ export const login = (email, password) => {
             throw new Error('Account is disabled. please contact your institute for more info.')
         }
 
-        axios.get(`http://10.0.0.5:8000/login`)
+        axios.get(`http://${IP_ADDRESS}:8000/login`)
             .catch(err => console.log(err))
 
         await dispatch(readAllUsers())
@@ -251,6 +248,7 @@ export const deleteUser = () => {
         const token = getState().data.token
         const uid = getState().data.uid
         const role = getState().data.role
+        const imageUrl = getState().data.imageUrl
 
 
         let response = await fetch(
@@ -278,7 +276,11 @@ export const deleteUser = () => {
                 }
             }
         ).then(res => res.json())
-            .catch(err => {
+            .then(() => {
+                axios.post(`http://${IP_ADDRESS}:8000/delete-image/`, {
+                    imageUrl: imageUrl
+                })
+            }).catch(err => {
                 throw new Error('Error in delete user details!')
             })
 
@@ -329,7 +331,7 @@ export const changePassword = (newPassword) => {
         const resData = await response.json()
 
         if (!response.ok) {
-            if(resData.error.message === 'INVALID_ID_TOKEN') {
+            if (resData.error.message === 'INVALID_ID_TOKEN') {
                 throw new Error('Please login again!')
             } else {
                 throw new Error('Something went wrong!')
@@ -361,11 +363,11 @@ export const changeEmail = (newEmail) => {
         const resData = await response.json()
 
         if (!response.ok) {
-            if(resData.error.message === 'EMAIL_EXISTS') {
+            if (resData.error.message === 'EMAIL_EXISTS') {
                 throw new Error('The email address is already in use by another account!')
-            } else if(resData.error.message === 'INVALID_ID_TOKEN') {
-                throw new Error('Please login again!') 
-             } else {
+            } else if (resData.error.message === 'INVALID_ID_TOKEN') {
+                throw new Error('Please login again!')
+            } else {
                 throw new Error('Something went wrong!')
             }
         }
@@ -377,7 +379,7 @@ export const changeEmail = (newEmail) => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({email: newEmail})
+                body: JSON.stringify({ email: newEmail })
             }
         )
 
@@ -388,7 +390,7 @@ export const changeEmail = (newEmail) => {
 
         dispatch({
             type: EDIT_USER,
-            ...user, 
+            ...user,
             email: newEmail
         })
 
@@ -396,4 +398,4 @@ export const changeEmail = (newEmail) => {
             type: LOGOUT
         })
     }
-    }
+}

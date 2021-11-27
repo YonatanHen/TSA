@@ -1,6 +1,4 @@
-import envs from '../config/env'
-
-const { GEOPIFY_API } = envs
+import { GEOPIFY_API } from '@env'
 
 export default async (location) => {
     var city, country

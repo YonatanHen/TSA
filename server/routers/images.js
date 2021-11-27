@@ -40,12 +40,11 @@ router.get('/upload-image/:photoUri', async (req, res) => {
 router.post('/delete-image', async (req, res) => {
     const imageUrl = req.body.imageUrl
     try {
-
         let public_id = imageUrl.split('/')
         public_id = public_id[public_id.length - 1].split('.')[0]
         cloudinary.uploader.destroy(public_id, (err, result) => {
             if (err || result.deleted === 'not_found') {
-                throw new Error('An error occured!')
+                return res.send({ message: 'Cannot delete image.' })
             }
 
             return res.send({ message: 'Image deleted successfully' })

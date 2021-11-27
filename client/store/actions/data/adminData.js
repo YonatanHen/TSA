@@ -1,9 +1,5 @@
-import envs from '../../../config/env'
-
 import { readAllUsers } from '../representation'
 import { Linking } from 'react-native'
-
-const { IP_ADDRESS } = envs
 
 
 export const disableEnableUser = (user) => {

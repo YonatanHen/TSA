@@ -88,7 +88,6 @@ export default (state = initialState, action) => {
                 bio: action.bio,
                 courses: action.courses,
                 phone: action.phone,
-                imageUrl: action.imageUrl,
                 locationCords: action.locationCords,
                 city: action.city,
                 country: action.country,

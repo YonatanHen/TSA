@@ -1,13 +1,11 @@
 import axios from 'axios'
 
-import envs from '../../../config/env'
+import { IP_ADDRESS } from '@env'
 
 import imageUploader from '../../../utilities/cloudinary/uploadImage'
 
 export const DELETE_IMAGE = 'DELETE_IMAGE'
 export const ADD_IMAGE = 'ADD_IMAGE'
-
-const { IP_ADDRESS } = envs
 
 
 export const addProfilePicture = (image) => {
@@ -51,7 +49,8 @@ export const deleteProfilePicture = () => {
                             'Content-Type': 'application/json'
                         }
                     }))
-            .catch(err => { 
-                throw new Error('An Error occured!', err) })
+            .catch(err => {
+                throw new Error('An Error occured!', err)
+            })
     }
 }

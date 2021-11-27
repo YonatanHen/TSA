@@ -9,14 +9,14 @@ import { cancelLesson } from '../../store/actions/data/lessonsData'
 const StudentMain = props => {
     const { loggedInUser, tutors, lessons, navigation } = props
     const upcomingLessons = Object.entries(lessons).map(tutorLessons => {
-            return (
-                Object.entries(tutorLessons[1]).map(date => {
-                    return (
-                        date[1].filter(lesson => lesson.studentId === loggedInUser.uid &&
-                            new Date() < new Date(`${date[0]}T${lesson.time.split(' ')[0]}`)))
-                }))
-        }).flat().flat()
-    
+        return (
+            Object.entries(tutorLessons[1]).map(date => {
+                return (
+                    date[1].filter(lesson => lesson.studentId === loggedInUser.uid &&
+                        new Date() < new Date(`${date[0]}T${lesson.time.split(' ')[0]}`)))
+            }))
+    }).flat().flat()
+
     const dispatch = useDispatch()
     console.log(upcomingLessons)
 
@@ -81,7 +81,9 @@ const StudentMain = props => {
                     })}
                 </ScrollView>
             ) : (
-                <Text style={styles.title}>No lessons has been planned.</Text>
+                <View style={styles.noLessonsContainer}>
+                    <Text style={styles.title}>No lessons has been planned.</Text>
+                </View>
             )
             }
         </View >
@@ -94,6 +96,11 @@ const styles = StyleSheet.create({
         color: 'dodgerblue',
         fontSize: 26,
         fontWeight: 'bold'
+    },
+    noLessonsContainer: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     icons: {
         alignItems: 'center',

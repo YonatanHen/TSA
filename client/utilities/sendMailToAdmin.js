@@ -1,7 +1,5 @@
-import envs from '../config/env'
+import { IP_ADDRESS } from '@env'
 import axios from 'axios'
-
-const { IP_ADDRESS } = envs
 
 export default sendMailToAdmin = async (institute, addressed, name, content) => {
     const response = await fetch(

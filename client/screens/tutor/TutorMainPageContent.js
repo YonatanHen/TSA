@@ -74,8 +74,11 @@ const TutorMain = props => {
                     })}
                 </ScrollView>
             ) : (
-                <Text style={styles.title}>No lessons has been planned.</Text>
-            )}
+                <View style={styles.noLessonsContainer}>
+                    <Text style={styles.title}>No lessons has been planned.</Text>
+                </View>
+            )
+            }
         </View>
     )
 }
@@ -86,6 +89,11 @@ const styles = StyleSheet.create({
         color: 'dodgerblue',
         fontSize: 26,
         fontWeight: 'bold'
+    },
+    noLessonsContainer: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     icons: {
         alignItems: 'center',
