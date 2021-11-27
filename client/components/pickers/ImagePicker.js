@@ -57,13 +57,13 @@ const ImgPicker = props => {
         <View style={styles.selectImageButtonsContainer}>
             {!props.editPage && (
                 <>
-                    <Button title="Take image" onPress={() => selectImageHandler('take')} />
+                    <Button title="Take image" onPress={() => selectImageHandler('take')} color="deepskyblue" />
                     <Button title="Selcet from gallery" onPress={() => selectImageHandler('select')} />
                 </>
             )}
             {props.editPage && !pickedImage && (
                 <>
-                    <Button title="Take image" onPress={() => selectImageHandler('take')} />
+                    <Button title="Take image" onPress={() => selectImageHandler('take')} color="deepskyblue" />
                     <Button title="Selcet from gallery" onPress={() => selectImageHandler('select')} />
                 </>)}
             {props.editPage && pickedImage && <Button title="Delete image" onPress={() => deleteImageHandler()} />}

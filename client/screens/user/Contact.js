@@ -33,7 +33,7 @@ const Contact = props => {
             />
             <View style={styles.buttonContainer}>
                 {isLoading ? (<ActivityIndicator size='small' color='deepskyblue' />)
-                    : (<Button title={"send"} onPress={sendHandler} />)}
+                    : (<Button title={"send"} onPress={sendHandler} color="deepskyblue" />)}
             </View>
         </View>
     )
