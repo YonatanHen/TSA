@@ -19,7 +19,7 @@ app.listen(port, () => {
 })
 
 app.get('/login', async (req, res) => {
-    console.log('logiin')
+    console.log('login')
     res.send("your'e logged in")
 })
 

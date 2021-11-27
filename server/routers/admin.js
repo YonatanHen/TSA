@@ -27,7 +27,6 @@ router.get('/get-lessons-csv/:institute', async (req, res) => {
 })
 
 // router.get('/disable-user/:uid', async (req, res) => {
-//     console.log(admin)
 //     res.send()
     
 //     admin

@@ -10,8 +10,6 @@ export default async (photoUri) => {
     body: data
   }).then(res => res.json())
     .then(res => {
-      console.log(res)
-      console.log(res.public_id)
       url = res.secure_url
     })
     .catch(err => {

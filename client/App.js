@@ -35,7 +35,6 @@ export default function App() {
         data: JSON.parse(notificationObject.data.body),
       }
       // add the code to do what you need with the received notification  and, e.g., set badge number on app icon
-      console.log(newNotification)
       await Notifications.setBadgeCountAsync(1)
     } catch (error) {
       console.error(error)

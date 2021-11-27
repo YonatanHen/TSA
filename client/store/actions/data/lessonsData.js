@@ -54,7 +54,6 @@ export const addLesson = (lessons) => {
 
         //Notify studetns in the queue only if there are any.
         if (queue && queue.length > 0) {
-            console.log('yes')
             await axios.post(`http://10.0.0.5:8000/notify-students`, {
                 tokensQueue: await queue.map(object => { return object.token }),
                 tutorName: user.firstName + ' ' + user.lastName
@@ -83,9 +82,6 @@ export const deleteLesson = (tutorUid, lessonDate, lessonTime) => {
         var lessonsInDate = await response1.json()
 
         const lessonIndex = lessonsInDate.findIndex((lesson) => lesson.time === lessonTime)
-
-        console.log(lessonIndex)
-        console.log(lessonsInDate)
 
         const response2 = await fetch(
             `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/lessons/${user.institute}/${tutorUid}/${lessonDate}/${lessonIndex}.json?token=${user.token}`,
@@ -122,8 +118,6 @@ export const cancelLesson = (tutorUid, lessonDate, lessonTime) => {
         const lessonIndex = lessonsInDate.findIndex((lesson) => lesson.time === lessonTime)
 
         lessonsInDate[lessonIndex] = { time: lessonsInDate[lessonIndex].time }
-        console.log(lessonIndex)
-        console.log(lessonsInDate)
 
         const response2 = await fetch(
             `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/lessons/${user.institute}/${tutorUid}/${lessonDate}.json?token=${user.token}`,
