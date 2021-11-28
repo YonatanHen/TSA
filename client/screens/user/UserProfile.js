@@ -57,11 +57,15 @@ const UserProfile = (props) => {
                             </View>
                         </View>
 
-                        {loggedInUser.role === 'student' &&
+                        {(loggedInUser.role === 'student' || loggedInUser.role === 'admin') &&
                             <View style={{ alignItems: 'center', marginTop: 10 }}>
                                 <Button
-                                    title={`Schedule a Meeting with ${user.firstName}`}
-                                    onPress={() => props.navigation.navigate({ name: 'Schedule a Meeting', params: { user: user } })}
+                                    title={loggedInUser.role === 'student' ? `Schedule a Meeting with ${user.firstName}` : `See ${user.firstName} Lessons`}
+                                    onPress={() => 
+                                        props.navigation.navigate({ 
+                                            name: loggedInUser.role === 'student' ? 'Schedule a Meeting' : 'Tutor Lessons', 
+                                            params: { user: user } })
+                                    }
                                 />
                             </View>
                         }
