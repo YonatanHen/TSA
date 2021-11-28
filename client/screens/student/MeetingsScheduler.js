@@ -1,3 +1,5 @@
+//This component belongs to Admins as well
+
 import React, { useEffect, useState } from 'react'
 import { ActivityIndicator, View, Text, TouchableOpacity, StyleSheet, Button, Alert } from 'react-native'
 import { Agenda } from 'react-native-calendars'
@@ -129,7 +131,7 @@ const ScheduleMeeting = props => {
                 renderItem={renderDay}
             />
             {user.role !== 'admin' &&
-                <View style={{ alignItems: 'center', marginBottom: 2 }}>
+                <View style={{ alignItems: 'center', marginBottom: 2, backgroundColor: '#f5f5f5' }}>
                     {!isLoading ? (tutorData['studentsQueue'] && tutorData['studentsQueue'].filter(u => user.uid === u.id).length > 0 ? (
                         <TouchableOpacity onPress={popFromQueueHandler}>
                             <Text style={{ color: 'dodgerblue', borderBottomWidth: 3, borderBottomColor: 'dodgerblue', fontSize: 16 }}>
