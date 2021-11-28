@@ -287,6 +287,7 @@ export const InstituteUserNavigator = () => {
         <InstituteUserStackNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' }, ...headerStyle }}>
             <InstituteUserStackNavigator.Screen name="Admin Main" component={AdminMainScreen} options={{ headerShown: false }} />
             <InstituteUserStackNavigator.Screen name="User Profile" component={UserProfile} />
+            <InstituteUserStackNavigator.Screen name='Tutor Lessons' component={MeetingsScheduler} />
         </InstituteUserStackNavigator.Navigator>
     )
 }

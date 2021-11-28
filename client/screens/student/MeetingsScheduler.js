@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import CoursePicker from '../../components/pickers/coursePicker'
 import { scheduleLesson } from '../../store/actions/data/lessonsData'
-import {pushToQueue, popFromQueue} from '../../store/actions/data/queueing';
+import { pushToQueue, popFromQueue } from '../../store/actions/data/queueing';
 
 
 const ScheduleMeeting = props => {
@@ -96,15 +96,19 @@ const ScheduleMeeting = props => {
         return (
             <View style={styles.cardContainer}>
                 <TouchableOpacity onPress={() => {
-                    if (!lesson.studentId) onTimeClickHandler(lesson)
-                    else Alert.alert('Alert', "You can't schedule taken lesson.", [{ text: 'Okay' }])
+                    if (user.role !== 'admin') {
+                        if (!lesson.studentId) onTimeClickHandler(lesson)
+                        else Alert.alert('Alert', "You can't schedule taken lesson.", [{ text: 'Okay' }])
+                    }
                 }}>
                     <Card style={styles.card}>
                         <Card.Content>
                             <Text style={{ fontWeight: 'bold', fontSize: 16 }}>{lesson.time}</Text>
                             {lesson.studentId ? (
                                 <View>
-                                    <Text style={{ fontWeight: 'bold' }}>Busy</Text>
+                                    <Text style={{ fontWeight: 'bold' }}>
+                                        {user.role === 'admin' ? `student id: ${lesson.studentId}` : 'Busy'}
+                                    </Text>
                                 </View>
                             ) : (
                                 <Text style={{ color: 'deepskyblue', fontWeight: 'bold' }}>Available!</Text>
@@ -124,24 +128,27 @@ const ScheduleMeeting = props => {
                 showClosingKnob={true}
                 renderItem={renderDay}
             />
-            <View style={{ alignItems: 'center', marginBottom: 2 }}>
-                {!isLoading ? (tutorData['studentsQueue'] && tutorData['studentsQueue'].filter(u => user.uid === u.id).length > 0 ? (
-                    <TouchableOpacity onPress={popFromQueueHandler}>
-                        <Text style={{ color: 'dodgerblue', borderBottomWidth: 3, borderBottomColor: 'dodgerblue', fontSize: 16 }}>
-                            Quit the queue
-                        </Text>
-                    </TouchableOpacity>
-                ) : (
-                    <TouchableOpacity onPress={noPlaceClickHandler}>
-                        <Text style={{ color: 'dodgerblue', borderBottomWidth: 3, borderBottomColor: 'dodgerblue', fontSize: 16 }}>
-                            No Place? Enter the queue!
-                        </Text>
-                    </TouchableOpacity>
-                )) : (
-                    <ActivityIndicator size='small' color='dodgerblue' />
-                )}
+            {user.role !== 'admin' &&
+                <View style={{ alignItems: 'center', marginBottom: 2 }}>
+                    {!isLoading ? (tutorData['studentsQueue'] && tutorData['studentsQueue'].filter(u => user.uid === u.id).length > 0 ? (
+                        <TouchableOpacity onPress={popFromQueueHandler}>
+                            <Text style={{ color: 'dodgerblue', borderBottomWidth: 3, borderBottomColor: 'dodgerblue', fontSize: 16 }}>
+                                Quit the queue
+                                </Text>
+                        </TouchableOpacity>
+                    ) : (
+                        <TouchableOpacity onPress={noPlaceClickHandler}>
+                            <Text style={{ color: 'dodgerblue', borderBottomWidth: 3, borderBottomColor: 'dodgerblue', fontSize: 16 }}>
+                                No Place? Enter the queue!
+                                </Text>
+                        </TouchableOpacity>
+                    )) : (
+                        <ActivityIndicator size='small' color='dodgerblue' />
+                    )}
 
-            </View>
+                </View>
+            }
+
             <CoursePicker
                 visible={isDialogVisible}
                 setDialogVisibility={setDialogVisibility}
