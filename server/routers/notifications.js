@@ -4,12 +4,15 @@ const router = new express.Router()
 const { Expo } = require('expo-server-sdk')
 const expo = new Expo()
 
+function wait(ms) {
+    return new Promise(resolve => { setTimeout(resolve, ms); });
+}
 
 router.post('/notify-students', async (req, res) => {
     var tokensQueue = req.body.tokensQueue
     const tutorName = req.body.tutorName
     const initialLength = tokensQueue.length
-    for(let i=0; i<initialLength; i++) {
+    for (let i = 0; i < initialLength; i++) {
         let token = await tokensQueue.shift()
 
         if (!Expo.isExpoPushToken(token)) {
@@ -22,14 +25,16 @@ router.post('/notify-students', async (req, res) => {
                 title: `${tutorName} has added new available lesson`,
                 body: 'Enter the TSA app to check this out',
             }
+
+
             messages.push(message)
             const chunks = expo.chunkPushNotifications(messages)
             const tickets = []
-
             try {
                 for (const chunk of chunks) {
                     try {
                         const ticketChunk = await expo.sendPushNotificationsAsync(chunk)
+                        await wait(60000)
                         tickets.push(...ticketChunk)
                     } catch (error) {
                         console.error(error)
@@ -41,7 +46,6 @@ router.post('/notify-students', async (req, res) => {
         }
 
         // Informing the students by the order they were entered the queue.
-        // await setTimeout(() => console.log('waiting...'), 3000)
     }
     // const messages = []
     // const message = {
