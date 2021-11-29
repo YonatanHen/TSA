@@ -82,6 +82,7 @@ export const login = (email, password) => {
         const resData = await response.json()
 
         if (!response.ok) {
+            console.log(resData.error.message)
             if (resData.error.message === 'EMAIL_NOT_FOUND') {
                 throw new Error('User is not exists in our database')
             } else if (resData.error.message === 'INVALID_PASSWORD') {

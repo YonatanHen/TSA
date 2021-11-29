@@ -1,6 +1,6 @@
 //This component belongs to Admins as well
 
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { ActivityIndicator, View, Text, TouchableOpacity, StyleSheet, Button, Alert } from 'react-native'
 import { Agenda } from 'react-native-calendars'
 import { Card } from 'react-native-paper'
@@ -17,13 +17,15 @@ const ScheduleMeeting = props => {
     const user = useSelector(state => state.data)
     const tutorData = useSelector(state => state.representationLists.usersList.tutors).find(tutor => tutor[1].uid === props.route.params.user.uid)[1]
     const LessonsObject = useSelector(state => state.lessons.lessons)
+    
     const [lessons, setLessons] = useState(LessonsObject[tutorData.institute][tutorData.uid] ? LessonsObject[tutorData.institute][tutorData.uid] : {})
     const [lessonsWithDates, setLessonsWithDates] = useState()
     const [isDialogVisible, setDialogVisibility] = useState(false)
     const [lessonDate, setLessonDate] = useState()
     const [lessonTime, setLessonTime] = useState()
     const [selectedCourse, setSelectedCourse] = useState()
-    const [isLoading, setIsLoading] = useState(false)
+    const [isQueueLoading, setIsQueueLoading] = useState(false)
+    const [isLessonLoading, setIsLessonLoading] = useState(false)
 
     const dispatch = useDispatch()
 
@@ -46,8 +48,10 @@ const ScheduleMeeting = props => {
         }
 
         try {
+            setIsLessonLoading(true)
             await dispatch(scheduleLesson(updatedLessons, tutorData))
             await setLessons(updatedLessons)
+            setIsLessonLoading(false)
         } catch (err) {
             Alert.alert('An Error occured!', err, [{ text: 'Okay' }])
         }
@@ -64,22 +68,21 @@ const ScheduleMeeting = props => {
             'We can let you know when a new lesson with this tutor will be available by pressing on the OK button.',
             [{
                 text: 'OK', onPress: async () => {
-                    setIsLoading(true)
+                    setIsQueueLoading(true)
                     await dispatch(pushToQueue(tutorData, user.uid, user.notificationsToken))
-                    setIsLoading(false)
+                    setIsQueueLoading(false)
                 }
             },
             { text: "I'm not interested" }])
     }
 
     const popFromQueueHandler = async () => {
-        setIsLoading(true)
+        setIsQueueLoading(true)
         await dispatch(popFromQueue(tutorData, user.uid))
-        setIsLoading(false)
+        setIsQueueLoading(false)
     }
 
-    useEffect(() => {
-        //Add date keys as fields to all of the objects.
+    const setLessonsWithDatesHandler = () => {
         if (lessons !== {}) {
             var tempLessons = { ...lessons }
             for (const [key, value] of Object.entries(tempLessons)) {
@@ -87,11 +90,14 @@ const ScheduleMeeting = props => {
             }
             setLessonsWithDates(tempLessons)
         }
-    }, [])
-
+    }
 
     useEffect(() => {
-    }, [setLessons, scheduleLesson, scheduleLessonHandler])
+        setLessonsWithDatesHandler()
+    }, [LessonsObject, setSelectedCourse, setLessons, renderDay])
+
+
+
 
 
     const renderDay = (lesson) => {
@@ -103,21 +109,21 @@ const ScheduleMeeting = props => {
                         else Alert.alert('Alert', "You can't schedule taken lesson.", [{ text: 'Okay' }])
                     }
                 }}>
+                    {isLessonLoading ? (<ActivityIndicator size='large' color='dodgerblue' />) : (
                     <Card style={styles.card}>
                         <Card.Content>
                             <Text style={{ fontWeight: 'bold', fontSize: 16 }}>{lesson.time}</Text>
                             {lesson.studentId ? (
                                 <View>
-                                    <Text style={{ fontWeight: 'bold' }}>
+                                    <Text style={{ color: 'red', fontWeight: 'bold', marginLeft: '0.5%' }}>
                                         {user.role === 'admin' ? `student id: ${lesson.studentId}` : 'Busy'}
                                     </Text>
                                 </View>
                             ) : (
-                                <Text style={{ color: 'deepskyblue', fontWeight: 'bold' }}>Available!</Text>
+                                <Text style={{ color: 'green', fontWeight: 'bold', marginLeft: '0.5%' }}>Available!</Text>
                             )}
-
                         </Card.Content>
-                    </Card>
+                    </Card>)}
                 </TouchableOpacity>
             </View>
         )
@@ -129,10 +135,13 @@ const ScheduleMeeting = props => {
                 items={lessonsWithDates}
                 showClosingKnob={true}
                 renderItem={renderDay}
+                pastScrollRange={24}
+                futureScrollRange={6}
+                refreshing={true}
             />
             {user.role !== 'admin' &&
                 <View style={{ alignItems: 'center', marginBottom: 2, backgroundColor: '#f5f5f5' }}>
-                    {!isLoading ? (tutorData['studentsQueue'] && tutorData['studentsQueue'].filter(u => user.uid === u.id).length > 0 ? (
+                    {!isQueueLoading ? (tutorData['studentsQueue'] && tutorData['studentsQueue'].filter(u => user.uid === u.id).length > 0 ? (
                         <TouchableOpacity onPress={popFromQueueHandler}>
                             <Text style={{ color: 'dodgerblue', borderBottomWidth: 3, borderBottomColor: 'dodgerblue', fontSize: 16 }}>
                                 Quit the queue
@@ -174,7 +183,9 @@ const styles = StyleSheet.create({
         padding: 5
     },
     card: {
-        marginVertical: 10
+        marginVertical: 10,
+        borderWidth: 2,
+        borderColor: 'grey'
     }
 })
 
