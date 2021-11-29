@@ -52,6 +52,8 @@ const ScheduleMeeting = props => {
             await dispatch(scheduleLesson(updatedLessons, tutorData))
             await setLessons(updatedLessons)
             setIsLessonLoading(false)
+            Alert.alert('Lesson has been added successfully!' , 'check the home screen to see lesson details.')
+            props.navigation.goBack()
         } catch (err) {
             Alert.alert('An Error occured!', err, [{ text: 'Okay' }])
         }
@@ -109,8 +111,7 @@ const ScheduleMeeting = props => {
                         else Alert.alert('Alert', "You can't schedule taken lesson.", [{ text: 'Okay' }])
                     }
                 }}>
-                    {isLessonLoading ? (<ActivityIndicator size='large' color='dodgerblue' />) : (
-                    <Card style={styles.card}>
+                <Card style={styles.card}>
                         <Card.Content>
                             <Text style={{ fontWeight: 'bold', fontSize: 16 }}>{lesson.time}</Text>
                             {lesson.studentId ? (
@@ -123,7 +124,7 @@ const ScheduleMeeting = props => {
                                 <Text style={{ color: 'green', fontWeight: 'bold', marginLeft: '0.5%' }}>Available!</Text>
                             )}
                         </Card.Content>
-                    </Card>)}
+                    </Card>
                 </TouchableOpacity>
             </View>
         )
@@ -137,7 +138,9 @@ const ScheduleMeeting = props => {
                 renderItem={renderDay}
                 pastScrollRange={24}
                 futureScrollRange={6}
-                refreshing={true}
+                refreshing={isLessonLoading}
+                onRefresh={() => console.log('refreshing...')}
+                // refreshControl={null}
             />
             {user.role !== 'admin' &&
                 <View style={{ alignItems: 'center', marginBottom: 2, backgroundColor: '#f5f5f5' }}>
