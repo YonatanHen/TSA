@@ -7,7 +7,12 @@ import representationReducer from './reducer/representation'
 import dataReducer from './reducer/data'
 import lessonsReducer from './reducer/lessons'
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+let composeEnhancers = compose
+//window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || 
+
+if (__DEV__) {
+    composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+}
 
 const rootReducer = combineReducers({
     representationLists: representationReducer,
@@ -15,7 +20,6 @@ const rootReducer = combineReducers({
     lessons: lessonsReducer
 });
 
-const store = createStore(rootReducer, composeEnhancers(applyMiddleware(ReduxThunk))); //Development
-// const store = createStore(rootReducer, applyMiddleware(ReduxThunk); //Production
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(ReduxThunk)))
 
 export default store

@@ -4,7 +4,7 @@ import { Card, Title, Paragraph } from 'react-native-paper'
 import { Ionicons } from '@expo/vector-icons';
 import { useDispatch } from 'react-redux';
 
-import { cancelLesson } from '../../store/actions/data/lessonsData'
+import { cancelLesson, approveLesson } from '../../store/actions/data/lessonsData'
 
 
 const TutorMain = props => {
@@ -19,6 +19,20 @@ const TutorMain = props => {
             {
                 text: 'Yes',
                 onPress: () => dispatch(cancelLesson(loggedInUser.uid, date, time)),
+                style: 'default'
+            },
+            {
+                text: 'No',
+                style: 'cancel'
+            }
+        ])
+    }
+
+    const approveLessonHandler = (date, time, flag) => {
+        Alert.alert('Are you sure?', `Do you want to ${flag ? 'dis' : ''}approve this lesson?`, [
+            {
+                text: 'Yes',
+                onPress: () => dispatch(approveLesson(loggedInUser.uid, date, time)),
                 style: 'default'
             },
             {
@@ -57,8 +71,8 @@ const TutorMain = props => {
                                                 <Ionicons
                                                     name="checkmark"
                                                     size={25}
-                                                    color="green"
-                                                // onPress={() => openUrl('whatsapp')}
+                                                    color={lesson.approved ? "darkgreen" : "lightgrey"}
+                                                onPress={() => approveLessonHandler(date[0], lesson.time, lesson.approved)}
                                                 />
                                                 <Ionicons
                                                     name="close"

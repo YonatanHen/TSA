@@ -139,6 +139,43 @@ export const cancelLesson = (tutorUid, lessonDate, lessonTime) => {
     }
 }
 
+export const approveLesson = (tutorUid, lessonDate, lessonTime) => {
+    return async (dispatch, getState) => {
+        const user = getState().data
+
+        const response1 = await fetch(
+            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/lessons/${user.institute}/${tutorUid}/${lessonDate}.json`)
+
+        if (!response1.ok) {
+            throw new Error("Can't fetch lessons, please try again later")
+        }
+
+        var lessonsInDate = await response1.json()
+
+        const lessonIndex = lessonsInDate.findIndex((lesson) => lesson.time === lessonTime)
+
+        lessonsInDate[lessonIndex] = { ...lessonsInDate[lessonIndex], approved: !lessonsInDate[lessonIndex].approved }
+
+        const response2 = await fetch(
+            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/lessons/${user.institute}/${tutorUid}/${lessonDate}.json?token=${user.token}`,
+            {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ ...lessonsInDate })
+            })
+
+        if (!response2.ok) {
+            throw new Error("Can't cancel lesson! please try again later.")
+        }
+
+
+        await dispatch(readLessons())
+
+    }
+}
+
 export const scheduleLesson = (lessons, tutorData) => {
     return async (dispatch, getState) => {
         const user = getState().data
