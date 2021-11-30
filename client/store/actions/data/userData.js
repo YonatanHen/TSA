@@ -49,8 +49,8 @@ export const signup = (email, password, role, fname, lname, institute) => {
 
         await writedata({ email: email, uid: resData.localId, firstName: fname, lastName: lname, institute: institute, role: role })
 
-        await dispatch(readAllUsers())
-        await dispatch(readLessons())
+        // await dispatch(readAllUsers())
+        // await dispatch(readLessons())
 
         await dispatch({
             type: SIGNUP,
@@ -105,8 +105,8 @@ export const login = (email, password) => {
         axios.get(`http://${IP_ADDRESS}:8000/login`)
             .catch(err => console.log(err))
 
-        await dispatch(readAllUsers())
-        await dispatch(readLessons())
+        // await dispatch(readAllUsers())
+        // await dispatch(readLessons())
 
         dispatch({
             type: SIGNIN,

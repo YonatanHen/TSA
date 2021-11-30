@@ -6,7 +6,8 @@ import * as TaskManager from 'expo-task-manager'
 import AppNavigator from './navigation/AppNavigator';
 
 import store from './store/store'
-import { fetchInstitutes } from './store/actions/representation'
+import { fetchInstitutes, readAllUsers } from './store/actions/representation'
+import { readLessons } from './store/actions/data/lessonsData';
 
 const BACKGROUND_NOTIFICATION_TASK = 'BACKGROUND-NOTIFICATION-TASK'
 
@@ -48,6 +49,8 @@ export default function App() {
 
   useEffect(() => {
     store.dispatch(fetchInstitutes())
+    store.dispatch(readAllUsers())
+    store.dispatch(readLessons())
 
     // register task to run whenever is received while the app is in the background
     Notifications.registerTaskAsync(BACKGROUND_NOTIFICATION_TASK)
