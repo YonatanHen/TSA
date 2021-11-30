@@ -27,15 +27,16 @@ import Contact from '../screens/user/Contact'
 import ResetPassword from '../screens/user/ResetPassword'
 import ResetEmail from '../screens/user/ResetEmail'
 import { lessonsToCSV } from '../store/actions/data/adminData';
+import { colors } from '../constants/colors';
 
 //style
 
 const headerStyle = {
     headerStyle: {
-        backgroundColor: Platform.OS === 'android' ? 'white' : 'deepskyblue'
+        backgroundColor: Platform.OS === 'android' ? 'white' : colors.primary
     },
     headerTitleStyle: {
-        color: Platform.OS === 'android' ? 'deepskyblue' : 'white'
+        color: Platform.OS === 'android' ? colors.primary : 'white'
     },
     headerTitleAlign: 'center'
 }
@@ -47,7 +48,7 @@ const AuthStackNavigator = createStackNavigator()
 export const AuthNavigator = () => {
     return (
         <AuthStackNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' }, ...headerStyle }}>
-            <AuthStackNavigator.Screen name="Auth" component={AuthScreen} options={{ headerTitle: 'TSA'  }} />
+            <AuthStackNavigator.Screen name="Auth" component={AuthScreen} options={{ headerTitle: 'TSA' }} />
         </AuthStackNavigator.Navigator>
     )
 }
@@ -88,6 +89,10 @@ export const TabsStudentNavigator = props => {
     const userImage = useSelector(state => state.data.imageUrl)
     return (
         <Tab.Navigator
+            shifting={true}
+            barStyle={{ backgroundColor: colors.primary, paddingBottom: 5, borderTopWidth: 2, borderTopColor: colors.secondary}}
+            activeColor={colors.secondary}
+            inactiveColor={colors.secondary}
             screenOptions={({ route }) => ({
                 tabBarIcon: ({ focused, color, size = 25 }) => {
                     let iconName;
@@ -130,6 +135,10 @@ export const TabsTutorNavigator = props => {
     const userImage = useSelector(state => state.data.imageUrl)
     return (
         <Tab.Navigator
+            shifting={true}
+            barStyle={{ backgroundColor: colors.primary, paddingBottom: 5, borderTopWidth: 2, borderTopColor: colors.secondary}}
+            activeColor={colors.secondary}
+            inactiveColor={colors.secondary}
             screenOptions={({ route }) => ({
                 tabBarIcon: ({ focused, color, size = 25 }) => {
                     let iconName;
@@ -139,8 +148,13 @@ export const TabsTutorNavigator = props => {
                     } else if (route.name === 'My Lessons') {
                         return <Ionicons name={focused ? 'library' : 'library-outline'} size={size} color={color} />;
                     } else if (route.name === 'Profile') {
-                        return <Image style={{ width: 25, height: 25, borderRadius: 100, }}
-                            source={userImage ? { uri: userImage } : require('../images/Default-Profile-Picture.png')} />
+                        if(userImage) {
+                            return <Image style={{ width: 25, height: 25, borderRadius: 100, }}
+                            source={require('../images/Default-Profile-Picture.png')} />
+                        } else {
+                            return <Ionicons name={focused ? 'person-circle' : 'person-circle-outline'} size={size} color={color} />;
+                        }
+
                     }
                 },
                 tabBarActiveTintColor: 'tomato',
@@ -186,11 +200,12 @@ export const OptionsNavigator = props => {
     const dispatch = useDispatch() //with the dispatch we can dispatch functions from redux store 
 
     return <OptionsDrawerNavigator.Navigator
+
         drawerContent={props => {
             return (
                 <View style={{ flex: 1, paddingTop: '30%' }}>
                     <SafeAreaView forceInset={{ top: 'always', horizontal: 'never' }}>
-                        <DrawerItemList {...props} />
+                        <DrawerItemList {...props} color='blue' />
                     </SafeAreaView>
                     <View style={{ position: 'absolute', bottom: 0, width: '100%' }}>
                         <Button
@@ -205,58 +220,66 @@ export const OptionsNavigator = props => {
         }}
     >
         <OptionsDrawerNavigator.Screen name={'Main'} component={MainPageNavigator} options={{
-            headerTintColor: 'deepskyblue',
-            drawerIcon: props => (
+            drawerActiveTintColor: 'dodgerblue',
+            drawerInactiveTintColor: 'black',
+            headerTintColor: colors.primary,
+            // drawerActiveBackgroundColor: 'black',
+            drawerIcon: ({ color }) => (
                 <Ionicons
                     name={Platform.OS === 'android' ? 'md-list' : 'ios-list'}
                     size={23}
+                    color={color}
                 />
             )
         }}
         />
         <OptionsDrawerNavigator.Screen name={"Edit user"} component={EditUserNavigator} options={{
-            headerTintColor: 'deepskyblue',
-            drawerIcon: props => (
+            headerTintColor: colors.primary,
+
+            drawerIcon: ({ color }) => (
                 <Ionicons
                     name='create-outline'
                     size={23}
+                    color={color}
                 />
             )
         }} />
         <OptionsDrawerNavigator.Screen name={"Profile Image"} component={ProfileImageHandler} options={{
-            headerTintColor: 'deepskyblue',
-            drawerIcon: props => (
+            headerTintColor: colors.primary,
+            drawerIcon: ({ color }) => (
                 <Ionicons
                     name='image-outline'
                     size={23}
+                    color={color}
                 />
             )
         }} />
         <OptionsDrawerNavigator.Screen name={"Contact Institute"} component={Contact} options={{
-            headerTintColor: 'deepskyblue',
-            drawerIcon: props => (
+            headerTintColor: colors.primary,
+            drawerIcon: ({ color }) => (
                 <Ionicons
                     name='send'
                     size={23}
+                    color={color}
                 />
             )
         }} />
         <OptionsDrawerNavigator.Screen name={"Reset Password"} component={ResetPassword} options={{
-            headerTintColor: 'deepskyblue',
-            drawerIcon: props => (
+            headerTintColor: colors.primary,
+            drawerIcon: ({ color }) => (
                 <Ionicons
                     name="key"
                     size={23}
-                    color="dodgerblue" />
+                    color={color} />
             )
         }} />
         <OptionsDrawerNavigator.Screen name={"Reset Email"} component={ResetEmail} options={{
-            headerTintColor: 'deepskyblue',
-            drawerIcon: props => (
+            headerTintColor: colors.primary,
+            drawerIcon: ({ color }) => (
                 <Ionicons
                     name="mail"
                     size={23}
-                    color="dodgerblue" />
+                    color={color} />
             )
         }} />
     </OptionsDrawerNavigator.Navigator>
@@ -323,7 +346,7 @@ export const AdminNavigator = props => {
         }}
     >
         <AdminDrawerNavigator.Screen name={'Institute Users'} component={InstituteUserNavigator} options={{
-            headerTintColor: 'deepskyblue',
+            headerTintColor: colors.primary,
             drawerIcon: props => (
                 <Ionicons
                     name={Platform.OS === 'android' ? 'md-list' : 'ios-list'}
@@ -333,7 +356,7 @@ export const AdminNavigator = props => {
         }}
         />
         <AdminDrawerNavigator.Screen name={"Edit user"} component={EditUserNavigator} options={{
-            headerTintColor: 'deepskyblue',
+            headerTintColor: colors.primary,
             drawerIcon: props => (
                 <Ionicons
                     name='create-outline'
@@ -342,7 +365,7 @@ export const AdminNavigator = props => {
             )
         }} />
         <OptionsDrawerNavigator.Screen name={"Reset Password"} component={ResetPassword} options={{
-            headerTintColor: 'deepskyblue',
+            headerTintColor: colors.primary,
             drawerIcon: props => (
                 <Ionicons
                     name="key"
@@ -351,7 +374,7 @@ export const AdminNavigator = props => {
             )
         }} />
         <OptionsDrawerNavigator.Screen name={"Reset Email"} component={ResetEmail} options={{
-            headerTintColor: 'deepskyblue',
+            headerTintColor: colors.primary,
             drawerIcon: props => (
                 <Ionicons
                     name="mail"
