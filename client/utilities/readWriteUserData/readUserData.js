@@ -13,7 +13,7 @@ export default async (uid) => {
         }
 
         const user = users[uid]
-        console.log(user)
+
         return user
     } catch (err) { console.log(err) }
 }
