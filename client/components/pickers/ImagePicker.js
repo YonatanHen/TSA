@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { View, Button, Text, StyleSheet, Image, Alert } from 'react-native'
 import * as ImagePicker from 'expo-image-picker'
 import * as Permissions from 'expo-permissions'
+import { colors } from '../../constants/colors'
 
 // import DeleteImage from '../../utilities/cloudinary/deleteImage'
 
@@ -56,13 +57,13 @@ const ImgPicker = props => {
         <View style={styles.selectImageButtonsContainer}>
             {!props.editPage && (
                 <>
-                    <Button title="Take image" onPress={() => selectImageHandler('take')} color="deepskyblue" />
+                    <Button title="Take image" onPress={() => selectImageHandler('take')} color={colors.primary} />
                     <Button title="Selcet from gallery" onPress={() => selectImageHandler('select')} />
                 </>
             )}
             {props.editPage && !pickedImage && (
                 <>
-                    <Button title="Take image" onPress={() => selectImageHandler('take')} color="deepskyblue" />
+                    <Button title="Take image" onPress={() => selectImageHandler('take')} color={colors.primary} />
                     <Button title="Selcet from gallery" onPress={() => selectImageHandler('select')} />
                 </>)}
             {props.editPage && pickedImage && <Button title="Delete image" onPress={() => deleteImageHandler()} />}

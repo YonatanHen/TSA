@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useDispatch } from 'react-redux';
 
 import { cancelLesson, approveLesson } from '../../store/actions/data/lessonsData'
+import { colors } from '../../constants/colors';
 
 
 const TutorMain = props => {
@@ -55,7 +56,7 @@ const TutorMain = props => {
                                 return (
                                     <Card style={{ backgroundColor: 'honeydew', elevation: 8, marginBottom: 10 }} key={index}>
                                         <Card.Content style={{ alignItems: 'center' }}>
-                                            <Title style={{ color: 'deepskyblue' }}>{date[0]} at {lesson.time}</Title>
+                                            <Title style={{ color: colors.primary }}>{date[0]} at {lesson.time}</Title>
                                             <Paragraph style={{ fontWeight: '600' }}>
                                                 {students[lesson.studentId].firstName} {students[lesson.studentId].lastName}- {lesson.course}
                                             </Paragraph>

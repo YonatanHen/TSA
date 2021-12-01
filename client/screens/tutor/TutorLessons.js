@@ -7,6 +7,7 @@ import 'intl/locale-data/jsonp/en';
 
 import NewLessonPicker from '../../components/pickers/newLessonPicker'
 import { useSelector } from 'react-redux';
+import { colors } from '../../constants/colors';
 
 
 const TutorLessons = props => {
@@ -39,7 +40,7 @@ const TutorLessons = props => {
                                 <Text>course: {lesson.course}</Text>
                             </View>
                         ) : (
-                            <Text style={{ color: 'deepskyblue', fontWeight: 'bold' }}>Available!</Text>
+                            <Text style={{ color: colors.primary, fontWeight: 'bold' }}>Available!</Text>
                         )}
 
                     </Card.Content>
@@ -67,7 +68,7 @@ const TutorLessons = props => {
             />
             <View style={{ alignItems: 'center' }}>
                 <View style={styles.datePickerButtonContainer}>
-                    <Button color={'deepskyblue'} title="Add" onPress={showDatePicker} />
+                    <Button color={colors.primary} title="Add" onPress={showDatePicker} />
                 </View>
             </View>
             <NewLessonPicker

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Text, View, TextInput, StyleSheet, Button, Alert, ActivityIndicator } from 'react-native'
 import { useSelector } from 'react-redux'
+import { colors } from '../../constants/colors'
 
 import sendMailToAdmin from '../../utilities/sendMailToAdmin'
 
@@ -32,8 +33,8 @@ const Contact = props => {
                 onChangeText={(text) => contentHandler(text)}
             />
             <View style={styles.buttonContainer}>
-                {isLoading ? (<ActivityIndicator size='small' color='deepskyblue' />)
-                    : (<Button title={"send"} onPress={sendHandler} color="deepskyblue" />)}
+                {isLoading ? (<ActivityIndicator size='small' color={colors.primary} />)
+                    : (<Button title={"send"} onPress={sendHandler} color={colors.primary} />)}
             </View>
         </View>
     )

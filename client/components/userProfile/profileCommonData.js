@@ -1,6 +1,7 @@
 import { Ionicons } from '@expo/vector-icons'
 import React from 'react'
 import { StyleSheet, Text, View, Image, Linking, Platform } from 'react-native'
+import { colors } from '../../constants/colors'
 import findPhoneCode from '../../utilities/findPhoneCode'
 
 export const ProfileCommonData = props => {
@@ -40,7 +41,7 @@ export const ProfileCommonData = props => {
         <>
             <View style={styles.profileContainer}>
                 <View style={styles.image}>
-                    <Image style={{ width: 180, height: 180, borderRadius: 100, borderColor: 'deepskyblue', borderWidth: 5 }}
+                    <Image style={{ width: 180, height: 180, borderRadius: 100, borderColor: colors.primary, borderWidth: 5 }}
                         source={user.imageUrl ? { uri: user.imageUrl } : require('../../images/Default-Profile-Picture.png')} />
                 </View>
                 <View style={styles.nameHeader}>
@@ -143,6 +144,6 @@ const styles = StyleSheet.create({
     },
     sectionTitleText: {
         fontWeight: 'bold',
-        color: 'deepskyblue'
+        color: colors.primary
     }
 })

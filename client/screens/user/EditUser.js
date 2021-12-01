@@ -11,6 +11,7 @@ import LocationPicker from '../../components/pickers/LocationPicker'
 import { deleteUser, updateUser } from '../../store/actions/data/userData'
 import InstitutesModal from '../../components/modals/institutesListModal'
 import { TouchableOpacity } from 'react-native-gesture-handler'
+import { colors } from '../../constants/colors'
 
 const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE';
 
@@ -227,10 +228,10 @@ const EditUser = props => {
                         onLocationPicked={locationPickedHandler}
                         currentLocation={selectedLocation}
                     />
-                    {isLoading ? (<ActivityIndicator size='small' color={'deepskyblue'} />) : (
+                    {isLoading ? (<ActivityIndicator size='small' color={colors.primary} />) : (
                         <View style={styles.buttonContainer}>
                             <View style={styles.button}>
-                                <Button title={'Submit'} color='deepskyblue' onPress={submitHandler} />
+                                <Button title={'Submit'} color={colors.primary} onPress={submitHandler} />
                             </View>
                             <TouchableOpacity onPress={deleteUserHandler}>
                                 <View style={{ marginVertical: 10 }}>

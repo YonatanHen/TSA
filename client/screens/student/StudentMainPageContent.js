@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Alert, ScrollView, StyleSheet, Text, View } from 'react-native'
 import { Card, Title, Paragraph } from 'react-native-paper'
 import { useDispatch } from 'react-redux';
+import { colors } from '../../constants/colors';
 
 import { cancelLesson } from '../../store/actions/data/lessonsData'
 
@@ -51,7 +52,7 @@ const StudentMain = props => {
                                             return (
                                                 <Card style={{ backgroundColor: 'honeydew', elevation: 8, marginBottom: 10 }} key={index} >
                                                     <Card.Content style={{ alignItems: 'center' }}>
-                                                        <Title style={{ color: 'deepskyblue' }}>{date[0]} at {lesson.time}</Title>
+                                                        <Title style={{ color: colors.primary }}>{date[0]} at {lesson.time}</Title>
                                                         <Paragraph style={{ fontWeight: '600' }}>
                                                             {tutors[tutorLessons[0]].firstName} {tutors[tutorLessons[0]].lastName}- {lesson.course}
                                                         </Paragraph>

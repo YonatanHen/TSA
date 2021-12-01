@@ -8,6 +8,7 @@ import RolePicker from '../../components/pickers/rolePicker'
 
 import { signup, login, resetPassword } from '../../store/actions/data/userData'
 import InstitutesModal from '../../components/modals/institutesListModal'
+import { colors } from '../../constants/colors'
 
 const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE';
 
@@ -206,8 +207,8 @@ const AuthScreen = props => {
             <View style={styles.buttonContainer}>
               <View style={styles.button}>
                 {isLoading ?
-                  (<ActivityIndicator size='small' color={'deepskyblue'} />) :
-                  (<Button title={isSignup ? 'Sign Up' : 'Log In'} color='deepskyblue' onPress={authHandler} />)}
+                  (<ActivityIndicator size='small' color={colors.primary} />) :
+                  (<Button title={isSignup ? 'Sign Up' : 'Log In'} color={colors.primary} onPress={authHandler} />)}
               </View>
               <View style={styles.button}>
                 <Button

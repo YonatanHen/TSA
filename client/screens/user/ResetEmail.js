@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Button, View, StyleSheet, TextInput, Alert } from 'react-native'
 import { ActivityIndicator } from 'react-native-paper'
 import { useDispatch, useSelector } from 'react-redux'
+import { colors } from '../../constants/colors'
 
 import { changeEmail } from '../../store/actions/data/userData'
 
@@ -42,7 +43,7 @@ const ResetEmail = props => {
                     />
                 <View style={{ marginTop: 10 }}>
                     {!isLoading ? (
-                        <Button title='Reset Email' onPress={submitHandler} color="deepskyblue" />
+                        <Button title='Reset Email' onPress={submitHandler} color={colors.primary} />
                     ) : (
                         <ActivityIndicator size="small" color="grey" />
                     )}

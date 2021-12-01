@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Button, View, StyleSheet, TextInput, Alert } from 'react-native'
 import { ActivityIndicator } from 'react-native-paper'
 import { useDispatch } from 'react-redux'
+import { colors } from '../../constants/colors'
 
 import { changePassword } from '../../store/actions/data/userData'
 
@@ -59,7 +60,7 @@ const ResetPassword = props => {
                 />
                 <View style={{ marginTop: 10 }}>
                     {!isLoading ? (
-                        <Button title='Reset Password' onPress={submitHandler} color="deepskyblue" />
+                        <Button title='Reset Password' onPress={submitHandler} color={colors.primary} />
                     ) : (
                         <ActivityIndicator size="small" color="grey" />
                     )}

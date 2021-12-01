@@ -7,6 +7,7 @@ import Input from '../../components/Inputs/LoginAndSignUp/Input'
 import MultipleInput from '../../components/Inputs/LoginAndSignUp/multipleInput'
 import ImagePicker from '../../components/pickers/ImagePicker'
 import LocationPicker from '../../components/pickers/LocationPicker'
+import { colors } from '../../constants/colors';
 
 import { addDataOnSignUp } from '../../store/actions/data/userData'
 
@@ -152,10 +153,10 @@ const SignUpLandingPage = props => {
                         route={props.route}
                         onLocationPicked={locationPickedHandler}
                     />
-                    {isLoading ? (<ActivityIndicator size='small' color={'deepskyblue'} />) : (
+                    {isLoading ? (<ActivityIndicator size='small' color={colors.primary} />) : (
                         <View style={styles.buttonContainer}>
                             <View style={styles.button}>
-                                <Button title={'Submit'} color='deepskyblue' onPress={submitHandler} />
+                                <Button title={'Submit'} color={colors.primary} onPress={submitHandler} />
                             </View>
                         </View>
                     )}

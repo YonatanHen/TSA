@@ -6,6 +6,7 @@ import { StackActions } from '@react-navigation/native';
 
 import { ProfileCommonData } from '../../components/userProfile/profileCommonData'
 import { disableEnableUser } from '../../store/actions/data/adminData'
+import { colors } from '../../constants/colors';
 
 const UserProfile = (props) => {
     const loggedInUser = useSelector(state => state.data)
@@ -73,7 +74,7 @@ const UserProfile = (props) => {
                 )}
                 <View style={{ alignItems: 'center', marginTop: 10 }}>
                     <Button
-                        color='deepskyblue'
+                        color={colors.primary}
                         title={`Go Back`}
                         onPress={() => props.navigation.dispatch(StackActions.pop(1))}
                     />
@@ -85,7 +86,7 @@ const UserProfile = (props) => {
                     <Ionicons //edit user
                         name='create-sharp'
                         size={40}
-                        color="deepskyblue"
+                        color={colors.primary}
                         onPress={() => console.log('pressed')}
                     />
                     <Ionicons //disable/enable user
@@ -129,7 +130,7 @@ const styles = StyleSheet.create({
     },
     sectionTitleText: {
         fontWeight: 'bold',
-        color: 'deepskyblue'
+        color: colors.primary
     },
     adminIcons: {
         flex: 1,

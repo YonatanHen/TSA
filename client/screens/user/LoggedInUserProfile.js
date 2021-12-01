@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Image, ScrollView } from 'react-native'
 import { useSelector } from 'react-redux'
 
 import { ProfileCommonData } from '../../components/userProfile/profileCommonData'
+import { colors } from '../../constants/colors'
 
 const LoggedInUserProfile = (props) => {
     const user = useSelector(state => state.data)
@@ -63,7 +64,7 @@ const styles = StyleSheet.create({
     },
     sectionTitleText: {
         fontWeight: 'bold',
-        color: 'deepskyblue'
+        color: colors.primary
     }
 })
 
