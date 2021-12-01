@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { View, SafeAreaView, Button, Image, Platform, Text } from 'react-native'
+import { View, SafeAreaView, Button, Image, Platform, Text, TouchableOpacity } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { FontAwesome5, Ionicons } from '@expo/vector-icons';
 import { createStackNavigator } from '@react-navigation/stack'
@@ -33,12 +33,35 @@ import { colors } from '../constants/colors';
 
 const headerStyle = {
     headerStyle: {
-        backgroundColor: Platform.OS === 'android' ? 'white' : colors.primary
+        backgroundColor: Platform.OS === 'android' ? colors.secondary : colors.primary,
+        borderBottomWidth: 2,
+        borderBottomColor: Platform.OS === 'android' ? colors.primary : 'white'
     },
     headerTitleStyle: {
         color: Platform.OS === 'android' ? colors.primary : 'white'
     },
     headerTitleAlign: 'center'
+}
+
+const drawerNavStyle = {
+    drawerActiveTintColor: colors.primary,
+    drawerInactiveTintColor: 'black',
+    headerTintColor: colors.primary
+}
+
+const LogoutButton = props => {
+    return (
+        <View style={{ position: 'absolute', bottom: 0, width: '100%' }}>
+            <TouchableOpacity
+                onPress={() => {
+                    props.dispatch(dataActions.logout())
+                }}
+                style={{ alignItems: 'center', marginBottom: '2%' }}
+            >
+                <Text style={{ fontSize: 20, fontFamily: 'monospace', color: colors.primary }}>Logout</Text>
+            </TouchableOpacity>
+        </View>
+    )
 }
 
 //Auth Navigators
@@ -90,7 +113,7 @@ export const TabsStudentNavigator = props => {
     return (
         <Tab.Navigator
             shifting={true}
-            barStyle={{ backgroundColor: colors.primary, paddingBottom: 5, borderTopWidth: 2, borderTopColor: colors.secondary}}
+            barStyle={{ backgroundColor: colors.primary, paddingBottom: 5, borderTopWidth: 2, borderTopColor: colors.secondary }}
             activeColor={colors.secondary}
             inactiveColor={colors.secondary}
             screenOptions={({ route }) => ({
@@ -108,9 +131,6 @@ export const TabsStudentNavigator = props => {
                             source={userImage ? { uri: userImage } : require('../images/Default-Profile-Picture.png')} />
                     }
                 },
-                tabBarActiveTintColor: 'tomato',
-                tabBarInactiveTintColor: 'gray',
-
             })}>
             <Tab.Screen name="Home" component={OptionsNavigator} />
             <Tab.Screen name="Find Tutor" component={FindTutorNavigator} />
@@ -136,7 +156,7 @@ export const TabsTutorNavigator = props => {
     return (
         <Tab.Navigator
             shifting={true}
-            barStyle={{ backgroundColor: colors.primary, paddingBottom: 5, borderTopWidth: 2, borderTopColor: colors.secondary}}
+            barStyle={{ backgroundColor: colors.primary, paddingBottom: 5, borderTopWidth: 2, borderTopColor: colors.secondary }}
             activeColor={colors.secondary}
             inactiveColor={colors.secondary}
             screenOptions={({ route }) => ({
@@ -148,17 +168,15 @@ export const TabsTutorNavigator = props => {
                     } else if (route.name === 'My Lessons') {
                         return <Ionicons name={focused ? 'library' : 'library-outline'} size={size} color={color} />;
                     } else if (route.name === 'Profile') {
-                        if(userImage) {
+                        if (userImage) {
                             return <Image style={{ width: 25, height: 25, borderRadius: 100, }}
-                            source={require('../images/Default-Profile-Picture.png')} />
+                                source={require('../images/Default-Profile-Picture.png')} />
                         } else {
                             return <Ionicons name={focused ? 'person-circle' : 'person-circle-outline'} size={size} color={color} />;
                         }
 
                     }
                 },
-                tabBarActiveTintColor: 'tomato',
-                tabBarInactiveTintColor: 'gray',
                 cardStyle: 'white'
             })}>
             <Tab.Screen name="Home" component={OptionsNavigator} />
@@ -200,30 +218,19 @@ export const OptionsNavigator = props => {
     const dispatch = useDispatch() //with the dispatch we can dispatch functions from redux store 
 
     return <OptionsDrawerNavigator.Navigator
-
         drawerContent={props => {
             return (
                 <View style={{ flex: 1, paddingTop: '30%' }}>
                     <SafeAreaView forceInset={{ top: 'always', horizontal: 'never' }}>
                         <DrawerItemList {...props} color='blue' />
                     </SafeAreaView>
-                    <View style={{ position: 'absolute', bottom: 0, width: '100%' }}>
-                        <Button
-                            title="Logout"
-                            onPress={() => {
-                                dispatch(dataActions.logout())
-                            }}
-                        />
-                    </View>
+                    <LogoutButton dispatch={dispatch}/>
                 </View>
             )
         }}
     >
         <OptionsDrawerNavigator.Screen name={'Main'} component={MainPageNavigator} options={{
-            drawerActiveTintColor: 'dodgerblue',
-            drawerInactiveTintColor: 'black',
-            headerTintColor: colors.primary,
-            // drawerActiveBackgroundColor: 'black',
+            ...drawerNavStyle,
             drawerIcon: ({ color }) => (
                 <Ionicons
                     name={Platform.OS === 'android' ? 'md-list' : 'ios-list'}
@@ -234,8 +241,7 @@ export const OptionsNavigator = props => {
         }}
         />
         <OptionsDrawerNavigator.Screen name={"Edit user"} component={EditUserNavigator} options={{
-            headerTintColor: colors.primary,
-
+            ...drawerNavStyle,
             drawerIcon: ({ color }) => (
                 <Ionicons
                     name='create-outline'
@@ -245,7 +251,7 @@ export const OptionsNavigator = props => {
             )
         }} />
         <OptionsDrawerNavigator.Screen name={"Profile Image"} component={ProfileImageHandler} options={{
-            headerTintColor: colors.primary,
+            ...drawerNavStyle,
             drawerIcon: ({ color }) => (
                 <Ionicons
                     name='image-outline'
@@ -255,7 +261,7 @@ export const OptionsNavigator = props => {
             )
         }} />
         <OptionsDrawerNavigator.Screen name={"Contact Institute"} component={Contact} options={{
-            headerTintColor: colors.primary,
+            ...drawerNavStyle,
             drawerIcon: ({ color }) => (
                 <Ionicons
                     name='send'
@@ -265,7 +271,7 @@ export const OptionsNavigator = props => {
             )
         }} />
         <OptionsDrawerNavigator.Screen name={"Reset Password"} component={ResetPassword} options={{
-            headerTintColor: colors.primary,
+            ...drawerNavStyle,
             drawerIcon: ({ color }) => (
                 <Ionicons
                     name="key"
@@ -274,7 +280,7 @@ export const OptionsNavigator = props => {
             )
         }} />
         <OptionsDrawerNavigator.Screen name={"Reset Email"} component={ResetEmail} options={{
-            headerTintColor: colors.primary,
+            ...drawerNavStyle,
             drawerIcon: ({ color }) => (
                 <Ionicons
                     name="mail"
@@ -329,57 +335,55 @@ export const AdminNavigator = props => {
                     <SafeAreaView forceInset={{ top: 'always', horizontal: 'never' }}>
                         <DrawerItemList {...props} />
                         <DrawerItem label="Export lessons to CSV"
-                            icon={() => <FontAwesome5 name="file-csv" size={23} color="green" />}
+                            labelStyle={{ color: 'black' }}
+                            icon={() => <FontAwesome5 name="file-csv" size={23} color="black" />}
                             onPress={() => dispatch(lessonsToCSV())}
                         />
                     </SafeAreaView>
-                    <View style={{ position: 'absolute', bottom: 0, width: '100%' }}>
-                        <Button
-                            title="Logout"
-                            onPress={() => {
-                                dispatch(dataActions.logout())
-                            }}
-                        />
-                    </View>
+                    <LogoutButton dispatch={dispatch}/>
                 </View>
             )
         }}
     >
         <AdminDrawerNavigator.Screen name={'Institute Users'} component={InstituteUserNavigator} options={{
-            headerTintColor: colors.primary,
-            drawerIcon: props => (
+            ...drawerNavStyle,
+            drawerIcon: ({ color }) => (
                 <Ionicons
                     name={Platform.OS === 'android' ? 'md-list' : 'ios-list'}
                     size={23}
+                    color={color}
                 />
             )
         }}
         />
         <AdminDrawerNavigator.Screen name={"Edit user"} component={EditUserNavigator} options={{
-            headerTintColor: colors.primary,
-            drawerIcon: props => (
+            ...drawerNavStyle,
+            drawerIcon: ({ color }) => (
                 <Ionicons
                     name='create-outline'
                     size={23}
+                    color={color}
                 />
             )
         }} />
         <OptionsDrawerNavigator.Screen name={"Reset Password"} component={ResetPassword} options={{
-            headerTintColor: colors.primary,
-            drawerIcon: props => (
+            ...drawerNavStyle,
+            drawerIcon: ({ color }) => (
                 <Ionicons
                     name="key"
                     size={23}
-                    color="dodgerblue" />
+                    color={color}
+                />
             )
         }} />
         <OptionsDrawerNavigator.Screen name={"Reset Email"} component={ResetEmail} options={{
-            headerTintColor: colors.primary,
-            drawerIcon: props => (
+            ...drawerNavStyle,
+            drawerIcon: ({ color }) => (
                 <Ionicons
                     name="mail"
                     size={23}
-                    color="dodgerblue" />
+                    color={color}
+                />
             )
         }} />
     </AdminDrawerNavigator.Navigator>

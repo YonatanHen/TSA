@@ -225,7 +225,7 @@ const AuthScreen = props => {
       </View>
       {!isSignup && <View style={styles.forgotPassword}>
               <Text 
-              style={{ color: 'dodgerblue', borderBottomWidth: 1, borderBottomColor: 'dodgerblue'}}
+              style={{ color: colors.secondary, borderBottomWidth: 1, borderBottomColor: colors.secondary}}
               onPress={forgotPasswordHandler}
               >
                 Forgot your password?

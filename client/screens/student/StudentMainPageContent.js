@@ -94,7 +94,7 @@ const StudentMain = props => {
 
 const styles = StyleSheet.create({
     title: {
-        color: 'dodgerblue',
+        color: colors.primary,
         fontSize: 26,
         fontWeight: 'bold'
     },

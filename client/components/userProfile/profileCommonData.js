@@ -45,7 +45,7 @@ export const ProfileCommonData = props => {
                         source={user.imageUrl ? { uri: user.imageUrl } : require('../../images/Default-Profile-Picture.png')} />
                 </View>
                 <View style={styles.nameHeader}>
-                    <Text style={{ fontSize: 30, fontWeight: 'bold', color: 'dodgerblue' }}>
+                    <Text style={{ fontSize: 30, fontWeight: 'bold', color: colors.primary }}>
                         {user.firstName} {user.lastName}
                     </Text>
                 </View>
