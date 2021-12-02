@@ -49,6 +49,11 @@ const drawerNavStyle = {
     headerTintColor: colors.primary
 }
 
+const drawerNavScreenOptions = {
+    headerBackgroundContainerStyle: { borderBottomWidth: 2, borderBottomColor: colors.primary },
+    headerStyle: {backgroundColor: colors.secondary}
+}
+
 const LogoutButton = props => {
     return (
         <View style={{ position: 'absolute', bottom: 0, width: '100%' }}>
@@ -161,8 +166,6 @@ export const TabsTutorNavigator = props => {
             inactiveColor={colors.secondary}
             screenOptions={({ route }) => ({
                 tabBarIcon: ({ focused, color, size = 25 }) => {
-                    let iconName;
-
                     if (route.name === 'Home') {
                         return <Ionicons name={focused ? 'home' : 'home-outline'} size={size} color={color} />;
                     } else if (route.name === 'My Lessons') {
@@ -218,13 +221,14 @@ export const OptionsNavigator = props => {
     const dispatch = useDispatch() //with the dispatch we can dispatch functions from redux store 
 
     return <OptionsDrawerNavigator.Navigator
+        screenOptions={drawerNavScreenOptions}
         drawerContent={props => {
             return (
                 <View style={{ flex: 1, paddingTop: '30%' }}>
                     <SafeAreaView forceInset={{ top: 'always', horizontal: 'never' }}>
                         <DrawerItemList {...props} color='blue' />
                     </SafeAreaView>
-                    <LogoutButton dispatch={dispatch}/>
+                    <LogoutButton dispatch={dispatch} />
                 </View>
             )
         }}
@@ -329,6 +333,7 @@ export const AdminNavigator = props => {
 
 
     return <AdminDrawerNavigator.Navigator
+        screenOptions={drawerNavScreenOptions}
         drawerContent={props => {
             return (
                 <View style={{ flex: 1, paddingTop: '30%' }}>
@@ -340,7 +345,7 @@ export const AdminNavigator = props => {
                             onPress={() => dispatch(lessonsToCSV())}
                         />
                     </SafeAreaView>
-                    <LogoutButton dispatch={dispatch}/>
+                    <LogoutButton dispatch={dispatch} />
                 </View>
             )
         }}
