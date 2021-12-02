@@ -41,8 +41,10 @@ export const ProfileCommonData = props => {
         <>
             <View style={styles.profileContainer}>
                 <View style={styles.image}>
-                    <Image style={{ width: 180, height: 180, borderRadius: 100, borderColor: colors.primary, borderWidth: 5 }}
-                        source={user.imageUrl ? { uri: user.imageUrl } : require('../../images/Default-Profile-Picture.png')} />
+                    {user.imageUrl ? <Image style={{ width: 180, height: 180, borderRadius: 100, borderColor: colors.primary, borderWidth: 5 }}
+                        source={{ uri: user.imageUrl }} /> : <Ionicons name="person-circle" size={160} color={colors.secondary}/>}
+                    {/* // <Image style={{ width: 180, height: 180, borderRadius: 100, borderColor: colors.primary, borderWidth: 5 }} */}
+                    {/* //     source={user.imageUrl ? { uri: user.imageUrl } :  /> */}
                 </View>
                 <View style={styles.nameHeader}>
                     <Text style={{ fontSize: 30, fontWeight: 'bold', color: colors.primary }}>
@@ -108,7 +110,7 @@ export const ProfileCommonData = props => {
                         </Text>
                 </View>
                 <View style={styles.sectionContent}>
-                    <Text style={{ fontSize: 16 }}>
+                    <Text style={{ fontSize: 16, textAlign: 'center' }}>
                         {user.bio ? user.bio : 'TBD'}
                     </Text>
                 </View>
@@ -121,7 +123,7 @@ export const ProfileCommonData = props => {
 const styles = StyleSheet.create({
     profileContainer: {
         alignItems: 'center',
-        marginBottom: '5%'
+        marginBottom: '5%',
     },
     image: {
         marginTop: '5%'
@@ -131,7 +133,8 @@ const styles = StyleSheet.create({
     },
     row: {
         flexDirection: 'row',
-        marginBottom: '3%'
+        marginBottom: '3%',
+        alignItems: 'center',
     },
     sectionTitle: {
         flex: 5,
@@ -140,7 +143,8 @@ const styles = StyleSheet.create({
     },
     sectionContent: {
         flex: 14,
-        alignItems: 'center'
+        alignItems: 'center',
+        marginHorizontal: 10,
     },
     sectionTitleText: {
         fontWeight: 'bold',
