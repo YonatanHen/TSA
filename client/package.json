@@ -42,6 +42,7 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-43.tar.gz",
     "react-native-autocomplete-dropdown": "^1.1.4",
     "react-native-autocomplete-input": "^5.0.2",
+    "react-native-calendar-events": "^2.2.0",
     "react-native-calendars": "^1.1268.0",
     "react-native-debugger": "^1.1.0",
     "react-native-dialog": "^9.2.0",

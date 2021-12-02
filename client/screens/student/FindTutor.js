@@ -8,6 +8,7 @@ import { ScrollView } from 'react-native-gesture-handler'
 import { useSelector } from 'react-redux'
 
 import distanceCalc from '../../utilities/calculateDistance'
+import { colors } from '../../constants/colors'
 
 
 
@@ -58,7 +59,7 @@ const FindTutor = props => {
             </View>
 
             <View style={styles.tutorsList}>
-                {users ? (users.tutors !== [] ? (<ScrollView>
+                {users ? (users.tutors !== [] ? (<ScrollView style={{ borderTopWidth: 1, borderTopColor: colors.primary}}>
                         {users.tutors.filter(tutor => tutor[1].institute === LoggedInUser.institute
                             && tutor[1].courses.some(course => course.toLowerCase().includes(formState.courseName.toLowerCase()))
                             && `${tutor[1].firstName} ${tutor[1].lastName}`.toLowerCase().includes(formState.TutorName.toLowerCase())
@@ -94,22 +95,6 @@ const FindTutor = props => {
         </>
     )
 }
-
-// export const screenOptions = navData => {
-//     return {
-//         headerTitle: 'Find Tutor',
-//         // headerLeft: () => (
-//         //     <HeaderButtons HeaderButtonComponent={HeaderButton}>
-//         //         <Item
-//         //             title="Find Tutor"
-//         //             onPress={() => {
-//         //                 navData.navigation.dispatch(DrawerActions.toggleDrawer());
-//         //             }}
-//         //         />
-//         //     </HeaderButtons>
-//         // )
-//     }
-// }
 
 const styles = StyleSheet.create({
     formContainer: {

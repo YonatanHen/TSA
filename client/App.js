@@ -4,6 +4,7 @@ import { Provider } from 'react-redux'
 import * as Notifications from 'expo-notifications'
 import * as TaskManager from 'expo-task-manager'
 import AppNavigator from './navigation/AppNavigator';
+import RNCalendarEvents from "react-native-calendar-events";
 
 import store from './store/store'
 import { fetchInstitutes, readAllUsers } from './store/actions/representation'
@@ -22,7 +23,6 @@ Notifications.setNotificationHandler({
 I18nManager.forceRTL(false);
 I18nManager.allowRTL(false);
 I18nManager.swapLeftAndRightInRTL(false);
-
 
 export default function App() {
 
