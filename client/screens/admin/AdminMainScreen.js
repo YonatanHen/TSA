@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, SectionList, View, TextInput, TouchableOpacity } from 'react-native'
 import { useSelector } from 'react-redux'
+import { colors } from '../../constants/colors'
 
 
 const AdminMainScreen = props => {
@@ -28,23 +29,27 @@ const AdminMainScreen = props => {
             {users ? (<SectionList
                 sections={[
                     {
-                        title: 'Tutors', data: users.tutors ?
+                        title: <Text style={{ color: colors.primary}}>Tutors</Text>, data: users.tutors ?
                             (users.tutors.filter(tutor => tutor[1].institue === adminInstitue && `${tutor[1].firstName} ${tutor[1].lastName}`.includes(searchInput))
                                 .map(tutor => {
                                     return (
                                         <TouchableOpacity onPress={() => props.navigation.navigate("User Profile", { user: tutor[1] })}>
-                                            <Text style={tutor[1].disabled ? { color: 'red' } : { color: 'black' }}>{tutor[1].firstName} {tutor[1].lastName}</Text>
+                                            <Text style={{...styles.userText, color: tutor[1].disabled ? 'red' : 'black'}}>
+                                                {tutor[1].firstName} {tutor[1].lastName} - {tutor[1].uid}
+                                            </Text>
                                         </TouchableOpacity>
                                     )
                                 })) : ['No tutors found']
                     },
                     {
-                        title: 'Students', data: users.students ?
+                        title: <Text style={{ color: colors.primary}}>Students</Text>, data: users.students ?
                             (users.students.filter(student => student[1].institue === adminInstitue && `${student[1].firstName} ${student[1].lastName}`.includes(searchInput))
                                 .map(student => {
                                     return (
                                         <TouchableOpacity onPress={() => props.navigation.navigate("User Profile", { user: student[1] })}>
-                                            <Text style={student[1].disabled ? { color: 'red' } : { color: 'black' }}>{student[1].firstName} {student[1].lastName}</Text>
+                                            <Text style={{...styles.userText, color: student[1].disabled ? 'red' : 'black'}}>
+                                                {student[1].firstName} {student[1].lastName} - {student[1].uid}
+                                            </Text>
                                         </TouchableOpacity>
                                     )
                                 })) : ['No students found.']
@@ -63,25 +68,6 @@ const AdminMainScreen = props => {
 }
 
 
-// export const screenOptions = navData => {
-//     const dispatch = useDispatch()
-//     return {
-//         headerTitle: 'Institute Users',
-//         headerRight: () => (
-//             <HeaderButtons HeaderButtonComponent={HeaderButton}>
-//                 <Item
-//                     title="Logout"
-//                     color='grey'
-//                     onPress={() => {
-//                         // navData.navigation.dispatch(DrawerActions.toggleDrawer());
-//                         dispatch(logout())
-//                     }}
-//                 />
-//             </HeaderButtons>
-//         )
-//     }
-// }
-
 const styles = StyleSheet.create({
     sectionHeader: {
         paddingTop: 2,
@@ -90,21 +76,20 @@ const styles = StyleSheet.create({
         paddingBottom: 2,
         fontSize: 14,
         fontWeight: 'bold',
-        backgroundColor: 'rgba(247,247,247,1.0)',
+        backgroundColor: colors.secondary,
     },
     inputContainer: {
         marginVertical: 20,
         paddingHorizontal: 10
     },
     input: {
-        // flex: 1,
-        // paddingHorizontal: 2,
-        // paddingVertical: 8,
         borderBottomColor: '#ccc',
         borderBottomWidth: 2,
         marginBottom: 2
+    }, 
+    userText: {
+        fontSize: 15,
     }
-
 })
 
 export default AdminMainScreen

@@ -11,13 +11,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import CoursePicker from '../../components/pickers/coursePicker'
 import { scheduleLesson } from '../../store/actions/data/lessonsData'
 import { pushToQueue, popFromQueue } from '../../store/actions/data/queueing';
+import readUserData from '../../utilities/readWriteUserData/readUserData';
 
 
 const ScheduleMeeting = props => {
     const user = useSelector(state => state.data)
     const tutorData = useSelector(state => state.representationLists.usersList.tutors).find(tutor => tutor[1].uid === props.route.params.user.uid)[1]
     const LessonsObject = useSelector(state => state.lessons.lessons)
-    
+
     const [lessons, setLessons] = useState(LessonsObject[tutorData.institute][tutorData.uid] ? LessonsObject[tutorData.institute][tutorData.uid] : {})
     const [lessonsWithDates, setLessonsWithDates] = useState()
     const [isDialogVisible, setDialogVisibility] = useState(false)
@@ -52,7 +53,7 @@ const ScheduleMeeting = props => {
             await dispatch(scheduleLesson(updatedLessons, tutorData))
             await setLessons(updatedLessons)
             setIsLessonLoading(false)
-            Alert.alert('Lesson has been added successfully!' , 'check the home screen to see lesson details.')
+            Alert.alert('Lesson has been added successfully!', 'check the home screen to see lesson details.')
             props.navigation.goBack()
         } catch (err) {
             Alert.alert('An Error occured!', err, [{ text: 'Okay' }])
@@ -105,19 +106,23 @@ const ScheduleMeeting = props => {
     const renderDay = (lesson) => {
         return (
             <View style={styles.cardContainer}>
-                <TouchableOpacity onPress={() => {
+                <TouchableOpacity onPress={async () => {
                     if (user.role !== 'admin') {
                         if (!lesson.studentId) onTimeClickHandler(lesson)
                         else Alert.alert('Alert', "You can't schedule taken lesson.", [{ text: 'Okay' }])
+                    } else if (user.role === 'admin' && lesson.studentId) {
+                        console.log(props.navigation)
+                        const student =await readUserData(lesson.studentId)
+                        props.navigation.navigate("User Profile", { user: student })
                     }
                 }}>
-                <Card style={styles.card}>
+                    <Card style={styles.card}>
                         <Card.Content>
                             <Text style={{ fontWeight: 'bold', fontSize: 16 }}>{lesson.time}</Text>
                             {lesson.studentId ? (
                                 <View>
                                     <Text style={{ color: 'red', fontWeight: 'bold', marginLeft: '0.5%' }}>
-                                        {user.role === 'admin' ? `student id: ${lesson.studentId}` : 'Busy'}
+                                        {user.role === 'admin' ? `Registered student: ${lesson.studentId}` : 'Busy'}
                                     </Text>
                                 </View>
                             ) : (
@@ -140,7 +145,7 @@ const ScheduleMeeting = props => {
                 futureScrollRange={6}
                 refreshing={isLessonLoading}
                 onRefresh={() => console.log('refreshing...')}
-                // refreshControl={null}
+            // refreshControl={null}
             />
             {user.role !== 'admin' &&
                 <View style={{ alignItems: 'center', marginBottom: 2, backgroundColor: '#f5f5f5' }}>
