@@ -42,7 +42,7 @@ export const ProfileCommonData = props => {
             <View style={styles.profileContainer}>
                 <View style={styles.image}>
                     {user.imageUrl ? <Image style={{ width: 180, height: 180, borderRadius: 100, borderColor: colors.primary, borderWidth: 5 }}
-                        source={{ uri: user.imageUrl }} /> : <Ionicons name="person-circle" size={160} color={colors.secondary}/>}
+                        source={{ uri: user.imageUrl }} /> : <Ionicons name="person-circle" size={160} color={colors.secondary} />}
                     {/* // <Image style={{ width: 180, height: 180, borderRadius: 100, borderColor: colors.primary, borderWidth: 5 }} */}
                     {/* //     source={user.imageUrl ? { uri: user.imageUrl } :  /> */}
                 </View>
@@ -53,31 +53,38 @@ export const ProfileCommonData = props => {
                 </View>
             </View>
             {loggedInUser && user.uid !== loggedInUser.uid && <View style={{ flexDirection: 'row', justifyContent: 'center', marginBottom: 15 }}>
-                <Ionicons
-                    name="logo-whatsapp"
-                    size={40}
-                    color="grey"
-                    onPress={() => openUrl('whatsapp')}
-                />
-                <Ionicons
-                    name="call"
-                    size={40}
-                    color="grey"
-                    onPress={() => openUrl('tel')}
-                />
-                <Ionicons
-                    borderWidth={2}
-                    name="mail"
-                    size={40}
-                    color="grey"
-                    onPress={() => openUrl('mail')}
-                />
-                <Ionicons
-                    name="phone-portrait"
-                    size={40}
-                    color="grey"
-                    onPress={() => openUrl('sms')}
-                />
+                <View style={styles.icon}>
+                    <Ionicons
+                        name="logo-whatsapp"
+                        size={30}
+                        color={colors.tertiary}
+                        onPress={() => openUrl('whatsapp')}
+                    />
+                </View>
+                <View style={styles.icon}>
+                    <Ionicons
+                        name="call-outline"
+                        size={30}
+                        color={colors.tertiary}
+                        onPress={() => openUrl('tel')}
+                    />
+                </View>
+                <View style={styles.icon}>
+                    <Ionicons
+                        name="mail-outline"
+                        size={30}
+                        color={colors.tertiary}
+                        onPress={() => openUrl('mail')}
+                    />
+                </View>
+                <View style={styles.icon}>
+                    <Ionicons
+                        name="phone-portrait-outline"
+                        size={30}
+                        color={colors.tertiary}
+                        onPress={() => openUrl('sms')}
+                    />
+                </View>
             </View>}
             <View style={styles.row}>
                 <View style={styles.sectionTitle}>
@@ -149,5 +156,8 @@ const styles = StyleSheet.create({
     sectionTitleText: {
         fontWeight: 'bold',
         color: colors.primary
+    },
+    icon: {
+        marginHorizontal: 3
     }
 })
