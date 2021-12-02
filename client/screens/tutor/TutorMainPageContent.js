@@ -48,10 +48,13 @@ const TutorMain = props => {
             {!!tutorLessons ? (
                 <ScrollView>
                     <View style={{ alignItems: 'center', marginBottom: 5 }}>
-                        <Text style={styles.title}>My Lessons:</Text>
+                        <Text style={styles.title}>Recent & Upcoming Lessons:</Text>
                     </View>
                     {Object.entries(tutorLessons).map(date => {
-                        return date[1].filter(lesson => lesson.studentId !== undefined)
+                        const today = new Date()
+                        return date[1].filter(lesson => lesson.studentId !== undefined &&
+                            //Filtering upcoming lessons + lessosns occured in the last 10 days.
+                            new Date(new Date(date[0]).setDate(new Date(date[0]).getDate() + 10 )) >= today)
                             .map((lesson, index) => {
                                 return (
                                     <Card style={{ backgroundColor: 'honeydew', elevation: 8, marginBottom: 10 }} key={index}>
