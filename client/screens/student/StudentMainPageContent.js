@@ -19,7 +19,6 @@ const StudentMain = props => {
     }).flat().flat()
 
     const dispatch = useDispatch()
-    console.log(upcomingLessons)
 
     const cancelLessonHandler = (tutorId, date, time) => {
         Alert.alert('Are you sure?', 'Do you want to cancel this lesson?', [

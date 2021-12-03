@@ -1,5 +1,4 @@
 import { DELETE_LESSON, ADD_LESSON, READ_LESSONS } from '../actions/data/lessonsData'
-import { } from '../actions/data/lessonsData'
 
 const initialState = {
     lessons: {}

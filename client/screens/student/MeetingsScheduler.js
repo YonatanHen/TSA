@@ -13,7 +13,6 @@ import { scheduleLesson } from '../../store/actions/data/lessonsData'
 import { pushToQueue, popFromQueue } from '../../store/actions/data/queueing';
 import readUserData from '../../utilities/readWriteUserData/readUserData';
 
-
 const ScheduleMeeting = props => {
     const user = useSelector(state => state.data)
     const tutorData = useSelector(state => state.representationLists.usersList.tutors).find(tutor => tutor[1].uid === props.route.params.user.uid)[1]

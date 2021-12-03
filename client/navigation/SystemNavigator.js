@@ -319,8 +319,8 @@ export const InstituteUserNavigator = () => {
     return (
         <InstituteUserStackNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' }, ...headerStyle }}>
             <InstituteUserStackNavigator.Screen name="Admin Main" component={AdminMainScreen} options={{ headerShown: false }} />
-            <InstituteUserStackNavigator.Screen name="User Profile" component={UserProfile} />
-            <InstituteUserStackNavigator.Screen name='Tutor Lessons' component={MeetingsScheduler} />
+            <InstituteUserStackNavigator.Screen name="User Profile" component={UserProfile} options={{ headerShown: false }}/>
+            <InstituteUserStackNavigator.Screen name='Tutor Lessons' component={MeetingsScheduler} options={{ headerShown: false }}/>
         </InstituteUserStackNavigator.Navigator>
     )
 }

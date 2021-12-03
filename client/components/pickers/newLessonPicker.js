@@ -18,7 +18,7 @@ export default props => {
     var startTime = await pickedTime.toLocaleTimeString('en-GB', { hour12: false , hour: '2-digit', minute: '2-digit' })
     var endTime = new Date(pickedTime.setHours(pickedTime.getHours() + 1)).toLocaleTimeString('en-GB', { hour12: false , hour: '2-digit', minute: '2-digit' })
 
-    const newLessons = lessons[date] ? {...lessons, [date]: [...lessons[date] , {time: `${startTime} - ${endTime}`}]} : {...lessons, [date]: [{time: `${startTime} - ${endTime}`}]}
+    const newLessons = lessons[date] ? {...lessons, [date]: [...lessons[date] , {time: `${startTime} - ${endTime}`, date: date}]} : {...lessons, [date]: [{time: `${startTime} - ${endTime}`, date: date}]}
 
     try {
       dispatch(addLesson(newLessons))
