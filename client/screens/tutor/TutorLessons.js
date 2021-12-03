@@ -35,50 +35,37 @@ const TutorLessons = props => {
 
 
     const renderDay = (lesson) => {
-        console.log(new Date(lesson.date))
-        console.log(new Date(date))
-        if (new Date(lesson.date).getTime() === new Date(date).getTime()) {
-            return (
-                <View style={styles.cardContainer}>
-                    <Card style={styles.card}>
-                        <Card.Content>
-                            <Text style={{ fontWeight: 'bold', fontSize: 16 }}>{lesson.time}</Text>
-                            {lesson.studentId ? (
-                                <View>
-                                    <Text>student: {students[lesson.studentId].firstName} {students[lesson.studentId].lastName}</Text>
-                                    <Text>course: {lesson.course}</Text>
-                                </View>
-                            ) : (
-                                <View>
-                                    <Text style={{ color: colors.primary, fontWeight: 'bold' }}>Available!</Text>
-                                    <TouchableOpacity onPress={() => {
-                                        try {
-                                            dispatch(deleteLesson(user.uid, date, lesson.time))
-                                            let newLessons = { ...lessons[user.institute][user.uid], [date]: lessons[user.institute][user.uid][date].filter(l => (l.time !== lesson.time && new Date(lesson.date).getTime() !== new Date(date).getTime())) }
-                                            if (lessons[user.institute][user.uid][date].length == 0) delete lessons[user.institute][user.uid][date]
-                                            setLessons(newLessons)
-                                        } catch (err) {
-                                            console.log(err)
-                                            Alert.alert('Error!', 'make sure that you select the correct date for the lesson you are trying to delete.')
-                                        }
-                                    }}>
-                                        <Text style={{ color: 'red', letterSpacing: 0.5, textDecorationLine: 'underline' }} >Delete</Text>
-                                    </TouchableOpacity>
-                                </View>
-                            )}
-                        </Card.Content>
-                    </Card>
-                </View>
-            )
-        } else return (
+        return (
             <View style={styles.cardContainer}>
-            <Card style={styles.card}>
-                <Card.Content>
-                        <View>
-                            <Text>Click on the date in the calendar to see details!</Text>
-                        </View>
-                </Card.Content>
-            </Card>
+                <Card style={styles.card}>
+                    <Card.Content>
+                        <Text style={{ fontWeight: 'bold', fontSize: 16 }}>{lesson.time}</Text>
+                        {lesson.studentId ? (
+                            <View>
+                                <Text>student: {students[lesson.studentId].firstName} {students[lesson.studentId].lastName}</Text>
+                                <Text>course: {lesson.course}</Text>
+                            </View>
+                        ) : (
+                            <View>
+                                <Text style={{ color: colors.primary, fontWeight: 'bold' }}>Available!</Text>
+                                {(new Date(lesson.date).getTime() === new Date(date).getTime()) && <TouchableOpacity onPress={() => {
+                                    try {
+                                        console.log(lessons[user.institute][user.uid][date])
+                                        dispatch(deleteLesson(user.uid, date, lesson.time))
+                                        let newLessons = { ...lessons[user.institute][user.uid], [date]: lessons[user.institute][user.uid][date].filter(l => (l.time !== lesson.time && new Date(lesson.date).getTime() === new Date(date).getTime())) }
+                                        if (lessons[user.institute][user.uid][date].length == 0) delete lessons[user.institute][user.uid][date]
+                                        setLessons(newLessons)
+                                    } catch (err) {
+                                        console.log(err)
+                                        Alert.alert('Error!', 'make sure that you select the correct date for the lesson you are trying to delete.')
+                                    }
+                                }}>
+                                    <Text style={{ color: 'red', letterSpacing: 0.5, textDecorationLine: 'underline' }} >Delete</Text>
+                                </TouchableOpacity>}
+                            </View>
+                        )}
+                    </Card.Content>
+                </Card>
             </View>
         )
     }

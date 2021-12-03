@@ -52,7 +52,7 @@ const TutorMain = props => {
                     </View>
                     {Object.entries(tutorLessons).map(date => {
                         const today = new Date()
-                        return date[1].filter(lesson => lesson.studentId !== undefined &&
+                        return date[1].filter(lesson => lesson && lesson.studentId &&
                             //Filtering upcoming lessons + lessosns occured in the last 10 days.
                             new Date(new Date(date[0]).setDate(new Date(date[0]).getDate() + 10 )) >= today)
                             .map((lesson, index) => {

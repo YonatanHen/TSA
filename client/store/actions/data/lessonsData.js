@@ -83,13 +83,18 @@ export const deleteLesson = (tutorUid, lessonDate, lessonTime) => {
 
         const lessonIndex = lessonsInDate.findIndex((lesson) => lesson.time === lessonTime)
 
+        lessonsInDate = await lessonsInDate.filter((lesson, index) => index !== lessonIndex)
+
+        console.log(lessonsInDate)
+
         const response2 = await fetch(
-            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/lessons/${user.institute}/${tutorUid}/${lessonDate}/${lessonIndex}.json?token=${user.token}`,
+            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/lessons/${user.institute}/${tutorUid}.json?token=${user.token}`,
             {
-                method: 'DELETE',
+                method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json'
-                }
+                },
+                body: JSON.stringify({[lessonDate]: {...lessonsInDate}})
             })
 
         if (!response2.ok) {
