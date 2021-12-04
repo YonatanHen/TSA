@@ -278,9 +278,11 @@ export const deleteUser = () => {
             }
         ).then(res => res.json())
             .then(() => {
-                axios.post(`http://${IP_ADDRESS}:8000/delete-image/`, {
-                    imageUrl: imageUrl
-                })
+                if (imageUrl) {
+                    axios.post(`http://${IP_ADDRESS}:8000/delete-image/`, {
+                        imageUrl: imageUrl
+                    })
+                }
             }).catch(err => {
                 throw new Error('Error in delete user details!')
             })

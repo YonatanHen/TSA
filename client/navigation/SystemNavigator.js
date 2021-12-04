@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { View, SafeAreaView, Button, Image, Platform, Text, TouchableOpacity } from 'react-native'
+import { View, SafeAreaView, Button, Image, Platform, Text, TouchableOpacity, Alert, Linking } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { FontAwesome5, Ionicons } from '@expo/vector-icons';
 import { createStackNavigator } from '@react-navigation/stack'
@@ -133,7 +133,7 @@ export const TabsStudentNavigator = props => {
                     } else if (route.name === 'Profile') {
                         if (userImage) {
                             return <Image style={{ width: 25, height: 25, borderRadius: 100, }}
-                                source={{uri: userImage}} />
+                                source={{ uri: userImage }} />
                         } else {
                             return <Ionicons name={focused ? 'person-circle' : 'person-circle-outline'} size={size} color={color} />;
                         }
@@ -178,7 +178,7 @@ export const TabsTutorNavigator = props => {
                     } else if (route.name === 'Profile') {
                         if (userImage) {
                             return <Image style={{ width: 25, height: 25, borderRadius: 100, }}
-                                source={{uri: userImage}} />
+                                source={{ uri: userImage }} />
                         } else {
                             return <Ionicons name={focused ? 'person-circle' : 'person-circle-outline'} size={size} color={color} />;
                         }
@@ -346,7 +346,7 @@ export const AdminNavigator = props => {
                         <DrawerItemList {...props} />
                         <DrawerItem label="Export lessons to CSV"
                             labelStyle={{ color: 'black' }}
-                            icon={() => <FontAwesome5 name="file-csv" size={23} color="black" />}
+                            icon={() => <FontAwesome5 name="file-csv" size={23} color="black" style={{ marginLeft: 3 }} />}
                             onPress={() => dispatch(lessonsToCSV())}
                         />
                     </SafeAreaView>
@@ -366,16 +366,6 @@ export const AdminNavigator = props => {
             )
         }}
         />
-        <AdminDrawerNavigator.Screen name={"Edit user"} component={EditUserNavigator} options={{
-            ...drawerNavStyle,
-            drawerIcon: ({ color }) => (
-                <Ionicons
-                    name='create-outline'
-                    size={23}
-                    color={color}
-                />
-            )
-        }} />
         <OptionsDrawerNavigator.Screen name={"Reset Password"} component={ResetPassword} options={{
             ...drawerNavStyle,
             drawerIcon: ({ color }) => (
@@ -396,6 +386,18 @@ export const AdminNavigator = props => {
                 />
             )
         }} />
+        <OptionsDrawerNavigator.Screen name={"Contact App Team"} options={{
+            ...drawerNavStyle,
+            drawerIcon: ({ color }) => (
+                <Ionicons
+                    name="pencil"
+                    size={23}
+                    color={color}
+                />
+            )
+        }}> 
+        {props => <Contact {...props} sendMailToAppTeam={true}/>}
+        </OptionsDrawerNavigator.Screen>
     </AdminDrawerNavigator.Navigator>
 }
 

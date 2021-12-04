@@ -4,8 +4,10 @@ import { useSelector } from 'react-redux'
 import { colors } from '../../constants/colors'
 
 import sendMailToAdmin from '../../utilities/sendMailToAdmin'
+import sendMailToAppTeam from '../../utilities/sendMailToAppTeam'
 
 const Contact = props => {
+    console.log(props.sendMailToAppTeam)
     const user = useSelector(state => state.data)
     const [content, contentHandler] = useState('')
     const [isLoading, setIsLoading] = useState(false)
@@ -13,7 +15,11 @@ const Contact = props => {
     const sendHandler = async () => {
         try {
             setIsLoading(true)
-            await sendMailToAdmin(user.institute, user.email, `${user.firstName} ${user.lastName}`, content)
+            if (props.sendMailToAppTeam) {
+                sendMailToAppTeam(user.email, `${user.firstName} ${user.lastName}`, content)
+            } else {
+                await sendMailToAdmin(user.institute, user.email, `${user.firstName} ${user.lastName}`, content)
+            }
             Alert.alert('Message has been sent successfully')
         } catch (err) {
             console.log(err)
@@ -28,7 +34,7 @@ const Contact = props => {
             <TextInput
                 numberOfLines={8}
                 multiline
-                placeholder="Write a message to your institute admin"
+                placeholder={`Write a message to ${props.sendMailToAppTeam ? 'app team' : 'your institute admin'}`}
                 style={styles.textAreaInput}
                 onChangeText={(text) => contentHandler(text)}
             />
