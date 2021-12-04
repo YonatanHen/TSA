@@ -51,7 +51,7 @@ const drawerNavStyle = {
 
 const drawerNavScreenOptions = {
     headerBackgroundContainerStyle: { borderBottomWidth: 2, borderBottomColor: colors.primary },
-    headerStyle: {backgroundColor: colors.secondary}
+    headerStyle: { backgroundColor: colors.secondary }
 }
 
 const LogoutButton = props => {
@@ -130,12 +130,17 @@ export const TabsStudentNavigator = props => {
 
                     } else if (route.name === 'Find Tutor') {
                         return <Ionicons name={focused ? 'search' : 'search-outline'} size={size} color={color} />;
-                    }
-                    else if (route.name === 'Profile') {
-                        return <Image style={{ width: 25, height: 25, borderRadius: 100, }}
-                            source={userImage ? { uri: userImage } : require('../images/Default-Profile-Picture.png')} />
+                    } else if (route.name === 'Profile') {
+                        if (userImage) {
+                            return <Image style={{ width: 25, height: 25, borderRadius: 100, }}
+                                source={{uri: userImage}} />
+                        } else {
+                            return <Ionicons name={focused ? 'person-circle' : 'person-circle-outline'} size={size} color={color} />;
+                        }
+
                     }
                 },
+                cardStyle: 'white'
             })}>
             <Tab.Screen name="Home" component={OptionsNavigator} />
             <Tab.Screen name="Find Tutor" component={FindTutorNavigator} />
@@ -173,7 +178,7 @@ export const TabsTutorNavigator = props => {
                     } else if (route.name === 'Profile') {
                         if (userImage) {
                             return <Image style={{ width: 25, height: 25, borderRadius: 100, }}
-                                source={require('../images/Default-Profile-Picture.png')} />
+                                source={{uri: userImage}} />
                         } else {
                             return <Ionicons name={focused ? 'person-circle' : 'person-circle-outline'} size={size} color={color} />;
                         }
@@ -319,8 +324,8 @@ export const InstituteUserNavigator = () => {
     return (
         <InstituteUserStackNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' }, ...headerStyle }}>
             <InstituteUserStackNavigator.Screen name="Admin Main" component={AdminMainScreen} options={{ headerShown: false }} />
-            <InstituteUserStackNavigator.Screen name="User Profile" component={UserProfile} options={{ headerShown: false }}/>
-            <InstituteUserStackNavigator.Screen name='Tutor Lessons' component={MeetingsScheduler} options={{ headerShown: false }}/>
+            <InstituteUserStackNavigator.Screen name="User Profile" component={UserProfile} options={{ headerShown: false }} />
+            <InstituteUserStackNavigator.Screen name='Tutor Lessons' component={MeetingsScheduler} options={{ headerShown: false }} />
         </InstituteUserStackNavigator.Navigator>
     )
 }
