@@ -20,16 +20,16 @@ router.post('/send-email', async (req, res) => {
     var message = {
 
         // sender info
-        from: `${name} ${addressed}`,
+        from: `"${name !== 'null null' ? name : 'User that messed with troubles'}" <${addressed}>`,
 
         // Comma separated list of recipients
         to: addressee,
 
         // Subject of the message
-        subject: `New message from ${name} - TSA`,
+        subject: name !== 'null null' ? `New message from ${name} - TSA` : 'User that messed with troubles',
 
         // plaintext body
-        text: content
+        text: content + `\nPlease respond to ${addressed}.`
     };
 
     console.log('Sending Mail');

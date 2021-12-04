@@ -10,13 +10,14 @@ const Contact = props => {
     console.log(props.sendMailToAppTeam)
     const user = useSelector(state => state.data)
     const [content, contentHandler] = useState('')
+    const [email, emailaddressHandler] = useState(user.email ? user.email : '')
     const [isLoading, setIsLoading] = useState(false)
 
     const sendHandler = async () => {
         try {
             setIsLoading(true)
             if (props.sendMailToAppTeam) {
-                sendMailToAppTeam(user.email, `${user.firstName} ${user.lastName}`, content)
+                sendMailToAppTeam(email, `${user.firstName} ${user.lastName}`, content)
             } else {
                 await sendMailToAdmin(user.institute, user.email, `${user.firstName} ${user.lastName}`, content)
             }
@@ -31,6 +32,12 @@ const Contact = props => {
 
     return (
         <View>
+            <TextInput 
+                style={styles.textInput}
+                placeholder='Type your email, make sure that address is valid.'
+                value={user.email ? user.email : email}
+                onChangeText={(text) => emailaddressHandler(text)}
+            />
             <TextInput
                 numberOfLines={8}
                 multiline
@@ -47,6 +54,13 @@ const Contact = props => {
 }
 
 const styles = StyleSheet.create({
+    textInput: {
+        borderBottomColor: '#ccc',
+        borderBottomWidth: 2,
+        marginBottom: 5,
+        padding: 5,
+        marginHorizontal: 10
+    },
     textAreaInput: {
         borderColor: '#ccc',
         borderWidth: 2,
