@@ -223,12 +223,18 @@ const AuthScreen = props => {
           </ScrollView>
         </View>
       </View>
-      {!isSignup && <View style={styles.forgotPassword}>
+      {!isSignup && <View style={styles.touchablesBottom}>
               <Text 
-              style={{ color: colors.secondary, borderBottomWidth: 1, borderBottomColor: colors.secondary}}
+              style={styles.underlinedText}
               onPress={forgotPasswordHandler}
               >
                 Forgot your password?
+              </Text>
+              <Text 
+              style={styles.underlinedText}
+              onPress={() => props.navigation.navigate('Contact')}
+              >
+                Having Troubles? contact us!
               </Text>
             </View>}
     </KeyboardAvoidingView >
@@ -267,11 +273,14 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginLeft: 2
   },
-  forgotPassword: {
+  touchablesBottom: {
     marginTop: 'auto',
     alignItems: 'center',
     bottom: 10
-
+  },
+  underlinedText: {
+    color: colors.secondary, 
+    textDecorationLine: 'underline'
   }
 })
 

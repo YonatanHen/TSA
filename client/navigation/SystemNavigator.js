@@ -77,6 +77,9 @@ export const AuthNavigator = () => {
     return (
         <AuthStackNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' }, ...headerStyle }}>
             <AuthStackNavigator.Screen name="Auth" component={AuthScreen} options={{ headerTitle: 'TSA' }} />
+            <AuthStackNavigator.Screen name="Contact" options={{ headerTitle: 'Contact Us!' }}>
+                {props => <Contact {...props} sendMailToAppTeam={true} />}
+            </AuthStackNavigator.Screen>
         </AuthStackNavigator.Navigator>
     )
 }
@@ -395,8 +398,8 @@ export const AdminNavigator = props => {
                     color={color}
                 />
             )
-        }}> 
-        {props => <Contact {...props} sendMailToAppTeam={true}/>}
+        }}>
+            {props => <Contact {...props} sendMailToAppTeam={true} />}
         </OptionsDrawerNavigator.Screen>
     </AdminDrawerNavigator.Navigator>
 }
