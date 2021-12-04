@@ -15,11 +15,10 @@ const StudentMain = props => {
     const upcomingLessons = Object.entries(lessons).map(tutorLessons => {
         return (
             Object.entries(tutorLessons[1]).map(date => {
-                console.log(date)
                 return (
                     date[1].filter(lesson => lesson.studentId === loggedInUser.uid &&
-                        today <= new Date(`${date[0]}T${lesson.time.split(' ')[0]}`).setDate(new Date(date[0]).getDate() + 10)
-                    ))
+                        today <= new Date(`${date[0]}T${lesson.time.split(' ')[0]}`)
+                        ))
             }))
     }).flat().flat()
 
@@ -52,37 +51,36 @@ const StudentMain = props => {
                                 return (
                                     date[1].filter(lesson => lesson.studentId === loggedInUser.uid
                                         &&
-                                        today <= new Date(new Date(`${date[0]}T${lesson.time.split(' ')[0]}`)).setDate(new Date(date[0]).getDate() + 10
+                                        today <= new Date(`${date[0]}T${lesson.time.split(' ')[0]}`)
                                     )
-                                )
-                                    .map((lesson, index) => {
-                                        return (
-                                            <Card style={{ backgroundColor: 'honeydew', elevation: 8, marginBottom: 10 }} key={index} >
-                                                <Card.Content style={{ alignItems: 'center' }}>
-                                                    <Title style={{ color: colors.primary }}>{date[0]} at {lesson.time}</Title>
-                                                    <Paragraph style={{ fontWeight: '600' }}>
-                                                        {tutors[tutorLessons[0]].firstName} {tutors[tutorLessons[0]].lastName}- {lesson.course}
-                                                    </Paragraph>
-                                                    <View style={styles.icons}>
-                                                        <Ionicons
-                                                            name="person"
-                                                            size={25}
-                                                            color="slategray"
-                                                            onPress={() => {
-                                                                navigation.navigate("Main", { screen: 'User Profile', params: { user: tutors[tutorLessons[0]] } })
-                                                            }}
-                                                        />
-                                                        <Ionicons
-                                                            name="close"
-                                                            size={25}
-                                                            color="red"
-                                                            onPress={() => cancelLessonHandler(tutorLessons[0], date[0], lesson.time)}
-                                                        />
-                                                    </View>
-                                                </Card.Content>
-                                            </Card>
-                                        )
-                                    })
+                                        .map((lesson, index) => {
+                                            return (
+                                                <Card style={{ backgroundColor: 'honeydew', elevation: 8, marginBottom: 10 }} key={index} >
+                                                    <Card.Content style={{ alignItems: 'center' }}>
+                                                        <Title style={{ color: colors.primary }}>{date[0]} at {lesson.time}</Title>
+                                                        <Paragraph style={{ fontWeight: '600' }}>
+                                                            {tutors[tutorLessons[0]].firstName} {tutors[tutorLessons[0]].lastName}- {lesson.course}
+                                                        </Paragraph>
+                                                        <View style={styles.icons}>
+                                                            <Ionicons
+                                                                name="person"
+                                                                size={25}
+                                                                color="slategray"
+                                                                onPress={() => {
+                                                                    navigation.navigate("Main", { screen: 'User Profile', params: { user: tutors[tutorLessons[0]] } })
+                                                                }}
+                                                            />
+                                                            <Ionicons
+                                                                name="close"
+                                                                size={25}
+                                                                color="red"
+                                                                onPress={() => cancelLessonHandler(tutorLessons[0], date[0], lesson.time)}
+                                                            />
+                                                        </View>
+                                                    </Card.Content>
+                                                </Card>
+                                            )
+                                        })
                                 )
                             })
                         )
