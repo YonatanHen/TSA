@@ -15,6 +15,8 @@ const TutorMain = props => {
 
     const dispatch = useDispatch()
 
+    const today = new Date()
+
     const cancelLessonHandler = (date, time) => {
         Alert.alert('Are you sure?', 'Do you want to cancel this lesson?', [
             {
@@ -51,10 +53,10 @@ const TutorMain = props => {
                         <Text style={styles.title}>Recent & Upcoming Lessons:</Text>
                     </View>
                     {Object.entries(tutorLessons).map(date => {
-                        const today = new Date()
                         return date[1].filter(lesson => lesson && lesson.studentId &&
                             //Filtering upcoming lessons + lessosns occured in the last 10 days.
-                            new Date(new Date(date[0]).setDate(new Date(date[0]).getDate() + 10 )) >= today)
+                            new Date(new Date(`${date[0]}T${lesson.time.split(' ')[0]}`).setDate(new Date(date[0]).getDate() + 10)) >= today
+                        )
                             .map((lesson, index) => {
                                 return (
                                     <Card style={{ backgroundColor: 'honeydew', elevation: 8, marginBottom: 10 }} key={index}>
@@ -76,7 +78,7 @@ const TutorMain = props => {
                                                     name="checkmark"
                                                     size={25}
                                                     color={lesson.approved ? "darkgreen" : "lightgrey"}
-                                                onPress={() => approveLessonHandler(date[0], lesson.time, lesson.approved)}
+                                                    onPress={() => approveLessonHandler(date[0], lesson.time, lesson.approved)}
                                                 />
                                                 <Ionicons
                                                     name="close"
