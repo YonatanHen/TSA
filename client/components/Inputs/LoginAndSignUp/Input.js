@@ -1,5 +1,6 @@
 import React, { useReducer, useEffect } from 'react'
 import { TextInput, StyleSheet, View, Text } from 'react-native'
+import { Ionicons } from '@expo/vector-icons'
 
 const INPUT_CHANGE = 'INPUT_CHANGE';
 const INPUT_BLUR = 'INPUT_BLUR';
@@ -80,6 +81,13 @@ const Input = props => {
         value={inputState.value}
         onChangeText={textChangeHandler}
       />
+      {(props.password || props.email) &&
+        (<Ionicons 
+          style={{position: 'absolute', right: 10, bottom: 10 }}
+          name={props.password ? 'key-outline' : 'mail'}
+          size={20}
+          color='#ccc'
+        />)}
       {!inputState.isValid && (
         <View style={styles.errorContainer}>
           <Text style={styles.errorText}>{props.errorText}</Text>
