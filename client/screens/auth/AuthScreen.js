@@ -172,7 +172,7 @@ const AuthScreen = props => {
                   keyboardType="default"
                   errorText="Please enter a valid name."
                   onInputChange={inputChangeHandler}
-                  initialValue="t"
+                  initialValue=""
                 />
                 <Input
                   required
@@ -182,7 +182,7 @@ const AuthScreen = props => {
                   keyboardType="default"
                   errorText="Please enter a valid name."
                   onInputChange={inputChangeHandler}
-                  initialValue="t"
+                  initialValue=""
                 />
                 <View style={styles.autoCompleteInstituteContainer}>
                   <View style={styles.autoCompleteInput}>
@@ -191,7 +191,7 @@ const AuthScreen = props => {
                       id="institute"
                       onInputChange={inputChangeHandler}
                       placeholder='Institute Name'
-                      initialValue="Sami Shamoon College of Engineering"
+                      initialValue=""
                     />
                   </View>
                   <View style={styles.findButtonContainer}>

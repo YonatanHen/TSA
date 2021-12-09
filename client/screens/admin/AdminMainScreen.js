@@ -7,7 +7,10 @@ import { colors } from '../../constants/colors'
 const AdminMainScreen = props => {
     const [searchInput, setSearchInput] = useState('')
     const users = useSelector(state => state.representationLists.usersList)
-    const adminInstitue = useSelector(state => state.data.institue)
+    const adminInstitue = useSelector(state => state.data.institute)
+
+    const filteredTutors = users.tutors.filter(tutor => tutor[1].institute == adminInstitue)
+    const filteredStudents = users.students.filter(student => student[1].institute == adminInstitue)
 
     useEffect(() => {
     }, [users, searchInput])
@@ -29,26 +32,26 @@ const AdminMainScreen = props => {
             {users ? (<SectionList
                 sections={[
                     {
-                        title: <Text style={{ color: colors.primary}}>Tutors</Text>, data: users.tutors ?
-                            (users.tutors.filter(tutor => tutor[1].institue === adminInstitue && `${tutor[1].firstName} ${tutor[1].lastName}`.includes(searchInput))
+                        title: <Text style={{ color: colors.primary}}>Tutors</Text>, data: filteredTutors.length > 0 ?
+                            (filteredTutors.filter(tutor => `${tutor[1].firstName} ${tutor[1].lastName}`.includes(searchInput))
                                 .map(tutor => {
                                     return (
                                         <TouchableOpacity onPress={() => props.navigation.navigate("User Profile", { user: tutor[1] })}>
                                             <Text style={{...styles.userText, color: tutor[1].disabled ? 'red' : 'black'}}>
-                                                {tutor[1].firstName} {tutor[1].lastName} - {tutor[1].uid}
+                                                {tutor[1].firstName} {tutor[1].lastName} | {tutor[1].uid}
                                             </Text>
                                         </TouchableOpacity>
                                     )
                                 })) : ['No tutors found']
                     },
                     {
-                        title: <Text style={{ color: colors.primary}}>Students</Text>, data: users.students ?
-                            (users.students.filter(student => student[1].institue === adminInstitue && `${student[1].firstName} ${student[1].lastName}`.includes(searchInput))
+                        title: <Text style={{ color: colors.primary}}>Students</Text>, data: filteredStudents.length > 0 ?
+                            (filteredStudents.filter(student => `${student[1].firstName} ${student[1].lastName}`.includes(searchInput))
                                 .map(student => {
                                     return (
                                         <TouchableOpacity onPress={() => props.navigation.navigate("User Profile", { user: student[1] })}>
                                             <Text style={{...styles.userText, color: student[1].disabled ? 'red' : 'black'}}>
-                                                {student[1].firstName} {student[1].lastName} - {student[1].uid}
+                                                {student[1].firstName} {student[1].lastName} | {student[1].uid}
                                             </Text>
                                         </TouchableOpacity>
                                     )
