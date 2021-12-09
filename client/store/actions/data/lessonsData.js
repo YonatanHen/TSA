@@ -54,7 +54,7 @@ export const addLesson = (lessons) => {
 
         //Notify studetns in the queue only if there are any.
         if (queue && queue.length > 0) {
-            await axios.post(`http://10.0.0.5:8000/notify-students`, {
+            await axios.post(`https://tsa-server1.herokuapp.com/notify-students`, {
                 tokensQueue: await queue.map(object => { return object.token }),
                 tutorName: user.firstName + ' ' + user.lastName
             })

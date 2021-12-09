@@ -3,7 +3,7 @@ import axios from 'axios'
 
 export default sendMailToAppTeam = (addressed, name, content) => {
 
-    axios.post(`http://${IP_ADDRESS}:8000/send-email`, {
+    axios.post(`https://tsa-server1.herokuapp.com/send-email`, {
         addressee: DEVELOPMENT_TEAM_EMAIL,
         addressed: addressed,
         name: name,

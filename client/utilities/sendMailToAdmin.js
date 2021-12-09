@@ -11,7 +11,7 @@ export default sendMailToAdmin = async (institute, addressed, name, content) => 
     const Admin = await Object.entries(resData).find(admin => admin[1].institute === institute)
     const addressee = Admin[1].email
 
-    axios.post(`http://${IP_ADDRESS}:8000/send-email`, {
+    axios.post(`https://tsa-server1.herokuapp.com/send-email`, {
         addressee: addressee,
         addressed: addressed,
         name: name,

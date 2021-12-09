@@ -35,7 +35,7 @@ export const deleteProfilePicture = () => {
     return async (dispatch, getState) => {
         const user = getState().data
 
-        await axios.post(`http://${IP_ADDRESS}:8000/delete-image/`, {
+        await axios.post(`https://tsa-server1.herokuapp.com/delete-image/`, {
             imageUrl: user.imageUrl
         })
             .then(res => dispatch({

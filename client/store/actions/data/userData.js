@@ -102,7 +102,7 @@ export const login = (email, password) => {
             throw new Error('Account is disabled. please contact your institute for more info.')
         }
 
-        axios.get(`http://${IP_ADDRESS}:8000/login`)
+        axios.get(`https://tsa-server1.herokuapp.com/login`)
             .catch(err => console.log(err))
 
         // await dispatch(readAllUsers())
@@ -279,7 +279,7 @@ export const deleteUser = () => {
         ).then(res => res.json())
             .then(() => {
                 if (imageUrl) {
-                    axios.post(`http://${IP_ADDRESS}:8000/delete-image/`, {
+                    axios.post(`https://tsa-server1.herokuapp.com/delete-image/`, {
                         imageUrl: imageUrl
                     })
                 }
