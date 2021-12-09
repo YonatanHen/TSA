@@ -103,6 +103,7 @@ export const login = (email, password) => {
         }
 
         axios.get(`https://tsa-server1.herokuapp.com/login`)
+        .then(res => console.log(res))
             .catch(err => console.log(err))
 
         // await dispatch(readAllUsers())
