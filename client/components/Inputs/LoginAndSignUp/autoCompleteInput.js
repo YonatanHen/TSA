@@ -54,7 +54,7 @@ const AutoCompleteInput = props => {
         if (filteredList.length == 1) {
             text = filteredList[0]
             setinstituteName(filteredList[0])
-            setFilteredList([])
+            // setFilteredList([])
         }
 
         dispatch({ type: INPUT_CHANGE, value: text, isValid: true })
@@ -76,7 +76,7 @@ const AutoCompleteInput = props => {
                 }
                 onChangeText={(text) => findInstitute(text)}
             />
-            {inputState.value !== instituteName && (
+            {instituteName !== '' && inputState.value !== instituteName && (
                 <View style={styles.errorContainer}>
                     <Text style={styles.errorText}>Did you mean {instituteName} ?</Text>
                 </View>
