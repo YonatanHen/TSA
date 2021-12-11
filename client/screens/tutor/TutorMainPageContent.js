@@ -13,7 +13,7 @@ const TutorMain = props => {
 
     const tutorLessons = lessons ? lessons[loggedInUser.uid] : undefined
 
-    const isAScheduledLesson = Object.entries(tutorLessons).find(lesson => lesson[1][0].studentId) //Respectively to database arrangement
+    const isAScheduledLesson = tutorLessons && Object.entries(tutorLessons).find(lesson => lesson[1][0].studentId) //Respectively to database arrangement
 
     const dispatch = useDispatch()
 

@@ -103,7 +103,7 @@ export const login = (email, password) => {
         }
 
         axios.get(`https://tsa-server1.herokuapp.com/login`)
-        // .then(res => console.log(res))
+            // .then(res => console.log(res))
             .catch(err => console.log(err))
 
         // await dispatch(readAllUsers())
@@ -251,6 +251,7 @@ export const deleteUser = () => {
         const uid = getState().data.uid
         const role = getState().data.role
         const imageUrl = getState().data.imageUrl
+        const institute = getState().data.institute
 
 
         let response = await fetch(
@@ -288,6 +289,24 @@ export const deleteUser = () => {
                 throw new Error('Error in delete user details!')
             })
 
+
+        if (role === 'tutor') {
+            response = await fetch(
+                `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/lessons/${institute}/${uid}.json?auth=${token}`,
+                {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }
+            ).then(res => res.json())
+                .catch(err => {
+                    throw new Error('Error in delete tutor lessons')
+                })
+
+            await dispatch(readLessons())
+        }
+        
         await dispatch(readAllUsers())
 
         await dispatch({

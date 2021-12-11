@@ -85,7 +85,6 @@ export const deleteLesson = (tutorUid, lessonDate, lessonTime) => {
 
         lessonsInDate = await lessonsInDate.filter((lesson, index) => index !== lessonIndex)
 
-        console.log(lessonsInDate)
 
         const response2 = await fetch(
             `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/lessons/${user.institute}/${tutorUid}.json?token=${user.token}`,
