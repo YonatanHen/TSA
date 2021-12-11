@@ -56,7 +56,8 @@ export const addLesson = (lessons) => {
         if (queue && queue.length > 0) {
             await axios.post(`https://tsa-server1.herokuapp.com/notify-students`, {
                 tokensQueue: await queue.map(object => { return object.token }),
-                tutorName: user.firstName + ' ' + user.lastName
+                title:`${user.firstName + ' ' + user.lastName} has added new available lesson`,
+                body: 'Enter the TSA app to check this out'
             })
             // .then((res) => console.log('success'))
             //     .catch((err) => { throw new Error(err) })

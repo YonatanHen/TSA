@@ -1,6 +1,5 @@
 const express = require('express')
 const router = new express.Router()
-// const request = require('request')
 const { Expo } = require('expo-server-sdk')
 const expo = new Expo()
 
@@ -9,8 +8,9 @@ function wait(ms) {
 }
 
 router.post('/notify-students', async (req, res) => {
+    const { title, body } = req.body
     var tokensQueue = req.body.tokensQueue
-    const tutorName = req.body.tutorName
+
     const initialLength = tokensQueue.length
     for (let i = 0; i < initialLength; i++) {
         let token = await tokensQueue.shift()
@@ -21,9 +21,8 @@ router.post('/notify-students', async (req, res) => {
             const messages = []
             const message = {
                 to: `${token}`,
-                data: { extraData: 'Some data' },
-                title: `${tutorName} has added new available lesson`,
-                body: 'Enter the TSA app to check this out',
+                title: title,
+                body: body,
             }
 
 
@@ -106,37 +105,3 @@ router.post('/notify-students', async (req, res) => {
 })
 
 module.exports = router
-
-// for (let i = 0; i < initialLength; i++) {
-    //         let token = tokensQueue.shift()
-    //         let message = {
-    //             to: token,
-    //             sound: 'default',
-    //             title: 'New Available lesson!',
-    //             body: `${tutorName} has been added new lesson, check this out!`,
-    //             // data: { someData: 'goes here' },
-    //         };
-
-    //         request.post({
-    //             url: 'https://exp.host/--/api/v2/push/send',
-    //             json: false,
-    //             headers: {
-    //                 Accept: 'application/json',
-    //                 'Accept-encoding': 'gzip, deflate',
-    //                 'Content-Type': 'application/json',
-    //             },
-    //             body: JSON.stringify(message),
-    //         }, (err, response, body) => {
-    //             if (err) {
-    //                 console.log(err)
-    //             } else if (response.statusCode === 200) {
-    //                 console.log('message sent')
-    //             } else {
-    //                 console.log(response.statusCode);
-    //             }
-    //         })
-    //         res.send()
-
-    //         i < initialLength && await setTimeout(() => {console.log('waiting...')}, 3000)
-    //     }
-
