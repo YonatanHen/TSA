@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between'
     },
     addButtonContainer: {
-        height: '40%',
+        // height: '80%',
         marginTop: 10,
         marginLeft: 2
     },
