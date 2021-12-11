@@ -56,7 +56,7 @@ export const addLesson = (lessons) => {
         if (queue && queue.length > 0) {
             await axios.post(`https://tsa-server1.herokuapp.com/notify-students`, {
                 tokensQueue: await queue.map(object => { return object.token }),
-                title:`${user.firstName + ' ' + user.lastName} has added new available lesson`,
+                title: `${user.firstName + ' ' + user.lastName} has added new available lesson`,
                 body: 'Enter the TSA app to check this out'
             })
         }
@@ -92,7 +92,7 @@ export const deleteLesson = (tutorUid, lessonDate, lessonTime) => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({[lessonDate]: {...lessonsInDate}})
+                body: JSON.stringify({ [lessonDate]: { ...lessonsInDate } })
             })
 
         if (!response2.ok) {
@@ -108,6 +108,7 @@ export const deleteLesson = (tutorUid, lessonDate, lessonTime) => {
 export const cancelLesson = (tutorUid, lessonDate, lessonTime) => {
     return async (dispatch, getState) => {
         const user = getState().data
+        var queue = user.studentsQueue
 
         const response1 = await fetch(
             `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/lessons/${user.institute}/${tutorUid}/${lessonDate}.json`)
@@ -120,7 +121,7 @@ export const cancelLesson = (tutorUid, lessonDate, lessonTime) => {
 
         const lessonIndex = lessonsInDate.findIndex((lesson) => lesson.time === lessonTime)
 
-        lessonsInDate[lessonIndex] = { time: lessonsInDate[lessonIndex].time }
+        lessonsInDate[lessonIndex] = { time: lessonsInDate[lessonIndex].time, date: lessonDate }
 
         const response2 = await fetch(
             `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/lessons/${user.institute}/${tutorUid}/${lessonDate}.json?token=${user.token}`,
@@ -136,9 +137,16 @@ export const cancelLesson = (tutorUid, lessonDate, lessonTime) => {
             throw new Error("Can't cancel lesson! please try again later.")
         }
 
-
         await dispatch(readLessons())
 
+        //Notify studetns in the queue only if there are any.
+        if (queue && queue.length > 0) {
+            await axios.post(`https://tsa-server1.herokuapp.com/notify-students`, {
+                tokensQueue: await queue.map(object => { return object.token }),
+                title: `There is a new available lesson with ${user.firstName + ' ' + user.lastName}`,
+                body: 'Enter the TSA app to check this out'
+            })
+        }
     }
 }
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { ScrollView, StyleSheet, Text, View, Alert } from 'react-native'
 import { Card, Title, Paragraph } from 'react-native-paper'
 import { Ionicons } from '@expo/vector-icons';
@@ -12,12 +12,9 @@ const TutorMain = props => {
     const { loggedInUser, students, lessons, navigation } = props
 
     const tutorLessons = lessons ? lessons[loggedInUser.uid] : undefined
-
-    const isAScheduledLesson = tutorLessons && Object.entries(tutorLessons).find(lesson => lesson[1][0].studentId) //Respectively to database arrangement
-
-    const dispatch = useDispatch()
-
     const today = new Date()
+    
+    const dispatch = useDispatch()
 
     const cancelLessonHandler = (date, time) => {
         Alert.alert('Are you sure?', 'Do you want to cancel this lesson?', [
@@ -47,10 +44,12 @@ const TutorMain = props => {
         ])
     }
 
+
     return (
         <View>
-            {!!isAScheduledLesson ? (
+            {tutorLessons && Object.entries(tutorLessons).find(date => date[1].some(lesson => lesson.studentId)) ? (
                 <ScrollView>
+                    {console.log(Object.entries(tutorLessons).find(date => date[1].some(lesson => lesson.studentId)))}
                     <View style={{ alignItems: 'center', marginBottom: 5 }}>
                         <Text style={styles.title}>Recent & Upcoming Lessons:</Text>
                     </View>
