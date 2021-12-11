@@ -59,8 +59,6 @@ export const addLesson = (lessons) => {
                 title:`${user.firstName + ' ' + user.lastName} has added new available lesson`,
                 body: 'Enter the TSA app to check this out'
             })
-            // .then((res) => console.log('success'))
-            //     .catch((err) => { throw new Error(err) })
         }
 
         await dispatch({
