@@ -304,6 +304,12 @@ export const deleteUser = () => {
                     throw new Error('Error in delete tutor lessons')
                 })
 
+                //In case I will implement notifications
+                //fromEntries to student data in store
+                //filter over lessons and find lessons with StudentId field
+                //check which student i need to notify (save in an array maybe?)
+                //import the saved token, send to server and notify there
+
             await dispatch(readLessons())
         }
         

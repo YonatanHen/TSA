@@ -65,23 +65,25 @@ const TutorMain = props => {
                                         <Card.Content style={{ alignItems: 'center' }}>
                                             <Title style={{ color: colors.primary }}>{date[0]} at {lesson.time}</Title>
                                             <Paragraph style={{ fontWeight: '600' }}>
-                                                {students[lesson.studentId].firstName} {students[lesson.studentId].lastName}- {lesson.course}
+                                                {students[lesson.studentId] ?
+                                                    `${students[lesson.studentId].firstName} ${students[lesson.studentId].lastName}- ${lesson.course}` :
+                                                    'The student delete his account\nContact your institute for more info.'}
                                             </Paragraph>
                                             <View style={styles.icons}>
-                                                <Ionicons
+                                                {students[lesson.studentId] && <Ionicons
                                                     name="person"
                                                     size={25}
                                                     color="slategray"
                                                     onPress={() => {
                                                         navigation.navigate("Main", { screen: 'User Profile', params: { user: students[lesson.studentId] } })
                                                     }}
-                                                />
-                                                <Ionicons
+                                                />}
+                                                {students[lesson.studentId] && <Ionicons
                                                     name="checkmark"
                                                     size={25}
                                                     color={lesson.approved ? "darkgreen" : "lightgrey"}
                                                     onPress={() => approveLessonHandler(date[0], lesson.time, lesson.approved)}
-                                                />
+                                                />}
                                                 <Ionicons
                                                     name="close"
                                                     size={25}
