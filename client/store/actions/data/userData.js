@@ -101,14 +101,7 @@ export const login = (email, password) => {
         if (user.disabled) {
             throw new Error('Account is disabled. please contact your institute for more info.')
         }
-
-        axios.get(`https://tsa-server1.herokuapp.com/login`)
-            // .then(res => console.log(res))
-            .catch(err => console.log(err))
-
-        // await dispatch(readAllUsers())
-        // await dispatch(readLessons())
-
+        
         dispatch({
             type: SIGNIN,
             token: resData.idToken,
