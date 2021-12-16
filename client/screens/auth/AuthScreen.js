@@ -9,6 +9,7 @@ import RolePicker from '../../components/pickers/rolePicker'
 import { signup, login, resetPassword } from '../../store/actions/data/userData'
 import InstitutesModal from '../../components/modals/institutesListModal'
 import { colors } from '../../constants/colors'
+import { Ionicons } from '@expo/vector-icons'
 
 const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE';
 
@@ -195,7 +196,12 @@ const AuthScreen = props => {
                     />
                   </View>
                   <View style={styles.findButtonContainer}>
-                    <Button title='Find' onPress={() => setIsModalShown(true)} />
+                    <Ionicons 
+                      name='search-circle-outline'
+                      size={32}
+                      color={colors.tertiary}
+                      onPress={() => setIsModalShown(true)}
+                    />
                     <InstitutesModal
                       isShown={isModalShown}
                       setIsModalShown={setIsModalShown}

@@ -1,3 +1,4 @@
+import { Ionicons } from '@expo/vector-icons';
 import React, { useReducer, useState, useEffect } from 'react'
 import { TextInput, StyleSheet, View, Text, ActivityIndicator, SafeAreaView, ScrollView } from 'react-native'
 import Autocomplete from 'react-native-autocomplete-input'
@@ -43,18 +44,15 @@ const AutoCompleteInput = props => {
 
     const findInstitute = (text) => {
         if (text) {
-            // setIsLoading(true)
             setFilteredList(
                 institutesList.filter(institute => institute && institute.toLowerCase().includes(text.toLowerCase()))
             )
-            // setIsLoading(false)
         } else {
             setFilteredList([])
         }
         if (filteredList.length == 1) {
             text = filteredList[0]
             setinstituteName(filteredList[0])
-            // setFilteredList([])
         }
 
         dispatch({ type: INPUT_CHANGE, value: text, isValid: true })
@@ -76,6 +74,14 @@ const AutoCompleteInput = props => {
                 }
                 onChangeText={(text) => findInstitute(text)}
             />
+            {(inputState.value !== '') &&
+                (<Ionicons
+                    style={{ position: 'absolute', right: '3%', bottom: '40%' }}
+                    name='trash-outline'
+                    size={23}
+                    color='red'
+                    onPress={() => dispatch({ type: INPUT_CHANGE, value: '', isValid: true })}
+                />)}
             {instituteName !== '' && inputState.value !== instituteName && (
                 <View style={styles.errorContainer}>
                     <Text style={styles.errorText}>Did you mean {instituteName} ?</Text>
@@ -103,7 +109,7 @@ const styles = StyleSheet.create({
     },
     errorText: {
         color: 'mediumaquamarine'
-      }
+    }
 });
 
 export default AutoCompleteInput
