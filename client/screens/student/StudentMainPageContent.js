@@ -12,7 +12,7 @@ const StudentMain = props => {
 
     const today = new Date()
 
-    const upcomingLessons = Object.entries(lessons).map(tutorLessons => {
+    const upcomingLessons = (lessons ? Object.entries(lessons).map(tutorLessons => {
         return (
             Object.entries(tutorLessons[1]).map(date => {
                 return (
@@ -20,7 +20,7 @@ const StudentMain = props => {
                         today <= new Date(`${date[0]}T${lesson.time.split(' ')[0]}`)
                         ))
             }))
-    }).flat().flat()
+    }).flat().flat() : [])
 
     const dispatch = useDispatch()
 

@@ -76,7 +76,7 @@ const AutoCompleteInput = props => {
             />
             {(inputState.value !== '') &&
                 (<Ionicons
-                    style={{ position: 'absolute', right: '3%', bottom: '40%' }}
+                    style={{ position: 'absolute', right: '3%', bottom: '20%' }}
                     name='trash-outline'
                     size={23}
                     color='red'

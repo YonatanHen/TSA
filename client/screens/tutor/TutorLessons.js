@@ -18,7 +18,7 @@ const TutorLessons = props => {
     const user = useSelector(state => state.data)
     const lessons = useSelector(state => state.lessons.lessons)
     const users = useSelector(state => state.representationLists.usersList)
-    const [tutorLessons, setLessons] = useState(lessons && lessons[user.institute][user.uid] ? lessons[user.institute][user.uid] : {})
+    const [tutorLessons, setLessons] = useState(lessons && lessons[user.institute] && lessons[user.institute][user.uid] ? lessons[user.institute][user.uid] : {})
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
     const [date, setDate] = useState(null)
 
