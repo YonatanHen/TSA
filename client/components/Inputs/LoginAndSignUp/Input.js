@@ -74,7 +74,7 @@ const Input = props => {
 
 
   return (
-    <View style={styles.inputContainer}>
+    <View style={{}}>
       <TextInput
         {...props}
         style={props.isTextArea ? styles.textAreaInput : styles.input}
@@ -83,13 +83,13 @@ const Input = props => {
       />
       {(props.password || props.email) &&
         (<Ionicons 
-          style={{position: 'absolute', right: 10, bottom: 10 }}
+          style={{position: 'absolute', right: 10, top: 20 }}
           name={props.password ? 'key-outline' : 'mail'}
           size={20}
           color='#ccc'
         />)}
       {!inputState.isValid && (
-        <View style={styles.errorContainer}>
+        <View>
           <Text style={styles.errorText}>{props.errorText}</Text>
         </View>
       )}
