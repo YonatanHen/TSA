@@ -285,7 +285,7 @@ const styles = StyleSheet.create({
     bottom: 10
   },
   underlinedText: {
-    color: colors.secondary, 
+    color: colors.primary, 
     textDecorationLine: 'underline'
   }
 })
