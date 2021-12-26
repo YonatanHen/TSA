@@ -145,7 +145,7 @@ const AuthScreen = props => {
               keyboardType="email-address"
               errorText="Please enter a valid email address."
               onInputChange={inputChangeHandler}
-              initialValue="test83@test.com"
+              initialValue=""
             />
             <Input
               required
@@ -156,7 +156,7 @@ const AuthScreen = props => {
               errorText={isSignup ? "Valid password must conatain one letter, one number and 6 charcates at least" : "Please enter a valid password"}
               secureTextEntry={true}
               onInputChange={inputChangeHandler}
-              initialValue="123456A"
+              initialValue=""
             />
             {isSignup && (
               <>

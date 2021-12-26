@@ -58,8 +58,9 @@ const StudentMain = props => {
                                                 <Card style={{ backgroundColor: 'honeydew', elevation: 8, marginBottom: 10 }} key={index} >
                                                     <Card.Content style={{ alignItems: 'center' }}>
                                                         <Title style={{ color: colors.primary }}>{date[0]} at {lesson.time}</Title>
-                                                        <Paragraph style={{ fontWeight: '600' }}>
+                                                        <Paragraph style={{ fontWeight: '600', textAlign: 'center' }}>
                                                             {tutors[tutorLessons[0]].firstName} {tutors[tutorLessons[0]].lastName}- {lesson.course}
+                                                            {lesson.approved && <Text style={{ color: 'green' }}>{'\n'}Lesson Approved</Text>}
                                                         </Paragraph>
                                                         <View style={styles.icons}>
                                                             <Ionicons
