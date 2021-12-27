@@ -14,13 +14,13 @@ const RolePicker = props => {
     return (
         <View style={styles.picker}>
             <View>
-                <Text>Select Role: </Text>
+                <Text style={{ color: '#b5b5b5' }}>Select Role: </Text>
             </View>
             <View>
                 <Picker
                     mode='dialog'
                     selectedValue={selectedValue}
-                    style={{ height: 50, width: 150 }}
+                    style={{ height: 50, width: 150, color: '#969696' }}
                     onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
                 >
                     <Picker.Item label="Admin" value="admin" />

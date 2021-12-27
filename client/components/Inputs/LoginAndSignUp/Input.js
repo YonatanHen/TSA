@@ -88,7 +88,7 @@ const Input = props => {
           size={20}
           color='#ccc'
         />)}
-      {!inputState.isValid && (
+      {!inputState.isValid && inputState.value !== '' && (
         <View>
           <Text style={styles.errorText}>{props.errorText}</Text>
         </View>
