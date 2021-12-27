@@ -55,7 +55,7 @@ const StudentMain = props => {
                                     )
                                         .map((lesson, index) => {
                                             return (
-                                                <Card style={{ backgroundColor: 'honeydew', elevation: 8, marginBottom: 10 }} key={index} >
+                                                <Card style={styles.card} key={index} >
                                                     <Card.Content style={{ alignItems: 'center' }}>
                                                         <Title style={{ color: colors.primary }}>{date[0]} at {lesson.time}</Title>
                                                         <Paragraph style={{ fontWeight: '600', textAlign: 'center' }}>
@@ -103,6 +103,12 @@ const styles = StyleSheet.create({
         color: colors.primary,
         fontSize: 26,
         fontWeight: 'bold'
+    },
+    card: {
+        backgroundColor: 'honeydew',
+        elevation: 1, 
+        marginBottom: 10, 
+        borderRadius: 30
     },
     noLessonsContainer: {
         flex: 1,

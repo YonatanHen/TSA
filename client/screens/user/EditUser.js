@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useReducer } from 'react'
+import React, { useEffect, useState, useCallback, useReducer, useRef } from 'react'
 import { Button, KeyboardAvoidingView, ScrollView, StyleSheet, Text, View, ActivityIndicator, Alert, Keyboard } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -40,7 +40,7 @@ const formReducer = (state, action) => {
 
 //Building the signing up at first, later we will add the login :)
 const EditUser = props => {
-    const user = useSelector(state => state.data)
+    const user =  useSelector(state => state.data)
 
     const [selectedLocation, setSelectedLocation] = useState(user.locationCords)
     const [error, setError] = useState()
@@ -144,16 +144,6 @@ const EditUser = props => {
         >
             <View style={styles.inputForm}>
                 <ScrollView>
-                    {/* <Input
-                        required
-                        email
-                        id="email"
-                        placeholder="E-Mail"
-                        keyboardType="email-address"
-                        errorText="Please enter a valid email address."
-                        onInputChange={inputChangeHandler}
-                        initialValue={user.email}
-                    /> */}
                     <Input
                         required
                         id="fname"
@@ -205,7 +195,7 @@ const EditUser = props => {
                         <MultipleInput
                             id="courses"
                             placeholder='add courses, delete by typing on course name'
-                            initialValue={user.courses}
+                            initialValue={user.courses ? user.courses : []}
                             required
                             onInputChange={inputChangeHandler}
                             maxLength={100}

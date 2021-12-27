@@ -43,8 +43,6 @@ export const ProfileCommonData = props => {
                 <View style={styles.image}>
                     {user.imageUrl ? <Image style={{ width: 180, height: 180, borderRadius: 100, borderColor: colors.primary, borderWidth: 5 }}
                         source={{ uri: user.imageUrl }} /> : <Ionicons name="person-circle" size={160} color={colors.secondary} />}
-                    {/* // <Image style={{ width: 180, height: 180, borderRadius: 100, borderColor: colors.primary, borderWidth: 5 }} */}
-                    {/* //     source={user.imageUrl ? { uri: user.imageUrl } :  /> */}
                 </View>
                 <View style={styles.nameHeader}>
                     <Text style={{ fontSize: 30, fontWeight: 'bold', color: colors.primary }}>
@@ -113,7 +111,7 @@ export const ProfileCommonData = props => {
             <View style={styles.row}>
                 <View style={styles.sectionTitle}>
                     <Text style={{ fontSize: 16, ...styles.sectionTitleText }}>
-                        Bio:
+                        About:
                         </Text>
                 </View>
                 <View style={styles.sectionContent}>

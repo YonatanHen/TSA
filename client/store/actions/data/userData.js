@@ -189,10 +189,10 @@ export const addDataOnSignUp = (role, bio, image, courses = undefined, phone, lo
     }
 }
 
-export const updateUser = (fname, lname, institute, bio, courses = undefined, phone, location) => {
+export const updateUser = (fname, lname, institute, bio, courses = undefined, phone, location, userId = undefined) => {
     return async (dispatch, getState) => {
         const token = getState().data.token
-        const uid = getState().data.uid
+        const uid = userId ? userId : getState().data.uid
         const role = getState().data.role
 
         let city, country = undefined

@@ -34,6 +34,7 @@ const UserProfile = (props) => {
     }
 
     return (
+        <View style= {{ flex: 1 }}>
         <ScrollView style={{ flexDirection: 'column' }}>
             <ProfileCommonData user={user} loggedInUser={loggedInUser} />
             {user.role === 'tutor' && (
@@ -45,13 +46,15 @@ const UserProfile = (props) => {
                         </Text>
                         </View>
                         <View style={styles.sectionContent}>
-                            {user.courses.map((course) => {
+                            {user.courses ? (user.courses.map((course) => {
                                 return (
                                     <Text key={course}>
                                         {course}
                                     </Text>
                                 )
-                            })}
+                            })) : (
+                                <Text style={{ fontSize: 16 }}>No courses entered</Text>
+                            )}
 
                         </View>
                     </View>
@@ -78,25 +81,22 @@ const UserProfile = (props) => {
                     onPress={() => props.navigation.dispatch(StackActions.pop(1))}
                 />
             </View>
-
-            {loggedInUser.role === 'admin' && (<View style={styles.adminIcons}>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <Ionicons //edit user
-                        name='create-sharp'
-                        size={40}
-                        color={colors.primary}
-                        onPress={() => console.log('pressed')}
-                    />
+        </ScrollView>
+        {loggedInUser.role === 'admin' && (
+                <View style={{
+                    // marginTop: 'auto',
+                    alignItems: 'center',
+                    bottom: 10
+                }}>
                     <Ionicons //disable/enable user
                         name={user.disabled ? 'cloud-sharp' : 'cloud-offline-sharp'}
-                        size={40}
+                        size={30}
                         color={user.disabled ? 'green' : 'red'}
                         onPress={() => disableUserHandler()}
                     />
                 </View>
-            </View>
             )}
-        </ScrollView>
+        </View>
     )
 }
 
@@ -130,8 +130,8 @@ const styles = StyleSheet.create({
         color: colors.primary
     },
     adminIcons: {
-        flex: 1,
-        alignItems: 'center',
+        // flex: 1,
+        // alignItems: 'center',
     }
 })
 
