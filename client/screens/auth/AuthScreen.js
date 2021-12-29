@@ -191,8 +191,9 @@ const AuthScreen = props => {
                       required
                       id="institute"
                       onInputChange={inputChangeHandler}
-                      placeholder='Institute Name'
-                      initialValue=""
+                      placeholder='Institute Name - autcomplete input'
+                      initialValue=''
+                      selectedValue={formState.inputValues.institute}
                     />
                   </View>
                   <View style={styles.findButtonContainer}>
@@ -206,6 +207,7 @@ const AuthScreen = props => {
                       isShown={isModalShown}
                       setIsModalShown={setIsModalShown}
                       input={formState.inputValues.institute}
+                      onInputChange={inputChangeHandler}
                     />
                   </View>
                 </View>

@@ -30,13 +30,13 @@ const AutoCompleteInput = props => {
     const [filteredList, setFilteredList] = useState([])
     const [inputState, dispatch] = useReducer(inputReducer, {
         value: props.initialValue ? props.initialValue : '',
-        isValid: props.initiallyValid,
+        isValid: props.initialValue !== '',
         touched: false
     })
 
     //fetch the institutes list from the store
     const institutesList = useSelector(state => state.representationLists.institutesList)
-    const { onInputChange, id } = props;
+    const { onInputChange, id, selectedValue } = props;
 
     useEffect(() => {
         onInputChange(id, inputState.value, inputState.isValid)
@@ -69,7 +69,7 @@ const AutoCompleteInput = props => {
                 // data={filteredList}
                 defaultValue={
                     inputState.value === '' ?
-                        '' :
+                        (selectedValue ? selectedValue : '') :
                         inputState.value
                 }
                 onChangeText={(text) => findInstitute(text)}
