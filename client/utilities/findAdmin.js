@@ -9,8 +9,6 @@ export default findAdmin = async (institute, role) => {
         const isAdmin = [...Object.entries(resData)].filter(admin => admin[1].institute === institute)
         const isExist = isAdmin.length > 0
 
-        console.log(isAdmin)
-
         if ((role === 'admin' && !isExist) || (role !== 'admin' && isExist)) {
             return
         }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Modal, View, StyleSheet, Pressable, Text, SafeAreaView, FlatList } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler';
 import { useSelector } from 'react-redux';
@@ -26,7 +26,7 @@ const InstitutesModal = props => {
                     <Text style={{ fontSize: 20 , color: 'dodgerblue'}}>Institutes List: </Text>
                         <SafeAreaView style={styles.container}>
                             <FlatList
-                                data={institutesList}
+                                data={institutesList.filter(institute => institute!== undefined && institute.toLowerCase().includes(props.input.toLowerCase()))}
                                 renderItem={(institute) => <View style={{ marginVertical: 4 }}>
                                     <Text>{institute.item}</Text>
                                 </View>}

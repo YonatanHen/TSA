@@ -17,8 +17,6 @@ export const pushToQueue = (tutorData, studentId, pushToken) => {
             newQueue.push({id: studentId, token: pushToken})
         }
 
-        console.log('new queue is' + newQueue)
-
         const updatedTutor = { ...tutorData, studentsQueue: newQueue }
         await writeUserData(updatedTutor)
 

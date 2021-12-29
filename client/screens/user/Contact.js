@@ -7,7 +7,6 @@ import sendMailToAdmin from '../../utilities/sendMailToAdmin'
 import sendMailToAppTeam from '../../utilities/sendMailToAppTeam'
 
 const Contact = props => {
-    console.log(props.sendMailToAppTeam)
     const user = useSelector(state => state.data)
     const [content, contentHandler] = useState('')
     const [email, emailaddressHandler] = useState(user.email ? user.email : '')

@@ -205,6 +205,7 @@ const AuthScreen = props => {
                     <InstitutesModal
                       isShown={isModalShown}
                       setIsModalShown={setIsModalShown}
+                      input={formState.inputValues.institute}
                     />
                   </View>
                 </View>

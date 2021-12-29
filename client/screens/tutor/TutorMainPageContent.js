@@ -49,7 +49,6 @@ const TutorMain = props => {
         <View>
             {tutorLessons && Object.entries(tutorLessons).find(date => date[1].some(lesson => lesson.studentId)) ? (
                 <ScrollView>
-                    {console.log(Object.entries(tutorLessons).find(date => date[1].some(lesson => lesson.studentId)))}
                     <View style={{ alignItems: 'center', marginBottom: 5 }}>
                         <Text style={styles.title}>Recent & Upcoming Lessons:</Text>
                     </View>

@@ -28,8 +28,6 @@ const MapScreen = props => {
       console.log('LOCATION NOT SELECTED')
       return
     }
-    console.log(selectedLocation)
-
     props.navigation.navigate('Edit User', { pickedLocation: selectedLocation })
   }, [selectedLocation])
 
