@@ -190,6 +190,7 @@ const AuthScreen = props => {
                     <AutoCompleteInput
                       required
                       id="institute"
+                      editable={true}
                       onInputChange={inputChangeHandler}
                       placeholder='Institute Name - autcomplete input'
                       initialValue=''

@@ -2,7 +2,11 @@
   "expo": {
     "plugins": [
       [
-        "expo-notifications"
+        "expo-notifications",
+        {
+          "icon": "./assets/notification_icon.png",
+          "color": "#00bfff"
+        }
       ]
     ],
     "name": "students-scheduler",
@@ -11,10 +15,11 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
       "notification":{
-         "icon":"./assets/notification_icon.png"
+         "icon": "./assets/notification_icon.png",
+         "color": "#00bfff"
       },
     "splash": {
-      "image": "./assets/icon.png",
+      "image": "./assets/splash_icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },

@@ -74,7 +74,7 @@ const AutoCompleteInput = props => {
                 }
                 onChangeText={(text) => findInstitute(text)}
             />
-            {(inputState.value !== '') &&
+            {(inputState.value !== '' && props.editable) &&
                 (<Ionicons
                     style={{ position: 'absolute', right: 3, top: 15 }}
                     name='trash-outline'
@@ -85,6 +85,11 @@ const AutoCompleteInput = props => {
             {instituteName !== '' && inputState.value !== instituteName && (
                 <View style={styles.errorContainer}>
                     <Text style={styles.errorText}>Did you mean {instituteName} ?</Text>
+                </View>
+            )}
+            {!props.editable && (
+                <View style={styles.errorContainer}>
+                    <Text style={styles.errorText}>To change the institue you must open a new user.</Text>
                 </View>
             )}
         </View>

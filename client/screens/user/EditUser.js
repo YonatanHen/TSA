@@ -40,7 +40,7 @@ const formReducer = (state, action) => {
 
 //Building the signing up at first, later we will add the login :)
 const EditUser = props => {
-    const user =  useSelector(state => state.data)
+    const user = useSelector(state => state.data)
 
     const [selectedLocation, setSelectedLocation] = useState(user.locationCords)
     const [error, setError] = useState()
@@ -167,16 +167,11 @@ const EditUser = props => {
                             <AutoCompleteInput
                                 required
                                 id="institute"
+                                editable={false}
                                 onInputChange={inputChangeHandler}
                                 placeholder='Institute Name'
                                 initialValue={user.institute}
-                            />
-                        </View>
-                        <View style={styles.findButtonContainer}>
-                            <Button title='Find' onPress={() => setIsModalShown(true)} />
-                            <InstitutesModal
-                                isShown={isModalShown}
-                                setIsModalShown={setIsModalShown}
+                                selectedValue={formState.inputValues.institute}
                             />
                         </View>
                     </View>
@@ -258,7 +253,8 @@ styles = StyleSheet.create({
     },
     autoCompleteInstituteContainer: {
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        marginBottom: 10
     },
     autoCompleteInput: {
         flex: 1
