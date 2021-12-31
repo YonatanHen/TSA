@@ -54,6 +54,21 @@ const drawerNavScreenOptions = {
     headerStyle: { backgroundColor: colors.secondary }
 }
 
+const barStyle = {
+    backgroundColor: colors.primary,
+    paddingBottom: 5,
+    borderTopWidth: 2,
+    borderTopColor: colors.secondary
+}
+
+const barImageStyle = {
+    width: 26,
+    height: 26,
+    borderRadius: 100,
+    borderColor: colors.secondary,
+    borderWidth: 1
+}
+
 const LogoutButton = props => {
     return (
         <View style={{ position: 'absolute', bottom: 0, width: '100%' }}>
@@ -109,7 +124,7 @@ const ProfileStackNavigator = createStackNavigator()
 export const UserProfileNavigator = () => {
     return (
         <ProfileStackNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' }, ...headerStyle }}>
-            <ProfileStackNavigator.Screen name="User Profile" component={LoggedInUserProfile} options={{headerShown: false}}/>
+            <ProfileStackNavigator.Screen name="User Profile" component={LoggedInUserProfile} options={{ headerShown: false }} />
         </ProfileStackNavigator.Navigator>
     )
 }
@@ -121,7 +136,7 @@ export const TabsStudentNavigator = props => {
     return (
         <Tab.Navigator
             shifting={true}
-            barStyle={{ backgroundColor: colors.primary, paddingBottom: 5, borderTopWidth: 2, borderTopColor: colors.secondary }}
+            barStyle={barStyle}
             activeColor={colors.secondary}
             inactiveColor={colors.secondary}
             screenOptions={({ route }) => ({
@@ -135,7 +150,7 @@ export const TabsStudentNavigator = props => {
                         return <Ionicons name={focused ? 'search' : 'search-outline'} size={size} color={color} />;
                     } else if (route.name === 'Profile') {
                         if (userImage) {
-                            return <Image style={{ width: 25, height: 25, borderRadius: 100, }}
+                            return <Image style={barImageStyle}
                                 source={{ uri: userImage }} />
                         } else {
                             return <Ionicons name={focused ? 'person-circle' : 'person-circle-outline'} size={size} color={color} />;
@@ -169,7 +184,7 @@ export const TabsTutorNavigator = props => {
     return (
         <Tab.Navigator
             shifting={true}
-            barStyle={{ backgroundColor: colors.primary, paddingBottom: 5, borderTopWidth: 2, borderTopColor: colors.secondary }}
+            barStyle={barStyle}
             activeColor={colors.secondary}
             inactiveColor={colors.secondary}
             screenOptions={({ route }) => ({
@@ -180,7 +195,7 @@ export const TabsTutorNavigator = props => {
                         return <Ionicons name={focused ? 'library' : 'library-outline'} size={size} color={color} />;
                     } else if (route.name === 'Profile') {
                         if (userImage) {
-                            return <Image style={{ width: 25, height: 25, borderRadius: 100, }}
+                            return <Image style={barImageStyle}
                                 source={{ uri: userImage }} />
                         } else {
                             return <Ionicons name={focused ? 'person-circle' : 'person-circle-outline'} size={size} color={color} />;
