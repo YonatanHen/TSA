@@ -18,7 +18,7 @@ const ScheduleMeeting = props => {
     const tutorData = useSelector(state => state.representationLists.usersList.tutors).find(tutor => tutor[1].uid === props.route.params.user.uid)[1]
     const LessonsObject = useSelector(state => state.lessons.lessons)
 
-    const [lessons, setLessons] = useState(LessonsObject[tutorData.institute][tutorData.uid] ? LessonsObject[tutorData.institute][tutorData.uid] : {})
+    const [lessons, setLessons] = useState(LessonsObject[tutorData.institute] && LessonsObject[tutorData.institute][tutorData.uid] ? LessonsObject[tutorData.institute][tutorData.uid] : {})
     const [lessonsWithDates, setLessonsWithDates] = useState()
     const [isDialogVisible, setDialogVisibility] = useState(false)
     const [lessonDate, setLessonDate] = useState()
