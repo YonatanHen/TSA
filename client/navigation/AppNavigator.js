@@ -11,7 +11,6 @@ const AppNavigator = props => {
 
     return (
         <NavigationContainer>
-            {/* <MyTabs /> */}
             {isAuth && user.role === 'admin' && <AdminNavigator />}
             {isAuth && isSignUp && user.role !== 'admin' && <MainNavigator />}
             {isAuth && !isSignUp && user.role === 'student' && <TabsStudentNavigator user={user} />}

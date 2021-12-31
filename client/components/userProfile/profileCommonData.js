@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons'
 import React from 'react'
-import { StyleSheet, Text, View, Image, Linking, Platform } from 'react-native'
+import { StyleSheet, Text, View, Image, Linking, Platform, ImageBackground } from 'react-native'
 import { colors } from '../../constants/colors'
 import findPhoneCode from '../../utilities/findPhoneCode'
 
@@ -40,9 +40,11 @@ export const ProfileCommonData = props => {
     return (
         <>
             <View style={styles.profileContainer}>
-                <View style={styles.image}>
-                    {user.imageUrl ? <Image style={{ width: 180, height: 180, borderRadius: 100, borderColor: colors.primary, borderWidth: 5 }}
-                        source={{ uri: user.imageUrl }} /> : <Ionicons name="person-circle" size={160} color={colors.secondary} />}
+                <View style={styles.imageContainer}>
+                    <ImageBackground source={require('../../assets/profile-bg.jpg')} resizeMode="cover" style={styles.image}>
+                        {user.imageUrl ? <Image style={{ width: 160, height: 160, borderRadius: 100, borderColor: 'white', borderWidth: 1 }}
+                            source={{ uri: user.imageUrl }} /> : <Ionicons name="person-circle" size={160} color={colors.secondary} />}
+                    </ImageBackground>
                 </View>
                 <View style={styles.nameHeader}>
                     <Text style={{ fontSize: 30, fontWeight: 'bold', color: colors.primary }}>
@@ -86,36 +88,36 @@ export const ProfileCommonData = props => {
             </View>}
             <View style={styles.row}>
                 <View style={styles.sectionTitle}>
-                    <Text style={{ fontSize: 16, ...styles.sectionTitleText }}>
+                    <Text style={styles.sectionTitleText}>
                         Location:
-                            </Text>
+                    </Text>
                 </View>
                 <View style={styles.sectionContent}>
-                    <Text style={{ fontSize: 16 }}>
+                    <Text style={styles.informationText}>
                         {user.country} {user.city && `, ${user.city}`}
                     </Text>
                 </View>
             </View>
             <View style={styles.row}>
                 <View style={styles.sectionTitle}>
-                    <Text style={{ fontSize: 16, ...styles.sectionTitleText }}>
+                    <Text style={styles.sectionTitleText}>
                         Phone:
                         </Text>
                 </View>
                 <View style={styles.sectionContent}>
-                    <Text style={{ fontSize: 16 }}>
+                    <Text style={styles.informationText}>
                         {user.phone ? user.phone : 'TBD'}
                     </Text>
                 </View>
             </View>
             <View style={styles.row}>
                 <View style={styles.sectionTitle}>
-                    <Text style={{ fontSize: 16, ...styles.sectionTitleText }}>
+                    <Text style={styles.sectionTitleText}>
                         About:
                         </Text>
                 </View>
                 <View style={styles.sectionContent}>
-                    <Text style={{ fontSize: 16, textAlign: 'center' }}>
+                    <Text style={styles.informationText}>
                         {user.bio ? user.bio : 'TBD'}
                     </Text>
                 </View>
@@ -130,8 +132,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: '5%',
     },
+    imageContainer: {
+        width: '100%',
+    },
     image: {
-        marginTop: '5%'
+        alignItems: 'center',
+        paddingTop: '8%',
+        paddingBottom: '5%'
     },
     nameHeader: {
         marginTop: '3%',
@@ -153,9 +160,14 @@ const styles = StyleSheet.create({
     },
     sectionTitleText: {
         fontWeight: 'bold',
+        fontSize: 16,
         color: colors.primary
     },
     icon: {
         marginHorizontal: 3
+    },
+    informationText: {
+        fontSize: 16,
+        textAlign: 'center'
     }
 })

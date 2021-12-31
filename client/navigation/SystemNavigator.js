@@ -98,7 +98,7 @@ export const FindTutorNavigator = props => {
     return (
         <FindTutorStackNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' }, ...headerStyle }} >
             <FindTutorStackNavigator.Screen name="Find-Tutor" component={FindTutor} options={{ headerTitle: 'Find A Tutor!' }} />
-            <FindTutorStackNavigator.Screen name="Read Only Profile" component={UserProfile} options={{ headerTitle: '' }} />
+            <FindTutorStackNavigator.Screen name="Read Only Profile" component={UserProfile} options={{ headerShown: false }} />
             <FindTutorStackNavigator.Screen name="Schedule a Meeting" component={MeetingsScheduler} options={{ headerTitle: '' }} />
         </FindTutorStackNavigator.Navigator>
     )
@@ -109,7 +109,7 @@ const ProfileStackNavigator = createStackNavigator()
 export const UserProfileNavigator = () => {
     return (
         <ProfileStackNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' }, ...headerStyle }}>
-            <ProfileStackNavigator.Screen name="User Profile" component={LoggedInUserProfile} />
+            <ProfileStackNavigator.Screen name="User Profile" component={LoggedInUserProfile} options={{headerShown: false}}/>
         </ProfileStackNavigator.Navigator>
     )
 }
