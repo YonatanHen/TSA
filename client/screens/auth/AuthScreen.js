@@ -192,7 +192,7 @@ const AuthScreen = props => {
                       id="institute"
                       editable={true}
                       onInputChange={inputChangeHandler}
-                      placeholder='Institute Name - autcomplete input'
+                      placeholder='Institute Name - autcomplete'
                       initialValue=''
                       selectedValue={formState.inputValues.institute}
                     />
