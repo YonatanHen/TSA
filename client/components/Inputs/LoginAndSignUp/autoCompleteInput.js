@@ -58,6 +58,11 @@ const AutoCompleteInput = props => {
         dispatch({ type: INPUT_CHANGE, value: text, isValid: true })
     }
 
+    const deleteInput = () => {
+        setFilteredList([])
+        dispatch({ type: INPUT_CHANGE, value: '', isValid: true })
+    }
+
     return (
         <View>
             <Autocomplete
@@ -80,13 +85,8 @@ const AutoCompleteInput = props => {
                     name='trash-outline'
                     size={23}
                     color='red'
-                    onPress={() => dispatch({ type: INPUT_CHANGE, value: '', isValid: true })}
+                    onPress={() => deleteInput()}
                 />)}
-            {instituteName !== '' && inputState.value !== instituteName && (
-                <View style={styles.errorContainer}>
-                    <Text style={styles.errorText}>Did you mean {instituteName} ?</Text>
-                </View>
-            )}
             {!props.editable && (
                 <View style={styles.errorContainer}>
                     <Text style={styles.errorText}>To change the institue you must open a new user.</Text>

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Modal, View, StyleSheet, Pressable, Text, SafeAreaView, FlatList } from 'react-native'
+import { Modal, View, StyleSheet, Pressable, Text, SafeAreaView, FlatList, TouchableOpacity } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler';
 import { useSelector } from 'react-redux';
 
@@ -28,14 +28,14 @@ const InstitutesModal = props => {
             >
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
-                        <Text style={{ fontSize: 20, color: 'dodgerblue' }}>Institutes List: </Text>
+                        <Text style={{ fontSize: 20, color: 'dodgerblue' }}>Select Institute: </Text>
                         <SafeAreaView style={styles.container}>
                             <FlatList
                                 data={institutesList.filter(institute => institute !== undefined && institute.toLowerCase().includes(props.input.toLowerCase()))}
                                 renderItem={(institute) => <View style={{ marginVertical: 4 }}>
-                                    <Text onPress={() => selectValueHandler(institute.item)}>
-                                        {institute.item}
-                                    </Text>
+                                    <TouchableOpacity onPress={() => selectValueHandler(institute.item)}>
+                                        <Text>{institute.item}</Text>
+                                    </TouchableOpacity>
                                 </View>}
                                 keyExtractor={(item, index) => index}
                             />
