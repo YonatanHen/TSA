@@ -23,7 +23,7 @@ const ResetEmail = props => {
                 setIsLoading(true)
                 dispatch(changeEmail(email))
                 await setIsLoading(false)
-                Alert.alert('Email changed successfully, You will log out in few seconds')
+                Alert.alert('Email changed successfully, you will log out in few seconds')
             } catch (error) {
                 Alert.alert('Error!', error.message)
             }  
