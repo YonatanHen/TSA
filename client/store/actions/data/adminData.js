@@ -33,17 +33,13 @@ export const lessonsToCSV = () => {
     return async (dispatch, getState) => {
         const adminInstitute = await getState().data.institute
 
-        Linking.canOpenURL(`http://10.0.0.4:8000/get-lessons-csv/${adminInstitute}`).then(supported => {
+        Linking.canOpenURL(`https://tsa-server1.herokuapp.com/get-lessons-csv/${adminInstitute}`).then(supported => {
             if (!supported) {
-                console.log('Unsupported url: ' + `http://10.0.0.4:8000/get-lessons-csv/${adminInstitute}`)
+                console.log('Unsupported url: ' + `https://tsa-server1.herokuapp.com/get-lessons-csv/${adminInstitute}`)
             } else {
-                return Linking.openURL(`http://10.0.0.4:8000/get-lessons-csv/${adminInstitute}`)
+                return Linking.openURL(`https://tsa-server1.herokuapp.com/get-lessons-csv/${adminInstitute}`)
             }
         }).catch(err => console.error(err))
 
-        // const response = await axios.get(`http://10.0.0.4:8000/get-lessons-csv`, {
-        //     lessonsObject: instituteLessons,
-        // })
-        //     .catch(err => console.log(err))
     }
 }
