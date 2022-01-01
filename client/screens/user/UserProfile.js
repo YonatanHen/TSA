@@ -34,55 +34,55 @@ const UserProfile = (props) => {
     }
 
     return (
-        <View style= {{ flex: 1 }}>
-        <ScrollView style={{ flexDirection: 'column' }}>
-            <ProfileCommonData user={user} loggedInUser={loggedInUser} />
-            {user.role === 'tutor' && (
-                <>
-                    <View style={styles.row}>
-                        <View style={styles.sectionTitle}>
-                            <Text style={{ fontSize: 16, ...styles.sectionTitleText }}>
-                                Courses:
+        <View style={{ flex: 1 }}>
+            <ScrollView style={{ flexDirection: 'column' }}>
+                <ProfileCommonData user={user} loggedInUser={loggedInUser} />
+                {user.role === 'tutor' && (
+                    <>
+                        <View style={styles.row}>
+                            <View style={styles.sectionTitle}>
+                                <Text style={{ fontSize: 16, ...styles.sectionTitleText }}>
+                                    Courses:
                         </Text>
-                        </View>
-                        <View style={styles.sectionContent}>
-                            {user.courses ? (user.courses.map((course) => {
-                                return (
-                                    <Text key={course}>
-                                        {course}
-                                    </Text>
-                                )
-                            })) : (
-                                <Text style={{ fontSize: 16 }}>No courses entered</Text>
-                            )}
+                            </View>
+                            <View style={styles.sectionContent}>
+                                {user.courses && user.courses.length > 0 ? (user.courses.map((course) => {
+                                    return (
+                                        <Text key={course} style={{ fontSize: 16 }}>
+                                            {course}
+                                        </Text>
+                                    )
+                                })) : (
+                                    <Text style={{ fontSize: 16 }}>No courses entered</Text>
+                                )}
 
+                            </View>
                         </View>
-                    </View>
 
-                    {(loggedInUser.role === 'student' || loggedInUser.role === 'admin') &&
-                        <View style={{ alignItems: 'center', marginTop: 10 }}>
-                            <Button
-                                title={loggedInUser.role === 'student' ? `Schedule a lesson with ${user.firstName}` : `See ${user.firstName} Lessons`}
-                                onPress={() =>
-                                    props.navigation.navigate({
-                                        name: loggedInUser.role === 'student' ? 'Schedule a Meeting' : 'Tutor Lessons',
-                                        params: { user: user }
-                                    })
-                                }
-                            />
-                        </View>
-                    }
-                </>
-            )}
-            <View style={{ alignItems: 'center', marginTop: 10 }}>
-                <Button
-                    color={colors.primary}
-                    title={`Go Back`}
-                    onPress={() => props.navigation.dispatch(StackActions.pop(1))}
-                />
-            </View>
-        </ScrollView>
-        {loggedInUser.role === 'admin' && (
+                        {(loggedInUser.role === 'student' || loggedInUser.role === 'admin') &&
+                            <View style={{ alignItems: 'center', marginTop: 10 }}>
+                                <Button
+                                    title={loggedInUser.role === 'student' ? `Schedule a lesson with ${user.firstName}` : `See ${user.firstName} Lessons`}
+                                    onPress={() =>
+                                        props.navigation.navigate({
+                                            name: loggedInUser.role === 'student' ? 'Schedule a Meeting' : 'Tutor Lessons',
+                                            params: { user: user }
+                                        })
+                                    }
+                                />
+                            </View>
+                        }
+                    </>
+                )}
+                <View style={{ alignItems: 'center', marginTop: 10 }}>
+                    <Button
+                        color={colors.primary}
+                        title={`Go Back`}
+                        onPress={() => props.navigation.dispatch(StackActions.pop(1))}
+                    />
+                </View>
+            </ScrollView>
+            {loggedInUser.role === 'admin' && (
                 <View style={{
                     // marginTop: 'auto',
                     alignItems: 'center',
