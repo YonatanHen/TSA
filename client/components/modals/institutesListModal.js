@@ -22,7 +22,6 @@ const InstitutesModal = props => {
                 transparent={true}
                 visible={isShown}
                 onRequestClose={() => {
-                    Alert.alert("Modal has been closed.");
                     setIsModalShown(!isShown);
                 }}
             >
