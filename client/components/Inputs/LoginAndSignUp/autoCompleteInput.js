@@ -40,7 +40,8 @@ const AutoCompleteInput = props => {
 
     useEffect(() => {
         onInputChange(id, inputState.value, inputState.isValid)
-    }, [inputState, onInputChange, id]);
+    }, [inputState, onInputChange, id, selectedValue]);
+
 
     const findInstitute = (text) => {
         if (text) {

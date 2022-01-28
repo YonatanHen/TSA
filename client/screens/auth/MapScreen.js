@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Platform, LogBox } from 'react-native';
 import MapView, { Marker } from 'react-native-maps'
+import { colors } from '../../constants/colors';
 
 LogBox.ignoreLogs([
   'Non-serializable values were found in the navigation state',
@@ -77,6 +78,7 @@ const styles = StyleSheet.create({
   },
   headerButtonText: {
     fontSize: 16,
+    color: colors.primary
   }
 });
 

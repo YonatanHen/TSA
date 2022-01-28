@@ -27,14 +27,12 @@ const InstitutesModal = props => {
             >
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
-                        <Text style={{ fontSize: 20, color: 'dodgerblue' }}>Select Institute: </Text>
+                        <Text style={{ fontSize: 20, color: 'dodgerblue' }}>Institutes list based on the input: </Text>
                         <SafeAreaView style={styles.container}>
                             <FlatList
                                 data={institutesList.filter(institute => institute !== undefined && institute.toLowerCase().includes(props.input.toLowerCase()))}
                                 renderItem={(institute) => <View style={{ marginVertical: 4 }}>
-                                    <TouchableOpacity onPress={() => selectValueHandler(institute.item)}>
                                         <Text>{institute.item}</Text>
-                                    </TouchableOpacity>
                                 </View>}
                                 keyExtractor={(item, index) => index}
                             />
