@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react'
+import React, { useState, useCallback, useEffect, useReducer } from 'react'
 import { StyleSheet, Text, View, ActivityIndicator, TouchableOpacity } from 'react-native'
 
 import DistancePicker from '../../components/pickers/distancePicker'
@@ -10,13 +10,23 @@ import { useSelector } from 'react-redux'
 import distanceCalc from '../../utilities/calculateDistance'
 import { colors } from '../../constants/colors'
 
+const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE'
 
+const formReducer = (state, action) => {
+    if (action.type === FORM_INPUT_UPDATE) {
+        return {
+            ...state,
+            [action.input]: action.value
+        };
+    }
+    return state;
+};
 
 const FindTutor = props => {
     const users = useSelector(state => state.representationLists.usersList)
     const LoggedInUser = useSelector(state => state.data)
 
-    const [formState, formStateHandler] = useState({
+    const [formState, dispatchFormState] = useReducer(formReducer, {
         distance: null,
         courseName: '',
         TutorName: ''
@@ -27,12 +37,13 @@ const FindTutor = props => {
 
     const inputChangeHandler = useCallback(
         (inputIdentifier, inputValue) => {
-            formStateHandler({
-                ...formState,
-                [inputIdentifier]: inputValue
-            })
+            dispatchFormState({
+                type: FORM_INPUT_UPDATE,
+                value: inputValue,
+                input: inputIdentifier
+            });
         },
-        [formStateHandler]
+        [dispatchFormState]
     )
 
     return (
@@ -59,12 +70,12 @@ const FindTutor = props => {
             </View>
 
             <View style={styles.tutorsList}>
-                {users ? (users.tutors !== [] ? (<ScrollView style={{ borderTopWidth: 1, borderTopColor: colors.primary}}>
-                        {users.tutors.filter(tutor => tutor[1].institute === LoggedInUser.institute
-                            && (tutor[1].courses && tutor[1].courses.some(course => course.toLowerCase().includes(formState.courseName.toLowerCase())))
-                            && `${tutor[1].firstName} ${tutor[1].lastName}`.toLowerCase().includes(formState.TutorName.toLowerCase())
-                            && (formState.distance == null
-                                || distanceCalc(tutor[1].locationCords.lat, tutor[1].locationCords.lng, LoggedInUser.locationCords.lat, LoggedInUser.locationCords.lng) <= formState.distance))
+                {users ? (users.tutors !== [] ? (<ScrollView style={{ borderTopWidth: 1, borderTopColor: colors.primary }}>
+                    {users.tutors.filter(tutor => tutor[1].institute === LoggedInUser.institute
+                        && (tutor[1].courses && tutor[1].courses.some(course => course.toLowerCase().includes(formState.courseName.toLowerCase())))
+                        && `${tutor[1].firstName} ${tutor[1].lastName}`.toLowerCase().includes(formState.TutorName.toLowerCase())
+                        && (formState.distance == null
+                            || distanceCalc(tutor[1].locationCords.lat, tutor[1].locationCords.lng, LoggedInUser.locationCords.lat, LoggedInUser.locationCords.lng) <= formState.distance))
                         .map(tutor => {
                             return (
                                 <View
@@ -78,7 +89,7 @@ const FindTutor = props => {
                                         <TutorItem
                                             name={tutor[1].firstName + ' ' + tutor[1].lastName}
                                             userImage={tutor[1].imageUrl}
-                                            distance={`${distanceCalc(tutor[1].locationCords.lat, tutor[1].locationCords.lng, LoggedInUser.locationCords.lat, LoggedInUser.locationCords.lng)/1000} km`}
+                                            distance={`${distanceCalc(tutor[1].locationCords.lat, tutor[1].locationCords.lng, LoggedInUser.locationCords.lat, LoggedInUser.locationCords.lng) / 1000} km`}
                                         />
                                     </TouchableOpacity>
                                 </View>
