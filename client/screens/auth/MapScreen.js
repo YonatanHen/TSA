@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Platform, LogBox } from 'react-native';
-import MapView, { Marker } from 'react-native-maps'
+import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps'
 import { colors } from '../../constants/colors';
 
 LogBox.ignoreLogs([
@@ -50,6 +50,7 @@ const MapScreen = props => {
       style={styles.map}
       initialRegion={mapRegion}
       onPress={selectLocationHandler}
+      provider={PROVIDER_GOOGLE}
     >
       {markerCoordinates && <Marker title='Picked Location' coordinate={markerCoordinates} />}
     </ MapView>

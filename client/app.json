@@ -9,8 +9,8 @@
         }
       ]
     ],
-    "name": "students-scheduler",
-    "slug": "students-scheduler",
+    "name": "TSA",
+    "slug": "TSA",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -33,6 +33,11 @@
       "supportsTablet": true
     },
     "android": {
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyADjeMmzBIRGA7GzZXnIaAWaiDkOj7Lf9A"
+        }
+      },
       "package": "com.tsa.app",
       "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {

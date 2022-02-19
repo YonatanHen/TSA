@@ -43,10 +43,18 @@ router.post('/notify-students', async (req, res) => {
                 console.error(error)
             }
         }
-
-        // Informing the students by the order they were entered the queue.
     }
-    // const messages = []
+    
+    res.send()
+
+})
+
+module.exports = router
+
+
+
+
+// const messages = []
     // const message = {
     //     to: 'ExponentPushToken[kFVlYhGbmwbIA4XZ5PqiSK]',
     //     // `${token}`,
@@ -99,9 +107,3 @@ router.post('/notify-students', async (req, res) => {
     //         console.error(error);
     //     }
     // }
-
-    res.send()
-
-})
-
-module.exports = router

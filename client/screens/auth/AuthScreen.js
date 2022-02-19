@@ -36,7 +36,6 @@ const formReducer = (state, action) => {
   return state;
 };
 
-//Building the signing up at first, later we will add the login :)
 const AuthScreen = props => {
   const [isSignup, setIsSignup] = useState(false)
   const [error, setError] = useState()

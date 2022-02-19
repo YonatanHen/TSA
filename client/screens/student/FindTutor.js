@@ -75,7 +75,8 @@ const FindTutor = props => {
                         && (tutor[1].courses && tutor[1].courses.some(course => course.toLowerCase().includes(formState.courseName.toLowerCase())))
                         && `${tutor[1].firstName} ${tutor[1].lastName}`.toLowerCase().includes(formState.TutorName.toLowerCase())
                         && (formState.distance == null
-                            || distanceCalc(tutor[1].locationCords.lat, tutor[1].locationCords.lng, LoggedInUser.locationCords.lat, LoggedInUser.locationCords.lng) <= formState.distance))
+                            || distanceCalc(tutor[1].locationCords.lat, tutor[1].locationCords.lng, LoggedInUser.locationCords.lat, LoggedInUser.locationCords.lng) 
+                            <= formState.distance))
                         .map(tutor => {
                             return (
                                 <View
@@ -89,7 +90,8 @@ const FindTutor = props => {
                                         <TutorItem
                                             name={tutor[1].firstName + ' ' + tutor[1].lastName}
                                             userImage={tutor[1].imageUrl}
-                                            distance={`${distanceCalc(tutor[1].locationCords.lat, tutor[1].locationCords.lng, LoggedInUser.locationCords.lat, LoggedInUser.locationCords.lng) / 1000} km`}
+                                            distance={`${distanceCalc(tutor[1].locationCords.lat, tutor[1].locationCords.lng, LoggedInUser.locationCords.lat, 
+                                                LoggedInUser.locationCords.lng) / 1000} km`}
                                         />
                                     </TouchableOpacity>
                                 </View>

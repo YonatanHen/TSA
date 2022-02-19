@@ -48,7 +48,7 @@
     "react-native-dialog": "^9.2.0",
     "react-native-dotenv": "^3.3.0",
     "react-native-gesture-handler": "~1.10.2",
-    "react-native-maps": "0.28.0",
+    "react-native-maps": "^0.28.1",
     "react-native-modal-datetime-picker": "^10.2.0",
     "react-native-paper": "^4.9.2",
     "react-native-phone-input": "^1.2.0",

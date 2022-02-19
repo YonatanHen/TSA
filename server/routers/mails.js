@@ -41,7 +41,6 @@ router.post('/send-email', async (req, res) => {
         }
         console.log('Message sent successfully!');
 
-        // if you don't want to use this transport object anymore, uncomment following line
         transport.close(); // close the connection pool
     });
 
