@@ -5,7 +5,7 @@ pipeline {
     stages {
         stage("build") {
             steps {
-                echo 'building the application...'
+                echo 'Building the application...'
                 dir("client") {
                     echo 'inside client...'
                     sh 'npm install'
