@@ -1,22 +1,16 @@
 {
   "expo": {
     "plugins": [
-      [
-        "expo-notifications",
-        {
-          "icon": "./assets/notification_icon.png",
-          "color": "#00bfff"
-        }
-      ]
     ],
     "name": "TSA",
     "slug": "TSA",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-      "notification":{
-         "icon": "./assets/notification_icon.png",
-         "color": "#00bfff"
+    "notification":{
+        "icon": "./assets/notification_icon.png",
+        "color": "#00bfff",
+        "androidMode": "collapse"  
       },
     "splash": {
       "image": "./assets/splash_icon.png",
