@@ -6,8 +6,14 @@ pipline {
         stage("build") {
             steps {
                 echo 'building the application...'
-                sh 'npm install'
-                sh 'npm build'
+                dir("client") {
+                    sh 'npm install'
+                    sh 'npm build'
+                }
+                dir("server") {
+                    sh 'npm install'
+                    sh 'npm build'
+                }
             }
         }
 
