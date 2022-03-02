@@ -13,3 +13,4 @@ web-build/
 .DS_Store
 server/students-scheduler-firebase-adminsdk-h2oq1-667bcb1daf.json
 *google-services.json
+jenkinsfile
