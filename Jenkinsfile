@@ -2,11 +2,13 @@ pipeline {
 
     agent any
 
+    tools {nodejs "node"}
+
     stages {
         stage("build") {
             steps {
                 echo 'Building the application...'
-                sh "/usr/bin/npm install"
+                sh "npm config ls"
                 dir("client") {
                     echo 'inside client...'
                     sh 'npm install'
