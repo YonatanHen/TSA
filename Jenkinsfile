@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage("build") {
             steps {
-                echo 'Building the application....'
+                echo 'Building the application...'
                 sh "npm config ls"
                 dir("client") {
                     echo 'install relevant packages on client...'
