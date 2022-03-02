@@ -10,14 +10,8 @@ pipeline {
                 echo 'Building the application...'
                 sh "npm config ls"
                 dir("client") {
-                    echo 'inside client...'
+                    echo 'install relevant packages...'
                     sh 'npm install'
-                    sh 'npm build'
-                }
-                dir("server") {
-                    echo 'inside server...'
-                    sh 'npm install'
-                    sh 'npm build'
                 }
             }
         }
@@ -26,11 +20,14 @@ pipeline {
 
             steps {
                 echo 'testing the application...'
+                dir("client") {
+                    echo 'testing the app...'
+                    sh 'npm run test'
+                }
             }
         }
 
         stage("deploy") {
-
             steps {
                 echo 'deploying the application...'
             }

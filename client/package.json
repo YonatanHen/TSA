@@ -10,7 +10,6 @@
   },
   "jest": {
     "preset": "jest-expo",
-    "verbose": true,
     "transformIgnorePatterns": [
       "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg)"
     ]
@@ -68,6 +67,7 @@
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "~3.8.0",
     "react-native-slider": "^0.11.0",
+    "react-native-testing-library": "^6.0.0",
     "react-native-vector-icons": "^8.1.0",
     "react-native-web": "0.17.1",
     "react-navigation-header-buttons": "^3.0.1",
