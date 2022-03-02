@@ -1,4 +1,4 @@
-import { IP_ADDRESS, FIREBASE_API_KEY } from '@env'
+import { FIREBASE_API_KEY } from '@env'
 
 import findAdmin from '../../../utilities/findAdmin'
 import writedata from '../../../utilities/readWriteUserData/writeUserData'
