@@ -32,7 +32,6 @@ pipeline {
 
         stage("deploy") {
             steps {
-                input 'Does the dev env looks ok?'
                 echo 'deploying the application...'
             }
         }
