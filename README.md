@@ -13,7 +13,8 @@ Application developed in Client-Server architecture.
 - NPM
 - React Native
 - Redux
-- FireBase
+- REST API
+- Firebase
 - Cloudinary API
 - Node mailer
 - Firebase Cloud Messaging
