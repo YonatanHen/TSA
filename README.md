@@ -17,6 +17,4 @@ The project suggests a platform as a mobile app that matches between tutors and 
 - Node mailer
 - Firebase Cloud Messaging
 
-### Screens
-
 
