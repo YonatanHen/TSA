@@ -20,6 +20,5 @@ The project suggests a platform as a mobile app that matches between tutors and 
 ### Tech Stack
 
 #### Log-in/Sign-up
-![image](https://user-images.githubusercontent.com/57364867/158021534-e23870dd-5b69-40ba-a7f6-df30d20120f6.jpeg) ![image](https://user-images.githubusercontent.com/57364867/158021547-6c188a52-20f8-4b9a-9cec-2ab8a564ed96.jpeg)
-
-
+![WhatsApp Image 2022-01-25 at 13 52 23 (1)](https://user-images.githubusercontent.com/57364867/158021608-adf73a9f-b04b-44fb-bcf1-9dcf91c9a027.jpeg)
+![WhatsApp Image 2022-01-25 at 13 52 23](https://user-images.githubusercontent.com/57364867/158021612-8ce9c6b7-2042-4b7c-93c2-74db03f26d29.jpeg)
