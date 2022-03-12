@@ -17,4 +17,9 @@ The project suggests a platform as a mobile app that matches between tutors and 
 - Node mailer
 - Firebase Cloud Messaging
 
+### Tech Stack
+
+#### Log-in/Sign-up
+![image](https://user-images.githubusercontent.com/57364867/158021534-e23870dd-5b69-40ba-a7f6-df30d20120f6.jpeg) ![image](https://user-images.githubusercontent.com/57364867/158021547-6c188a52-20f8-4b9a-9cec-2ab8a564ed96.jpeg)
+
 
