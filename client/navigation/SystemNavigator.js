@@ -242,7 +242,8 @@ const OptionsDrawerNavigator = createDrawerNavigator()
 
 export const OptionsNavigator = props => {
 
-    const dispatch = useDispatch() //with the dispatch we can dispatch functions from redux store 
+    const dispatch = useDispatch() //with the dispatch we can dispatch functions from redux store
+    const userRole = useSelector(state => state.data.role)
 
     return <OptionsDrawerNavigator.Navigator
         screenOptions={drawerNavScreenOptions}
@@ -257,7 +258,7 @@ export const OptionsNavigator = props => {
             )
         }}
     >
-        <OptionsDrawerNavigator.Screen name={'Main'} component={MainPageNavigator} options={{
+        <OptionsDrawerNavigator.Screen name={`${userRole === 'tutor' ? 'Recent & ' : ''}Upcoming Lessons`} component={MainPageNavigator} options={{
             ...drawerNavStyle,
             drawerIcon: ({ color }) => (
                 <Ionicons

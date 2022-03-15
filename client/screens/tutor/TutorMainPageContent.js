@@ -13,7 +13,7 @@ const TutorMain = props => {
 
     const tutorLessons = lessons ? lessons[loggedInUser.uid] : undefined
     const today = new Date()
-    
+
     const dispatch = useDispatch()
 
     const cancelLessonHandler = (date, time) => {
@@ -50,7 +50,6 @@ const TutorMain = props => {
             {tutorLessons && Object.entries(tutorLessons).find(date => date[1].some(lesson => lesson.studentId)) ? (
                 <ScrollView>
                     <View style={{ alignItems: 'center', marginBottom: 5 }}>
-                        <Text style={styles.title}>Recent & Upcoming Lessons:</Text>
                     </View>
                     {Object.entries(tutorLessons).map(date => {
                         return date[1].filter(lesson => lesson && lesson.studentId &&
@@ -59,7 +58,7 @@ const TutorMain = props => {
                         )
                             .map((lesson, index) => {
                                 return (
-                                    
+
                                     <Card style={styles.card} key={index}>
                                         <Card.Content style={{ alignItems: 'center' }}>
                                             <Title style={{ color: colors.primary }}>{date[0]} at {lesson.time}</Title>
@@ -77,18 +76,23 @@ const TutorMain = props => {
                                                         navigation.navigate("Main", { screen: 'User Profile', params: { user: students[lesson.studentId] } })
                                                     }}
                                                 />}
-                                                {students[lesson.studentId] && <Ionicons
-                                                    name="checkmark"
-                                                    size={25}
-                                                    color={lesson.approved ? "darkgreen" : "lightgrey"}
-                                                    onPress={() => approveLessonHandler(date[0], lesson.time, lesson.approved)}
-                                                />}
-                                                <Ionicons
-                                                    name="close"
-                                                    size={25}
-                                                    color="red"
-                                                    onPress={() => cancelLessonHandler(date[0], lesson.time)}
-                                                />
+                                                {today < new Date(`${date[0]}T${lesson.time.split(' ')[0]}`)
+                                                    && <>
+                                                        {students[lesson.studentId]
+                                                            && <Ionicons
+                                                                name="checkmark"
+                                                                size={25}
+                                                                color={lesson.approved ? "darkgreen" : "lightgrey"}
+                                                                onPress={() => approveLessonHandler(date[0], lesson.time, lesson.approved)}
+                                                            />}
+                                                        <Ionicons
+                                                            name="close"
+                                                            size={25}
+                                                            color="red"
+                                                            onPress={() => cancelLessonHandler(date[0], lesson.time)}
+                                                        />
+                                                    </>
+                                                }
                                             </View>
                                         </Card.Content>
                                     </Card>
@@ -115,8 +119,8 @@ const styles = StyleSheet.create({
     },
     card: {
         backgroundColor: 'honeydew',
-        elevation: 1, 
-        marginBottom: 10, 
+        elevation: 1,
+        marginBottom: 10,
         borderRadius: 30
     },
     noLessonsContainer: {
