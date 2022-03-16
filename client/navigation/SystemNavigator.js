@@ -92,7 +92,7 @@ export const AuthNavigator = () => {
     return (
         <AuthStackNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' }, ...headerStyle }}>
             <AuthStackNavigator.Screen name="Auth" component={AuthScreen} options={{ headerTitle: 'TSA' }} />
-            <AuthStackNavigator.Screen name="Contact" options={{ headerTitle: 'Contact Us!' }}>
+            <AuthStackNavigator.Screen name="Contact" options={{ headerTitle: 'Contact Us!', headerTintColor: colors.primary }}>
                 {props => <Contact {...props} sendMailToAppTeam={true} />}
             </AuthStackNavigator.Screen>
         </AuthStackNavigator.Navigator>
@@ -104,6 +104,7 @@ export const AuthNavigator = () => {
 const FindTutorStackNavigator = createStackNavigator()
 
 export const FindTutorNavigator = props => {
+    const text = "Schedule a Meeting"
     useEffect(() => {
         props.navigation.reset({
             index: 0,
@@ -114,7 +115,7 @@ export const FindTutorNavigator = props => {
         <FindTutorStackNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' }, ...headerStyle }} >
             <FindTutorStackNavigator.Screen name="Find-Tutor" component={FindTutor} options={{ headerTitle: 'Find A Tutor!' }} />
             <FindTutorStackNavigator.Screen name="Read Only Profile" component={UserProfile} options={{ headerShown: false }} />
-            <FindTutorStackNavigator.Screen name="Schedule a Meeting" component={MeetingsScheduler} options={{ headerTitle: '' }} />
+            <FindTutorStackNavigator.Screen name={text} component={MeetingsScheduler} options={{ headerTitle: text + '!', headerTintColor: colors.primary }} />
         </FindTutorStackNavigator.Navigator>
     )
 }
@@ -241,7 +242,8 @@ const OptionsDrawerNavigator = createDrawerNavigator()
 
 export const OptionsNavigator = props => {
 
-    const dispatch = useDispatch() //with the dispatch we can dispatch functions from redux store 
+    const dispatch = useDispatch() //with the dispatch we can dispatch functions from redux store
+    const userRole = useSelector(state => state.data.role)
 
     return <OptionsDrawerNavigator.Navigator
         screenOptions={drawerNavScreenOptions}
@@ -258,6 +260,7 @@ export const OptionsNavigator = props => {
     >
         <OptionsDrawerNavigator.Screen name={'Main'} component={MainPageNavigator} options={{
             ...drawerNavStyle,
+            title: `${userRole === 'tutor' ? 'Recent & ' : ''}Upcoming Lessons`,
             drawerIcon: ({ color }) => (
                 <Ionicons
                     name={Platform.OS === 'android' ? 'md-list' : 'ios-list'}

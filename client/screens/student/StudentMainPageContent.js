@@ -41,10 +41,7 @@ const StudentMain = props => {
     return (
         <View>
             {upcomingLessons.length > 0 ? (
-                <ScrollView>
-                    <View style={{ alignItems: 'center', marginBottom: 5 }}>
-                        <Text style={styles.title}>Upcoming Lessons</Text>
-                    </View>
+                <ScrollView style={{marginTop: 5}}>
                     {Object.entries(lessons).map(tutorLessons => {
                         return (
                             Object.entries(tutorLessons[1]).map(date => {
