@@ -86,7 +86,7 @@ export const ProfileCommonData = props => {
                     />
                 </View>
             </View>}
-            {loggedInUser.role === 'admin' &&
+            {loggedInUser && loggedInUser.role === 'admin' &&
                 (<View style={styles.row}>
                     <View style={styles.sectionTitle}>
                         <Text style={styles.sectionTitleText}>

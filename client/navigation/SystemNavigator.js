@@ -40,7 +40,8 @@ const headerStyle = {
     headerTitleStyle: {
         color: Platform.OS === 'android' ? colors.primary : 'white'
     },
-    headerTitleAlign: 'center'
+    headerTitleAlign: 'center',
+    headerTintColor: colors.primary
 }
 
 const drawerNavStyle = {
@@ -332,7 +333,7 @@ export const MainNavigator = props => {
         <MainDrawerNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' }, ...headerStyle }}>
             <MainDrawerNavigator.Screen name="Edit User" component={SignUpLandingPage} options={{}} />
             <MainDrawerNavigator.Screen name="Student Home" component={userRole === 'student' ? (TabsStudentNavigator) : (TabsTutorNavigator)} options={{ headerShown: false }} />
-            <MainDrawerNavigator.Screen name="Map" component={MapScreen} options={MapScreenOptions} />
+            <MainDrawerNavigator.Screen name="Map" component={MapScreen} options={{...MapScreenOptions, headerTintColor: colors.primary}} />
         </MainDrawerNavigator.Navigator>
     )
 }
