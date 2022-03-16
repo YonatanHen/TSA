@@ -81,21 +81,21 @@ const UserProfile = (props) => {
                         onPress={() => props.navigation.dispatch(StackActions.pop(1))}
                     />
                 </View>
+                {loggedInUser.role === 'admin' && (
+                    <View style={{
+                        alignItems: 'center',
+                        top: 10,
+                        marginBottom: 20
+                    }}>
+                        <Ionicons //disable/enable user
+                            name={user.disabled ? 'cloud-sharp' : 'cloud-offline-sharp'}
+                            size={30}
+                            color={user.disabled ? 'green' : 'red'}
+                            onPress={() => disableUserHandler()}
+                        />
+                    </View>
+                )}
             </ScrollView>
-            {loggedInUser.role === 'admin' && (
-                <View style={{
-                    // marginTop: 'auto',
-                    alignItems: 'center',
-                    bottom: 10
-                }}>
-                    <Ionicons //disable/enable user
-                        name={user.disabled ? 'cloud-sharp' : 'cloud-offline-sharp'}
-                        size={30}
-                        color={user.disabled ? 'green' : 'red'}
-                        onPress={() => disableUserHandler()}
-                    />
-                </View>
-            )}
         </View>
     )
 }
@@ -129,10 +129,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: colors.primary
     },
-    adminIcons: {
-        // flex: 1,
-        // alignItems: 'center',
-    }
 })
 
 export default UserProfile

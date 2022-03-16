@@ -86,6 +86,20 @@ export const ProfileCommonData = props => {
                     />
                 </View>
             </View>}
+            {loggedInUser.role === 'admin' &&
+                (<View style={styles.row}>
+                    <View style={styles.sectionTitle}>
+                        <Text style={styles.sectionTitleText}>
+                            ID:
+                    </Text>
+                    </View>
+                    <View style={styles.sectionContent}>
+                        <Text style={styles.informationText}>
+                            {user.uid}
+                        </Text>
+                    </View>
+                </View>
+                )}
             <View style={styles.row}>
                 <View style={styles.sectionTitle}>
                     <Text style={styles.sectionTitleText}>

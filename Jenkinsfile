@@ -1,9 +1,7 @@
+/* groovylint-disable CompileStatic, UnnecessaryGString */
 pipeline {
-
     agent any
-
     tools {nodejs "node"}
-
     stages {
         stage("build") {
             steps {
@@ -30,7 +28,7 @@ pipeline {
             }
         }
 
-        stage("deploy") {
+        stage('deploy') {
             steps {
                 echo 'deploying the application...'
             }
