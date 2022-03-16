@@ -333,7 +333,7 @@ export const MainNavigator = props => {
         <MainDrawerNavigator.Navigator screenOptions={{ cardStyle: { backgroundColor: 'white' }, ...headerStyle }}>
             <MainDrawerNavigator.Screen name="Edit User" component={SignUpLandingPage} options={{}} />
             <MainDrawerNavigator.Screen name="Student Home" component={userRole === 'student' ? (TabsStudentNavigator) : (TabsTutorNavigator)} options={{ headerShown: false }} />
-            <MainDrawerNavigator.Screen name="Map" component={MapScreen} options={{...MapScreenOptions, headerTintColor: colors.primary}} />
+            <MainDrawerNavigator.Screen name="Map" component={MapScreen} options={MapScreenOptions} />
         </MainDrawerNavigator.Navigator>
     )
 }

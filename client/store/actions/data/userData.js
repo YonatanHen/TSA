@@ -168,7 +168,6 @@ export const addDataOnSignUp = (role, bio, image, courses = undefined, phone, lo
             throw new Error('Something went wrong!')
         }
 
-        //Check if this line did not failed.
         await dispatch(readAllUsers())
 
         dispatch({
@@ -293,12 +292,6 @@ export const deleteUser = () => {
                 .catch(err => {
                     throw new Error('Error in delete tutor lessons')
                 })
-
-                //In case I will implement notifications
-                //fromEntries to student data in store
-                //filter over lessons and find lessons with StudentId field
-                //check which student i need to notify (save in an array maybe?)
-                //import the saved token, send to server and notify there
 
             await dispatch(readLessons())
         }
