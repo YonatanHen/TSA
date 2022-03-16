@@ -258,8 +258,9 @@ export const OptionsNavigator = props => {
             )
         }}
     >
-        <OptionsDrawerNavigator.Screen name={`${userRole === 'tutor' ? 'Recent & ' : ''}Upcoming Lessons`} component={MainPageNavigator} options={{
+        <OptionsDrawerNavigator.Screen name={'Main'} component={MainPageNavigator} options={{
             ...drawerNavStyle,
+            title: `${userRole === 'tutor' ? 'Recent & ' : ''}Upcoming Lessons`,
             drawerIcon: ({ color }) => (
                 <Ionicons
                     name={Platform.OS === 'android' ? 'md-list' : 'ios-list'}
