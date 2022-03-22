@@ -66,23 +66,28 @@ const SignUpLandingPage = props => {
     });
 
     const submitHandler = async () => {
-        let action = addDataOnSignUp(
-            userRole,
-            formState.inputValues.bio,
-            selectedImage,
-            formState.inputValues.courses,
-            formState.inputValues.phone,
-            selectedLocation
-        );
-        setError(null)
-        setIsLoading(true);
-        try {
-            await dispatch(action)
-        } catch (err) {
-            console.log(err)
-            setError(err.message)
-            setIsLoading(false)
+        if(!formState.formIsValid) {
+            Alert.alert('Form is invalid!', 'please make sure that all of the fields filled with no errors.')
+        } else {
+            let action = addDataOnSignUp(
+                userRole,
+                formState.inputValues.bio,
+                selectedImage,
+                formState.inputValues.courses,
+                formState.inputValues.phone,
+                selectedLocation
+            );
+            setError(null)
+            setIsLoading(true);
+            try {
+                await dispatch(action)
+            } catch (err) {
+                console.log(err)
+                setError(err.message)
+                setIsLoading(false)
+            }
         }
+
     }
 
     const inputChangeHandler = useCallback(

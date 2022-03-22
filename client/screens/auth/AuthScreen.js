@@ -66,14 +66,16 @@ const AuthScreen = props => {
 
   useEffect(() => {
     if (error) {
-      Alert.alert('An Error occured!', error, [{ text: 'OK' }])
+      Alert.alert('An Error occured!', error)
     }
   }, [error])
 
 
   const authHandler = async () => {
     let action;
-    if (isSignup) {
+    if (!formState.formIsValid && isSignup) {
+      Alert.alert('Form is invalid!', 'please make sure that all of the fields filled with no errors.')
+    } else if (isSignup && formState.formIsValid) {
       action = signup(
         formState.inputValues.email,
         formState.inputValues.password,
@@ -113,17 +115,18 @@ const AuthScreen = props => {
   );
 
   const forgotPasswordHandler = async () => {
-    if(formState.inputValues.email !== '') {
+    if (formState.inputValues.email !== '') {
       try {
         await resetPassword(formState.inputValues.email)
         Alert.alert(`Password reset email has been sent to ${formState.inputValues.email}`, '', [{ text: 'OK' }])
-      } catch(err) {
+      } catch (err) {
         setError(err.message);
       }
 
     }
     else {
-      Alert.alert('You must set your email address!', '', [{ text: 'OK' }])}
+      Alert.alert('You must set your email address!', '', [{ text: 'OK' }])
+    }
   }
 
 
@@ -197,7 +200,7 @@ const AuthScreen = props => {
                     />
                   </View>
                   <View style={styles.findButtonContainer}>
-                    <Ionicons 
+                    <Ionicons
                       name='search-circle-outline'
                       size={32}
                       color={colors.tertiary}
@@ -233,19 +236,19 @@ const AuthScreen = props => {
         </View>
       </View>
       {!isSignup && <View style={styles.touchablesBottom}>
-              <Text 
-              style={styles.underlinedText}
-              onPress={forgotPasswordHandler}
-              >
-                Forgot your password?
+        <Text
+          style={styles.underlinedText}
+          onPress={forgotPasswordHandler}
+        >
+          Forgot your password?
               </Text>
-              <Text 
-              style={styles.underlinedText}
-              onPress={() => props.navigation.navigate('Contact')}
-              >
-                Having Troubles? contact us!
+        <Text
+          style={styles.underlinedText}
+          onPress={() => props.navigation.navigate('Contact')}
+        >
+          Having Troubles? contact us!
               </Text>
-            </View>}
+      </View>}
     </KeyboardAvoidingView >
   )
 }
@@ -288,7 +291,7 @@ const styles = StyleSheet.create({
     bottom: 10
   },
   underlinedText: {
-    color: colors.primary, 
+    color: colors.primary,
     textDecorationLine: 'underline'
   }
 })

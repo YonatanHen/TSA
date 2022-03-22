@@ -39,7 +39,7 @@ const Input = props => {
   const textChangeHandler = text => {
     const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     const phoneNumberRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/
-    const passwordRegex = /^(?=.*[A-Za-z])(?=.*[0-9]).*$/
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*[0-9]).{6,}$/
     const nameRegex = /^[a-zA-Z]+(?:-[a-zA-Z]+)*$/
 
     let isValid = true;
