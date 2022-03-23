@@ -24,7 +24,7 @@ const AdminMainScreen = props => {
             <View style={styles.inputContainer}>
                 <TextInput
                     style={styles.input}
-                    value={searchInput}
+                    value={searchInput.toLowerCase()}
                     onChangeText={textChangeHandler}
                     placeholder='Search by name / Email'
                 />
@@ -33,8 +33,8 @@ const AdminMainScreen = props => {
                 sections={[
                     {
                         title: <Text style={{ color: colors.primary}}>Tutors</Text>, data: filteredTutors.length > 0 ?
-                            (filteredTutors.filter(tutor => `${tutor[1].firstName} ${tutor[1].lastName}`.includes(searchInput) 
-                            || tutor[1].email.includes(searchInput))
+                            (filteredTutors.filter(tutor => `${tutor[1].firstName} ${tutor[1].lastName}`.includes(searchInput.toLowerCase()) 
+                            || tutor[1].email.includes(searchInput.toLowerCase()))
                                 .map(tutor => {
                                     return (
                                         <TouchableOpacity onPress={() => props.navigation.navigate("User Profile", { user: tutor[1] })}>
