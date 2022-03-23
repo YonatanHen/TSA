@@ -151,13 +151,13 @@ const ScheduleMeeting = props => {
                     {!isQueueLoading ? (tutorData['studentsQueue'] && tutorData['studentsQueue'].filter(u => user.uid === u.id).length > 0 ? (
                         <TouchableOpacity onPress={popFromQueueHandler}>
                             <Text style={{ color: 'dodgerblue', borderBottomWidth: 3, borderBottomColor: 'dodgerblue', fontSize: 16 }}>
-                                Quit the queue
+                                Click here to quit the queue
                                 </Text>
                         </TouchableOpacity>
                     ) : (
                         <TouchableOpacity onPress={noPlaceClickHandler}>
                             <Text style={{ color: 'dodgerblue', borderBottomWidth: 3, borderBottomColor: 'dodgerblue', fontSize: 16 }}>
-                                No Place? Enter the queue!
+                                No Place? Click here to enter the queue!
                                 </Text>
                         </TouchableOpacity>
                     )) : (

@@ -50,13 +50,11 @@ const TutorLessons = props => {
                                 <Text style={{ color: colors.primary, fontWeight: 'bold' }}>Available!</Text>
                                 {(new Date(lesson.date).getTime() === new Date(date).getTime()) && <TouchableOpacity onPress={() => {
                                     try {
-                                        console.log(lessons[user.institute][user.uid][date])
                                         dispatch(deleteLesson(user.uid, date, lesson.time))
                                         let newLessons = { ...lessons[user.institute][user.uid], [date]: lessons[user.institute][user.uid][date].filter(l => (l.time !== lesson.time && new Date(lesson.date).getTime() === new Date(date).getTime())) }
                                         if (lessons[user.institute][user.uid][date].length == 0) delete lessons[user.institute][user.uid][date]
                                         setLessons(newLessons)
                                     } catch (err) {
-                                        console.log(err)
                                         Alert.alert('Error!', 'make sure that you select the correct date for the lesson you are trying to delete.')
                                     }
                                 }}>

@@ -26,7 +26,7 @@ const AdminMainScreen = props => {
                     style={styles.input}
                     value={searchInput}
                     onChangeText={textChangeHandler}
-                    placeholder='Search'
+                    placeholder='Search by name / Email'
                 />
             </View>
             {users ? (<SectionList
