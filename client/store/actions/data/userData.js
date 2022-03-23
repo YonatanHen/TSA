@@ -95,8 +95,6 @@ export const login = (email, password) => {
         if (user.disabled) {
             throw new Error('Account is disabled. please contact your institute for more info.')
         }
-        console.log(user.notificationsToken)
-        sendPushNotification(user.notificationsToken)
         
         dispatch({
             type: SIGNIN,
