@@ -16,11 +16,11 @@ const TutorMain = props => {
 
     const dispatch = useDispatch()
 
-    const cancelLessonHandler = (date, time) => {
+    const cancelLessonHandler = (student,date, time) => {
         Alert.alert('Are you sure?', 'Do you want to cancel this lesson?', [
             {
                 text: 'Yes',
-                onPress: () => dispatch(cancelLesson(loggedInUser.uid, date, time)),
+                onPress: () => dispatch(cancelLesson(student, date, time)),
                 style: 'default'
             },
             {
@@ -30,11 +30,11 @@ const TutorMain = props => {
         ])
     }
 
-    const approveLessonHandler = (date, time, flag) => {
+    const approveLessonHandler = (student, date, time, flag) => {
         Alert.alert('Are you sure?', `Do you want to ${flag ? 'dis' : ''}approve this lesson?`, [
             {
                 text: 'Yes',
-                onPress: () => dispatch(approveLesson(loggedInUser.uid, date, time)),
+                onPress: () => dispatch(approveLesson(student, date, time)),
                 style: 'default'
             },
             {
@@ -83,13 +83,13 @@ const TutorMain = props => {
                                                                 name="checkmark"
                                                                 size={25}
                                                                 color={lesson.approved ? "darkgreen" : "lightgrey"}
-                                                                onPress={() => approveLessonHandler(date[0], lesson.time, lesson.approved)}
+                                                                onPress={() => approveLessonHandler(students[lesson.studentId], date[0], lesson.time, lesson.approved)}
                                                             />}
                                                         <Ionicons
                                                             name="close"
                                                             size={25}
                                                             color="red"
-                                                            onPress={() => cancelLessonHandler(date[0], lesson.time)}
+                                                            onPress={() => cancelLessonHandler(students[lesson.studentId], date[0], lesson.time)}
                                                         />
                                                     </>
                                                 }

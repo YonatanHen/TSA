@@ -1,6 +1,5 @@
 import axios from "axios"
-import { scheduleNotificationAsync } from 'expo-notifications'
-import { Alert } from "react-native"
+import { sendPushNotification } from '../../../utilities/notifications';
 
 export const DELETE_LESSON = 'DELETE_LESSON'
 export const ADD_LESSON = 'ADD_LESSON'
@@ -106,13 +105,13 @@ export const deleteLesson = (tutorUid, lessonDate, lessonTime) => {
     }
 }
 
-export const cancelLesson = (tutorUid, lessonDate, lessonTime) => {
+export const cancelLesson = (student, lessonDate, lessonTime) => {
     return async (dispatch, getState) => {
         const user = getState().data
         var queue = user.studentsQueue
 
         const response1 = await fetch(
-            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/lessons/${user.institute}/${tutorUid}/${lessonDate}.json`)
+            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/lessons/${user.institute}/${user.uid}/${lessonDate}.json`)
 
         if (!response1.ok) {
             throw new Error("Can't fetch lessons, please try again later")
@@ -122,10 +121,15 @@ export const cancelLesson = (tutorUid, lessonDate, lessonTime) => {
 
         const lessonIndex = lessonsInDate.findIndex((lesson) => lesson.time === lessonTime)
 
+        //Save course name
+        const lessonName = lessonsInDate[lessonIndex].course
+
         lessonsInDate[lessonIndex] = { time: lessonsInDate[lessonIndex].time, date: lessonDate }
 
+        
+
         const response2 = await fetch(
-            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/lessons/${user.institute}/${tutorUid}/${lessonDate}.json?token=${user.token}`,
+            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/lessons/${user.institute}/${user.uid}/${lessonDate}.json?token=${user.token}`,
             {
                 method: 'PATCH',
                 headers: {
@@ -137,6 +141,10 @@ export const cancelLesson = (tutorUid, lessonDate, lessonTime) => {
         if (!response2.ok) {
             throw new Error("Can't cancel lesson! please try again later.")
         }
+
+        user && await sendPushNotification(student.notificationsToken, 
+            `${user.firstName} ${user.lastName} canceled the lesson.`,
+            `${lessonName} lesson canceled by ${user.firstName}`)
 
         await dispatch(readLessons())
 
@@ -151,12 +159,12 @@ export const cancelLesson = (tutorUid, lessonDate, lessonTime) => {
     }
 }
 
-export const approveLesson = (tutorUid, lessonDate, lessonTime) => {
+export const approveLesson = (student, lessonDate, lessonTime) => {
     return async (dispatch, getState) => {
         const user = getState().data
 
         const response1 = await fetch(
-            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/lessons/${user.institute}/${tutorUid}/${lessonDate}.json`)
+            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/lessons/${user.institute}/${user.uid}/${lessonDate}.json`)
 
         if (!response1.ok) {
             throw new Error("Can't fetch lessons, please try again later")
@@ -169,7 +177,7 @@ export const approveLesson = (tutorUid, lessonDate, lessonTime) => {
         lessonsInDate[lessonIndex] = { ...lessonsInDate[lessonIndex], approved: !lessonsInDate[lessonIndex].approved }
 
         const response2 = await fetch(
-            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/lessons/${user.institute}/${tutorUid}/${lessonDate}.json?token=${user.token}`,
+            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/lessons/${user.institute}/${user.uid}/${lessonDate}.json?token=${user.token}`,
             {
                 method: 'PATCH',
                 headers: {
@@ -181,10 +189,12 @@ export const approveLesson = (tutorUid, lessonDate, lessonTime) => {
         if (!response2.ok) {
             throw new Error("Can't cancel lesson! please try again later.")
         }
-
-
+        
+        student && await sendPushNotification(student.notificationsToken, 
+            `${user.firstName} ${user.lastName} ${lessonsInDate[lessonIndex].approved ? '' : 'dis' }approved the lesson.`,
+            `${lessonsInDate[lessonIndex].course} lesson with ${user.firstName} ${lessonsInDate[lessonIndex].approved ? '' : 'dis' }approved`)
+        
         await dispatch(readLessons())
-
     }
 }
 

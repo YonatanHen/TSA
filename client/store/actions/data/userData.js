@@ -15,7 +15,7 @@ export const CHANGE_EMAIL = 'CHANGE_EMAIL'
 import imageUploader from '../../../utilities/cloudinary/uploadImage'
 import setCityAndCountryByLocation from '../../../utilities/setCityAndCountryByLocation'
 
-import { sendPushNotification, registerForPushNotificationsAsync } from '../../../utilities/notifications';
+import { registerForPushNotificationsAsync, sendPushNotification } from '../../../utilities/notifications';
 import axios from 'axios'
 import { readLessons } from './lessonsData'
 
@@ -92,12 +92,11 @@ export const login = (email, password) => {
 
         const user = await readUserData(resData.localId)
 
-        // await sendPushNotification(user.notificationsToken)
-
-
         if (user.disabled) {
             throw new Error('Account is disabled. please contact your institute for more info.')
         }
+        console.log(user.notificationsToken)
+        sendPushNotification(user.notificationsToken)
         
         dispatch({
             type: SIGNIN,

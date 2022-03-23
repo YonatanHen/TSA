@@ -27,13 +27,6 @@ export default function App() {
 
   const handleNewNotification = async notificationObject => {
     try {
-      const newNotification = {
-        id: notificationObject.messageId,
-        date: notificationObject.sentTime,
-        title: notificationObject.data.title,
-        body: notificationObject.data.message,
-        data: JSON.parse(notificationObject.data.body),
-      }
       // add the code to do what you need with the received notification  and, e.g., set badge number on app icon
       await Notifications.setBadgeCountAsync(0)
     } catch (error) {

@@ -16,10 +16,8 @@ export async function sendPushNotification(expoPushToken, title='Title', body='b
         to: expoPushToken,
         sound: 'default',
         title: title,
-        body: body,
-        data: { someData: 'goes here' },
+        body: body
     };
-
     await fetch('https://exp.host/--/api/v2/push/send', {
         method: 'POST',
         headers: {
@@ -28,7 +26,7 @@ export async function sendPushNotification(expoPushToken, title='Title', body='b
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(message),
-    });
+    })
 }
 
 export async function registerForPushNotificationsAsync() {
