@@ -5,7 +5,7 @@ import { Card, Title, Paragraph } from 'react-native-paper'
 import { useDispatch } from 'react-redux';
 import { colors } from '../../constants/colors';
 
-import { cancelLesson } from '../../store/actions/data/lessonsData'
+import { cancelLessonStudent } from '../../store/actions/data/lessonsData'
 
 const StudentMain = props => {
     const { loggedInUser, tutors, lessons, navigation } = props
@@ -28,7 +28,7 @@ const StudentMain = props => {
         Alert.alert('Are you sure?', 'Do you want to cancel this lesson?', [
             {
                 text: 'Yes',
-                onPress: () => dispatch(cancelLesson(tutorId, date, time)),
+                onPress: () => dispatch(cancelLessonStudent(tutorId, date, time)),
                 style: 'default'
             },
             {

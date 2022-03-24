@@ -159,6 +159,51 @@ export const cancelLesson = (student, lessonDate, lessonTime) => {
     }
 }
 
+export const cancelLessonStudent = (tutorId, lessonDate, lessonTime) => {
+    return async (dispatch, getState) => {
+        const user = getState().data
+        var queue = user.studentsQueue
+
+        const response1 = await fetch(
+            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/lessons/${user.institute}/${tutorId}/${lessonDate}.json`)
+
+        if (!response1.ok) {
+            throw new Error("Can't fetch lessons, please try again later")
+        }
+
+        var lessonsInDate = await response1.json()
+
+        const lessonIndex = lessonsInDate.findIndex((lesson) => lesson.time === lessonTime)
+
+        lessonsInDate[lessonIndex] = { time: lessonsInDate[lessonIndex].time, date: lessonDate }
+
+        const response2 = await fetch(
+            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/lessons/${user.institute}/${tutorId}/${lessonDate}.json?token=${user.token}`,
+            {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ ...lessonsInDate })
+            })
+
+        if (!response2.ok) {
+            throw new Error("Can't cancel lesson! please try again later.")
+        }
+
+        await dispatch(readLessons())
+
+        //Notify studetns in the queue only if there are any.
+        if (queue && queue.length > 0) {
+            await axios.post(`https://tsa-server1.herokuapp.com/notify-students`, {
+                tokensQueue: await queue.map(object => { return object.token }),
+                title: `There is a new available lesson with ${user.firstName + ' ' + user.lastName}`,
+                body: 'Enter the TSA app to check this out'
+            })
+        }
+    }
+}
+
 export const approveLesson = (student, lessonDate, lessonTime) => {
     return async (dispatch, getState) => {
         const user = getState().data
