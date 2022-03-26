@@ -8,7 +8,6 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "notification":{
-        "icon": "./assets/notification_icon.png",
         "color": "#00bfff",
         "androidMode": "collapse"  
       },
@@ -32,6 +31,7 @@
           "apiKey": "AIzaSyADjeMmzBIRGA7GzZXnIaAWaiDkOj7Lf9A"
         }
       },
+      "useNextNotificationsApi": true,
       "package": "com.tsa.app",
       "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {

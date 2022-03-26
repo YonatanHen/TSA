@@ -162,6 +162,7 @@ export const cancelLesson = (student, lessonDate, lessonTime) => {
 export const cancelLessonStudent = (tutorId, lessonDate, lessonTime) => {
     return async (dispatch, getState) => {
         const user = getState().data
+        const tutorToken = getState().representationLists.usersList.tutors.find(tutor => tutor[1].uid === tutorId)[1]['notificationsToken']
         var queue = user.studentsQueue
 
         const response1 = await fetch(
@@ -174,6 +175,8 @@ export const cancelLessonStudent = (tutorId, lessonDate, lessonTime) => {
         var lessonsInDate = await response1.json()
 
         const lessonIndex = lessonsInDate.findIndex((lesson) => lesson.time === lessonTime)
+
+        const courseName = lessonsInDate[lessonIndex].course
 
         lessonsInDate[lessonIndex] = { time: lessonsInDate[lessonIndex].time, date: lessonDate }
 
@@ -190,6 +193,11 @@ export const cancelLessonStudent = (tutorId, lessonDate, lessonTime) => {
         if (!response2.ok) {
             throw new Error("Can't cancel lesson! please try again later.")
         }
+
+
+        user && await sendPushNotification(tutorToken, 
+            `${user.firstName} ${user.lastName} canceled a lesson.`,
+            `${courseName} lesson canceled by ${user.firstName}, Enter the app for more details.`)
 
         await dispatch(readLessons())
 
@@ -263,6 +271,11 @@ export const scheduleLesson = (lessons, tutorData) => {
         if (!updateLessons.ok) {
             throw new Error('An error occured while trying to schedule this meetings, please try again later')
         }
+
+        await sendPushNotification(tutorData.notificationsToken, 
+            `${user.firstName} ${user.lastName} has scheduled a new lesson with you.`,
+            `The scheduled lesson can be seen in your home page :)`)
+        
 
         await dispatch(readLessons())
 
