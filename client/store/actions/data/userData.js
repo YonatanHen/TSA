@@ -44,8 +44,10 @@ export const signup = (email, password, role, fname, lname, institute) => {
             else {
                 throw new Error('Something went wrong')
             }
-
         }
+
+        await dispatch(readAllUsers())
+        await dispatch(readLessons())
 
         await writedata({ email: email, uid: resData.localId, firstName: fname, lastName: lname, institute: institute, role: role })
 
@@ -89,6 +91,9 @@ export const login = (email, password) => {
                 throw new Error('Something went wrong')
             }
         }
+
+        await dispatch(readAllUsers())
+        await dispatch(readLessons())
 
         const user = await readUserData(resData.localId)
 

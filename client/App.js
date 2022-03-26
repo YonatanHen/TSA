@@ -41,8 +41,8 @@ export default function App() {
 
   useEffect(() => {
     store.dispatch(fetchInstitutes())
-    store.dispatch(readAllUsers())
-    store.dispatch(readLessons())
+    // store.dispatch(readAllUsers())
+    // store.dispatch(readLessons())
 
     // register task to run whenever is received while the app is in the background
     Notifications.registerTaskAsync(BACKGROUND_NOTIFICATION_TASK)
