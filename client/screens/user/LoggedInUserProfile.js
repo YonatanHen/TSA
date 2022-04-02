@@ -19,16 +19,20 @@ const LoggedInUserProfile = (props) => {
                                 Courses:
                         </Text>
                         </View>
-                        <View style={styles.sectionContent}>
-                            {user.courses.map(course => {
-                                return (
-                                    <Text key={course}>
-                                        {course}
+                            <View style={styles.sectionContent}>
+                                {user.courses && user.courses.length > 0 ? (
+                                user.courses.map(course => {
+                                    return (
+                                        <Text key={course}>
+                                            {course}
+                                        </Text>
+                                    )
+                                })) : (
+                                    <Text style={{ fontSize: 16 }}>
+                                        No courses selected.
                                     </Text>
-                                )
-                            })}
-
-                        </View>
+                                )}
+                            </View>
                     </View>
                 )}
             </ScrollView>

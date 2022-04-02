@@ -45,7 +45,6 @@ const EditUser = props => {
     const [selectedLocation, setSelectedLocation] = useState(user.locationCords)
     const [error, setError] = useState()
     const [isLoading, setIsLoading] = useState(false)
-    const [isModalShown, setIsModalShown] = useState(false)
 
     const dispatch = useDispatch()
 

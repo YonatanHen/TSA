@@ -53,7 +53,7 @@ const UserProfile = (props) => {
                                         </Text>
                                     )
                                 })) : (
-                                    <Text style={{ fontSize: 16 }}>No courses entered</Text>
+                                    <Text style={{ fontSize: 16 }}>No courses selected.</Text>
                                 )}
 
                             </View>
