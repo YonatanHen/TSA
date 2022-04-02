@@ -66,7 +66,7 @@ export const signup = (email, password, role, fname, lname, institute) => {
 
 export const login = (email, password) => {
     return async dispatch => {
-        const response = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${FIREBASE_API_KEY}`, {
+        let response = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${FIREBASE_API_KEY}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -81,7 +81,6 @@ export const login = (email, password) => {
         const resData = await response.json()
 
         if (!response.ok) {
-            console.log(resData.error.message)
             if (resData.error.message === 'EMAIL_NOT_FOUND') {
                 throw new Error('User is not exists in our database')
             } else if (resData.error.message === 'INVALID_PASSWORD') {
@@ -100,11 +99,31 @@ export const login = (email, password) => {
         if (user.disabled) {
             throw new Error('Account is disabled. please contact your institute for more info.')
         }
+
+        const notificationsToken = await registerForPushNotificationsAsync()
+
+        response = await fetch(
+            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users/${user.role}s/${user.uid}.json`,
+            {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    notificationsToken: notificationsToken
+                })
+            }
+        )
+
+        if (!response.ok) {
+            throw new Error('Something went wrong!')
+        }
         
         dispatch({
             type: SIGNIN,
             token: resData.idToken,
-            ...user
+            ...user,
+            notificationsToken: notificationsToken,
         })
     }
 }
@@ -133,14 +152,6 @@ export const addDataOnSignUp = (role, bio, image, courses = undefined, phone, lo
         }
 
         if (image) {
-            // axios.get(`http://${IP_ADDRESS}:8000/upload-image/${image}`)
-            //  .then(res => {
-            //     imageUrl = res.data.url
-            //  })
-            //  .catch(err => {
-            //     throw new Error(err.data.error)
-
-            //  })
             imageUrl = await imageUploader(image)
         }
 
