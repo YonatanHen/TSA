@@ -5,6 +5,9 @@ import writeUserData from '../../../utilities/readWriteUserData/writeUserData'
 export const pushToQueue = (tutorData, studentId, pushToken) => {
     return async (dispatch, getState) => {
         let newQueue
+
+        await dispatch(readAllUsers())
+
         if (tutorData.studentsQueue === undefined) {
             newQueue = [{id: studentId, token: pushToken}]
         }
@@ -29,6 +32,10 @@ export const pushToQueue = (tutorData, studentId, pushToken) => {
 export const popFromQueue = (tutorData, studentId) => {
     return async dispatch => {
         try {
+
+            await dispatch(readAllUsers())
+
+            
             const updatedTutor = { ...tutorData, studentsQueue: tutorData['studentsQueue'].filter(object => studentId !== object.id) }
 
             await writeUserData(updatedTutor)

@@ -32,6 +32,7 @@ export const addLesson = (lessons) => {
         const user = getState().data
         var queue = user.studentsQueue
 
+        await dispatch(readLessons())
 
         const updateLessons = await fetch(
             `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/lessons/${user.institute}/${user.uid}.json`,
@@ -70,6 +71,8 @@ export const addLesson = (lessons) => {
 export const deleteLesson = (tutorUid, lessonDate, lessonTime) => {
     return async (dispatch, getState) => {
         const user = getState().data
+
+        await dispatch(readLessons())
 
         const response1 = await fetch(
             `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/lessons/${user.institute}/${tutorUid}/${lessonDate}.json`)
@@ -165,6 +168,8 @@ export const cancelLessonStudent = (tutorId, lessonDate, lessonTime) => {
         const tutorToken = getState().representationLists.usersList.tutors.find(tutor => tutor[1].uid === tutorId)[1]['notificationsToken']
         var queue = user.studentsQueue
 
+        await dispatch(readLessons())
+
         const response1 = await fetch(
             `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/lessons/${user.institute}/${tutorId}/${lessonDate}.json`)
 
@@ -254,6 +259,8 @@ export const approveLesson = (student, lessonDate, lessonTime) => {
 export const scheduleLesson = (lessons, tutorData) => {
     return async (dispatch, getState) => {
         const user = getState().data
+
+        await dispatch(readLessons())
 
         const updateLessons = await fetch(
             `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/lessons/${tutorData.institute}/${tutorData.uid}.json`,
