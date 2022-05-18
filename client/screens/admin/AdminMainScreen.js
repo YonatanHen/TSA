@@ -24,7 +24,7 @@ const AdminMainScreen = props => {
             <View style={styles.inputContainer}>
                 <TextInput
                     style={styles.input}
-                    value={searchInput.toLowerCase()}
+                    value={searchInput}
                     onChangeText={textChangeHandler}
                     placeholder='Search by name / Email'
                 />
@@ -33,7 +33,7 @@ const AdminMainScreen = props => {
                 sections={[
                     {
                         title: <Text style={{ color: colors.primary}}>Tutors</Text>, data: filteredTutors.length > 0 ?
-                            (filteredTutors.filter(tutor => `${tutor[1].firstName} ${tutor[1].lastName}`.includes(searchInput.toLowerCase()) 
+                            (filteredTutors.filter(tutor => `${tutor[1].firstName} ${tutor[1].lastName}`.toLowerCase().includes(searchInput.toLowerCase()) 
                             || tutor[1].email.includes(searchInput.toLowerCase()))
                                 .map(tutor => {
                                     return (
