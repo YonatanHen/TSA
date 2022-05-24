@@ -100,14 +100,15 @@ const ScheduleMeeting = props => {
 
 
 
-
+//new Date() < new Date(lesson.date)
 
     const renderDay = (lesson) => {
         return (
             <View style={styles.cardContainer}>
                 <TouchableOpacity onPress={async () => {
                     if (user.role !== 'admin') {
-                        if (!lesson.studentId) onTimeClickHandler(lesson)
+                        if (new Date() < new Date(lesson.time)) Alert.alert('Date has been passed', "You can't shcedule this lesson.", [{ text: 'Okay' }])
+                        else if (!lesson.studentId) onTimeClickHandler(lesson)
                         else Alert.alert('Alert', "You can't schedule taken lesson.", [{ text: 'Okay' }])
                     } else if (user.role === 'admin' && lesson.studentId) {
                         console.log(props.navigation)
@@ -125,7 +126,15 @@ const ScheduleMeeting = props => {
                                     </Text>
                                 </View>
                             ) : (
-                                <Text style={{ color: 'green', fontWeight: 'bold', marginLeft: '0.5%' }}>Available!</Text>
+                                new Date() <= new Date(lesson.date) ? (
+                                    <Text style={{ color: 'green', fontWeight: 'bold', marginLeft: '0.5%' }}>
+                                        Available!
+                                    </Text>
+                                ) : (
+                                    <Text style={{ color: 'grey', fontWeight: 'bold', marginLeft: '0.5%' }}>
+                                        Date passed
+                                    </Text>
+                                )
                             )}
                         </Card.Content>
                     </Card>

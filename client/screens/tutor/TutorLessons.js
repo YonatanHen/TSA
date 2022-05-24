@@ -40,14 +40,23 @@ const TutorLessons = props => {
                 <Card style={styles.card}>
                     <Card.Content>
                         <Text style={{ fontWeight: 'bold', fontSize: 16 }}>{lesson.time}</Text>
-                        {lesson.studentId ? (
+                        {students[lesson.studentId] ? (
                             <View>
                                 <Text>student: {students[lesson.studentId].firstName} {students[lesson.studentId].lastName}</Text>
                                 <Text>course: {lesson.course}</Text>
                             </View>
                         ) : (
                             <View>
-                                <Text style={{ color: colors.primary, fontWeight: 'bold' }}>Available!</Text>
+                                {new Date() <= new Date(lesson.date) ? (
+                                    <Text style={{ color: colors.primary, fontWeight: 'bold' }}>
+                                        Available!
+                                    </Text>
+                                ) : (
+                                    <Text style={{ color: 'grey', fontWeight: 'bold' }}>
+                                        Date passed
+                                    </Text>
+                                )}
+
                                 {(new Date(lesson.date).getTime() === new Date(date).getTime()) && <TouchableOpacity onPress={() => {
                                     try {
                                         dispatch(deleteLesson(user.uid, date, lesson.time))
@@ -58,7 +67,7 @@ const TutorLessons = props => {
                                         Alert.alert('Error!', 'make sure that you select the correct date for the lesson you are trying to delete.')
                                     }
                                 }}>
-                                    <Text style={{ color: 'red', letterSpacing: 0.5, textDecorationLine: 'underline' }} >Delete</Text>
+                                    <Text style={{ color: 'red', letterSpacing: 0.5, textDecorationLine: 'underline' }}> Delete </Text>
                                 </TouchableOpacity>}
                             </View>
                         )}
