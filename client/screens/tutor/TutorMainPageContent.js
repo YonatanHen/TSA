@@ -10,7 +10,7 @@ import { colors } from '../../constants/colors';
 
 const TutorMain = props => {
     const { loggedInUser, students, lessons, navigation } = props
-
+    
     const tutorLessons = lessons ? lessons[loggedInUser.uid] : undefined
     const today = new Date()
 
@@ -47,7 +47,12 @@ const TutorMain = props => {
 
     return (
         <View>
-            {tutorLessons && Object.entries(tutorLessons).find(date => date[1].some(lesson => lesson.studentId)) ? (
+            {tutorLessons &&
+            (Object.entries(tutorLessons).filter(date => {
+                return date[1].filter(lesson => lesson && lesson.studentId &&
+                    new Date(new Date(`${date[0]}T${lesson.time.split(' ')[0]}`).setDate(new Date(date[0]).getDate() + 10)) >= today
+                ).length > 0}).length) &&
+            Object.entries(tutorLessons).find(date => date[1].some(lesson => lesson.studentId)) ? (
                 <ScrollView>
                     <View style={{ alignItems: 'center', marginBottom: 5 }}>
                     </View>
