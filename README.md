@@ -1,5 +1,6 @@
 # TSA
 Tutor-Student App (TSA), graduation project of the B.Sc in SW Engineering degree.
+
 [E2E video](https://youtu.be/90cHtHl8_iM)
 
 ### Description
