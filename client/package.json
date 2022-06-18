@@ -59,7 +59,7 @@
     "react-native-calendar-events": "^2.2.0",
     "react-native-calendars": "^1.1268.0",
     "react-native-debugger": "^1.1.0",
-    "react-native-dialog": "^9.2.0",
+    "react-native-dialog": "^9.2.2",
     "react-native-dotenv": "^3.3.0",
     "react-native-gesture-handler": "~1.10.2",
     "react-native-maps": "^0.28.1",
