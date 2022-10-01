@@ -4,7 +4,7 @@ Tutor-Student App (TSA), graduation project of the B.Sc in SW Engineering degree
 ### [E2E video](https://youtu.be/90cHtHl8_iM)
 
 ### Description
-The project suggests a platform as a mobile app that matches between tutors and students from the same academic institute. The project leans on the social media concepts which allow users from the same academic institute to interact with each other, schedule and manage lessons on various platforms. Application developed in Client-Server architecture.
+The project suggests a platform as a mobile app that matches between tutors and students from the same academic institute. The project leans on social media concepts which allow users from the same academic institute to interact with each other, schedule and manage lessons on various platforms. Application developed in Client-Server architecture.
 
 
 ### Tech Stack
