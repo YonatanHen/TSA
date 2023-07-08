@@ -1,9 +1,9 @@
-import { IP_ADDRESS, DEVELOPMENT_TEAM_EMAIL } from '@env'
+import { SERVER_URL, DEVELOPMENT_TEAM_EMAIL } from '@env'
 import axios from 'axios'
 
 export default sendMailToAppTeam = (addressed, name, content) => {
 
-    axios.post(`https://tsa-server1.herokuapp.com/send-email`, {
+    axios.post(`${SERVER_URL}/send-email`, {
         addressee: DEVELOPMENT_TEAM_EMAIL,
         addressed: addressed,
         name: name,

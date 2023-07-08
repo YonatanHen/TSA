@@ -1,7 +1,9 @@
 
+import { DATABASE_URL } from '@env'
+
 export default findAdmin = async (institute, role) => {
     const response = await fetch(
-        `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users/admins.json`
+        `${DATABASE_URL}/users/admins.json`
     )
 
     const resData = await response.json()

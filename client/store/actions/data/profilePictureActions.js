@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { IP_ADDRESS } from '@env'
+import { SERVER_URL } from '@env'
 
 import imageUploader from '../../../utilities/cloudinary/uploadImage'
 
@@ -13,7 +13,7 @@ export const addProfilePicture = (image) => {
         const user = getState().data
         const imageUrl = await imageUploader(image)
 
-        fetch(`https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users/${user.role}s/${user.uid}.json?auth=${user.token}`,
+        fetch(`${DATABASE_URL}/users/${user.role}s/${user.uid}.json?auth=${user.token}`,
             {
                 method: 'PATCH',
                 headers: {
@@ -35,14 +35,14 @@ export const deleteProfilePicture = () => {
     return async (dispatch, getState) => {
         const user = getState().data
 
-        await axios.post(`https://tsa-server1.herokuapp.com/delete-image/`, {
+        await axios.post(`${SERVER_URL}/delete-image/`, {
             imageUrl: user.imageUrl
         })
             .then(res => dispatch({
                 type: DELETE_IMAGE
             }))
             .then(
-                fetch(`https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users/${user.role}s/${user.uid}/imageUrl.json?auth=${user.token}`,
+                fetch(`${DATABASE_URL}/users/${user.role}s/${user.uid}/imageUrl.json?auth=${user.token}`,
                     {
                         method: 'DELETE',
                         headers: {

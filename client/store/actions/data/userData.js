@@ -1,4 +1,4 @@
-import { FIREBASE_API_KEY } from '@env'
+import { FIREBASE_API_KEY, DATABASE_URL } from '@env'
 
 import findAdmin from '../../../utilities/findAdmin'
 import writedata from '../../../utilities/readWriteUserData/writeUserData'
@@ -81,12 +81,15 @@ export const login = (email, password) => {
         const resData = await response.json()
 
         if (!response.ok) {
+            console.error(resData.error.message)
             if (resData.error.message === 'EMAIL_NOT_FOUND') {
                 throw new Error('User is not exists in our database')
             } else if (resData.error.message === 'INVALID_PASSWORD') {
                 throw new Error('The password is invalid')
             }
-            else {
+            else if  (resData.error.message.split(' : ')[0] === 'TOO_MANY_ATTEMPTS_TRY_LATER') {
+                throw new Error('Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later.')
+            } else {
                 throw new Error('Something went wrong')
             }
         }
@@ -103,7 +106,7 @@ export const login = (email, password) => {
         const notificationsToken = await registerForPushNotificationsAsync()
 
         response = await fetch(
-            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users/${user.role}s/${user.uid}.json`,
+            `${DATABASE_URL}/users/${user.role}s/${user.uid}.json`,
             {
                 method: 'PATCH',
                 headers: {
@@ -158,7 +161,7 @@ export const addDataOnSignUp = (role, bio, image, courses = undefined, phone, lo
         const notificationsToken = await registerForPushNotificationsAsync()
 
         const response = await fetch(
-            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users/${role}s/${uid}.json?auth=${token}`,
+            `${DATABASE_URL}/users/${role}s/${uid}.json?auth=${token}`,
             {
                 method: 'PATCH',
                 headers: {
@@ -225,7 +228,7 @@ export const updateUser = (fname, lname, institute, bio, courses = undefined, ph
         }
 
         const response = await fetch(
-            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users/${role}s/${uid}.json?auth=${token}`,
+            `${DATABASE_URL}/users/${role}s/${uid}.json?auth=${token}`,
             {
                 method: 'PATCH',
                 headers: {
@@ -273,7 +276,7 @@ export const deleteUser = () => {
             })
 
         response = await fetch(
-            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users/${role}s/${uid}.json?auth=${token}`,
+            `${DATABASE_URL}/users/${role}s/${uid}.json?auth=${token}`,
             {
                 method: 'DELETE',
                 headers: {
@@ -283,7 +286,7 @@ export const deleteUser = () => {
         ).then(res => res.json())
             .then(() => {
                 if (imageUrl) {
-                    axios.post(`https://tsa-server1.herokuapp.com/delete-image/`, {
+                    axios.post(`${SERVER_URL}/delete-image/`, {
                         imageUrl: imageUrl
                     })
                 }
@@ -294,7 +297,7 @@ export const deleteUser = () => {
 
         if (role === 'tutor') {
             response = await fetch(
-                `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/lessons/${institute}/${uid}.json?auth=${token}`,
+                `${DATABASE_URL}/lessons/${institute}/${uid}.json?auth=${token}`,
                 {
                     method: 'DELETE',
                     headers: {
@@ -398,7 +401,7 @@ export const changeEmail = (newEmail) => {
         }
 
         const response2 = await fetch(
-            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users/${user.role}s/${user.uid}.json?auth=${user.token}`,
+            `${DATABASE_URL}/users/${user.role}s/${user.uid}.json?auth=${user.token}`,
             {
                 method: 'PATCH',
                 headers: {

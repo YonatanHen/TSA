@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
-import { Picker } from '@react-native-community/picker'
+import { Picker } from '@react-native-picker/picker'
 
 const DistancePicker = props => {
     const [selectedValue, selectedValueHandler] = useState(null)

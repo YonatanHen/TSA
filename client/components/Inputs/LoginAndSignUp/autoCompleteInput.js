@@ -51,7 +51,7 @@ const AutoCompleteInput = props => {
         } else {
             setFilteredList([])
         }
-        if (filteredList.length == 1) {
+        if (filteredList?.length == 1) {
             text = filteredList[0]
             setinstituteName(filteredList[0])
         }
@@ -72,7 +72,7 @@ const AutoCompleteInput = props => {
                 autoCorrect={false}
                 style={styles.autocompleteContainer}
                 inputContainerStyle={{ borderWidth: 0 }}
-                // data={filteredList}
+                data={filteredList}
                 defaultValue={
                     inputState.value === '' ?
                         (selectedValue ? selectedValue : '') :

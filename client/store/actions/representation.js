@@ -1,6 +1,6 @@
 export const ACADEMIC_INSTITUTES = 'ACADEMIC_INSTITUTES'
 export const READ_ALL_USERS = 'READ_ALL_USERS'
-
+import { DATABASE_URL } from '@env'
 import institutesList from '../../data/world-universities'
 
 export const fetchInstitutes = () => {
@@ -20,7 +20,7 @@ export const fetchInstitutes = () => {
 export const readAllUsers = () => {
     return async dispatch => {
         const response = await fetch(
-            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users.json`)
+            `${DATABASE_URL}/users.json`)
         var users = await response.json()
 
         if (!response.ok) {
