@@ -14,7 +14,7 @@ please make sure that you have defined the following environment variables:
 ##### Client folder:
 - FIREBASE_API_KEY - Click [here](https://firebase.google.com/docs/projects/api-keys) for more infomration.
 - GEOPIFY_API - [Geopify](https://www.geoapify.com/) API key
-- Server_URL - could be self-hosted, or [https://tsa-server.onrender.com]
+- Server_URL - server URL or IP that could be self-hosted, or https://tsa-server.onrender.com
 - DEVELOPMENT_TEAM_EMAIL - The email address used by the development team email (usage example can be seen in the E2E video attached).
 - DATABASE_URL - The Firebase [real-time database](https://firebase.google.com/docs/database?hl=en) URL.
 
