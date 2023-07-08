@@ -58,5 +58,3 @@ Feel free to download the code from the 'main' branch and build the app for Andr
 ![WhatsApp Image 2022-01-29 at 16 05 56 (1)](https://user-images.githubusercontent.com/57364867/158022283-5da1a4eb-bb85-4284-9336-b333f5872535.jpeg)
 
 There are a lot more screens and options of course :)
-
-
