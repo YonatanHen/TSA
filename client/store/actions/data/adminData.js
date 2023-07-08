@@ -1,5 +1,6 @@
 import { readAllUsers } from '../representation'
 import { Linking } from 'react-native'
+import { SERVER_URL, DATABASE_URL } from '@env'
 
 
 export const disableEnableUser = (user) => {
@@ -33,11 +34,11 @@ export const lessonsToCSV = () => {
     return async (dispatch, getState) => {
         const adminInstitute = await getState().data.institute
 
-        Linking.canOpenURL(`https://tsa-server1.herokuapp.com/get-lessons-csv/${adminInstitute}`).then(supported => {
+        Linking.canOpenURL(`${SERVER_URL}/get-lessons-csv/${adminInstitute}`).then(supported => {
             if (!supported) {
-                console.log('Unsupported url: ' + `https://tsa-server1.herokuapp.com/get-lessons-csv/${adminInstitute}`)
+                console.log('Unsupported url: ' + `${SERVER_URL}/get-lessons-csv/${adminInstitute}`)
             } else {
-                return Linking.openURL(`https://tsa-server1.herokuapp.com/get-lessons-csv/${adminInstitute}`)
+                return Linking.openURL(`${SERVER_URL}/get-lessons-csv/${adminInstitute}`)
             }
         }).catch(err => console.error(err))
 

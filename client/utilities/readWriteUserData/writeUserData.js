@@ -1,7 +1,8 @@
+import { DATABASE_URL } from '@env'
 
 export default async (user) => {
     const response = await fetch(
-        `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users/${user.role}s/${user.uid}.json`,
+        `${DATABASE_URL}/users/${user.role}s/${user.uid}.json`,
         {
             method: 'PATCH',
             headers: {

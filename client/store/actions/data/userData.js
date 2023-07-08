@@ -1,4 +1,4 @@
-import { FIREBASE_API_KEY } from '@env'
+import { FIREBASE_API_KEY, DATABASE_URL } from '@env'
 
 import findAdmin from '../../../utilities/findAdmin'
 import writedata from '../../../utilities/readWriteUserData/writeUserData'
@@ -81,6 +81,7 @@ export const login = (email, password) => {
         const resData = await response.json()
 
         if (!response.ok) {
+            console.error(resData.error)
             if (resData.error.message === 'EMAIL_NOT_FOUND') {
                 throw new Error('User is not exists in our database')
             } else if (resData.error.message === 'INVALID_PASSWORD') {
@@ -283,7 +284,7 @@ export const deleteUser = () => {
         ).then(res => res.json())
             .then(() => {
                 if (imageUrl) {
-                    axios.post(`${IP_ADDRESS}/delete-image/`, {
+                    axios.post(`${SERVER_URL}/delete-image/`, {
                         imageUrl: imageUrl
                     })
                 }

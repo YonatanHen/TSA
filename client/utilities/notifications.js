@@ -43,7 +43,9 @@ export async function registerForPushNotificationsAsync() {
             alert('Failed to get push token for push notification!');
             return;
         }
-        token = (await Notifications.getExpoPushTokenAsync()).data;
+        token = (await Notifications.getExpoPushTokenAsync({
+            projectId: "fa3763e3-bcb9-4d0a-8458-ca6aa57f7d23"
+        })).data;
     } else {
         alert('Must use physical device for Push Notifications');
     }

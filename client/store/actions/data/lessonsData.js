@@ -1,5 +1,6 @@
 import axios from "axios"
 import { sendPushNotification } from '../../../utilities/notifications';
+import { SERVER_URL, DATABASE_URL } from '@env'
 
 export const DELETE_LESSON = 'DELETE_LESSON'
 export const ADD_LESSON = 'ADD_LESSON'
@@ -9,7 +10,7 @@ export const CLEAR_QUEUE = 'CLEAR_QUEUE'
 export const readLessons = () => {
     return async (dispatch) => {
         const response = await fetch(
-            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/lessons.json`
+            `${DATABASE_URL}/lessons.json`
         )
 
         const lessons = await response.json()
@@ -35,7 +36,7 @@ export const addLesson = (lessons) => {
         await dispatch(readLessons())
 
         const updateLessons = await fetch(
-            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/lessons/${user.institute}/${user.uid}.json`,
+            `${DATABASE_URL}/lessons/${user.institute}/${user.uid}.json`,
             {
                 method: 'PATCH',
                 headers: {
@@ -55,7 +56,7 @@ export const addLesson = (lessons) => {
 
         //Notify studetns in the queue only if there are any.
         if (queue && queue.length > 0) {
-            await axios.post(`https://tsa-server1.herokuapp.com/notify-students`, {
+            await axios.post(`${SERVER_URL}/notify-students`, {
                 tokensQueue: await queue.map(object => { return object.token }),
                 title: `${user.firstName + ' ' + user.lastName} has added new available lesson`,
                 body: 'Enter the TSA app to check this out'
@@ -75,7 +76,7 @@ export const deleteLesson = (tutorUid, lessonDate, lessonTime) => {
         await dispatch(readLessons())
 
         const response1 = await fetch(
-            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/lessons/${user.institute}/${tutorUid}/${lessonDate}.json`)
+            `${DATABASE_URL}/lessons/${user.institute}/${tutorUid}/${lessonDate}.json`)
 
         if (!response1.ok) {
             throw new Error("Can't fetch lessons, please try again later")
@@ -89,7 +90,7 @@ export const deleteLesson = (tutorUid, lessonDate, lessonTime) => {
 
 
         const response2 = await fetch(
-            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/lessons/${user.institute}/${tutorUid}.json?token=${user.token}`,
+            `${DATABASE_URL}/lessons/${user.institute}/${tutorUid}.json?token=${user.token}`,
             {
                 method: 'PATCH',
                 headers: {
@@ -114,7 +115,7 @@ export const cancelLesson = (student, lessonDate, lessonTime) => {
         var queue = user.studentsQueue
 
         const response1 = await fetch(
-            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/lessons/${user.institute}/${user.uid}/${lessonDate}.json`)
+            `${DATABASE_URL}/lessons/${user.institute}/${user.uid}/${lessonDate}.json`)
 
         if (!response1.ok) {
             throw new Error("Can't fetch lessons, please try again later")
@@ -132,7 +133,7 @@ export const cancelLesson = (student, lessonDate, lessonTime) => {
         
 
         const response2 = await fetch(
-            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/lessons/${user.institute}/${user.uid}/${lessonDate}.json?token=${user.token}`,
+            `${DATABASE_URL}/lessons/${user.institute}/${user.uid}/${lessonDate}.json?token=${user.token}`,
             {
                 method: 'PATCH',
                 headers: {
@@ -153,7 +154,7 @@ export const cancelLesson = (student, lessonDate, lessonTime) => {
 
         //Notify studetns in the queue only if there are any.
         if (queue && queue.length > 0) {
-            await axios.post(`https://tsa-server1.herokuapp.com/notify-students`, {
+            await axios.post(`${SERVER_URL}/notify-students`, {
                 tokensQueue: await queue.map(object => { return object.token }),
                 title: `There is a new available lesson with ${user.firstName + ' ' + user.lastName}`,
                 body: 'Enter the TSA app to check this out'
@@ -171,7 +172,7 @@ export const cancelLessonStudent = (tutorId, lessonDate, lessonTime) => {
         await dispatch(readLessons())
 
         const response1 = await fetch(
-            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/lessons/${user.institute}/${tutorId}/${lessonDate}.json`)
+            `${DATABASE_URL}/lessons/${user.institute}/${tutorId}/${lessonDate}.json`)
 
         if (!response1.ok) {
             throw new Error("Can't fetch lessons, please try again later")
@@ -186,7 +187,7 @@ export const cancelLessonStudent = (tutorId, lessonDate, lessonTime) => {
         lessonsInDate[lessonIndex] = { time: lessonsInDate[lessonIndex].time, date: lessonDate }
 
         const response2 = await fetch(
-            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/lessons/${user.institute}/${tutorId}/${lessonDate}.json?token=${user.token}`,
+            `${DATABASE_URL}/lessons/${user.institute}/${tutorId}/${lessonDate}.json?token=${user.token}`,
             {
                 method: 'PATCH',
                 headers: {
@@ -208,7 +209,7 @@ export const cancelLessonStudent = (tutorId, lessonDate, lessonTime) => {
 
         //Notify studetns in the queue only if there are any.
         if (queue && queue.length > 0) {
-            await axios.post(`https://tsa-server1.herokuapp.com/notify-students`, {
+            await axios.post(`${SERVER_URL}/notify-students`, {
                 tokensQueue: await queue.map(object => { return object.token }),
                 title: `There is a new available lesson with ${user.firstName + ' ' + user.lastName}`,
                 body: 'Enter the TSA app to check this out'
@@ -222,7 +223,7 @@ export const approveLesson = (student, lessonDate, lessonTime) => {
         const user = getState().data
 
         const response1 = await fetch(
-            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/lessons/${user.institute}/${user.uid}/${lessonDate}.json`)
+            `${DATABASE_URL}/lessons/${user.institute}/${user.uid}/${lessonDate}.json`)
 
         if (!response1.ok) {
             throw new Error("Can't fetch lessons, please try again later")
@@ -235,7 +236,7 @@ export const approveLesson = (student, lessonDate, lessonTime) => {
         lessonsInDate[lessonIndex] = { ...lessonsInDate[lessonIndex], approved: !lessonsInDate[lessonIndex].approved }
 
         const response2 = await fetch(
-            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/lessons/${user.institute}/${user.uid}/${lessonDate}.json?token=${user.token}`,
+            `${DATABASE_URL}/lessons/${user.institute}/${user.uid}/${lessonDate}.json?token=${user.token}`,
             {
                 method: 'PATCH',
                 headers: {
@@ -263,7 +264,7 @@ export const scheduleLesson = (lessons, tutorData) => {
         await dispatch(readLessons())
 
         const updateLessons = await fetch(
-            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/lessons/${tutorData.institute}/${tutorData.uid}.json`,
+            `${DATABASE_URL}/lessons/${tutorData.institute}/${tutorData.uid}.json`,
             {
                 method: 'PATCH',
                 headers: {

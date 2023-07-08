@@ -1,9 +1,9 @@
-import { IP_ADDRESS } from '@env'
+import { SERVER_URL, DATABASE_URL } from '@env'
 import axios from 'axios'
 
 export default sendMailToAdmin = async (institute, addressed, name, content) => {
     const response = await fetch(
-        `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users/admins.json`
+        `${DATABASE_URL}/users/admins.json`
     )
 
     const resData = await response.json()
@@ -11,7 +11,7 @@ export default sendMailToAdmin = async (institute, addressed, name, content) => 
     const Admin = await Object.entries(resData).find(admin => admin[1].institute === institute)
     const addressee = Admin[1].email
 
-    axios.post(`https://tsa-server1.herokuapp.com/send-email`, {
+    axios.post(`${SERVER_URL}/send-email`, {
         addressee: addressee,
         addressed: addressed,
         name: name,
