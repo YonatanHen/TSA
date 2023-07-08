@@ -103,7 +103,7 @@ export const login = (email, password) => {
         const notificationsToken = await registerForPushNotificationsAsync()
 
         response = await fetch(
-            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users/${user.role}s/${user.uid}.json`,
+            `${DATABASE_URL}/users/${user.role}s/${user.uid}.json`,
             {
                 method: 'PATCH',
                 headers: {
@@ -158,7 +158,7 @@ export const addDataOnSignUp = (role, bio, image, courses = undefined, phone, lo
         const notificationsToken = await registerForPushNotificationsAsync()
 
         const response = await fetch(
-            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users/${role}s/${uid}.json?auth=${token}`,
+            `${DATABASE_URL}/users/${role}s/${uid}.json?auth=${token}`,
             {
                 method: 'PATCH',
                 headers: {
@@ -225,7 +225,7 @@ export const updateUser = (fname, lname, institute, bio, courses = undefined, ph
         }
 
         const response = await fetch(
-            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users/${role}s/${uid}.json?auth=${token}`,
+            `${DATABASE_URL}/users/${role}s/${uid}.json?auth=${token}`,
             {
                 method: 'PATCH',
                 headers: {
@@ -273,7 +273,7 @@ export const deleteUser = () => {
             })
 
         response = await fetch(
-            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users/${role}s/${uid}.json?auth=${token}`,
+            `${DATABASE_URL}/users/${role}s/${uid}.json?auth=${token}`,
             {
                 method: 'DELETE',
                 headers: {
@@ -283,7 +283,7 @@ export const deleteUser = () => {
         ).then(res => res.json())
             .then(() => {
                 if (imageUrl) {
-                    axios.post(`https://tsa-server1.herokuapp.com/delete-image/`, {
+                    axios.post(`${IP_ADDRESS}/delete-image/`, {
                         imageUrl: imageUrl
                     })
                 }
@@ -294,7 +294,7 @@ export const deleteUser = () => {
 
         if (role === 'tutor') {
             response = await fetch(
-                `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/lessons/${institute}/${uid}.json?auth=${token}`,
+                `${DATABASE_URL}/lessons/${institute}/${uid}.json?auth=${token}`,
                 {
                     method: 'DELETE',
                     headers: {
@@ -398,7 +398,7 @@ export const changeEmail = (newEmail) => {
         }
 
         const response2 = await fetch(
-            `https://students-scheduler-default-rtdb.europe-west1.firebasedatabase.app/users/${user.role}s/${user.uid}.json?auth=${user.token}`,
+            `${DATABASE_URL}/users/${user.role}s/${user.uid}.json?auth=${user.token}`,
             {
                 method: 'PATCH',
                 headers: {
