@@ -81,13 +81,15 @@ export const login = (email, password) => {
         const resData = await response.json()
 
         if (!response.ok) {
-            console.error(resData.error)
+            console.error(resData.error.message)
             if (resData.error.message === 'EMAIL_NOT_FOUND') {
                 throw new Error('User is not exists in our database')
             } else if (resData.error.message === 'INVALID_PASSWORD') {
                 throw new Error('The password is invalid')
             }
-            else {
+            else if  (resData.error.message.split(' : ')[0] === 'TOO_MANY_ATTEMPTS_TRY_LATER') {
+                throw new Error('Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later.')
+            } else {
                 throw new Error('Something went wrong')
             }
         }
