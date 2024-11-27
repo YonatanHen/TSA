@@ -27,7 +27,7 @@ please make sure that you have defined the following environment variables:
 - DATABASE_URL - The Firebase [real-time database](https://firebase.google.com/docs/database?hl=en) URL.
 
 ### TSA users:
-Feel free to download the code from the 'main' branch and build the app for Android/iOS with [expo build tool](https://docs.expo.dev/classic/building-standalone-apps/), or PM me so I will send create and send you an installation file.
+Feel free to download the code from the 'main' branch and build the app for Android/iOS with [expo build tool](https://docs.expo.dev/classic/building-standalone-apps/), or PM me so I can create and send you an installation file.
 
 ## Tech Stack
 - Expo
