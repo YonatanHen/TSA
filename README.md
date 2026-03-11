@@ -19,12 +19,12 @@ please make sure that you have defined the following environment variables:
 - `DATABASE_URL` - The Firebase [real-time database](https://firebase.google.com/docs/database?hl=en) URL.
 
 ##### Server folder:  
-- CLOUDINARY_NAME - Unique identifier for the [Cloudinary](https://cloudinary.com/documentation) environment.
-- CLOUDINARY_API_KEY - [Cloudinary](https://cloudinary.com/documentation) API key.
-- CLOUDINARY_API_SECRET - [Cloudinary](https://cloudinary.com/documentation) API secret key.
-- MAIL_USER - The email address used by the development team email.
-- MAIL_PASSWORD - The email password used by the development team email.
-- DATABASE_URL - The Firebase [real-time database](https://firebase.google.com/docs/database?hl=en) URL.
+- `CLOUDINARY_NAME` - Unique identifier for the [Cloudinary](https://cloudinary.com/documentation) environment.
+- `CLOUDINARY_API_KEY` - [Cloudinary](https://cloudinary.com/documentation) API key.
+- `CLOUDINARY_API_SECRET` - [Cloudinary](https://cloudinary.com/documentation) API secret key.
+- `MAIL_USER` - The email address used by the development team email.
+- `MAIL_PASSWORD` - The email password used by the development team email.
+- `DATABASE_URL` - The Firebase [real-time database](https://firebase.google.com/docs/database?hl=en) URL.
 
 ### TSA users:
 Feel free to download the code from the 'main' branch and build the app for Android/iOS with [expo build tool](https://docs.expo.dev/classic/building-standalone-apps/), or PM me so I can create and send you an installation file.
