@@ -12,11 +12,11 @@ The project suggests a platform as a mobile app that matches tutors and students
 please make sure that you have defined the following environment variables:
 
 ##### Client folder:
-- FIREBASE_API_KEY - Click [here](https://firebase.google.com/docs/projects/api-keys) for more infomration.
-- GEOPIFY_API - [Geopify](https://www.geoapify.com/) API key
-- Server_URL - server URL or IP that could be self-hosted, or https://tsa-server.onrender.com
-- DEVELOPMENT_TEAM_EMAIL - The email address used by the development team email (usage example can be seen in the E2E video attached).
-- DATABASE_URL - The Firebase [real-time database](https://firebase.google.com/docs/database?hl=en) URL.
+- `FIREBASE_API_KEY` - Click [here](https://firebase.google.com/docs/projects/api-keys) for more infomration.
+- `GEOPIFY_API` - [Geopify](https://www.geoapify.com/) API key
+- `Server_URL` - server URL or IP that could be self-hosted, or https://tsa-server.onrender.com
+- `DEVELOPMENT_TEAM_EMAIL` - The email address used by the development team email (usage example can be seen in the E2E video attached).
+- `DATABASE_URL` - The Firebase [real-time database](https://firebase.google.com/docs/database?hl=en) URL.
 
 ##### Server folder:  
 - CLOUDINARY_NAME - Unique identifier for the [Cloudinary](https://cloudinary.com/documentation) environment.
@@ -32,6 +32,7 @@ Feel free to download the code from the 'main' branch and build the app for Andr
 ## Tech Stack
 - Expo
 - Node.js
+- Express.js
 - NPM
 - React Native
 - Redux
